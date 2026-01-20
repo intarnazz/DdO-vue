@@ -1,29 +1,28 @@
-// // user.ts
-// import { ref, computed, watch, Ref, ComputedRef } from 'vue'
-// import Auth from '../../web_services/auth'
-// import U from '@/storage/user'
+// user.ts
+import auth from '../../web_services/auth'
 
-// /**
-//  * Класс User
-//  *
-//  * Управляет токеном пользователя с реактивностью Vue
-//  * и хранением в localStorage через Storage.
-//  */
-// export default class User {
-//   /** Экземпляр Auth */
-//   #auth: Auth
-//   #user: U
+/**
+ * Класс User
+ *
+ * Управляет токеном пользователя с реактивностью Vue
+ * и хранением в localStorage через Storage.
+ */
 
-//   /** Экземпляр Storage для хранения токена */
-//   #tokenStorage: Storage<string>
+class User {
+  /** Экземпляр Auth */
+  #auth: typeof auth
 
-//   /** Реактивная переменная токена */
-//   #token: Ref<string | null>
+  /**
+   * Создает новый экземпляр User
+   */
+  constructor() {
+    this.#auth = auth
+  }
 
-//   /**
-//    * Создает новый экземпляр User
-//    */
-//   constructor() {
-//     this.#auth = new Auth()
-//   }
-// }
+  get auth(): typeof auth {
+    return this.#auth
+  }
+}
+
+const user = new User()
+export default user

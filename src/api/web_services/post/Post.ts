@@ -1,10 +1,9 @@
-import user from '@/storage/user'
+import { user } from '../../api'
 
 /**
  * Экземпляр текущего пользователя
  * Используется для получения токена авторизации в заголовках запросов
  */
-// const user = new User()
 
 /**
  * Базовый URL API, берется из переменных окружения Vite
@@ -47,7 +46,7 @@ export async function Post<T = unknown>(url: string = '', body: PostBody = {}): 
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Bearer ${user.token ?? ''}`,
+        Authorization: `Bearer ${user.auth.token ?? ''}`,
       },
       body: JSON.stringify(body),
     })

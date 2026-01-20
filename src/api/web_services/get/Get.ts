@@ -1,4 +1,4 @@
-import User from '@/storage/user'
+import { user } from '../../api'
 
 /**
  * Базовый URL API, берется из переменных окружения Vite
@@ -51,7 +51,7 @@ export async function Get<T = unknown>(url: string, obj: GetOptions = {}): Promi
       limit: String(obj.limit ?? 5),
       offset: String(obj.offset ?? 0),
       search,
-      Authorization: `Bearer ${User.token ?? ''}`,
+      Authorization: `Bearer ${user.auth.token ?? ''}`,
     },
   })
 

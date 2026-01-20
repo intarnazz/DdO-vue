@@ -6,9 +6,9 @@
  *
  * @template T - тип значения, которое будет храниться
  */
-export class Storage<T = any> {
+export default class Storage<T = any> {
   /** Ключ в localStorage */
-  private key: string;
+  private key: string
 
   /**
    * Создает экземпляр Storage для указанного ключа
@@ -16,7 +16,7 @@ export class Storage<T = any> {
    * @param key - ключ для хранения значения в localStorage
    */
   constructor(key: string) {
-    this.key = key;
+    this.key = key
   }
 
   /**
@@ -26,15 +26,15 @@ export class Storage<T = any> {
    *
    * @returns {T | null} Значение из localStorage или null
    */
-  get(): T | null {
-    const item = localStorage.getItem(this.key);
-    if (!item) return null;
+  public get(): T | null {
+    const item = localStorage.getItem(this.key)
+    if (!item) return null
 
     try {
-      return JSON.parse(item) as T;
+      return JSON.parse(item) as T
     } catch (error) {
-      console.error(`Ошибка при парсинге JSON для ключа "${this.key}":`, error);
-      return null;
+      console.error(`Ошибка при парсинге JSON для ключа "${this.key}":`, error)
+      return null
     }
   }
 
@@ -43,19 +43,19 @@ export class Storage<T = any> {
    *
    * @param value - значение типа T для сохранения
    */
-  set(value: T): void {
+  public set(value: T): void {
     try {
-      const json = JSON.stringify(value);
-      localStorage.setItem(this.key, json);
+      const json = JSON.stringify(value)
+      localStorage.setItem(this.key, json)
     } catch (error) {
-      console.error(`Ошибка при сохранении JSON для ключа "${this.key}":`, error);
+      console.error(`Ошибка при сохранении JSON для ключа "${this.key}":`, error)
     }
   }
 
   /**
    * Удалить значение из localStorage
    */
-  remove(): void {
-    localStorage.removeItem(this.key);
+  public remove(): void {
+    localStorage.removeItem(this.key)
   }
 }

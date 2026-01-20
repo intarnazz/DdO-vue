@@ -1,6 +1,6 @@
 // user.ts
 import { ref, computed, watch, Ref, ComputedRef } from 'vue'
-import { Storage } from './storage'
+import Storage from './storage'
 
 /**
  * Класс User
@@ -15,12 +15,15 @@ export default class User {
   /** Реактивная переменная токена */
   #token: Ref<string | null>
 
+  #n: number
+
   /**
    * Создает новый экземпляр User
    */
   constructor() {
     this.#tokenStorage = new Storage<string>('token')
     this.#token = ref<string | null>(this.#tokenStorage.get() || null)
+    this.#n = 0
 
     // Следим за изменением token и сохраняем/удаляем через Storage
     watch(this.#token, (newToken) => {
@@ -32,7 +35,10 @@ export default class User {
   /**
    * Получить реактивный токен
    */
-  get token(): ComputedRef<string | null> {
+  public get token(): ComputedRef<string | null> {
+    this.#n += 1
+    console.log(this.#n)
+
     return computed(() => this.#token.value)
   }
 
@@ -40,14 +46,14 @@ export default class User {
    * Установить новый токен
    * @param newToken - строка токена
    */
-  setToken(newToken: string): void {
+  protected setToken(newToken: string): void {
     this.#token.value = newToken
   }
 
   /**
    * Удалить токен
    */
-  unsetToken(): void {
+  protected unsetToken(): void {
     this.#token.value = null
   }
 }

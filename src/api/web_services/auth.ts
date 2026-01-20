@@ -1,17 +1,11 @@
 import { Post, PostBody } from './post/Post'
-import User from '@/storage/user'
-
-/**
- * Экземпляр текущего пользователя.
- * Отвечает за хранение и управление токеном аутентификации.
- */
-const user = new User()
+import UserStorage from '@/storage/user'
 
 /**
  * Класс для управления авторизацией пользователей.
  * Поддерживает регистрацию, вход, выход и получение данных текущего пользователя.
  */
-export class Auth {
+class Auth extends UserStorage {
   /** Функция для выполнения POST-запросов к API */
   #Post: <T = unknown>(url: string, body?: PostBody) => Promise<T>
 
@@ -20,6 +14,7 @@ export class Auth {
    * Привязывает внутреннюю функцию POST-запроса к API.
    */
   constructor() {
+    super()
     this.#Post = Post
   }
 
@@ -38,7 +33,7 @@ export class Auth {
   ): Promise<T> {
     const res = await this.#Post<T>('registration', body)
     if ((res as any).success) {
-      user.setToken((res as any).token)
+      this.setToken((res as any).token)
     }
     return res
   }
@@ -58,7 +53,7 @@ export class Auth {
   ): Promise<T> {
     const res = await this.#Post<T>('authorization', body)
     if ((res as any).success) {
-      user.setToken((res as any).token)
+      this.setToken((res as any).token)
     }
     return res
   }
@@ -74,7 +69,7 @@ export class Auth {
    * const res = await auth.logout<LogoutResponse>()
    */
   async logout<T = { success: boolean; message?: string }>(): Promise<T> {
-    user.unsetToken()
+    this.unsetToken()
     location.reload()
     const res = await this.#Post<T>('logout')
     return res
@@ -98,3 +93,6 @@ export class Auth {
     return res
   }
 }
+
+const auth = new Auth()
+export default auth
