@@ -15,15 +15,12 @@ export default class User {
   /** Реактивная переменная токена */
   #token: Ref<string | null>
 
-  #n: number
-
   /**
    * Создает новый экземпляр User
    */
   constructor() {
     this.#tokenStorage = new Storage<string>('token')
     this.#token = ref<string | null>(this.#tokenStorage.get() || null)
-    this.#n = 0
 
     // Следим за изменением token и сохраняем/удаляем через Storage
     watch(this.#token, (newToken) => {
@@ -36,9 +33,6 @@ export default class User {
    * Получить реактивный токен
    */
   public get token(): ComputedRef<string | null> {
-    this.#n += 1
-    console.log(this.#n)
-
     return computed(() => this.#token.value)
   }
 
