@@ -1,6 +1,6 @@
 // api
 import Rest from './web_services/rest'
-import Image from './web_services/image'
+import image from './web_services/image'
 import user from './local_domains/user/user'
 
 /**
@@ -13,6 +13,4 @@ import user from './local_domains/user/user'
 
 export const product = new Rest('product')
 
-export const image = new Image()
-
-export { user }
+export { user, image }
