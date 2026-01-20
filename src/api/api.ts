@@ -1,7 +1,7 @@
 // api
-import { Rest } from './services/rest'
-import { Image } from './services/image'
-import { Auth } from './services/auth'
+import Rest from './web_services/rest'
+import Image from './web_services/image'
+// import User from './local_domains/user/user'
 
 /**
  * Глобальный модуль для взаимодействия с API.
@@ -13,5 +13,6 @@ import { Auth } from './services/auth'
 
 export const product = new Rest('product')
 
+// export const user = new User()
+
 export const image = new Image()
-export const auth = new Auth()

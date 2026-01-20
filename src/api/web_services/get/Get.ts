@@ -1,10 +1,4 @@
-import { User } from '@/storage/user'
-
-/**
- * Экземпляр текущего пользователя
- * Используется для получения токена авторизации
- */
-const user = new User()
+import User from '@/storage/user'
 
 /**
  * Базовый URL API, берется из переменных окружения Vite
@@ -57,7 +51,7 @@ export async function Get<T = unknown>(url: string, obj: GetOptions = {}): Promi
       limit: String(obj.limit ?? 5),
       offset: String(obj.offset ?? 0),
       search,
-      Authorization: `Bearer ${user.token ?? ''}`,
+      Authorization: `Bearer ${User.token ?? ''}`,
     },
   })
 

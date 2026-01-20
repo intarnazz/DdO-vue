@@ -8,7 +8,7 @@ import { Storage } from './storage'
  * Управляет токеном пользователя с реактивностью Vue
  * и хранением в localStorage через Storage.
  */
-export class User {
+export default class User {
   /** Экземпляр Storage для хранения токена */
   #tokenStorage: Storage<string>
 

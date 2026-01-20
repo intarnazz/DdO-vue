@@ -5,7 +5,7 @@ import { Post, PostBody } from './post/Post'
  * Универсальный REST-клиент для работы с API.
  * Позволяет выполнять GET, POST, PATCH и DELETE запросы с базовым префиксом URL.
  */
-export class Rest {
+export default class Rest {
   /** Префикс URL для этого ресурса (например, '/products') */
   #prefix: string
 

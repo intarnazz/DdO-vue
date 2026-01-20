@@ -1,5 +1,5 @@
 import { Post, PostBody } from './post/Post'
-import { User } from '@/storage/user'
+import User from '@/storage/user'
 
 /**
  * Экземпляр текущего пользователя.

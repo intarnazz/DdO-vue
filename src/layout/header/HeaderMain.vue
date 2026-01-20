@@ -2,9 +2,9 @@
 // import ComponentLogo from '@/components/ComponentLogo.vue'
 import { RouterLink } from 'vue-router'
 // import { auth } from '@/api/api'
-import { User } from '@/storage/user'
+// import User from '@/api/local_domains/user/user'
 
-const user = new User()
+// const user = new User()
 </script>
 
 <template>

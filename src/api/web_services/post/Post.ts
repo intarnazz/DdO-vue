@@ -1,17 +1,10 @@
-import { User } from '@/storage/user'
-import { Auth } from '../auth'
+import user from '@/storage/user'
 
 /**
  * Экземпляр текущего пользователя
  * Используется для получения токена авторизации в заголовках запросов
  */
-const user = new User()
-
-/**
- * Экземпляр класса для управления авторизацией
- * Используется для разлогинивания пользователя при ошибках 401
- */
-const auth = new Auth()
+// const user = new User()
 
 /**
  * Базовый URL API, берется из переменных окружения Vite
@@ -61,7 +54,7 @@ export async function Post<T = unknown>(url: string = '', body: PostBody = {}): 
 
     // Если токен недействителен — разлогиниваем пользователя
     if (response.status === 401) {
-      auth.logout()
+      user.auth.logout()
       throw new Error('Unauthorized: user logged out')
     }
 
