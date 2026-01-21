@@ -1,28 +1,21 @@
-import { Get, GetOptions } from './get/Get'
-import { Post, PostBody } from './post/Post'
+import Request from './request/request'
+import { PostBody, GetOptions } from './request/request'
 
 /**
  * Универсальный REST-клиент для работы с API.
  * Позволяет выполнять GET, POST, PATCH и DELETE запросы с базовым префиксом URL.
  */
-export default class Rest {
+export default class Rest extends Request {
   /** Префикс URL для этого ресурса (например, '/products') */
   #prefix: string
-
-  /** Функция GET-запроса с параметром типа, указывающим ожидаемый результат */
-  #Get: <T = unknown>(url: string, options?: GetOptions) => Promise<T>
-
-  /** Функция POST-запроса с параметром типа, указывающим ожидаемый результат */
-  #Post: <T = unknown>(url: string, body?: PostBody) => Promise<T>
 
   /**
    * Конструктор REST-клиента
    * @param prefix - Префикс URL для ресурса
    */
   constructor(prefix: string) {
+    super()
     this.#prefix = prefix
-    this.#Get = Get
-    this.#Post = Post
   }
 
   /**
@@ -47,8 +40,8 @@ export default class Rest {
    * @example
    * const product = await api.get<Product>(1)
    */
-  get<T = unknown>(id: string | number, header: GetOptions = {}): Promise<T> {
-    return this.#Get<T>(`${this.#prefix}/${id}`, header)
+  public get<T = unknown>(id: string | number, header: GetOptions = {}): Promise<T> {
+    return super.get<T>(`${this.#prefix}/${id}`, header)
   }
 
   /**
@@ -61,7 +54,7 @@ export default class Rest {
    * const products = await api.all<Product[]>({ limit: 10 })
    */
   all<T = unknown>(data: GetOptions = {}): Promise<T> {
-    return this.#Get<T>(this.#prefix, data)
+    return this.get<T>(this.#prefix, data)
   }
 
   /**
@@ -74,7 +67,7 @@ export default class Rest {
    * const newProduct = await api.add<Product>({ name: 'New Product', price: 100 })
    */
   add<T = unknown>(data: PostBody): Promise<T> {
-    return this.#Post<T>(this.#prefix, data)
+    return this.post<T>(this.#prefix, data)
   }
 
   /**
@@ -86,7 +79,7 @@ export default class Rest {
    * @returns Промис с объектом типа T
    */
   #Push<T = unknown>(url: string, method: 'PATCH' | 'DELETE', data: PostBody): Promise<T> {
-    return this.#Post<T>(`${url}/${data.id}`, { _method: method, ...data })
+    return this.post<T>(`${url}/${data.id}`, { _method: method, ...data })
   }
 
   /**

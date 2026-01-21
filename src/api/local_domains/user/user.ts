@@ -1,5 +1,5 @@
 // user.ts
-import auth from '../../web_services/auth'
+import Auth from '../../web_services/auth'
 
 /**
  * Класс User
@@ -8,19 +8,12 @@ import auth from '../../web_services/auth'
  * и хранением в localStorage через Storage.
  */
 
-class User {
-  /** Экземпляр Auth */
-  #auth: typeof auth
-
+class User extends Auth {
   /**
    * Создает новый экземпляр User
    */
   constructor() {
-    this.#auth = auth
-  }
-
-  get auth(): typeof auth {
-    return this.#auth
+    super()
   }
 }
 

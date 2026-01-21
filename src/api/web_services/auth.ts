@@ -1,13 +1,12 @@
-import { Post, PostBody } from './post/Post'
 import UserStorage from '@/storage/user'
+import Request from './request/request'
+import { PostBody } from './request/request'
 
-/**
- * Класс для управления авторизацией пользователей.
- * Поддерживает регистрацию, вход, выход и получение данных текущего пользователя.
- */
-class Auth extends UserStorage {
+
+
+export default class Auth extends UserStorage {
   /** Функция для выполнения POST-запросов к API */
-  #Post: <T = unknown>(url: string, body?: PostBody) => Promise<T>
+  #request: typeof request
 
   /**
    * Создает экземпляр Auth.
@@ -15,7 +14,7 @@ class Auth extends UserStorage {
    */
   constructor() {
     super()
-    this.#Post = Post
+    this.#request = request
   }
 
   /**
@@ -28,10 +27,10 @@ class Auth extends UserStorage {
    * interface RegistrationResponse { success: boolean; token?: string }
    * const res = await auth.reg<RegistrationResponse>({ username: 'admin', password: '1234' })
    */
-  async reg<T = { success: boolean; token?: string; message?: string }>(
+  public async reg<T = { success: boolean; token?: string; message?: string }>(
     body: PostBody,
   ): Promise<T> {
-    const res = await this.#Post<T>('registration', body)
+    const res = await this.#request.__post<T>('registration', body)
     if ((res as any).success) {
       this.setToken((res as any).token)
     }
@@ -48,10 +47,10 @@ class Auth extends UserStorage {
    * interface LoginResponse { success: boolean; token?: string }
    * const res = await auth.login<LoginResponse>({ username: 'admin', password: '1234' })
    */
-  async login<T = { success: boolean; token?: string; message?: string }>(
+  public async login<T = { success: boolean; token?: string; message?: string }>(
     body: PostBody,
   ): Promise<T> {
-    const res = await this.#Post<T>('authorization', body)
+    const res = await this.#request.__post<T>('authorization', body)
     if ((res as any).success) {
       this.setToken((res as any).token)
     }
@@ -68,10 +67,10 @@ class Auth extends UserStorage {
    * interface LogoutResponse { success: boolean; message?: string }
    * const res = await auth.logout<LogoutResponse>()
    */
-  async logout<T = { success: boolean; message?: string }>(): Promise<T> {
+  public async logout<T = { success: boolean; message?: string }>(): Promise<T> {
     this.unsetToken()
     location.reload()
-    const res = await this.#Post<T>('logout')
+    const res = await this.#request.__post<T>('logout')
     return res
   }
 
@@ -85,14 +84,11 @@ class Auth extends UserStorage {
    * interface UserProfile { success: boolean; username?: string; email?: string }
    * const profile = await auth.user<UserProfile>()
    */
-  async user<T = { success: boolean; message?: string; [key: string]: any }>(): Promise<T> {
-    const res = await this.#Post<T>('profile')
+  public async user<T = { success: boolean; message?: string; [key: string]: any }>(): Promise<T> {
+    const res = await this.#request.__post<T>('profile')
     if (!(res as any).success && (res as any).message === 'Unauthenticated.') {
       await this.logout()
     }
     return res
   }
 }
-
-const auth = new Auth()
-export default auth
