@@ -1,5 +1,5 @@
 // api
-import Rest from './web_services/rest'
+import Rest from './web_services/Rest'
 import image from './web_services/image'
 import user from './local_domains/user/user'
 
