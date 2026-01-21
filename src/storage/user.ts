@@ -1,6 +1,6 @@
 // user.ts
 import { ref, computed, watch, Ref, ComputedRef } from 'vue'
-import Storage from './storage'
+import Storage from './Storage'
 
 /**
  * Класс User
@@ -8,7 +8,7 @@ import Storage from './storage'
  * Управляет токеном пользователя с реактивностью Vue
  * и хранением в localStorage через Storage.
  */
-export default class User {
+class User {
   /** Экземпляр Storage для хранения токена */
   #tokenStorage: Storage<string>
 
@@ -40,14 +40,17 @@ export default class User {
    * Установить новый токен
    * @param newToken - строка токена
    */
-  protected setToken(newToken: string): void {
+  public setToken(newToken: string): void {
     this.#token.value = newToken
   }
 
   /**
    * Удалить токен
    */
-  protected unsetToken(): void {
+  public unsetToken(): void {
     this.#token.value = null
   }
 }
+
+const user = new User()
+export default user

@@ -58,13 +58,8 @@ export type PostBody = Record<string, unknown>
  *   }
  * }
  */
-export default class Request {
-  #n: number
-
-  constructor() {
-    this.#n = 0
-    console.log(this.#n++)
-  }
+class Request {
+  constructor() {}
 
   // --------------------------------------------------------------------------
   // GET
@@ -92,7 +87,7 @@ export default class Request {
    *   { limit: 10, search: 'бетон' }
    * )
    */
-  protected async get<T = unknown>(url: string, obj: GetOptions = {}): Promise<T> {
+  public async get<T = unknown>(url: string, obj: GetOptions = {}): Promise<T> {
     let search = ''
 
     // Кодируем строку поиска в base64 (UTF-8 safe)
@@ -139,7 +134,7 @@ export default class Request {
    *   { username: 'admin', password: '1234' }
    * )
    */
-  protected async post<T = unknown>(url: string = '', body: PostBody = {}): Promise<T> {
+  public async post<T = unknown>(url: string = '', body: PostBody = {}): Promise<T> {
     const response = await fetch(`${API_URL}${url}`, {
       method: 'POST',
       headers: {
@@ -172,7 +167,7 @@ export default class Request {
    */
   private async __request<T>(response: Response): Promise<T> {
     if (response.status === 401) {
-      user.logout()
+      user.auth.logout()
       throw new Error('Unauthorized: user logged out')
     }
 
@@ -184,15 +179,4 @@ export default class Request {
   }
 }
 
-class __Request extends Request {
-  __post!: typeof this.post
-  __get!: typeof this.post
-
-  constructor() {
-    super()
-    this.__post = this.post
-    this.__get = this.get
-  }
-}
-
-export const request = new __Request()
+export const request = new Request()

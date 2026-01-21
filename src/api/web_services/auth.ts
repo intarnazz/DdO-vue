@@ -1,20 +1,18 @@
-import UserStorage from '@/storage/user'
-import Request from './request/request'
-import { PostBody } from './request/request'
+import user from '@/storage/user'
+import { PostBody, request } from './request/request'
 
-
-
-export default class Auth extends UserStorage {
+class Auth {
   /** Функция для выполнения POST-запросов к API */
   #request: typeof request
+  #user: typeof user
 
   /**
    * Создает экземпляр Auth.
    * Привязывает внутреннюю функцию POST-запроса к API.
    */
   constructor() {
-    super()
     this.#request = request
+    this.#user = user
   }
 
   /**
@@ -30,9 +28,9 @@ export default class Auth extends UserStorage {
   public async reg<T = { success: boolean; token?: string; message?: string }>(
     body: PostBody,
   ): Promise<T> {
-    const res = await this.#request.__post<T>('registration', body)
+    const res = await this.#request.post<T>('registration', body)
     if ((res as any).success) {
-      this.setToken((res as any).token)
+      this.#user.setToken((res as any).token)
     }
     return res
   }
@@ -50,9 +48,9 @@ export default class Auth extends UserStorage {
   public async login<T = { success: boolean; token?: string; message?: string }>(
     body: PostBody,
   ): Promise<T> {
-    const res = await this.#request.__post<T>('authorization', body)
+    const res = await this.#request.post<T>('authorization', body)
     if ((res as any).success) {
-      this.setToken((res as any).token)
+      this.#user.setToken((res as any).token)
     }
     return res
   }
@@ -68,9 +66,9 @@ export default class Auth extends UserStorage {
    * const res = await auth.logout<LogoutResponse>()
    */
   public async logout<T = { success: boolean; message?: string }>(): Promise<T> {
-    this.unsetToken()
+    this.#user.unsetToken()
     location.reload()
-    const res = await this.#request.__post<T>('logout')
+    const res = await this.#request.post<T>('logout')
     return res
   }
 
@@ -85,10 +83,13 @@ export default class Auth extends UserStorage {
    * const profile = await auth.user<UserProfile>()
    */
   public async user<T = { success: boolean; message?: string; [key: string]: any }>(): Promise<T> {
-    const res = await this.#request.__post<T>('profile')
+    const res = await this.#request.post<T>('profile')
     if (!(res as any).success && (res as any).message === 'Unauthenticated.') {
       await this.logout()
     }
     return res
   }
 }
+
+const auth = new Auth()
+export default auth

@@ -1,21 +1,21 @@
-import Request from './request/request'
-import { PostBody, GetOptions } from './request/request'
+import { PostBody, GetOptions, request } from './request/request'
 
 /**
  * Универсальный REST-клиент для работы с API.
  * Позволяет выполнять GET, POST, PATCH и DELETE запросы с базовым префиксом URL.
  */
-export default class Rest extends Request {
+export default class Rest {
   /** Префикс URL для этого ресурса (например, '/products') */
   #prefix: string
+  #request: typeof request
 
   /**
    * Конструктор REST-клиента
    * @param prefix - Префикс URL для ресурса
    */
   constructor(prefix: string) {
-    super()
     this.#prefix = prefix
+    this.#request = request
   }
 
   /**
@@ -41,7 +41,7 @@ export default class Rest extends Request {
    * const product = await api.get<Product>(1)
    */
   public get<T = unknown>(id: string | number, header: GetOptions = {}): Promise<T> {
-    return super.get<T>(`${this.#prefix}/${id}`, header)
+    return this.#request.get<T>(`${this.#prefix}/${id}`, header)
   }
 
   /**
@@ -54,7 +54,7 @@ export default class Rest extends Request {
    * const products = await api.all<Product[]>({ limit: 10 })
    */
   all<T = unknown>(data: GetOptions = {}): Promise<T> {
-    return this.get<T>(this.#prefix, data)
+    return this.#request.get<T>(this.#prefix, data)
   }
 
   /**
@@ -67,7 +67,7 @@ export default class Rest extends Request {
    * const newProduct = await api.add<Product>({ name: 'New Product', price: 100 })
    */
   add<T = unknown>(data: PostBody): Promise<T> {
-    return this.post<T>(this.#prefix, data)
+    return this.#request.post<T>(this.#prefix, data)
   }
 
   /**
@@ -79,7 +79,7 @@ export default class Rest extends Request {
    * @returns Промис с объектом типа T
    */
   #Push<T = unknown>(url: string, method: 'PATCH' | 'DELETE', data: PostBody): Promise<T> {
-    return this.post<T>(`${url}/${data.id}`, { _method: method, ...data })
+    return this.#request.post<T>(`${url}/${data.id}`, { _method: method, ...data })
   }
 
   /**
