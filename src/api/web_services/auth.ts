@@ -1,5 +1,6 @@
 import user from '@/storage/user'
-import { PostBody, request } from './request/request'
+import request from './request/request'
+import type { PostBody } from './request/request'
 
 class Auth {
   /** Функция для выполнения POST-запросов к API */

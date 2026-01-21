@@ -40,7 +40,7 @@ export type PostBody = Record<string, unknown>
  * const response = await post('/login', { username: 'admin', password: '1234' })
  * const data = await response.json()
  */
-export default async function post(url: string = '', body: PostBody = {}): Promise<Response> {
+export async function post(url: string = '', body: PostBody = {}): Promise<Response> {
   const response = await fetch(`${API_URL}${url}`, {
     method: 'POST',
     headers: {

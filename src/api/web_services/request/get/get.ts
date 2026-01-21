@@ -62,7 +62,7 @@ export interface GetOptions {
  * const response = await get('/products', { limit: 10 })
  * const data = await response.json()
  */
-export default async function get(url: string, options: GetOptions = {}): Promise<Response> {
+export async function get(url: string, options: GetOptions = {}): Promise<Response> {
   let search = ''
 
   // Кодируем строку поиска в base64 (UTF-8 safe)

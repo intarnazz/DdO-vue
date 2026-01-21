@@ -1,44 +1,6 @@
 import { user } from '../../api'
-
-/**
- * Базовый URL API.
- * Берётся из переменных окружения Vite.
- */
-const API_URL = import.meta.env.VITE_API_URL
-
-// ============================================================================
-// Типы
-// ============================================================================
-
-/**
- * Опции для GET-запроса.
- * Используются для передачи параметров пагинации и поиска.
- */
-export interface GetOptions {
-  /**
-   * Максимальное количество элементов в ответе.
-   * @default 5
-   */
-  limit?: number
-
-  /**
-   * Смещение для пагинации.
-   * @default 0
-   */
-  offset?: number
-
-  /**
-   * Строка поиска.
-   * Перед отправкой кодируется в base64.
-   */
-  search?: string
-}
-
-/**
- * Тип тела POST-запроса.
- * Используется для JSON-данных.
- */
-export type PostBody = Record<string, unknown>
+import { get, GetOptions } from './get/get'
+import { post, PostBody } from './post/post'
 
 // ============================================================================
 // Request
@@ -59,7 +21,13 @@ export type PostBody = Record<string, unknown>
  * }
  */
 class Request {
-  constructor() {}
+  #get: typeof get
+  #post: typeof post
+
+  constructor() {
+    this.#get = get
+    this.#post = post
+  }
 
   // --------------------------------------------------------------------------
   // GET
@@ -88,24 +56,7 @@ class Request {
    * )
    */
   public async get<T = unknown>(url: string, obj: GetOptions = {}): Promise<T> {
-    let search = ''
-
-    // Кодируем строку поиска в base64 (UTF-8 safe)
-    if (obj.search) {
-      search = btoa(unescape(encodeURIComponent(obj.search)))
-    }
-
-    const response = await fetch(`${API_URL}${url}`, {
-      method: 'GET',
-      headers: {
-        limit: String(obj.limit ?? 5),
-        offset: String(obj.offset ?? 0),
-        search,
-        Authorization: `Bearer ${user.token ?? ''}`,
-      },
-    })
-
-    return this.__request<T>(response)
+    return this.__request<T>(await this.#get(url, obj))
   }
 
   // --------------------------------------------------------------------------
@@ -135,17 +86,7 @@ class Request {
    * )
    */
   public async post<T = unknown>(url: string = '', body: PostBody = {}): Promise<T> {
-    const response = await fetch(`${API_URL}${url}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${user.token ?? ''}`,
-      },
-      body: JSON.stringify(body),
-    })
-
-    return this.__request<T>(response)
+    return this.__request<T>(await this.#post(url, body))
   }
 
   // --------------------------------------------------------------------------
@@ -179,4 +120,8 @@ class Request {
   }
 }
 
-export const request = new Request()
+const request = new Request()
+
+export default request
+
+export type { PostBody, GetOptions }

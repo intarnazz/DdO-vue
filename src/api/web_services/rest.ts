@@ -1,4 +1,5 @@
-import { PostBody, GetOptions, request } from './request/request'
+import request from './request/request'
+import type { PostBody, GetOptions } from './request/request'
 
 /**
  * Универсальный REST-клиент для работы с API.
