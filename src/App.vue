@@ -19,7 +19,7 @@ watchEffect(() => {
 <template>
   <HeaderMain class="media-header cansel" />
   <HeaderWhopper class="media-header open" />
-  <RouterView />              
+  <RouterView />
 </template>
 
 <style lang="sass" scoped></style>

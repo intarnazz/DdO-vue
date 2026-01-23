@@ -51,6 +51,12 @@ a.c-w
   font-weight: bold
   text-decoration: underline
 
+.c-sub
+  color: $sub
+
+.c-w 
+  color: $w
+  font-weight: bold
 
 .sp
   color: #808080
@@ -63,6 +69,9 @@ a.c-w
   animation: 1s alternate alert
   user-select: none
   font-weight: bold
+
+.bgf
+  background-color: $w
 
 #app
   min-height: 100dvh
@@ -213,6 +222,10 @@ a
   text-decoration: none
   // user-select: none
 
+a:hover
+  text-decoration: underline
+  
+
 nav
   user-select: none
 
@@ -220,7 +233,6 @@ select
   cursor: pointer
 
 .a
-  color: $sub
   text-decoration: underline
   &_w
     color: #F80C94
@@ -295,9 +307,6 @@ select
 .box-none
   display: block
 
-@media screen and (max-width: 1600px)
-  html
-    font-size: 13px
 
 @media screen and (max-width: 1440px)
   .p

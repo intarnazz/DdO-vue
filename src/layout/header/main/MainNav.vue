@@ -4,15 +4,19 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <div v-if="!isLoding" class="address py-2 bs">
+  <div v-if="!isLoding" class="nav py-2 bs bgf">
     <LayoutWrapper>
       <div class="box-x">
         <img class="h-11" src="@/assets/icons/logo.svg" alt="logo" />
 
-        <div class="box-x gap2">
-          <RouterLink :to="{ name: 'home' }" class="a">главная</RouterLink>
-          <RouterLink :to="{ name: 'about-us' }" class="a">о нас</RouterLink>
-        </div>
+        <nav class="box-x gap2 c-sub">
+          <RouterLink :to="{ name: 'home' }">главная</RouterLink>
+          <RouterLink :to="{ name: 'about-us' }">о нас</RouterLink>
+          <RouterLink :to="{ name: 'home' }">вакансии</RouterLink>
+          <RouterLink :to="{ name: 'home' }">Оплата и доставка</RouterLink>
+          <RouterLink :to="{ name: 'home' }">отзывы</RouterLink>
+          <RouterLink :to="{ name: 'home' }">контакты</RouterLink>
+        </nav>
       </div>
     </LayoutWrapper>
   </div>
