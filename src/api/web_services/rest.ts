@@ -48,14 +48,36 @@ export default class Rest {
   /**
    * Получение всех элементов ресурса
    * @param data - Параметры запроса (limit, offset, search)
+   * @param total - Параметры запроса true / false.
    * @typeParam T - Тип объекта или массива объектов, ожидаемого в ответе
    * @returns Промис с объектом типа T
    *
    * @example
    * const products = await api.all<Product[]>({ limit: 10 })
    */
-  all<T = unknown>(data: GetOptions = {}): Promise<T> {
-    return this.#request.get<T>(this.#prefix, data)
+  public async all<T = unknown>(data: GetOptions = {}, total: boolean = false): Promise<T> {
+    if (total) {
+      data = { ...data, limit: 10, offset: 0 }
+    }
+
+    let res_data = []
+    let res = null
+
+    while (true) {
+      res = await this.#request.get<T>(this.#prefix, data)
+      res_data = [...res_data, ...res.data]
+      res.data = res_data
+      if (total) {
+        let pagingInfo = res.pagingInfo
+        if (pagingInfo.totalCount <= pagingInfo.limit + pagingInfo.offset) {
+          return res
+        } else {
+          data = { ...data, offset: pagingInfo.limit + pagingInfo.offset }
+        }
+      } else {
+        return res
+      }
+    }
   }
 
   /**
@@ -67,7 +89,7 @@ export default class Rest {
    * @example
    * const newProduct = await api.add<Product>({ name: 'New Product', price: 100 })
    */
-  add<T = unknown>(data: PostBody): Promise<T> {
+  public add<T = unknown>(data: PostBody): Promise<T> {
     return this.#request.post<T>(this.#prefix, data)
   }
 
@@ -79,7 +101,7 @@ export default class Rest {
    * @typeParam T - Тип объекта, ожидаемого в ответе
    * @returns Промис с объектом типа T
    */
-  #Push<T = unknown>(url: string, method: 'PATCH' | 'DELETE', data: PostBody): Promise<T> {
+  private push<T = unknown>(url: string, method: 'PATCH' | 'DELETE', data: PostBody): Promise<T> {
     return this.#request.post<T>(`${url}/${data.id}`, { _method: method, ...data })
   }
 
@@ -92,8 +114,8 @@ export default class Rest {
    * @example
    * await api.patch<Product>({ id: 1, price: 150 })
    */
-  patch<T = unknown>(data: PostBody & { id: string | number }): Promise<T> {
-    return this.#Push<T>(this.#prefix, 'PATCH', data)
+  public patch<T = unknown>(data: PostBody & { id: string | number }): Promise<T> {
+    return this.push<T>(this.#prefix, 'PATCH', data)
   }
 
   /**
@@ -105,7 +127,7 @@ export default class Rest {
    * @example
    * await api.delete<{ success: boolean }>({ id: 1 })
    */
-  delete<T = unknown>(data: PostBody & { id: string | number }): Promise<T> {
-    return this.#Push<T>(this.#prefix, 'DELETE', data)
+  public delete<T = unknown>(data: PostBody & { id: string | number }): Promise<T> {
+    return this.push<T>(this.#prefix, 'DELETE', data)
   }
 }

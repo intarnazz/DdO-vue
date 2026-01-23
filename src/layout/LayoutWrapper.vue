@@ -16,15 +16,6 @@
 </template>
 
 <style lang="sass" scoped>
-/* Переход для стандартного состояния элементов */
-.default
-  transition: .5s
-
-/* Специальный контейнер с шириной с учетом отступов */
-.special-wrapper
-  width: calc(100dvw - 8rem)
-
-/* Основной контейнер страницы */
 .wrapper
   width: 1300px
   margin: 0 auto

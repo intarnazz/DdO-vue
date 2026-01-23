@@ -12,5 +12,6 @@ import user from './local_domains/user/user'
  */
 
 export const product = new Rest('product')
+export const contact = new Rest('contact')
 
 export { user, image }
