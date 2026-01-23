@@ -49,7 +49,7 @@ export async function copyToClipboard(text, event) {
   const div = document.createElement('div')
   div.textContent = 'Скопировано ✔'
 
-  div.style.position = 'absolute'
+  div.style.position = 'fixed'
   div.style.zIndex = '999'
   div.className = 'alert'
   div.style.left = `${event.clientX - 50}px`
