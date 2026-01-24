@@ -146,10 +146,6 @@ a.c-w
 .bs-l
   box-shadow: 0 0 20px 0 #000
 
-
-.header-spase
-  height: $header
-
 // ::selection
 //   background: hsla(133,100%, 50%,.5)
 //   color: #fff
@@ -213,12 +209,17 @@ select
 
 .a
   text-decoration: underline
+  text-decoration-color: $main
+  &:hover
+    text-decoration-color: $main
   &_w
-    color: #F80C94
-    font-weight: 300
-  & a
-    color: #8F0454
+    color: $main
     text-decoration: underline
+    text-decoration-color: $main
+  & a
+    color: $main
+    text-decoration: underline
+    text-decoration-color: $main
 .button
   font-family: "Roboto", sans-serif
   font-optical-sizing: auto
@@ -310,6 +311,9 @@ select
 .box-none
   display: block
 
+.icon
+  height: 1.5rem
+
 
 @media screen and (max-width: 1440px)
   .p
@@ -342,8 +346,6 @@ select
     display: none
 
 @media screen and (max-width: 885px)
-  .header-spase
-    height: $menu
   .media-header
     &.cansel
       display: none
@@ -378,8 +380,6 @@ select
     font-size: 9px
 
 @media screen and (max-width: 480px)
-  .header-spase
-    height: $menu
   .media-480
     &.cansel
       display: none

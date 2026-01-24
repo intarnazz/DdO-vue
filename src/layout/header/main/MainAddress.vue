@@ -35,7 +35,7 @@ onMounted(async () => {
             <a class="c-w" :href="contacts['address'].link">
               {{ contacts['address'].description }}
             </a>
-            <img class="h-[1.5rem]" src="@/assets/icons/content_copy.svg" alt="content_copy" />
+            <img class="icon" src="@/assets/icons/content_copy.svg" alt="content_copy" />
           </div>
         </div>
 
@@ -46,7 +46,7 @@ onMounted(async () => {
               class="box-x gap5 cursor-pointer select-none py-2"
             >
               <a class="c-w" :href="`${contacts['whatsapp'].link}`">
-                <img class="h-[22px]" src="@/assets/icons/whatsapp.svg" alt="content_copy" />
+                <img class="icon" src="@/assets/icons/whatsapp.svg" alt="content_copy" />
               </a>
             </div>
 
@@ -55,7 +55,7 @@ onMounted(async () => {
               class="box-x gap5 cursor-pointer select-none py-2"
             >
               <a class="c-w" :href="`${contacts['odnoklassniki'].link}`">
-                <img class="h-[22px]" src="@/assets/icons/odnoklassniki.svg" alt="content_copy" />
+                <img class="icon" src="@/assets/icons/odnoklassniki.svg" alt="content_copy" />
               </a>
             </div>
 
@@ -64,7 +64,7 @@ onMounted(async () => {
               class="box-x gap5 cursor-pointer select-none py-2"
             >
               <a class="c-w" :href="`${contacts['vk'].link}`">
-                <img class="h-[22px]" src="@/assets/icons/vk.svg" alt="content_copy" />
+                <img class="icon" src="@/assets/icons/vk.svg" alt="content_copy" />
               </a>
             </div>
           </div>
@@ -77,7 +77,7 @@ onMounted(async () => {
             <a class="c-w" :href="`tel:${contacts['phone'].link}`">
               {{ formatPhone(contacts['phone'].description) }}
             </a>
-            <img class="h-[1.5rem]" src="@/assets/icons/content_copy.svg" alt="content_copy" />
+            <img class="icon" src="@/assets/icons/content_copy.svg" alt="content_copy" />
           </div>
         </div>
       </div>

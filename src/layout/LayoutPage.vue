@@ -10,7 +10,7 @@
 
 <template>
   <!-- Основной контейнер страницы -->
-  <main class="main box-y flex">
+  <main class="main gap4 box-y flex">
     <!-- Слот для вставки дочернего контента -->
     <slot></slot>
   </main>
@@ -21,4 +21,5 @@
 .main
   justify-content: flex-start
   align-items: center
+  padding: 2rem 0
 </style>
