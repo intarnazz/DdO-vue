@@ -4,11 +4,12 @@ import { product as p } from '@/api/api'
 
 const isLoding = ref(true)
 const product = ref(null)
+const totalCount = ref(null)
 
 async function init() {
   isLoding.value = true
   const res = await p.all()
-  if (res.success) product.value = res.data
+  if (res.success) ((product.value = res.data), (totalCount.value = res.pagingInfo.totalCount))
   isLoding.value = false
 }
 
@@ -19,7 +20,11 @@ onMounted(async () => {
 
 <template>
   <soction v-if="!isLoding" class="catalog">
-    <h2>Входные Двери</h2>
+    <div class="box-x gap as">
+      <h2>Входные Двери</h2>
+      <p class="c-sub">{{ totalCount }} товаров</p>
+      <div class="flex"></div>
+    </div>
   </soction>
 </template>
 
