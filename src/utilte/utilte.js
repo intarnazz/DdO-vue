@@ -3,12 +3,15 @@ export const title = (i) => {
 }
 
 export const price = (i) => {
-  return i.toLocaleString('ru-RU', {
-    style: 'currency',
-    currency: 'RUB',
+  const n = Number(i);
+  if (!Number.isFinite(n)) return '';
+
+  const formatted = n.toLocaleString('ru-RU', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  })
+  });
+
+  return `${formatted}\u00A0Р`;
 }
 
 export const up = () => {

@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { product as p } from '@/api/api'
+import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 
 const isLoding = ref(true)
@@ -47,6 +48,7 @@ onMounted(async () => {
             </div>
           </div>
           <h3 class="catalog__title title">{{ product.name }}</h3>
+          <mark class="catalog__price px-2">{{ price(product.price) }}</mark>
         </div>
       </div>
     </div>
@@ -56,6 +58,11 @@ onMounted(async () => {
 <style lang="sass" scoped>
 //
 .catalog
+  &__price
+    color: $w
+    background-color: $main
+    font-weight: 900
+    font-family: 'Noto Sans'
   &__img
     box-shadow: 0px 15px 20px 0px $b-50
   &__grid
