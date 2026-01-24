@@ -9,7 +9,9 @@ const contacts = ref([])
 
 async function init() {
   isLoding.value = true
-  const res = await contact.all({}, true)
+  const res = await contact.all({
+    names: ['address', 'phone', 'whatsapp', 'odnoklassniki', 'vk'],
+  })
   if (res.success) contacts.value = namesToKeys(res.data)
   isLoding.value = false
 }

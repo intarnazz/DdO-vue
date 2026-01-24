@@ -30,6 +30,20 @@ export interface GetOptions {
   offset?: number
 
   /**
+   * Массив имён для фильтрации.
+   *
+   * Используется для передачи списка имён (например, пользователей)
+   * в GET-запросе. На стороне API может применяться как фильтр
+   * (например, `WHERE name IN (...)`).
+   *
+   * При отправке преобразуется в строку и передаётся через HTTP-заголовок.
+   *
+   * @example
+   * names: ['Alice', 'Bob', 'Charlie']
+   */
+  names?: string[]
+
+  /**
    * Строка поиска.
    *
    * Перед отправкой кодируется в base64 (UTF-8),
@@ -75,6 +89,7 @@ export async function get(url: string, options: GetOptions = {}): Promise<Respon
     headers: {
       limit: String(options.limit ?? 5),
       offset: String(options.offset ?? 0),
+      names: String(options.names ?? ''),
       search,
       Authorization: `Bearer ${user.token ?? ''}`,
     },
