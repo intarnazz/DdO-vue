@@ -48,36 +48,14 @@ export default class Rest {
   /**
    * Получение всех элементов ресурса
    * @param data - Параметры запроса (limit, offset, search)
-   * @param total - Параметры запроса true / false.
    * @typeParam T - Тип объекта или массива объектов, ожидаемого в ответе
    * @returns Промис с объектом типа T
    *
    * @example
    * const products = await api.all<Product[]>({ limit: 10 })
    */
-  public async all<T = unknown>(data: GetOptions = {}, total: boolean = false): Promise<T> {
-    if (total) {
-      data = { ...data, limit: 10, offset: 0 }
-    }
-
-    let res_data = []
-    let res = null
-
-    while (true) {
-      res = await this.#request.get<T>(this.#prefix, data)
-      res_data = [...res_data, ...res.data]
-      res.data = res_data
-      if (total) {
-        let pagingInfo = res.pagingInfo
-        if (pagingInfo.totalCount <= pagingInfo.limit + pagingInfo.offset) {
-          return res
-        } else {
-          data = { ...data, offset: pagingInfo.limit + pagingInfo.offset }
-        }
-      } else {
-        return res
-      }
-    }
+  all<T = unknown>(data: GetOptions = {}): Promise<T> {
+    return this.#request.get<T>(this.#prefix, data)
   }
 
   /**
