@@ -19,19 +19,8 @@ onMounted(async () => {
 
 <template>
   <soction v-if="!isLoding" class="catalog">
-    <h2>
-      Входные Двери
-    </h2>
-
+    <h2>Входные Двери</h2>
   </soction>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<style></style>
