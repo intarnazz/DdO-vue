@@ -1,11 +1,28 @@
 //
-@font-face 
-  font-display: swap
+
+/* noto-sans-regular - cyrillic_cyrillic-ext_latin */
+@font-face
+  font-display: swap /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Noto Sans'
   font-style: normal
   font-weight: 400
-  src: url('../fonts/noto-sans-v42-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('../fonts/noto-sans-v42-cyrillic_cyrillic-ext_latin-regular.woff2') format('woff2') /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 
+/* noto-sans-300 - cyrillic_cyrillic-ext_latin */
+@font-face 
+  font-display: swap /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Sans'
+  font-style: normal
+  font-weight: 300
+  src: url('../fonts/noto-sans-v42-cyrillic_cyrillic-ext_latin-300.woff2') format('woff2') /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+
+/* noto-sans-700 - cyrillic_cyrillic-ext_latin */
+@font-face
+  font-display: swap /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Sans'
+  font-style: normal
+  font-weight: 700
+  src: url('../fonts/noto-sans-v42-cyrillic_cyrillic-ext_latin-700.woff2') format('woff2') /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 
 *
   box-sizing: border-box
@@ -16,26 +33,26 @@ hr
 h1,
 h2,
 h3
-  font-family: "Noto Sans", sans-serif
+  font-family: "Noto Sans"
   font-optical-sizing: auto
-  font-weight: bolder
+  font-weight: 300
+
 
 h1
   margin: 0
   padding: 0
-  font-size: 2.875rem
-  font-weight: bolder
+  font-size: 2rem
   line-height: 1.1
+
 h2
   font-size: 2rem
-  font-weight: bolder
 h3
-  font-size: 1.625rem
-  font-weight: bolder
+  font-size: 1rem
+  font-weight: 400
 
 html
-  font-family: "Noto Sans", sans-serif
-  font-weight: regular
+  font-family: "Noto Sans"
+  font-weight: 300
   color: $b
   background-color: #fff
   font-size: 16px
@@ -276,7 +293,7 @@ select
 
 .c-w 
   color: $w
-  font-weight: bold
+  font-weight: 700
 
 .sp
   color: #808080
@@ -288,7 +305,7 @@ select
   border-radius: 5px
   animation: 1s alternate alert
   user-select: none
-  font-weight: bold
+  font-weight: 700
   white-space: nowrap;
 
 .bgf
