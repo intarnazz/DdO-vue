@@ -24,6 +24,15 @@
   font-weight: 700
   src: url('../fonts/noto-sans-v42-cyrillic_cyrillic-ext_latin-700.woff2') format('woff2') /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 
+/* noto-sans-900 - cyrillic_cyrillic-ext_latin */
+@font-face
+  font-display: swap /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Sans'
+  font-style: normal
+  font-weight: 900
+  src: url('../fonts/noto-sans-v42-cyrillic_cyrillic-ext_latin-900.woff2') format('woff2') /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+
+
 *
   box-sizing: border-box
 
@@ -330,6 +339,12 @@ select
 
 .icon
   height: 1.5rem
+
+.title
+  text-wrap: balance
+  display: -webkit-box
+  -webkit-line-clamp: 2
+  -webkit-box-orient: vertical
 
 
 @media screen and (max-width: 1440px)
