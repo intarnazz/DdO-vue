@@ -60,7 +60,6 @@ onMounted(async () => {
 .catalog
   &__price
     color: $w
-    background-color: $main
     font-weight: 900
     font-family: 'Noto Sans'
   &__img
