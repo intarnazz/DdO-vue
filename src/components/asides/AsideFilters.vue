@@ -44,15 +44,9 @@ onMounted(async () => {
 .filters
   &__tags
     &_active
-      // background-color: $main
       color: $w
       font-weight: 700
       animation: active .225s forwards linear
-
-// .filters
-//   &__tags
-//     &_active
-//       border-left: 5px solid $main
 
 @keyframes active
   0%
