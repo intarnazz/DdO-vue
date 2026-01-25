@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { tag as t } from '@/api/api'
+import { tag as t, filter } from '@/api/api'
 
 const isLoding = ref(true)
 const tags = ref(null)
@@ -25,10 +25,10 @@ onMounted(async () => {
   <aside v-if="!isLoding" class="filters">
     <div class="box-y filters__tags w-80.25 max-w-80.25 py-2 bgc-sub br">
       <button
-        @click="() => (tag_active = tag.id)"
+        @click="() => filter.filters = { tag: tag.id }"
         class="flex py-2 px-4"
         :class="{
-          filters__tags_active: tag.id == tag_active,
+          filters__tags_active: tag.id == filter.filters['tag'],
         }"
         v-for="(tag, key) in tags"
         :key="key"

@@ -2,6 +2,8 @@
 import Rest from './web_services/rest'
 import image from './web_services/image'
 import user from './local_domains/user/user'
+import filter from './local_domains/filter/filter'
+import product from './local_domains/product/product'
 
 /**
  * Глобальный модуль для взаимодействия с API.
@@ -11,8 +13,8 @@ import user from './local_domains/user/user'
  * которые могут использоваться в любом компоненте приложения.
  */
 
-export const product = new Rest('product')
+// export const product = new Rest('product')
 export const contact = new Rest('contact')
 export const tag = new Rest('tag')
 
-export { user, image }
+export { user, image, filter, product }

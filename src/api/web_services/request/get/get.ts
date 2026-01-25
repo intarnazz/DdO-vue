@@ -1,4 +1,4 @@
-import { user } from '../../../api'
+import { user, filter } from '../../../api'
 
 /**
  * Базовый URL API.
@@ -109,7 +109,7 @@ export async function get(url: string, options: GetOptions = {}): Promise<Respon
       limit: String(options.limit ?? 5),
       offset: String(options.offset ?? 0),
       names: String(options.names ?? ''),
-      filterts: JSON.stringify(options.filters ?? {}),
+      filters: JSON.stringify(filter.filters ?? {}),
       search,
       Authorization: `Bearer ${user.token ?? ''}`,
     },

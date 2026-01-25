@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed, watchEffect } from 'vue'
 import { product as p } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
@@ -9,25 +9,21 @@ import IconFavorite from '@/components/icons/IconFavorite.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
 
 const isLoding = ref(true)
-const products = ref(null)
 const totalCount = ref(null)
 
-async function init() {
+function init() {
   isLoding.value = true
-  const res = await p.all({
-    limit: 48,
-  })
-  if (res.success) ((products.value = res.data), (totalCount.value = res.pagingInfo.totalCount))
+  p.all()
   isLoding.value = false
 }
 
-onMounted(async () => {
-  await init()
+onMounted(() => {
+  init()
 })
 </script>
 
 <template>
-  <soction v-if="!isLoding" class="catalog box-y gap2">
+  <soction class="catalog box-y gap2">
     <div class="box-x gap as">
       <h2>Входные Двери</h2>
       <p class="c-sub">{{ totalCount }} товаров</p>
@@ -36,29 +32,31 @@ onMounted(async () => {
     <div class="box-x as gap2">
       <AsideFilters />
       <div class="catalog__grid flex">
-        <div v-for="(product, key) in products" :key="key" class="box-y center gap-4">
-          <div class="box-x gap-2 content center">
-            <div class="box-x relative h-67.5 max-h-67.5">
-              <ComponentImg
-                class="catalog__img object-cover h-full w-full"
-                :id="product.image.id"
-              />
+        <template v-if="!isLoding">
+          <div v-for="(product, key) in p.products.data" :key="key" class="box-y center gap-4">
+            <div class="box-x gap-2 content center">
+              <div class="box-x relative h-67.5 max-h-67.5">
+                <ComponentImg
+                  class="catalog__img object-cover h-full w-full"
+                  :id="product.image.id"
+                />
+              </div>
+              <div class="box-x relative h-67.5 max-h-67.5">
+                <ComponentImg
+                  class="catalog__img object-cover h-full w-full"
+                  :id="product.image.id"
+                />
+              </div>
             </div>
-            <div class="box-x relative h-67.5 max-h-67.5">
-              <ComponentImg
-                class="catalog__img object-cover h-full w-full"
-                :id="product.image.id"
-              />
+            <h3 class="catalog__title title">{{ product.name }}</h3>
+            <p class="catalog__price">{{ price(product.price) }}</p>
+            <div class="box-x gap">
+              <IconFavorite />
+              <IconBarChart />
+              <IconShopping />
             </div>
           </div>
-          <h3 class="catalog__title title">{{ product.name }}</h3>
-          <p class="catalog__price">{{ price(product.price) }}</p>
-          <div class="box-x gap">
-            <IconFavorite />
-            <IconBarChart />
-            <IconShopping />
-          </div>
-        </div>
+        </template>
       </div>
     </div>
   </soction>

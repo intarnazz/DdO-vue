@@ -1,0 +1,48 @@
+import { reactive, computed } from 'vue'
+
+class Filter {
+  #filters
+  #filters_c
+
+  constructor() {
+    this.#filters = reactive({})
+    this.#filters_c = computed(() => this.#filters)
+
+    // Инициализация фильтров из URL при старте
+    this.#loadFromUrl()
+  }
+
+  get filters() {
+    return this.#filters_c.value
+  }
+
+  set filters(value) {
+    Object.assign(this.#filters, value)
+    this.#saveToUrl(this.#filters)
+  }
+
+  // Сохраняем фильтры в URL
+  #saveToUrl(filters) {
+    const url = new URL(window.location)
+    const filtersParam = encodeURIComponent(JSON.stringify(filters))
+    url.searchParams.set('filters', filtersParam)
+    window.history.replaceState({}, '', url)
+  }
+
+  // Загружаем фильтры из URL при старте
+  #loadFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search)
+    const filtersParam = urlParams.get('filters')
+    if (filtersParam) {
+      try {
+        const parsed = JSON.parse(decodeURIComponent(filtersParam))
+        Object.assign(this.#filters, parsed)
+      } catch (e) {
+        console.warn('Не удалось распарсить фильтры из URL', e)
+      }
+    }
+  }
+}
+
+const filter = new Filter()
+export default filter
