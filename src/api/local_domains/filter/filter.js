@@ -1,4 +1,5 @@
 import { reactive, computed } from 'vue'
+import { product } from '@/api/api'
 
 class Filter {
   #filters
@@ -17,8 +18,13 @@ class Filter {
   }
 
   set filters(value) {
+    const key = Object.keys(value)
+    if (this.#filters[key] == value[key]) ((value = {}), (value[key] = null))
+
     Object.assign(this.#filters, value)
     this.#saveToUrl(this.#filters)
+
+    product.all()
   }
 
   // Сохраняем фильтры в URL

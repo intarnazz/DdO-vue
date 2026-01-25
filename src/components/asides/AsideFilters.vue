@@ -5,8 +5,6 @@ import { tag as t, filter } from '@/api/api'
 const isLoding = ref(true)
 const tags = ref(null)
 
-const tag_active = ref(null)
-
 async function init() {
   isLoding.value = true
   const res = await t.all({
@@ -25,7 +23,7 @@ onMounted(async () => {
   <aside v-if="!isLoding" class="filters">
     <div class="box-y filters__tags w-80.25 max-w-80.25 py-2 bgc-sub br">
       <button
-        @click="() => filter.filters = { tag: tag.id }"
+        @click="() => (filter.filters = { tag: tag.id })"
         class="flex py-2 px-4"
         :class="{
           filters__tags_active: tag.id == filter.filters['tag'],
@@ -43,13 +41,17 @@ onMounted(async () => {
 //
 .filters
   &__tags
+    & button:hover
+      +bgc-sub-90
     &_active
       color: $w
       font-weight: 700
       animation: active .225s forwards linear
+      margin-left: -5px
 
 @keyframes active
   0%
+    padding-left: 0rem
     background: linear-gradient(to right, $main 0%, #00000000 0%)
   7%
     background: linear-gradient(to right, $main 1%, #00000000 1%)
@@ -78,5 +80,6 @@ onMounted(async () => {
   91%
     background: linear-gradient(to right, $main 91%, #00000000 91%)
   100%
+    padding-left: 1.2rem
     background: linear-gradient(to right, $main 0%, $mark 100%, #00000000 100%)
 </style>

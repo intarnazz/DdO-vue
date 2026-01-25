@@ -10,6 +10,8 @@ class Product extends Rest {
 
     this.#products = reactive({})
     this.#products_c = computed(() => this.#products)
+
+    this.all()
   }
 
   async all() {
