@@ -6,6 +6,7 @@ import ComponentImg from '@/components/ComponentImg.vue'
 import IconBarChart from '@/components/icons/IconBarChart.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
+import AsideFilters from '@/components/asides/AsideFilters.vue'
 
 const isLoding = ref(true)
 const products = ref(null)
@@ -32,8 +33,8 @@ onMounted(async () => {
       <p class="c-sub">{{ totalCount }} товаров</p>
       <div class="flex"></div>
     </div>
-    <div class="box-x">
-      <aside></aside>
+    <div class="box-x as gap2">
+      <AsideFilters />
       <div class="catalog__grid flex">
         <div v-for="(product, key) in products" :key="key" class="box-y center gap-4">
           <div class="box-x gap-2 content center">

@@ -1,6 +1,6 @@
 // user.ts
 import { ref, computed, watch, Ref, ComputedRef } from 'vue'
-import Storage from './Storage'
+import Storage from './storage'
 
 /**
  * Класс User

@@ -1,5 +1,5 @@
 // api
-import Rest from './web_services/Rest'
+import Rest from './web_services/rest'
 import image from './web_services/image'
 import user from './local_domains/user/user'
 
@@ -13,5 +13,6 @@ import user from './local_domains/user/user'
 
 export const product = new Rest('product')
 export const contact = new Rest('contact')
+export const tag = new Rest('tag')
 
 export { user, image }

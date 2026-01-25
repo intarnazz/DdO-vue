@@ -44,6 +44,25 @@ export interface GetOptions {
   names?: string[]
 
   /**
+   * Массив объектов фильтрации.
+   *
+   * Каждый фильтр представляет собой объект в формате
+   * `{ [key: string]: string | number | boolean }`,
+   * где `key` — имя поля, а `value` — значение для фильтрации.
+   *
+   * Используется для динамического построения условий на стороне API
+   * (например, `WHERE status = 'active' AND isFeatured = true`).
+   *
+   * @example
+   * filters: [
+   *   { status: 'active' },
+   *   { category: 'electronics' },
+   *   { isFeatured: true }
+   * ]
+   */
+  filters?: Record<string, string | number | boolean>[]
+
+  /**
    * Строка поиска.
    *
    * Перед отправкой кодируется в base64 (UTF-8),
@@ -90,6 +109,7 @@ export async function get(url: string, options: GetOptions = {}): Promise<Respon
       limit: String(options.limit ?? 5),
       offset: String(options.offset ?? 0),
       names: String(options.names ?? ''),
+      filterts: JSON.stringify(options.filters ?? {}),
       search,
       Authorization: `Bearer ${user.token ?? ''}`,
     },
