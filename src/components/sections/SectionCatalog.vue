@@ -3,6 +3,9 @@ import { onMounted, ref } from 'vue'
 import { product as p } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
+import IconBarChart from '@/components/icons/IconBarChart.vue'
+import IconShopping from '@/components/icons/IconShopping.vue'
+import IconFavorite from '@/components/icons/IconFavorite.vue'
 
 const isLoding = ref(true)
 const products = ref(null)
@@ -49,6 +52,11 @@ onMounted(async () => {
           </div>
           <h3 class="catalog__title title">{{ product.name }}</h3>
           <p class="catalog__price">{{ price(product.price) }}</p>
+          <div class="box-x gap">
+            <IconFavorite />
+            <IconBarChart />
+            <IconShopping />
+          </div>
         </div>
       </div>
     </div>
@@ -67,5 +75,5 @@ onMounted(async () => {
   &__grid
     display: grid
     grid-template-columns: 1fr 1fr 1fr
-    gap: 30px
+    gap: 2rem
 </style>
