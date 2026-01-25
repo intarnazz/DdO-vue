@@ -48,7 +48,7 @@ onMounted(async () => {
             </div>
           </div>
           <h3 class="catalog__title title">{{ product.name }}</h3>
-          <mark class="catalog__price px-2">{{ price(product.price) }}</mark>
+          <p class="catalog__price">{{ price(product.price) }}</p>
         </div>
       </div>
     </div>
@@ -59,8 +59,8 @@ onMounted(async () => {
 //
 .catalog
   &__price
-    color: $w
-    font-weight: 900
+    color: $b
+    font-weight: 700
     font-family: 'Noto Sans'
   &__img
     box-shadow: 0px 15px 20px 0px $b-50
