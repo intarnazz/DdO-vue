@@ -3,14 +3,14 @@ import { onMounted, ref } from 'vue'
 import { product as p } from '@/api/api'
 import ComponentImg from '@/components/ComponentImg.vue'
 
-const isLoding = ref(true)
+const isLoading = ref(true)
 const product = ref(null)
 
 async function init() {
-  isLoding.value = true
+  isLoading.value = true
   const res = await p.get(1)
   if (res.success) product.value = res.data
-  isLoding.value = false
+  isLoading.value = false
 }
 
 onMounted(async () => {
@@ -19,7 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="!isLoding" class="about">
+  <div v-if="!isLoading" class="about">
     <p>T{{ product }}</p>
 
     <ComponentImg :id="14" class="h-dvh object-cover" />

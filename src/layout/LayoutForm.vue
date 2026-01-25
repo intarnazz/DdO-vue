@@ -32,7 +32,7 @@ const props = defineProps<Props>()
 const isOk = ref(false)
 
 /** Локальный флаг загрузки */
-const isLoding = ref(false)
+const isLoading = ref(false)
 
 /** Вычисляемое свойство для состояния загрузки */
 const loding = computed(() => props.loding ?? true)
@@ -41,7 +41,7 @@ const loding = computed(() => props.loding ?? true)
  * Обработчик отправки формы
  */
 function submit(): void {
-  isLoding.value = true
+  isLoading.value = true
   emit('submit')
 }
 
@@ -69,7 +69,7 @@ watch(
       </h2>
 
       <!-- Сообщение загрузки -->
-      <h2 v-else-if="isLoding && !isOk && loding && !props.errors" class="form__error p isLoding">
+      <h2 v-else-if="isLoading && !isOk && loding && !props.errors" class="form__error p isLoading">
         Загрузка...
       </h2>
 
@@ -147,9 +147,9 @@ watch(
   color: $successColor
   background-color: $successBg
 
-.isLoding
-  color: $isLodingColor
-  background-color: $isLodingBg
+.isLoading
+  color: $isLoadingColor
+  background-color: $isLoadingBg
 
 @media screen and (max-width: 510px)
   .form

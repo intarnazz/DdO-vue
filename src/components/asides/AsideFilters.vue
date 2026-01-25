@@ -2,16 +2,16 @@
 import { onMounted, ref } from 'vue'
 import { tag as t, filter } from '@/api/api'
 
-const isLoding = ref(true)
+const isLoading = ref(true)
 const tags = ref(null)
 
 async function init() {
-  isLoding.value = true
+  isLoading.value = true
   const res = await t.all({
     limit: 7,
   })
   if (res.success) tags.value = res.data
-  isLoding.value = false
+  isLoading.value = false
 }
 
 onMounted(async () => {
@@ -20,7 +20,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <aside v-if="!isLoding" class="filters">
+  <aside v-if="!isLoading" class="filters">
     <div class="box-y filters__tags w-80.25 max-w-80.25 py-2 bgc-sub br">
       <button
         @click="() => (filter.filters = { tag: tag.id })"

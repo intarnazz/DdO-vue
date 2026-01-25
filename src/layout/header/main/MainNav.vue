@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <div v-if="!isLoding" class="nav py-2 bs bgf">
+  <div v-if="!isLoading" class="nav py-2 bs bgf">
     <LayoutWrapper>
       <div class="box-x">
         <img class="h-11" src="@/assets/icons/logo.svg" alt="logo" />

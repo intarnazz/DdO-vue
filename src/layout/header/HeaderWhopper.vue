@@ -15,7 +15,7 @@ const toggleMenu = () => (isOpen.value = !isOpen.value)
     <!-- Кнопка -->
     <button
       @click="toggleMenu"
-      class="fixed top-4 left-4 z-[110] bg-black text-white p-2 rounded-lg shadow-md"
+      class="fixed top-4 left-4 z-2 bg-black text-white p-2 rounded-lg shadow-md"
     >
       <span class="block w-5 h-0.5 bg-white mb-1"></span>
       <span class="block w-5 h-0.5 bg-white mb-1"></span>
@@ -26,7 +26,7 @@ const toggleMenu = () => (isOpen.value = !isOpen.value)
     <div
       v-if="isOpen"
       @click="toggleMenu"
-      class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[90]"
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm z-1"
       onwheel="event.preventDefault()"
       ontouchmove="event.preventDefault()"
       style="overflow: hidden"
@@ -42,7 +42,7 @@ const toggleMenu = () => (isOpen.value = !isOpen.value)
     >
       <nav
         v-if="isOpen"
-        class="fixed top-0 left-0 h-full w-[260px] bg-[#fdfcf5] border-r-4 border-black shadow-[8px_0_0_0_black] z-[100] p-[1rem] pt-[4rem] flex flex-col gap"
+        class="fixed top-0 left-0 h-full w-65 bg-[#fdfcf5] border-r-4 border-black shadow-[8px_0_0_0_black] z-1 p-4 pt-16 flex flex-col gap"
         style="rotate: -0.4deg"
       >
         <!-- Заголовок -->

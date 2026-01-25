@@ -4,16 +4,16 @@ import { namesToKeys, formatPhone, copyToClipboard } from '@/utilte/utilte'
 import { contact } from '@/api/api'
 import { onMounted, ref } from 'vue'
 
-const isLoding = ref(true)
+const isLoading = ref(true)
 const contacts = ref([])
 
 async function init() {
-  isLoding.value = true
+  isLoading.value = true
   const res = await contact.all({
     names: ['address', 'phone', 'whatsapp', 'odnoklassniki', 'vk'],
   })
   if (res.success) contacts.value = namesToKeys(res.data)
-  isLoding.value = false
+  isLoading.value = false
 }
 
 onMounted(async () => {
@@ -22,7 +22,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="!isLoding" class="address">
+  <div v-if="!isLoading" class="address">
     <LayoutWrapper>
       <div class="box-x gap">
         <div
