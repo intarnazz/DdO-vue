@@ -1,5 +1,6 @@
 import { reactive, computed } from 'vue'
 import { product } from '@/api/api'
+import router from '@/router/router'
 
 class Filter {
   #filters
@@ -29,10 +30,16 @@ class Filter {
 
   // Сохраняем фильтры в URL
   #saveToUrl(filters) {
-    const url = new URL(window.location)
     const filtersParam = encodeURIComponent(JSON.stringify(filters))
-    url.searchParams.set('filters', filtersParam)
-    window.history.replaceState({}, '', url)
+    // сохраняем как query-параметр — Vue Router позаботится о history.state
+    router
+      .replace({
+        query: {
+          ...router.currentRoute.value.query,
+          filters: filtersParam,
+        },
+      })
+      .catch(() => {})
   }
 
   // Загружаем фильтры из URL при старте

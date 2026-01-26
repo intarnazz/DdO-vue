@@ -7,4 +7,11 @@ import router from '@/router/router.js'
 
 createApp(App).use(router).mount('#app')
 
-// [] - унификация init()
+// [ ] - max w
+// [ ] - footer
+// [ ] - header fix
+// [ ] - up button
+// [ ] - remove "отзывы"
+// [ ] - 10 товаров
+
+
