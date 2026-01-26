@@ -14,7 +14,6 @@ import { RouterLink } from 'vue-router'
           <RouterLink :to="{ name: 'about-us' }">о нас</RouterLink>
           <RouterLink :to="{ name: 'home' }">вакансии</RouterLink>
           <RouterLink :to="{ name: 'home' }">Оплата и доставка</RouterLink>
-          <RouterLink :to="{ name: 'home' }">отзывы</RouterLink>
           <RouterLink :to="{ name: 'home' }">контакты</RouterLink>
         </nav>
       </div>
