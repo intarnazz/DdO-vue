@@ -36,13 +36,31 @@
 *
   box-sizing: border-box
 
+html
+  font-family: "Noto Sans", sans-serif
+  font-weight: 300
+  color: $b
+  background-color: #fff
+  font-size: 16px
+
+@media screen and (min-width: 1920px) 
+  html
+    background-color: $sub-95
+  body
+    max-width: 1920px
+    position: relative
+    margin: auto
+    box-shadow: 0 0 39px $sub-90
+    background-color: $w
+
+
 hr
   all: unset
 
 h1,
 h2,
 h3
-  font-family: "Noto Sans"
+  font-family: "Noto Sans", sans-serif
   font-optical-sizing: auto
   font-weight: 300
 
@@ -59,12 +77,6 @@ h3
   font-size: 1rem
   font-weight: 400
 
-html
-  font-family: "Noto Sans"
-  font-weight: 300
-  color: $b
-  background-color: #fff
-  font-size: 16px
 
 p::first-letter
   text-transform: uppercase
