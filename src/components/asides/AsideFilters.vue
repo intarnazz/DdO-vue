@@ -9,14 +9,41 @@ const tags = ref([])
 const pagingInfo = ref(null)
 const S_LIMIT = 7
 
+async function foo() {
+  const index = tags.value.findIndex((i) => i.id === filter.filters['tag'])
+  console.log(index)
+  if (index == -1) {
+    const res = await t.get(filter.filters['tag'])
+    if (res.success) tags.value.unshift(res.data)
+  } else {
+    tags.value.unshift(...tags.value.splice(index, 1))
+  }
+  isLoading.value = false
+}
+
 async function init(limit = S_LIMIT, offset = 0) {
+  offset = pagingInfo.value?.offset || offset
   isLoading.value = true
   const res = await t.all({
     limit: limit,
-    offset: pagingInfo.value?.offset || offset,
+    offset: offset,
   })
-  if (res.success) (tags.value.push(...res.data), (pagingInfo.value = res.pagingInfo))
-  isLoading.value = false
+  if (res.success)
+    (tags.value.push(...res.data.filter((i) => !tags.value.some((e) => e.id === i.id))),
+      (pagingInfo.value = res.pagingInfo))
+
+  if (offset === 0) {
+    await foo()
+  }
+
+  const indexes = tags.value
+    .map((item, index) => (item.id === filter.filters['tag'] ? index : -1))
+    .filter((index) => index !== -1)
+
+  if (indexes.length > 1) {
+    console.log(indexes)
+    tags.value.splice(indexes[1], 1)
+  }
 }
 
 onMounted(async () => {
@@ -49,7 +76,9 @@ onMounted(async () => {
 
       <button
         v-else
-        @click="((tags.length = S_LIMIT), (pagingInfo.limit = S_LIMIT), (pagingInfo.offset = 0))"
+        @click="
+          (foo(), (tags.length = S_LIMIT), (pagingInfo.limit = S_LIMIT), (pagingInfo.offset = 0))
+        "
         class="flex py-2 px-4 c-sub"
       >
         <IconChevronLineUp />
