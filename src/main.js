@@ -7,7 +7,6 @@ import router from '@/router/router.js'
 
 createApp(App).use(router).mount('#app')
 
-// [ ] - max w
 // [ ] - footer
 // [ ] - header fix
 // [ ] - up button

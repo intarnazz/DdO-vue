@@ -6,11 +6,14 @@
  * Проверяет наличие токена в sessionStorage и хранит его локально.
  * Содержимое компонента вставляется через слот.
  */
+import IconUp from '@/components/icons/IconUp.vue'
 </script>
 
 <template>
   <!-- Основной контейнер страницы -->
   <main class="main gap4 box-y flex">
+    <IconUp />
+
     <!-- Слот для вставки дочернего контента -->
     <slot></slot>
   </main>
@@ -22,4 +25,5 @@
   justify-content: flex-start
   align-items: center
   padding: 2rem 0
+  min-height: 100vh
 </style>
