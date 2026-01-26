@@ -23,13 +23,14 @@ const h = computed(() => scrollY.value)
 
 <template>
   <div
+    @click="up()"
     class="button-up__wrapper"
     :class="{
       'button-up__active': h > 0,
       'button-up__off': h === 0,
     }"
   >
-    <div @click="up()" class="button-up center">
+    <div class="button-up center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24px"
@@ -50,14 +51,14 @@ const h = computed(() => scrollY.value)
   width: 60px
   height: 60px
   border-radius: 60px
+  box-shadow: 0 0 0px $main
+  transition: .255s
   &__wrapper
     position: fixed
-    display: flex
     cursor: pointer
     bottom: 2rem
     right: 2rem
     z-index: 1
-  &__wrapper
     transition: .3s
     &:hover
       padding-bottom: .4rem
@@ -65,23 +66,29 @@ const h = computed(() => scrollY.value)
         box-shadow: 0 0 20px $main
   &__off
     animation: off .255s ease-in forwards
+    display: none
   &__active
+    display: flex
     animation: on .255s ease-in forwards
 
 
 @keyframes on
   0%
     opacity: 0%
-    bottom: 0rem
+    bottom: 4rem
   100%
     opacity: 100%
     bottom: 2rem
 
 @keyframes off
   0%
+    display: flex
     opacity: 100%
     bottom: 2rem
+  40%
+    bottom: 3rem
   100%
+    display: none
     opacity: 0%
     bottom: 0rem
 </style>
