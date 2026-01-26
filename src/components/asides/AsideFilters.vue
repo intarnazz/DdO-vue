@@ -1,16 +1,21 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { tag as t, filter } from '@/api/api'
+import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
+import IconChevronLineUp from '@/components/icons/IconChevronLineUp.vue'
 
 const isLoading = ref(true)
-const tags = ref(null)
+const tags = ref([])
+const pagingInfo = ref(null)
+const S_LIMIT = 7
 
-async function init() {
+async function init(limit = S_LIMIT, offset = 0) {
   isLoading.value = true
   const res = await t.all({
-    limit: 7,
+    limit: limit,
+    offset: pagingInfo.value?.offset || offset,
   })
-  if (res.success) tags.value = res.data
+  if (res.success) (tags.value.push(...res.data), (pagingInfo.value = res.pagingInfo))
   isLoading.value = false
 }
 
@@ -20,11 +25,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <aside v-if="!isLoading" class="filters">
+  <aside class="filters">
     <div class="box-y filters__tags w-80.25 max-w-80.25 py-2 bgc-sub br">
       <button
         @click="() => (filter.filters = { tag: tag.id })"
-        class="flex py-2 px-4"
+        class="flex py-2 px-4 filters__tag"
         :class="{
           filters__tags_active: tag.id == filter.filters['tag'],
         }"
@@ -33,6 +38,23 @@ onMounted(async () => {
       >
         {{ tag.name }}
       </button>
+      <button
+        v-if="pagingInfo?.totalCount > pagingInfo?.limit + pagingInfo?.offset"
+        @click="init(100, pagingInfo.limit)"
+        class="flex py-2 px-4 c-sub"
+      >
+        <IconKeyboardArrowDown />
+        <p>подробнее</p>
+      </button>
+
+      <button
+        v-else
+        @click="((tags.length = S_LIMIT), (pagingInfo.limit = S_LIMIT), (pagingInfo.offset = 0))"
+        class="flex py-2 px-4 c-sub"
+      >
+        <IconChevronLineUp />
+        <p>свернуть</p>
+      </button>
     </div>
   </aside>
 </template>
@@ -40,9 +62,10 @@ onMounted(async () => {
 <style lang="sass" scoped>
 //
 .filters
-  &__tags
-    & button:hover
+  &__tag
+    &:hover
       +bgc-sub-90
+  &__tags
     &_active
       color: $w
       font-weight: 700
