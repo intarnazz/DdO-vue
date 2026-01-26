@@ -9,7 +9,7 @@ const tags = ref([])
 const pagingInfo = ref(null)
 const S_LIMIT = 7
 
-async function foo() {
+async function findFilter() {
   const index = tags.value.findIndex((i) => i.id === filter.filters['tag'])
   console.log(index)
   if (index == -1) {
@@ -33,7 +33,7 @@ async function init(limit = S_LIMIT, offset = 0) {
       (pagingInfo.value = res.pagingInfo))
 
   if (offset === 0) {
-    await foo()
+    await findFilter()
   }
 
   const indexes = tags.value
@@ -77,7 +77,10 @@ onMounted(async () => {
       <button
         v-else
         @click="
-          (foo(), (tags.length = S_LIMIT), (pagingInfo.limit = S_LIMIT), (pagingInfo.offset = 0))
+          (findFilter(),
+          (tags.length = S_LIMIT),
+          (pagingInfo.limit = S_LIMIT),
+          (pagingInfo.offset = 0))
         "
         class="flex py-2 px-4 c-sub"
       >
