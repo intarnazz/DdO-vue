@@ -11,7 +11,6 @@ const S_LIMIT = 7
 
 async function findFilter() {
   const index = tags.value.findIndex((i) => i.id === filter.filters['tag'])
-  console.log(index)
   if (index == -1) {
     const res = await t.get(filter.filters['tag'])
     if (res.success) tags.value.unshift(res.data)
@@ -26,7 +25,7 @@ async function init(limit = S_LIMIT, offset = 0) {
   isLoading.value = true
   const res = await t.all({
     limit: limit,
-    offset: offset,
+    ingore: [...tags.value],
   })
   if (res.success)
     (tags.value.push(...res.data.filter((i) => !tags.value.some((e) => e.id === i.id))),
@@ -34,15 +33,6 @@ async function init(limit = S_LIMIT, offset = 0) {
 
   if (offset === 0) {
     await findFilter()
-  }
-
-  const indexes = tags.value
-    .map((item, index) => (item.id === filter.filters['tag'] ? index : -1))
-    .filter((index) => index !== -1)
-
-  if (indexes.length > 1) {
-    console.log(indexes)
-    tags.value.splice(indexes[1], 1)
   }
 }
 
