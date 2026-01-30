@@ -25,9 +25,29 @@ function send_filters(id) {
         @click="send_filters(default_content.id)"
         v-for="(default_content, key) in filter.default_content"
         :key="key"
-        class="filter__button py-2 px-4"
-        >{{ default_content.name }}</botton
+        class="filter__button py-2 px-4 box-x gap-2"
+        :class="{ active: filters.includes(default_content.id) }"
       >
+        <div
+          :class="{
+            active: filters.includes(default_content.id),
+            off: !filters.includes(default_content.id),
+          }"
+          class="filter__checkbox w-5.5 h-5.5"
+        >
+          <img
+            :class="{
+              hidden: !filters.includes(default_content.id),
+            }"
+            src="@/assets/icons/check_small.svg"
+            alt=""
+          />
+        </div>
+        <p>
+          {{ default_content.name }}
+        </p>
+        <div class="flex"></div>
+      </botton>
     </div>
   </div>
 </template>
@@ -37,6 +57,9 @@ function send_filters(id) {
 .filter
   border: 1px solid $sub-90
   border-bottom: none
+  &__checkbox
+    border: 1px solid $sub
+    border-radius: 5px
   &__button
     cursor: pointer
     &:hover
@@ -48,4 +71,40 @@ function send_filters(id) {
     border-bottom: 1px solid $sub-90
     border-bottom-left-radius: 5px
     border-bottom-right-radius: 5px
+
+.active
+  &.filter
+    &__checkbox
+      // background-color: $main
+      // box-shadow: 0 0 10px 0 $main
+      // border: none
+      animation: active .125s forwards linear
+
+.off
+  animation: off .125s forwards linear
+
+
+@keyframes active
+  0%
+    border: 1px solid $sub
+    border-radius: 5px
+    box-shadow: 0 0 0px 0 $main
+    margin-bottom: -1rem
+  100%
+    background-color: $main
+    box-shadow: 0 0 10px 0 $main
+    border: none
+    margin-bottom: 0rem
+
+@keyframes off
+  0%
+    background-color: $main
+    box-shadow: 0 0 10px 0 $main
+    border: none
+    margin-bottom: -1rem
+  100%
+    border: 1px solid $sub
+    border-radius: 5px
+    box-shadow: 0 0 0px 0 $main
+    margin-bottom: 0rem
 </style>
