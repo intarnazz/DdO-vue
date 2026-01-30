@@ -15,7 +15,9 @@ class Product extends Rest {
   }
 
   async all() {
+    if (this.#products.data) this.#products.data.length = 0
     const res = await super.all({ limit: 48 })
+
     Object.assign(this.#products, res)
   }
 

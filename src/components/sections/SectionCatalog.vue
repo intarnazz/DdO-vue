@@ -6,6 +6,7 @@ import IconBarChart from '@/components/icons/IconBarChart.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
+import LoaderComponent from '@/components/LoaderComponent.vue'
 </script>
 
 <template>
@@ -17,9 +18,13 @@ import AsideFilters from '@/components/asides/AsideFilters.vue'
     </div>
     <div class="box-x as gap2">
       <AsideFilters />
-      <div class="">
-        <div class="catalog__grid">
-          <div v-for="(product, key) in p.products.data" :key="key" class="box-y center gap-4">
+      <div class="w">
+        <div v-if="p.products.data.length > 0" class="catalog__grid">
+          <div
+            v-for="(product, key) in p.products.data"
+            :key="key"
+            class="box-y center catalog__item gap-4"
+          >
             <div class="box-x gap-2 content center">
               <div class="box-x relative h-67.5 max-h-67.5">
                 <ComponentImg
@@ -42,6 +47,10 @@ import AsideFilters from '@/components/asides/AsideFilters.vue'
               <IconShopping />
             </div>
           </div>
+        </div>
+        <div v-else class="box-x center w">
+          <!-- From Uiverse.io by mobinkakei -->
+          <LoaderComponent />
         </div>
       </div>
     </div>
