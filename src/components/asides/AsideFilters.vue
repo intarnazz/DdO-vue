@@ -1,11 +1,11 @@
 <script setup>
-import TagBoxComponent from '@/components/TagBoxComponent.vue'
+import TagsComponent from '@/components/TagsComponent.vue'
 import FiltersComponent from '@/components/FiltersComponent.vue'
 </script>
 
 <template>
   <aside class="filters box-y gap2">
-    <TagBoxComponent />
+    <TagsComponent />
     <FiltersComponent />
     <div class="flex"></div>
   </aside>
