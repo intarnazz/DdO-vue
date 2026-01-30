@@ -33,13 +33,11 @@ class Filter extends Rest {
 
   // Сохраняем фильтры в URL
   #saveToUrl(filters) {
-    const filtersParam = encodeURIComponent(JSON.stringify(filters))
-    // сохраняем как query-параметр — Vue Router позаботится о history.state
+    filters = Object.fromEntries(Object.entries(filters).filter(([_, value]) => value))
     router
       .replace({
         query: {
-          ...router.currentRoute.value.query,
-          filters: filtersParam,
+          ...filters,
         },
       })
       .catch(() => {})
@@ -47,12 +45,15 @@ class Filter extends Rest {
 
   // Загружаем фильтры из URL при старте
   #loadFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search)
-    const filtersParam = urlParams.get('filters')
-    if (filtersParam) {
+    let filters = new URLSearchParams(window.location.search)
+    filters = Object.fromEntries(filters.entries())
+
+    filters = Object.fromEntries(Object.entries(filters).filter(([_, value]) => value))
+
+    console.log(filters)
+    if (filters) {
       try {
-        const parsed = JSON.parse(decodeURIComponent(filtersParam))
-        Object.assign(this.#filters, parsed)
+        Object.assign(this.#filters, filters)
       } catch (e) {
         console.warn('Не удалось распарсить фильтры из URL', e)
       }

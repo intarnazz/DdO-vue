@@ -10,7 +10,7 @@ const pagingInfo = ref(null)
 const S_LIMIT = 7
 
 async function findFilter() {
-  const index = tags.value.findIndex((i) => i.id === filter.filters['tag'])
+  const index = tags.value.findIndex((i) => i.id == filter.filters['tag'])
   if (index == -1) {
     const res = await t.get(filter.filters['tag'])
     if (res.success) tags.value.unshift(res.data)
