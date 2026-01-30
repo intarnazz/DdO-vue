@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import IconRight from '@/components/icons/IconRight.vue'
+import { type } from '@/api/api'
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import IconRight from '@/components/icons/IconRight.vue'
     <IconRight />
     <RouterLink class="c-sub a" :to="{ name: 'home' }"> Каталог </RouterLink>
     <IconRight />
-    <p class="c-sub">входные двери</p>
+    <p class="c-sub">{{ type.value.visible_name }}</p>
     <div class="flex"></div>
   </div>
 </template>
