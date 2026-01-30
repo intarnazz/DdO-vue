@@ -23,7 +23,8 @@ class Filter extends Rest {
 
   set filters(value) {
     const key = Object.keys(value)
-    if (this.#filters[key] == value[key]) ((value = {}), (value[key] = null))
+    if (!value[key]) value[key] = null
+    else if (this.#filters[key] == value[key]) ((value = {}), (value[key] = null))
 
     Object.assign(this.#filters, value)
     this.#saveToUrl(this.#filters)
