@@ -1,12 +1,15 @@
 import { reactive, computed } from 'vue'
 import { product } from '@/api/api'
 import router from '@/router/router'
+import Rest from '../../web_services/rest'
 
-class Filter {
+class Filter extends Rest {
   #filters
   #filters_c
 
   constructor() {
+    super('filter')
+
     this.#filters = reactive({})
     this.#filters_c = computed(() => this.#filters)
 
