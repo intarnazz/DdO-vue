@@ -4,7 +4,7 @@ import FilterComponent from '@/components/FilterComponent.vue'
 </script>
 
 <template>
-  <div class="filter__list box-y">
+  <div v-if="type.value.filters" class="filter__list box-y">
     <FilterComponent :filter="filter" v-for="(filter, key) in type.value.filters" :key="key" />
   </div>
 </template>
