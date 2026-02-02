@@ -24,6 +24,9 @@ import ComponentLoader from '@/components/ComponentLoader.vue'
             v-for="(product, key) in p.products.data"
             :key="key"
             class="box-y center catalog__item gap-4"
+            :class="{
+              'opacity-50': !p.is_loading,
+            }"
           >
             <div class="box-x gap-2 content center">
               <div class="box-x relative h-67.5 max-h-67.5">
