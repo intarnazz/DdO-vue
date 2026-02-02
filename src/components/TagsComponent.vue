@@ -1,80 +1,43 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { tag as t, filter } from '@/api/api'
+import { filter as f, type as t } from '@/api/api'
+import { ref } from 'vue'
 import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
-import IconChevronLineUp from '@/components/icons/IconChevronLineUp.vue'
 
-const isLoading = ref(true)
-const tags = ref([])
-const pagingInfo = ref(null)
-const S_LIMIT = 7
+const props = defineProps(['filter'])
+const is_expand = ref(false)
 
-async function findFilter() {
-  const index = tags.value.findIndex((i) => i.id == filter.filters['tag'])
-  if (index == -1) {
-    const res = await t.get(filter.filters['tag'])
-    if (res.success) tags.value.unshift(res.data)
-  } else {
-    tags.value.unshift(...tags.value.splice(index, 1))
-  }
-  isLoading.value = false
+function send_active_tag_id(id) {
+  f.filters = { tag: String(id) }
 }
-
-async function init(limit = S_LIMIT, offset = 0) {
-  offset = pagingInfo.value?.offset || offset
-  isLoading.value = true
-  const res = await t.all({
-    limit: limit,
-    ingore: [...tags.value],
-  })
-  if (res.success)
-    (tags.value.push(...res.data.filter((i) => !tags.value.some((e) => e.id === i.id))),
-      (pagingInfo.value = res.pagingInfo))
-
-  if (offset === 0) {
-    await findFilter()
-  }
-}
-
-onMounted(async () => {
-  await init()
-})
 </script>
 
 <template>
   <div class="box-y filters__tags w-80.25 max-w-80.25 py-2 bgc-sub br">
-    <button
-      @click="() => (filter.filters = { tag: tag.id })"
-      class="flex py-2 px-4 filters__tag"
-      :class="{
-        filters__tags_active: tag.id == filter.filters['tag'],
-      }"
-      v-for="(tag, key) in tags"
-      :key="key"
-    >
-      {{ tag.name }}
-    </button>
-    <button
-      v-if="pagingInfo?.totalCount > pagingInfo?.limit + pagingInfo?.offset"
-      @click="init(100, pagingInfo.limit)"
-      class="flex py-2 px-4 c-sub"
-    >
-      <IconKeyboardArrowDown />
-      <p>подробнее</p>
-    </button>
+    <template v-for="(tag, key) in t.value.tags" :key="key">
+      <button
+        @click="send_active_tag_id(tag.id)"
+        class="flex py-2 px-4 filters__tag"
+        :class="{
+          filters__tags_active: f.filters['tag'] == tag.id,
+        }"
+        v-if="key < 7 || is_expand || tag.is_visible || f.filters['tag'] == tag.id"
+      >
+        {{ tag.name }}
+      </button>
+    </template>
 
-    <button
-      v-else
-      @click="
-        (findFilter(),
-        (tags.length = S_LIMIT),
-        (pagingInfo.limit = S_LIMIT),
-        (pagingInfo.offset = 0))
-      "
-      class="flex py-2 px-4 c-sub"
-    >
-      <IconChevronLineUp />
-      <p>свернуть</p>
+    <button @click="() => (is_expand = !is_expand)" class="box-x px-4 py-2 pt-4 gap-2">
+      <div
+        :class="{
+          expand: is_expand,
+          expand_off: !is_expand,
+        }"
+      >
+        <IconKeyboardArrowDown />
+      </div>
+      <p v-if="is_expand">свернуть</p>
+      <p v-else>подробнее</p>
+      <div class="flex"></div>
     </button>
   </div>
 </template>
@@ -91,6 +54,33 @@ onMounted(async () => {
       font-weight: 700
       animation: active .225s forwards linear
       margin-left: -5px
+
+.expand
+    animation: expand .125s forwards ease-in
+
+.expand_off
+  animation: expand_off .125s forwards ease-in
+
+@keyframes expand_off
+  0%
+    box-shadow: 0 0 0px 0 $mark
+    transform: rotate(180deg);
+  50%
+    box-shadow: 0 0 10px 0 $mark
+  100%
+    transform: rotate(0deg);
+    box-shadow: 0 0 0px 0 $mark
+
+@keyframes expand
+  0%
+    transform: rotate(0deg);
+    box-shadow: 0 0 0px 0 $mark
+  50%
+    box-shadow: 0 0 10px 0 $mark
+  100%
+    box-shadow: 0 0 0px 0 $mark
+    transform: rotate(-180deg);
+
 
 @keyframes active
   0%
