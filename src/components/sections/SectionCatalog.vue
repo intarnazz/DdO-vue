@@ -6,7 +6,7 @@ import IconBarChart from '@/components/icons/IconBarChart.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
-import LoaderComponent from '@/components/LoaderComponent.vue'
+import ComponentLoader from '@/components/ComponentLoader.vue'
 </script>
 
 <template>
@@ -50,7 +50,7 @@ import LoaderComponent from '@/components/LoaderComponent.vue'
         </div>
         <div v-else class="box-x center w">
           <!-- From Uiverse.io by mobinkakei -->
-          <LoaderComponent />
+          <ComponentLoader />
         </div>
       </div>
     </div>
