@@ -29,15 +29,15 @@ function send_active_filters_ids(content) {
 
 <template>
   <div v-if="filter" class="filter pt-4 pb-2 box-y gap-2">
-    <button @click="() => (is_expand = !is_expand)" class="box-x px-4 gap-2">
+    <button @click="() => (is_expand = !is_expand)" class="box-x px-4 gap-2 filter__expand-button">
       <div
         :class="{
           expand: is_expand,
           expand_off: !is_expand,
         }"
-        class="w-5.5 center"
+        class="filter__expand-button-icon-wrapper w-5.5 h-5.5 center"
       >
-        <IconKeyboardArrowUp />
+        <IconKeyboardArrowUp class="filter__expand-button-icon" />
       </div>
       <h3>{{ filter.name }}</h3>
       <div class="flex"></div>
@@ -82,6 +82,11 @@ function send_active_filters_ids(content) {
 .filter
   border: 1px solid $sub-90
   border-bottom: none
+  &__expand-button-icon-wrapper
+    border-radius: 100px
+  &__expand-button
+    &:hover
+      color: $mark
   &__checkbox
     border: 1px solid $sub
     border-radius: 5px
@@ -114,22 +119,21 @@ function send_active_filters_ids(content) {
 
 @keyframes expand_off
   0%
-    box-shadow: 0 0 0px 0 $mark
+    opacity: 100%
     transform: rotate(180deg);
   50%
-    box-shadow: 0 0 10px 0 $mark
+    opacity: 0%
   100%
     transform: rotate(0deg);
-    box-shadow: 0 0 0px 0 $mark
+    opacity: 100%
 
 @keyframes expand
   0%
     transform: rotate(0deg);
-    box-shadow: 0 0 0px 0 $mark
   50%
-    box-shadow: 0 0 10px 0 $mark
+    opacity: 0%
   100%
-    box-shadow: 0 0 0px 0 $mark
+    opacity: 100%
     transform: rotate(-180deg);
 
 

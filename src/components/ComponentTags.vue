@@ -12,7 +12,7 @@ function send_active_tag_id(id) {
 </script>
 
 <template>
-  <div class="box-y filters__tags w-80.25 max-w-80.25 py-2 bgc-sub br">
+  <div class="box-y filters__tags tags w-80.25 max-w-80.25 py-2 bgc-sub br">
     <template v-for="(tag, key) in t.value.tags" :key="key">
       <button
         @click="send_active_tag_id(tag.id)"
@@ -26,7 +26,10 @@ function send_active_tag_id(id) {
       </button>
     </template>
 
-    <button @click="() => (is_expand = !is_expand)" class="box-x px-4 py-2 pt-4 gap-2">
+    <button
+      @click="() => (is_expand = !is_expand)"
+      class="tags__button-expand box-x px-4 py-2 pt-4 gap-2"
+    >
       <div
         :class="{
           expand: is_expand,
@@ -44,6 +47,14 @@ function send_active_tag_id(id) {
 
 <style lang="sass" scoped>
 //
+.tags
+  &__button-expand
+    font-weight: 400
+    color: $sub
+    &:hover
+      font-weight: 400
+      color: $mark
+
 .filters
   &__tag
     &:hover
@@ -55,31 +66,31 @@ function send_active_tag_id(id) {
       animation: active .225s forwards linear
       margin-left: -5px
 
-.expand
-    animation: expand .125s forwards ease-in
+// .expand
+//     animation: expand .125s forwards ease-in
 
-.expand_off
-  animation: expand_off .125s forwards ease-in
+// .expand_off
+//   animation: expand_off .125s forwards ease-in
 
-@keyframes expand_off
-  0%
-    box-shadow: 0 0 0px 0 $mark
-    transform: rotate(180deg);
-  50%
-    box-shadow: 0 0 10px 0 $mark
-  100%
-    transform: rotate(0deg);
-    box-shadow: 0 0 0px 0 $mark
+// @keyframes expand_off
+//   0%
+//     opacity: 100%
+//     transform: rotate(180deg);
+//   50%
+//     opacity: 0%
+//   100%
+//     transform: rotate(0deg);
+//     opacity: 100%
 
-@keyframes expand
-  0%
-    transform: rotate(0deg);
-    box-shadow: 0 0 0px 0 $mark
-  50%
-    box-shadow: 0 0 10px 0 $mark
-  100%
-    box-shadow: 0 0 0px 0 $mark
-    transform: rotate(-180deg);
+// @keyframes expand
+//   0%
+//     transform: rotate(0deg);
+//   50%
+//     opacity: 0%
+//   100%
+//     opacity: 100%
+//     transform: rotate(-180deg);
+
 
 
 @keyframes active
