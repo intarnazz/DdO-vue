@@ -8,7 +8,10 @@ const props = defineProps(['filter'])
 const active_filters_ids = ref([])
 const is_expand = ref(null)
 
+const MIN = 4
+
 const filter = computed(() => props.filter || false)
+const is_expand_validation = computed(() => MIN < filter.value.content.length)
 
 onMounted(() => {
   if (f.filters[filter.value.type]) {
@@ -30,12 +33,25 @@ function send_active_filters_ids(content) {
 
 <template>
   <div v-if="filter" class="filter pt-4 pb-2 box-y gap-2">
-    <button @click="() => (is_expand = !is_expand)" class="box-x px-4 gap-2 filter__expand-button">
+    <button
+      @click="
+        () => {
+          if (is_expand_validation) is_expand = !is_expand
+        }
+      "
+      class="box-x px-4 gap-2 filter__expand-button"
+      :class="{
+        'filter__expand-button_hover': is_expand_validation,
+      }"
+      type="button"
+      :disabled="!is_expand_validation"
+    >
       <div
         :class="{
           expand: is_expand,
           expand_off: is_expand === false,
         }"
+        v-if="is_expand_validation"
         class="filter__expand-button-icon-wrapper w-5.5 h-5.5 center"
       >
         <IconKeyboardArrowUp class="filter__expand-button-icon" />
@@ -47,7 +63,7 @@ function send_active_filters_ids(content) {
       <template v-for="(content, key) in filter.content" :key="key">
         <ComponentFilter
           v-if="
-            key < 4 || is_expand || content.is_visible || active_filters_ids.includes(content.id)
+            key < MIN || is_expand || content.is_visible || active_filters_ids.includes(content.id)
           "
           :content="content"
           :active_filters_ids="active_filters_ids"
@@ -66,8 +82,9 @@ function send_active_filters_ids(content) {
   &__expand-button-icon-wrapper
     border-radius: 100px
   &__expand-button
-    &:hover
-      color: $mark
+    &_hover
+      &:hover
+        color: $mark
   &:first-child
     border-top-left-radius: 5px
     border-top-right-radius: 5px
