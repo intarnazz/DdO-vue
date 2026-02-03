@@ -2,10 +2,11 @@
 import { filter as f } from '@/api/api'
 import { computed, onMounted, ref } from 'vue'
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
+import ComponentFilter from '@/components/ComponentFilter.vue'
 
 const props = defineProps(['filter'])
 const active_filters_ids = ref([])
-const is_expand = ref(false)
+const is_expand = ref(null)
 
 const filter = computed(() => props.filter || false)
 
@@ -33,7 +34,7 @@ function send_active_filters_ids(content) {
       <div
         :class="{
           expand: is_expand,
-          expand_off: !is_expand,
+          expand_off: is_expand === false,
         }"
         class="filter__expand-button-icon-wrapper w-5.5 h-5.5 center"
       >
@@ -44,34 +45,14 @@ function send_active_filters_ids(content) {
     </button>
     <div class="box-y">
       <template v-for="(content, key) in filter.content" :key="key">
-        <botton
+        <ComponentFilter
           v-if="
             key < 4 || is_expand || content.is_visible || active_filters_ids.includes(content.id)
           "
-          @click="send_active_filters_ids(content)"
-          class="filter__button py-2 px-4 box-x gap-2"
-          :class="{ active: active_filters_ids.includes(content.id) }"
-        >
-          <div
-            :class="{
-              active: active_filters_ids.includes(content.id),
-              off: !active_filters_ids.includes(content.id),
-            }"
-            class="filter__checkbox w-5.5 h-5.5"
-          >
-            <img
-              :class="{
-                hidden: !active_filters_ids.includes(content.id),
-              }"
-              src="@/assets/icons/check_small.svg"
-              alt=""
-            />
-          </div>
-          <p>
-            {{ content.name }}
-          </p>
-          <div class="flex"></div>
-        </botton>
+          :content="content"
+          :active_filters_ids="active_filters_ids"
+          @send_active_filters_ids="(content) => send_active_filters_ids(content)"
+        />
       </template>
     </div>
   </div>
@@ -87,13 +68,6 @@ function send_active_filters_ids(content) {
   &__expand-button
     &:hover
       color: $mark
-  &__checkbox
-    border: 1px solid $sub
-    border-radius: 5px
-  &__button
-    cursor: pointer
-    &:hover
-      background-color: $sub-95
   &:first-child
     border-top-left-radius: 5px
     border-top-right-radius: 5px
@@ -101,15 +75,6 @@ function send_active_filters_ids(content) {
     border-bottom: 1px solid $sub-90
     border-bottom-left-radius: 5px
     border-bottom-right-radius: 5px
-
-
-.active
-  &.filter
-    &__checkbox
-      animation: active .125s forwards linear
-
-.off
-  animation: off .125s forwards linear
 
 .expand
     animation: expand .125s forwards ease-in
@@ -135,30 +100,4 @@ function send_active_filters_ids(content) {
   100%
     opacity: 100%
     transform: rotate(-180deg);
-
-
-
-@keyframes active
-  0%
-    border: 1px solid $sub
-    border-radius: 5px
-    box-shadow: 0 0 0px 0 $main
-    margin-bottom: -1rem
-  100%
-    background-color: $main
-    box-shadow: 0 0 10px 0 $main
-    border: none
-    margin-bottom: 0rem
-
-@keyframes off
-  0%
-    background-color: $main
-    box-shadow: 0 0 10px 0 $main
-    border: none
-    margin-bottom: -1rem
-  100%
-    border: 1px solid $sub
-    border-radius: 5px
-    box-shadow: 0 0 0px 0 $main
-    margin-bottom: 0rem
 </style>

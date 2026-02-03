@@ -66,31 +66,11 @@ function send_active_tag_id(id) {
       animation: active .225s forwards linear
       margin-left: -5px
 
-// .expand
-//     animation: expand .125s forwards ease-in
+.expand
+  transform: rotate(-180deg);
 
-// .expand_off
-//   animation: expand_off .125s forwards ease-in
-
-// @keyframes expand_off
-//   0%
-//     opacity: 100%
-//     transform: rotate(180deg);
-//   50%
-//     opacity: 0%
-//   100%
-//     transform: rotate(0deg);
-//     opacity: 100%
-
-// @keyframes expand
-//   0%
-//     transform: rotate(0deg);
-//   50%
-//     opacity: 0%
-//   100%
-//     opacity: 100%
-//     transform: rotate(-180deg);
-
+.expand_off
+  transform: rotate(0deg);
 
 
 @keyframes active

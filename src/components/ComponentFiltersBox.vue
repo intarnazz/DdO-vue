@@ -1,11 +1,11 @@
 <script setup>
 import { type } from '@/api/api'
-import ComponentFilter from '@/components/ComponentFilter.vue'
+import ComponentFilters from '@/components/ComponentFilters.vue'
 </script>
 
 <template>
   <div v-if="type.value.filters" class="filter__list box-y">
-    <ComponentFilter :filter="filter" v-for="(filter, key) in type.value.filters" :key="key" />
+    <ComponentFilters :filter="filter" v-for="(filter, key) in type.value.filters" :key="key" />
   </div>
 </template>
 
