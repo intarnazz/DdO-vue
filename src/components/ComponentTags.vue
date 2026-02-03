@@ -1,10 +1,14 @@
 <script setup>
 import { filter as f, type as t } from '@/api/api'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
 
 const props = defineProps(['filter'])
 const is_expand = ref(false)
+
+const MIN = 7
+
+const is_expand_validation = computed(() => MIN < t.value.tags.length)
 
 function send_active_tag_id(id) {
   f.filters = { tag: String(id) }
@@ -20,13 +24,14 @@ function send_active_tag_id(id) {
         :class="{
           filters__tags_active: f.filters['tag'] == tag.id,
         }"
-        v-if="key < 7 || is_expand || tag.is_visible || f.filters['tag'] == tag.id"
+        v-if="key < MIN || is_expand || tag.is_visible || f.filters['tag'] == tag.id"
       >
         {{ tag.name }}
       </button>
     </template>
 
     <button
+      v-if="is_expand_validation"
       @click="() => (is_expand = !is_expand)"
       class="tags__button-expand box-x px-4 py-2 pt-4 gap-2"
     >
