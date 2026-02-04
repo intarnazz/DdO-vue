@@ -10,7 +10,11 @@ const content = computed(() => props.content || {})
 const active_filters_ids = computed(() => props.active_filters_ids || [])
 
 const is_active = computed(() =>
-  __is_active.value === null ? null : active_filters_ids.value.includes(content.value.id),
+  active_filters_ids.value.includes(content.value.id)
+    ? true
+    : __is_active.value === null
+      ? null
+      : false,
 )
 </script>
 
