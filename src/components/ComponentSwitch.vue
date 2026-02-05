@@ -5,8 +5,9 @@
  * It uses LayoutResize to measure tab widths and computes positions for the active bar.
  */
 
+import { filter } from '@/api/api'
 import LayoutResize from '@/layout/LayoutResize.vue'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 /**
  * Constant gap size between tabs in pixels.
@@ -14,11 +15,19 @@ import { computed, ref } from 'vue'
 const GAP: number = 16
 
 /**
+ * Interface for input argument items.
+ */
+interface ArgItem {
+  /** The display text of the item. */
+  text: string
+  /** The type of the item. */
+  type: string
+}
+
+/**
  * Interface for individual switch items.
  */
-interface SwitchItem {
-  /** The display text of the switch item. */
-  text: string
+interface SwitchItem extends ArgItem {
   /** The measured width of the switch item. */
   width: number
 }
@@ -27,39 +36,42 @@ interface SwitchItem {
  * Defines the props for this component.
  */
 const props = defineProps<{
-  /** Array of strings to generate switch items from. */
-  arguments: string[]
+  /** Array of objects to generate switch items from. */
+  arguments: ArgItem[]
 }>()
 
-/**
- * Defines the events emitted by this component.
- */
-const emit = defineEmits<{
-  /**
-   * Emitted when a switch item is selected.
-   * @param item The selected SwitchItem.
-   */
-  selected: [item: SwitchItem]
-}>()
+function init(): void {
+  // Попытаться найти индекс элемента, у которого type совпадает с filter.order
+  const orderType = typeof filter.order === 'string' ? filter.order : String(filter.order)
+  const idx = content.value.findIndex((item) => item.type === orderType)
+
+  // Если найден — установить active на этот индекс, иначе оставить 0
+  active.value = idx >= 0 ? idx : 0
+}
+
+onMounted(() => {
+  init()
+})
 
 /**
- * Creates a SwitchItem from a given text.
- * @param text The text for the switch item.
+ * Creates a SwitchItem from a given ArgItem.
+ * @param item The input ArgItem.
  * @returns A new SwitchItem object.
  */
-function switch_element(text: string): SwitchItem {
+function switch_element(item: ArgItem): SwitchItem {
   return {
-    text: text,
+    text: item.text,
+    type: item.type,
     width: 0,
   }
 }
 
 /**
- * Maps an array of strings to an array of SwitchItems.
- * @param arr The array of texts.
+ * Maps an array of ArgItems to an array of SwitchItems.
+ * @param arr The array of ArgItems.
  * @returns An array of SwitchItems.
  */
-function switchs(arr: string[]): SwitchItem[] {
+function switchs(arr: ArgItem[]): SwitchItem[] {
   return arr.map(switch_element)
 }
 
@@ -112,7 +124,7 @@ function widthChanged(value: SwitchItem, width: number) {
  */
 function setActive(key: number) {
   active.value = key
-  emit('selected', content.value[key])
+  filter.order = content.value[key].type
 }
 </script>
 

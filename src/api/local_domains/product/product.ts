@@ -1,7 +1,8 @@
-import { reactive, computed } from 'vue'
+import { reactive, computed, watch } from 'vue'
 import type { ComputedRef } from 'vue'
 import type { PostBody, GetOptions } from '../../web_services/request/request'
 import Rest from '../../web_services/rest'
+import filter from '../filter/filter'
 
 /**
  * Interface for the reactive data structure.
@@ -31,6 +32,14 @@ class Product extends Rest {
     this.data_c = computed(() => this.data)
 
     this.all()
+
+    watch(
+      () => (filter as any).value,
+      () => {
+        this.all()
+      },
+      { deep: true },
+    )
   }
 
   /**
@@ -41,7 +50,11 @@ class Product extends Rest {
    */
   async all<T = Record<string, any>>(data?: GetOptions): Promise<T> {
     this.data.is_loading = false
-    const res = await super.all<T>({ limit: 48, ...data }) // Merge default limit with provided data if any
+    const res = await super.all<T>({
+      limit: 48,
+      ...data,
+      ...filter.value,
+    }) // Merge default limit with provided data if any
     Object.assign(this.data.products, res)
     this.data.is_loading = true
     return res

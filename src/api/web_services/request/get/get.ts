@@ -1,4 +1,4 @@
-import { user, filter } from '../../../api'
+import { user } from '../../../api'
 
 /**
  * Базовый URL API.
@@ -60,7 +60,7 @@ export interface GetOptions {
    *   { isFeatured: true }
    * ]
    */
-  filters?: Record<string, string | number | boolean>[]
+  filters?: Record<string, string | null>
 
   /**
    * Строка поиска.
@@ -69,6 +69,16 @@ export interface GetOptions {
    * чтобы безопасно передаваться в заголовках.
    */
   search?: string
+
+  /**
+   * Поле сортировки
+   */
+  order?: string
+
+  /**
+   * Атрибут сортировки
+   */
+  desc?: string
 }
 
 // ============================================================================
@@ -109,7 +119,9 @@ export async function get(url: string, options: GetOptions = {}): Promise<Respon
       limit: String(options.limit ?? 5),
       offset: String(options.offset ?? 0),
       names: String(options.names ?? ''),
-      filters: JSON.stringify(filter.filters ?? {}),
+      filters: JSON.stringify(options.filters ?? {}),
+      order: String(options.order ?? ''),
+      desc: String(options.desc ?? ''),
       search,
       Authorization: `Bearer ${user.token ?? ''}`,
     },

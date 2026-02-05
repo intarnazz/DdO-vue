@@ -1,5 +1,5 @@
 <script setup>
-import { product as p, type } from '@/api/api'
+import { filter, product as p, type } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import IconBarChart from '@/components/icons/IconBarChart.vue'
@@ -21,8 +21,16 @@ import ComponentSwitch from '@/components/ComponentSwitch.vue'
       <AsideFilters />
       <div class="w box-y gap-8 justify-start">
         <ComponentSwitch
-          @selected="(e) => console.log(e)"
-          :arguments="['text', 'long text', 'lorem', 'loremloremlorem']"
+          :arguments="[
+            {
+              text: 'Двери',
+              type: '',
+            },
+            {
+              text: 'Модели',
+              type: 'variant_id',
+            },
+          ]"
         />
         <div v-if="p.products.data.length > 0" class="catalog__grid">
           <div
