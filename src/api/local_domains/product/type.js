@@ -8,18 +8,18 @@ class Type extends Rest {
   constructor() {
     super('type')
 
-    this.#data = reactive({})
+    this.#data = reactive({
+      type: {},
+    })
     this.#data_c = computed(() => this.#data)
   }
 
   async init(type) {
-    console.log('__init__')
     const res = await this.all({
       names: [type],
     })
     if (res.success) {
       this.value = res.data[0]
-      console.log('success')
       await this.#__init_get__()
     }
   }
@@ -29,7 +29,6 @@ class Type extends Rest {
     const res = await this.get(this.value.id)
     if (res.success) {
       this.value = res.data
-      console.log(this.value)
     }
   }
 
