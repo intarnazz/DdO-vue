@@ -7,6 +7,7 @@ import IconShopping from '@/components/icons/IconShopping.vue'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
+import ComponentSwitch from '@/components/ComponentSwitch.vue'
 </script>
 
 <template>
@@ -18,7 +19,11 @@ import ComponentLoader from '@/components/ComponentLoader.vue'
     </div>
     <div class="box-x as gap2">
       <AsideFilters />
-      <div class="w">
+      <div class="w box-y gap-8 justify-start">
+        <ComponentSwitch
+          @selected="(e) => console.log(e)"
+          :arguments="['text', 'long text', 'lorem', 'loremloremlorem']"
+        />
         <div v-if="p.products.data.length > 0" class="catalog__grid">
           <div
             v-for="(product, key) in p.products.data"
