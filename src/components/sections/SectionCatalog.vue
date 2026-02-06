@@ -23,12 +23,20 @@ import ComponentSwitch from '@/components/ComponentSwitch.vue'
         <ComponentSwitch
           :arguments="[
             {
-              text: 'Двери',
+              text: 'новинки',
               type: '',
             },
             {
-              text: 'Модели',
-              type: 'variant_id',
+              text: 'самые популярные',
+              type: 'views',
+            },
+            {
+              text: 'цена',
+              type: 'price',
+            },
+            {
+              text: 'скидки',
+              type: 'discount',
             },
           ]"
         />
