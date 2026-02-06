@@ -6,8 +6,9 @@
  */
 
 import { filter } from '@/api/api'
-import LayoutResize from '@/layout/LayoutResize.vue'
 import { computed, onMounted, ref } from 'vue'
+import LayoutResize from '@/layout/LayoutResize.vue'
+import ButtonSwitch from '@/components/buttons/ButtonSwitch.vue'
 
 /**
  * Constant gap size between tabs in pixels.
@@ -22,6 +23,8 @@ interface ArgItem {
   text: string
   /** The type of the item. */
   type: string
+  desc: string
+  turn: boolean
 }
 
 /**
@@ -62,6 +65,8 @@ function switch_element(item: ArgItem): SwitchItem {
   return {
     text: item.text,
     type: item.type,
+    desc: item.desc || '',
+    turn: item.turn || false,
     width: 0,
   }
 }
@@ -125,6 +130,7 @@ function widthChanged(value: SwitchItem, width: number) {
 function setActive(key: number) {
   active.value = key
   filter.order = content.value[key].type
+  filter.desc = content.value[key].desc
 }
 </script>
 
@@ -133,18 +139,17 @@ function setActive(key: number) {
     <div class="box-y">
       <div class="box-x switch-nav__button-wrapper">
         <LayoutResize
-          v-for="(value, key) in content"
+          v-for="(button, key) in content"
           :key="key"
           :class="{ 'active-tab': active === key }"
-          @click="setActive(key)"
-          @widthChanged="(width) => widthChanged(value, width)"
+          @widthChanged="(width) => widthChanged(button, width)"
         >
-          <button>{{ value.text }}</button>
+          <ButtonSwitch @click="setActive(key)" :active="active" :button="button" :index="key" />
         </LayoutResize>
       </div>
       <div class="box-x ative-bar">
         <div :style="`flex: 0 0 ${left}px;`" class="ative-bar__left"></div>
-        <div :style="`flex: 0 0 ${switch_width}px;`" class="ative-bar__switch h-1.25"></div>
+        <div :style="`flex: 0 0 ${switch_width}px;`" class="ative-bar__switch h-0.75"></div>
         <div :style="`flex: 0 0 ${right}px;`" class="ative-bar__right"></div>
       </div>
     </div>

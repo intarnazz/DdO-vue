@@ -1,5 +1,5 @@
 <script setup>
-import { filter, product as p, type } from '@/api/api'
+import { product as p, type } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import IconBarChart from '@/components/icons/IconBarChart.vue'
@@ -33,10 +33,16 @@ import ComponentSwitch from '@/components/ComponentSwitch.vue'
             {
               text: 'цена',
               type: 'price',
+              desc: 'desc',
+              turn: true,
             },
             {
               text: 'скидки',
               type: 'discount',
+            },
+            {
+              text: 'модель',
+              type: 'variant_id',
             },
           ]"
         />
