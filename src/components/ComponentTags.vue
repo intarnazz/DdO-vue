@@ -26,7 +26,9 @@ function send_active_tag_id(id) {
         }"
         v-if="key < MIN || is_expand || tag.is_visible || f.filters['tag'] == tag.id"
       >
-        {{ tag.name }}
+        <p>
+          {{ tag.name }}
+        </p>
       </button>
     </template>
 

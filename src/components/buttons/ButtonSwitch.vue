@@ -50,7 +50,9 @@ function emit_click() {
       :fill="fill"
       class="-mb-0.75"
     />
-    {{ button.text }}
+    <p>
+      {{ button.text }}
+    </p>
   </button>
 </template>
 
