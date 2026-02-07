@@ -1,8 +1,9 @@
 <script setup>
 import { filter as f } from '@/api/api'
 import { computed, onMounted, ref } from 'vue'
-import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
-import ComponentFilter from '@/components/ComponentFilter.vue'
+
+import FilterList from '@/components/asides/filters/FilterList.vue'
+import FilterColors from '@/components/asides/filters/FilterColors.vue'
 
 const props = defineProps(['filter'])
 const active_filters_ids = ref([])
@@ -11,7 +12,10 @@ const is_expand = ref(null)
 const MIN = 4
 
 const filter = computed(() => props.filter || false)
-const is_expand_validation = computed(() => MIN < filter.value.content.length)
+
+const is_color = computed(() => filter.value.type === 'color')
+
+const is_expand_validation = computed(() => !is_color.value && MIN < filter.value.content.length)
 
 onMounted(() => {
   if (f.filters[filter.value.type]) {
@@ -29,92 +33,36 @@ function send_active_filters_ids(content) {
   }
   f.filters = { [filter.value.type]: String(active_filters_ids.value) }
 }
+
+function expand_change() {
+  is_expand.value = !is_expand.value
+}
 </script>
 
 <template>
-  <div v-if="filter" class="filter pt-4 pb-2 box-y gap-2">
-    <button
-      @click="
-        () => {
-          if (is_expand_validation) is_expand = !is_expand
-        }
-      "
-      class="box-x px-4 gap-2 filter__expand-button"
-      :class="{
-        'filter__expand-button_hover': is_expand_validation,
-      }"
-      type="button"
-      :disabled="!is_expand_validation"
-    >
-      <div
-        :class="{
-          expand: is_expand,
-          expand_off: is_expand === false,
-        }"
-        v-if="is_expand_validation"
-        class="filter__expand-button-icon-wrapper w-5.5 h-5.5 center"
-      >
-        <IconKeyboardArrowUp class="filter__expand-button-icon" />
-      </div>
-      <h3>{{ filter.name }}</h3>
-      <div class="flex"></div>
-    </button>
-    <div class="box-y">
-      <template v-for="(content, key) in filter.content" :key="key">
-        <ComponentFilter
-          v-if="
-            key < MIN || is_expand || content.is_visible || active_filters_ids.includes(content.id)
-          "
-          :content="content"
-          :active_filters_ids="active_filters_ids"
-          @send_active_filters_ids="(content) => send_active_filters_ids(content)"
-        />
-      </template>
-    </div>
-  </div>
+  <FilterColors
+    v-if="is_color"
+    @expand_change="expand_change"
+    @send_active_filters_ids="send_active_filters_ids"
+    :MIN="MIN"
+    :is_expand_validation="is_expand_validation"
+    :is_expand="is_expand"
+    :filter="filter"
+    :active_filters_ids="active_filters_ids"
+  />
+
+  <FilterList
+    v-else
+    @expand_change="expand_change"
+    @send_active_filters_ids="send_active_filters_ids"
+    :MIN="MIN"
+    :is_expand_validation="is_expand_validation"
+    :is_expand="is_expand"
+    :filter="filter"
+    :active_filters_ids="active_filters_ids"
+  />
 </template>
 
 <style lang="sass" scoped>
 //
-.filter
-  border: 1px solid $sub-90
-  border-bottom: none
-  &__expand-button-icon-wrapper
-    border-radius: 100px
-  &__expand-button
-    &_hover
-      &:hover
-        color: $mark
-  &:first-child
-    border-top-left-radius: 5px
-    border-top-right-radius: 5px
-  &:last-child
-    border-bottom: 1px solid $sub-90
-    border-bottom-left-radius: 5px
-    border-bottom-right-radius: 5px
-
-.expand
-    animation: expand .125s forwards ease-in
-
-.expand_off
-  animation: expand_off .125s forwards ease-in
-
-@keyframes expand_off
-  0%
-    opacity: 100%
-    transform: rotate(180deg);
-  50%
-    opacity: 0%
-  100%
-    transform: rotate(0deg);
-    opacity: 100%
-
-@keyframes expand
-  0%
-    transform: rotate(0deg);
-  50%
-    opacity: 0%
-  100%
-    opacity: 100%
-    transform: rotate(-180deg);
 </style>
