@@ -26,7 +26,7 @@ function send_active_filters_ids(content) {
   <div class="filter pt-4 pb-2 box-y gap-2">
     <button
       @click="expand_change"
-      class="box-x px-4 gap-2 filter__expand-button"
+      class="filter__title box-x px-4 gap-2 filter__expand-button"
       :class="{
         'filter__expand-button_hover': props.is_expand_validation,
       }"
@@ -43,7 +43,10 @@ function send_active_filters_ids(content) {
       >
         <IconKeyboardArrowUp class="filter__expand-button-icon" />
       </div>
-      <h3>{{ props.filter.name }}</h3>
+      <div class="box-x gap-4">
+        <h3>{{ props.filter.name }}</h3>
+        <p>подробнее</p>
+      </div>
       <div class="flex"></div>
     </button>
     <div class="box-y">
@@ -69,6 +72,11 @@ function send_active_filters_ids(content) {
 .filter
   border: 1px solid $sub-90
   border-bottom: none
+  &__title
+    & p
+      color: $sub
+      text-decoration: underline
+      text-decoration-color: $main
   &__expand-button-icon-wrapper
     border-radius: 100px
   &__expand-button

@@ -18,6 +18,7 @@ interface Props {
      * The name of the filter to display.
      */
     name: string
+    description: string
   }
 }
 
@@ -37,6 +38,7 @@ function send_active_filters_ids() {
 
 <template>
   <button
+    :title="content.description"
     @click="send_active_filters_ids"
     class="filter__button py-2 px-4 box-x gap-2"
     :class="{ active: props.is_active }"
