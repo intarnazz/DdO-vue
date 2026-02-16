@@ -1,7 +1,6 @@
 <script setup>
 import { filter as f } from '@/api/api'
 import { computed, onMounted, ref } from 'vue'
-
 import FilterList from '@/components/asides/filters/FilterList.vue'
 import FilterColors from '@/components/asides/filters/FilterColors.vue'
 

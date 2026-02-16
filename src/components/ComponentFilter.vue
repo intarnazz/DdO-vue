@@ -33,6 +33,8 @@ function send_active_filters_ids() {
     :is_active="is_active"
   />
 
+
+
   <ButtonFilterCheckBox
     v-else
     @send_active_filters_ids="send_active_filters_ids"

@@ -39,7 +39,7 @@ function send_active_filters_ids(content) {
       <div class="flex"></div>
     </button>
     <div class="box-x px-4">
-      <div class="filter__grid gap-4">
+      <div class="filter__grid py-2 gap-4">
         <template v-for="(content, key) in props.filter.content" :key="key">
           <ComponentFilter
             :is_color="true"

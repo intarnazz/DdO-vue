@@ -1,6 +1,8 @@
 <script setup>
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import ComponentFilter from '@/components/ComponentFilter.vue'
+import RangePrice from '@/components/forms/inputs/randes/RangePrice.vue'
+import { computed } from 'vue'
 
 const props = defineProps([
   'is_expand_validation',
@@ -12,6 +14,10 @@ const props = defineProps([
 const emit = defineEmits(['expand_change', 'send_active_filters_ids'])
 
 const MIN = props.MIN
+
+console.log(props.filter)
+
+const is_price = computed(() => props.filter.type === 'price' || false)
 
 function expand_change() {
   emit('expand_change')
@@ -50,18 +56,31 @@ function send_active_filters_ids(content) {
       <div class="flex"></div>
     </button>
     <div class="box-y">
-      <template v-for="(content, key) in props.filter.content" :key="key">
-        <ComponentFilter
-          v-if="
-            key < MIN ||
-            props.is_expand ||
-            content.is_visible ||
-            props.active_filters_ids.includes(content.id)
-          "
-          :content="content"
-          :active_filters_ids="props.active_filters_ids"
-          @send_active_filters_ids="send_active_filters_ids"
-        />
+      <RangePrice
+        v-if="is_price"
+        @expand_change="expand_change"
+        @send_active_filters_ids="send_active_filters_ids"
+        :MIN="MIN"
+        :is_expand_validation="is_expand_validation"
+        :is_expand="is_expand"
+        :filter="filter"
+        :active_filters_ids="active_filters_ids"
+      />
+
+      <template v-else>
+        <template v-for="(content, key) in props.filter.content" :key="key">
+          <ComponentFilter
+            v-if="
+              key < MIN ||
+              props.is_expand ||
+              content.is_visible ||
+              props.active_filters_ids.includes(content.id)
+            "
+            :content="content"
+            :active_filters_ids="props.active_filters_ids"
+            @send_active_filters_ids="send_active_filters_ids"
+          />
+        </template>
       </template>
     </div>
   </div>
