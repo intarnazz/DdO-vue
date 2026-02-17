@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { product, filter } from '@/api/api'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { price } from '@/utilte/utilte'
 import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
 
@@ -28,6 +28,10 @@ const min = computed(() => roundUp(_min.value))
 const _max = computed(() => product.products?.meta.price.max ?? 0)
 const max = computed(() => roundUp(_max.value))
 
+function _range_init() {
+  return roundUp(Number(filter.filters['price-max'])) || max.value
+}
+
 /**
  * Текущее выбранное значение максимальной цены (ползунок).
  *
@@ -35,7 +39,7 @@ const max = computed(() => roundUp(_max.value))
  *
  * @type {Ref<number>}
  */
-const _range = ref(roundUp(Number(filter.filters['price-max'])) || max.value)
+const _range = ref(_range_init())
 const range = computed(() => (_range.value != max.value ? String(_range.value) : null))
 
 /**
@@ -49,6 +53,11 @@ function rangeChange() {
     'price-max': range.value,
   }
 }
+
+watch(
+  () => filter.filters['price-max'],
+  () => (_range.value = _range_init()),
+)
 </script>
 
 <template>

@@ -1,11 +1,15 @@
 <script setup>
 import { filter as f } from '@/api/api'
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import FilterList from '@/components/asides/filters/FilterList.vue'
 import FilterColors from '@/components/asides/filters/FilterColors.vue'
 
 const props = defineProps(['filter'])
-const active_filters_ids = ref([])
+
+const active_filters_ids = computed(
+  () => f.filters[filter.value.type]?.split(',').map(Number) || [],
+)
+
 const is_expand = ref(null)
 
 const MIN = 4
@@ -16,21 +20,18 @@ const is_color = computed(() => filter.value.type === 'color')
 
 const is_expand_validation = computed(() => !is_color.value && MIN < filter.value.content.length)
 
-onMounted(() => {
-  if (f.filters[filter.value.type]) {
-    active_filters_ids.value.push(...f.filters[filter.value.type].split(',').map(Number))
-  }
-})
-
 function send_active_filters_ids(content) {
-  const id = content.id
+  let _active_filters_ids = []
+  _active_filters_ids.push(...active_filters_ids.value)
 
+  const id = content.id
   if (!active_filters_ids.value.includes(id)) {
-    active_filters_ids.value.push(id)
+    _active_filters_ids.push(id)
   } else {
-    active_filters_ids.value = active_filters_ids.value.filter((i) => i !== id)
+    _active_filters_ids = _active_filters_ids.filter((i) => i !== id)
   }
-  f.filters = { [filter.value.type]: String(active_filters_ids.value) }
+
+  f.filters = { [filter.value.type]: String(_active_filters_ids) }
 }
 
 function expand_change() {

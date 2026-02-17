@@ -15,8 +15,6 @@ const emit = defineEmits(['expand_change', 'send_active_filters_ids'])
 
 const MIN = props.MIN
 
-console.log(props.filter)
-
 const is_price = computed(() => props.filter.type === 'price' || false)
 
 function expand_change() {

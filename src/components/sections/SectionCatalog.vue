@@ -1,5 +1,5 @@
 <script setup>
-import { product as p, type } from '@/api/api'
+import { product as p } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import IconBarChart from '@/components/icons/IconBarChart.vue'

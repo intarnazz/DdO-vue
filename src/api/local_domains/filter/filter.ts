@@ -78,12 +78,14 @@ class Filter extends Rest {
     const key = Object.keys(obj)[0]
     const value = Object.values(obj)[0]
 
-    console.log(value);
-    console.log(!value);
-    
-
     if (!value || this.#data.filters[key] === value) delete this.#data.filters[key]
     else Object.assign(this.#data.filters, obj)
+
+    this.#saveToUrl()
+  }
+
+  resetFilters() {
+    Object.keys(this.#data.filters).forEach((key) => delete this.#data.filters[key])
 
     this.#saveToUrl()
   }
