@@ -51,7 +51,7 @@ function send_active_filters_ids(content) {
       </div>
       <div class="box-x gap-4">
         <h3>{{ props.filter.name }}</h3>
-        <p>подробнее</p>
+        <p v-if="props.is_expand_validation">подробнее</p>
       </div>
       <div class="flex"></div>
     </button>
