@@ -4,7 +4,7 @@ import ComponentFiltersBox from '@/components/ComponentFiltersBox.vue'
 </script>
 
 <template>
-  <aside class="filters box-y gap2">
+  <aside class="filters box-y gap-8">
     <ComponentTags />
     <ComponentFiltersBox />
     <div class="flex"></div>
