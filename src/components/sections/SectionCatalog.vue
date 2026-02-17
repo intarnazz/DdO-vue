@@ -8,13 +8,13 @@ import IconFavorite from '@/components/icons/IconFavorite.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
 import ComponentSwitch from '@/components/ComponentSwitch.vue'
+import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 </script>
 
 <template>
   <soction class="catalog box-y gap2">
-    <div class="box-x gap as">
-      <h2>{{ type.value.visible_name }}</h2>
-      <p class="c-sub">{{ p.products.pagingInfo?.totalCount }} товаров</p>
+    <div class="box-x">
+      <CatalogTitle />
       <div class="flex"></div>
     </div>
     <div class="box-x as gap2">

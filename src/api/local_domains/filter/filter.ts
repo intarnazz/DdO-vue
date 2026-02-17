@@ -62,23 +62,29 @@ class Filter extends Rest {
    * Текущие активные фильтры.
    */
   get filters(): Filters {
-    return this.#data_c.value.filters
+    return {
+      ...this.#data_c.value.filters,
+      length: String(Object.keys(this.#data_c.value.filters).length),
+    }
   }
 
   /**
    * Устанавливает фильтр.
    * Если значение совпадает с текущим — фильтр сбрасывается.
    *
-   * @param value Объект с одним фильтром
+   * @param obj Объект с одним фильтром
    */
-  set filters(value: Filters) {
-    const key = Object.keys(value)[0]
-    if (!value[key]) value[key] = null
-    else if (this.#data.filters[key] === value[key]) {
-      value = { [key]: null }
-    }
+  set filters(obj: Filters) {
+    const key = Object.keys(obj)[0]
+    const value = Object.values(obj)[0]
 
-    Object.assign(this.#data.filters, value)
+    console.log(value);
+    console.log(!value);
+    
+
+    if (!value || this.#data.filters[key] === value) delete this.#data.filters[key]
+    else Object.assign(this.#data.filters, obj)
+
     this.#saveToUrl()
   }
 

@@ -35,7 +35,8 @@ const max = computed(() => roundUp(_max.value))
  *
  * @type {Ref<number>}
  */
-const range = ref(roundUp(Number(filter.filters['price-max'])) || max.value)
+const _range = ref(roundUp(Number(filter.filters['price-max'])) || max.value)
+const range = computed(() => (_range.value != max.value ? String(_range.value) : null))
 
 /**
  * Обработчик изменения значения слайдера.
@@ -44,19 +45,22 @@ const range = ref(roundUp(Number(filter.filters['price-max'])) || max.value)
  * Вызывается при каждом изменении `range.value`.
  */
 function rangeChange() {
-  filter.filters = { 'price-max': String(range.value) }
+  filter.filters = {
+    'price-max': range.value,
+  }
 }
 </script>
 
 <template>
   <div class="input_box box-y gap-4 px-4 py-2">
-    <input @change="rangeChange" v-model="range" :max="max" :min="min" step="5000" type="range" />
+    <input @change="rangeChange" v-model="_range" :max="max" :min="min" step="5000" type="range" />
 
     <div class="box-x center">
-      <p class="font-normal price">
+      <p v-if="range" class="font-normal price">
         <span class="c-sub font-light">до: </span>
         <ComponentRecolorText :text="price(range)" />
       </p>
+      <p v-else class="c-sub">любая цена</p>
     </div>
   </div>
 </template>
