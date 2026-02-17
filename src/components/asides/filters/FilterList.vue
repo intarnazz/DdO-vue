@@ -100,6 +100,8 @@ function send_active_filters_ids(content) {
     &_hover
       &:hover
         color: $mark
+        & p
+          text-decoration-color: $mark
   &:first-child
     border-top-left-radius: 5px
     border-top-right-radius: 5px

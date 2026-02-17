@@ -13,7 +13,7 @@ const if_filter_filters_length = computed(() => Boolean(Number(filter.filters.le
       <template v-if="if_filter_filters_length">
         <span class="c-main">/ </span> {{ filter.filters.length }} активных фильтра
         <span class="c-main">/ </span>
-        <button @click="filter.resetFilters" class="a">очитстить все фильтры</button>
+        <button @click="filter.resetFilters" class="a font-normal">очитстить все фильтры</button>
       </template>
     </p>
   </div>
