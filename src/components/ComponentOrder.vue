@@ -12,11 +12,6 @@ import ButtonSwitch from '@/components/buttons/ButtonSwitch.vue'
 import ComponentSwitch from '@/components/ComponentSwitch.vue' // Предполагаемый путь к новому компоненту
 
 /**
- * Константа для размера промежутка между вкладками в пикселях.
- */
-const GAP: number = 16
-
-/**
  * Интерфейс для элементов входных аргументов.
  */
 interface ArgItem {
