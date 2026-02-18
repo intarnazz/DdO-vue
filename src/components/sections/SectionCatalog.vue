@@ -9,6 +9,7 @@ import AsideFilters from '@/components/asides/AsideFilters.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
 import ComponentOrder from '@/components/ComponentOrder.vue'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
+import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
 </script>
 
 <template>
@@ -20,32 +21,36 @@ import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
     <div class="box-x as gap2">
       <AsideFilters />
       <div class="w box-y gap-8 justify-start">
-        <ComponentOrder
-          :arguments="[
-            {
-              text: 'новинки',
-              type: '',
-            },
-            {
-              text: 'самые популярные',
-              type: 'views',
-            },
-            {
-              text: 'цена',
-              type: 'price',
-              desc: 'desc',
-              turn: true,
-            },
-            {
-              text: 'скидки',
-              type: 'discount',
-            },
-            {
-              text: 'модель',
-              type: 'variant_id',
-            },
-          ]"
-        />
+        <div class="box-x gap-4">
+          <ComponentOrder
+            :arguments="[
+              {
+                text: 'новинки',
+                type: '',
+              },
+              {
+                text: 'самые популярные',
+                type: 'views',
+              },
+              {
+                text: 'цена',
+                type: 'price',
+                desc: 'desc',
+                turn: true,
+              },
+              {
+                text: 'скидки',
+                type: 'discount',
+              },
+              {
+                text: 'модель',
+                type: 'variant_id',
+              },
+            ]"
+          />
+          <CatalogLimit :arguments="[48, 96, 192]" />
+        </div>
+
         <div v-if="p.products.data.length > 0" class="catalog__grid">
           <div
             v-for="(product, key) in p.products.data"

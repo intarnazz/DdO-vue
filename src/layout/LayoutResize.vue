@@ -8,15 +8,12 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import type { Ref } from 'vue'
 
-/**
- * Defines the events emitted by this component.
- */
-const emit = defineEmits<{
-  /**
-   * Emitted when the width of the resizable element changes.
-   * @param width The new width of the element in pixels.
-   */
-  widthChanged: [width: number]
+interface Button {
+  width: number
+}
+
+const props = defineProps<{
+  button: Button
 }>()
 
 /**
@@ -35,7 +32,7 @@ let resizeObserver: ResizeObserver | null = null
 const emitWidth = () => {
   if (resizableElement.value) {
     const width = resizableElement.value.offsetWidth
-    emit('widthChanged', width)
+    Object.assign(props.button, { width: width })
   }
 }
 

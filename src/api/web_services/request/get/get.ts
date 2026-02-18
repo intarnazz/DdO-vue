@@ -116,7 +116,7 @@ export async function get(url: string, options: GetOptions = {}): Promise<Respon
   const response = await fetch(`${API_URL}${url}`, {
     method: 'GET',
     headers: {
-      limit: String(options.limit ?? 5),
+      limit: String(options.limit || 5),
       offset: String(options.offset ?? 0),
       names: String(options.names ?? ''),
       filters: JSON.stringify(options.filters ?? {}),

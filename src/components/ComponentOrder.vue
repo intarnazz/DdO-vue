@@ -95,15 +95,6 @@ const content = ref<SwitchItem[]>(switchs(props.arguments))
 const active = ref<number>(0)
 
 /**
- * Обновляет ширину элемента переключателя.
- * @param value Объект SwitchItem для обновления.
- * @param width Новое значение ширины.
- */
-function widthChanged(value: SwitchItem, width: number) {
-  value.width = width
-}
-
-/**
  * Устанавливает активную вкладку и эмитит выбранный элемент.
  * @param key Индекс вкладки для активации.
  */
@@ -121,8 +112,8 @@ function setActive(key: number) {
         <LayoutResize
           v-for="(button, key) in content"
           :key="key"
+          :button="button"
           :class="{ 'active-tab': active === key }"
-          @widthChanged="(width) => widthChanged(button, width)"
         >
           <ButtonSwitch @click="setActive(key)" :active="active" :button="button" :index="key" />
         </LayoutResize>
