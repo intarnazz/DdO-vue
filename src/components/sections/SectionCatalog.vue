@@ -7,7 +7,7 @@ import IconShopping from '@/components/icons/IconShopping.vue'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
-import ComponentSwitch from '@/components/ComponentSwitch.vue'
+import ComponentOrder from '@/components/ComponentOrder.vue'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 </script>
 
@@ -20,7 +20,7 @@ import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
     <div class="box-x as gap2">
       <AsideFilters />
       <div class="w box-y gap-8 justify-start">
-        <ComponentSwitch
+        <ComponentOrder
           :arguments="[
             {
               text: 'новинки',

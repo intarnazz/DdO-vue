@@ -28,7 +28,7 @@ const desc = computed(() => {
 })
 
 function emit_click() {
-  if (is_active.value) {
+  if (is_active.value && button.value.turn === true) {
     is_turn.value = !filter.desc
     button.value.desc = desc.value
   }
