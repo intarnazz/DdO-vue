@@ -9,7 +9,7 @@ import { filter } from '@/api/api'
 import { onMounted, ref } from 'vue'
 import LayoutResize from '@/layout/LayoutResize.vue'
 import ButtonSwitch from '@/components/buttons/ButtonSwitch.vue'
-import ComponentSwitch from '@/components/ComponentSwitch.vue' // Предполагаемый путь к новому компоненту
+import ComponentSwitch from '@/components/ComponentSwitch.vue'
 
 /**
  * Интерфейс для элементов входных аргументов.
