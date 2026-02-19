@@ -5,18 +5,18 @@ import Rest from '../../web_services/rest'
 import filter from '../filter/filter'
 
 /**
- * Interface for the reactive data structure.
+ * Интерфейс для структуры реактивных данных.
  */
 interface Data {
-  /** Object containing products data. */
+  /** Объект, содержащий данные о продуктах. */
   products: Record<string, any>
-  /** Flag indicating if data is loading. */
+  /** Флаг, указывающий на загрузку данных. */
   is_loading: boolean
 }
 
 /**
- * Class representing a Product handler extending Rest service.
- * Manages product data fetching and state.
+ * Класс, представляющий обработчик продуктов, расширяющий сервис Rest.
+ * Управляет fetching'ом данных о продуктах и состоянием.
  */
 class Product extends Rest {
   private data: Data
@@ -27,6 +27,10 @@ class Product extends Rest {
   private _current_page: ComputedRef<number>
   private _is_pagination: ComputedRef<boolean>
 
+  /**
+   * Конструктор класса Product.
+   * Инициализирует реактивные данные, вычисляемые свойства и наблюдатель за изменениями фильтра.
+   */
   constructor() {
     super('product')
 
@@ -55,31 +59,52 @@ class Product extends Rest {
     )
   }
 
+  /**
+   * Геттер для списка страниц.
+   * @returns Массив номеров страниц.
+   */
   get pages() {
     return this._pages.value
   }
 
+  /**
+   * Геттер для общего количества страниц.
+   * @returns Количество страниц.
+   */
   get page_count() {
     return this._page_count.value
   }
 
+  /**
+   * Геттер для текущей страницы.
+   * @returns Номер текущей страницы.
+   */
   get current_page() {
     return this._current_page.value
   }
 
+  /**
+   * Сеттер для текущей страницы.
+   * Обновляет offset в фильтре на основе новой страницы.
+   * @param current_page Номер новой текущей страницы.
+   */
   set current_page(current_page: number) {
     filter.offset = filter.limit * (current_page - 1)
   }
 
+  /**
+   * Геттер для флага наличия пагинации.
+   * @returns True, если пагинация активна.
+   */
   get is_pagination() {
     return this._is_pagination.value
   }
 
   /**
-   * Fetches all products asynchronously.
-   * Sets loading state, fetches data, and updates products.
-   * @param data Optional GET options.
-   * @returns Promise resolving to the fetched data.
+   * Асинхронно fetches все продукты.
+   * Устанавливает состояние загрузки, fetches данные и обновляет продукты.
+   * @param data Опциональные опции для GET-запроса.
+   * @returns Промис, разрешающийся в fetched данные.
    */
   async all<T = Record<string, any>>(data?: GetOptions): Promise<T> {
     this.data.is_loading = true
@@ -87,23 +112,23 @@ class Product extends Rest {
       limit: 48,
       ...data,
       ...filter.value,
-    }) // Merge default limit with provided data if any
+    }) // Слияние дефолтного лимита с предоставленными данными, если они есть
     Object.assign(this.data.products, res)
     this.data.is_loading = false
     return res
   }
 
   /**
-   * Getter for products data.
-   * @returns The products object or an empty object if undefined.
+   * Геттер для данных о продуктах.
+   * @returns Объект продуктов или пустой объект, если не определено.
    */
   get products() {
     return this.data_c.value.products || {}
   }
 
   /**
-   * Getter for loading state.
-   * @returns The loading flag or false if undefined.
+   * Геттер для состояния загрузки.
+   * @returns Флаг загрузки или false, если не определено.
    */
   get is_loading() {
     return this.data_c.value.is_loading || false
