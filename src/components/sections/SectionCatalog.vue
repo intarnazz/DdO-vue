@@ -6,10 +6,10 @@ import IconBarChart from '@/components/icons/IconBarChart.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
-import ComponentLoader from '@/components/ComponentLoader.vue'
 import ComponentOrder from '@/components/ComponentOrder.vue'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
+import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
 </script>
 
 <template>
@@ -57,7 +57,7 @@ import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
             :key="key"
             class="box-y center catalog__item gap-4"
             :class="{
-              'opacity-50': !p.is_loading,
+              'opacity-50': p.is_loading,
             }"
           >
             <div class="box-x gap-2 content center">
@@ -83,9 +83,9 @@ import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
             </div>
           </div>
         </div>
-        <div v-else class="box-x center w">
-          <!-- From Uiverse.io by mobinkakei -->
-          <ComponentLoader />
+        <div v-else class="box-x center w"></div>
+        <div class="center">
+          <CatalogPagination />
         </div>
       </div>
     </div>

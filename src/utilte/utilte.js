@@ -3,21 +3,27 @@ export const title = (i) => {
 }
 
 export const price = (i) => {
-  const n = Number(i);
-  if (!Number.isFinite(n)) return '';
+  const n = Number(i)
+  if (!Number.isFinite(n)) return ''
 
   const formatted = n.toLocaleString('ru-RU', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  });
+  })
 
-  return `${formatted}\u00A0Р`;
+  return `${formatted}\u00A0Р`
 }
 
 export const up = () => {
   window.scrollTo({
     top: 0,
     behavior: 'smooth',
+  })
+}
+
+export const up_fast = () => {
+  window.scrollTo({
+    top: 0,
   })
 }
 

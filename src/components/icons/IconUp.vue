@@ -1,6 +1,7 @@
 <script setup>
-import { up } from '@/utilte/utilte'
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { filter } from '@/api/api'
+import { up, up_fast } from '@/utilte/utilte'
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 
 const scrollY = ref(0)
 
@@ -9,7 +10,7 @@ const onScroll = () => {
 }
 
 onMounted(() => {
-  onScroll() // сразу выставим значение
+  onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
 })
 
@@ -17,8 +18,9 @@ onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
 
-// если нужен computed
 const h = computed(() => scrollY.value)
+
+watch(() => filter.offset, up_fast)
 </script>
 
 <template>

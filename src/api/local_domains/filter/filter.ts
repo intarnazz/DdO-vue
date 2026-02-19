@@ -1,4 +1,4 @@
-import { reactive, computed, ComputedRef } from 'vue'
+import { reactive, computed, ComputedRef, watch } from 'vue'
 import router from '@/router/router'
 import Rest from '../../web_services/rest'
 
@@ -58,6 +58,8 @@ class Filter extends Rest {
     this.#data_c = computed(() => this.#data)
 
     this.#loadFromUrl()
+
+    watch([() => this.filters, () => this.order, () => this.desc], () => (this.offset = 0))
   }
 
   /**
