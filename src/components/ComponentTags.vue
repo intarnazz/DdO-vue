@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { filter as f, type as t } from '@/api/api'
 import { computed, ref } from 'vue'
 import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
@@ -8,23 +8,23 @@ const is_expand = ref(false)
 
 const MIN = 7
 
-const is_expand_validation = computed(() => MIN < t.value.tags.length)
+const is_expand_validation = computed(() => MIN < t.type.tags.length)
 
-function send_active_tag_id(id) {
-  f.filters = { tag: String(id) }
+function send_active_tag_id(id: string) {
+  f.filters = { tag: id }
 }
 </script>
 
 <template>
   <div class="box-y filters__tags tags w-80.25 max-w-80.25 py-2 bgc-sub br">
-    <template v-for="(tag, key) in t.value.tags" :key="key">
+    <template v-for="(tag, key) in t.type.tags" :key="key">
       <button
-        @click="send_active_tag_id(tag.id)"
+        @click="send_active_tag_id(String(tag.id))"
         class="flex py-2 px-4 filters__tag"
         :class="{
           filters__tags_active: f.filters['tag'] == tag.id,
         }"
-        v-if="key < MIN || is_expand || tag.is_visible || f.filters['tag'] == tag.id"
+        v-if="Number(key) < MIN || is_expand || tag.is_visible || f.filters['tag'] == tag.id"
       >
         <p>
           {{ tag.name }}

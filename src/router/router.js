@@ -24,6 +24,12 @@ const router = createRouter({
       component: PageCatalog,
     },
     {
+      path: '/catalog/:type/:id/:name',
+      name: 'product',
+      props: true,
+      component: PageCatalog,
+    },
+    {
       path: '/:pathMatch(.*)*', // 404
       name: 'not-found',
       component: PageNotFound,

@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import IconRight from '@/components/icons/IconRight.vue'
-import { type } from '@/api/api'
+import { product, type } from '@/api/api'
 </script>
 
 <template>
@@ -10,7 +10,22 @@ import { type } from '@/api/api'
     <IconRight />
     <RouterLink class="c-sub a" :to="{ name: 'home' }"> Каталог </RouterLink>
     <IconRight />
-    <p class="c-sub">{{ type.value.visible_name }}</p>
+    <template v-if="product.product.name">
+      <RouterLink
+        :to="{
+          name: 'catalog',
+          params: {
+            type: type.type.name,
+          },
+        }"
+        class="c-sub a"
+        >{{ type.type.visible_name }}
+      </RouterLink>
+      <IconRight />
+      <p class="c-sub">{{ product.product.name }}</p>
+    </template>
+    <p v-else class="c-sub">{{ type.type.visible_name }}</p>
+
     <div class="flex"></div>
   </div>
 </template>

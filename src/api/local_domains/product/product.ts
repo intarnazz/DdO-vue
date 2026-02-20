@@ -10,6 +10,8 @@ import filter from '../filter/filter'
 interface Data {
   /** Объект, содержащий данные о продуктах. */
   products: Record<string, any>
+
+  product: Record<string, any>
   /** Флаг, указывающий на загрузку данных. */
   is_loading: boolean
 }
@@ -18,9 +20,11 @@ interface Data {
  * Класс, представляющий обработчик продуктов, расширяющий сервис Rest.
  * Управляет fetching'ом данных о продуктах и состоянием.
  */
-class Product extends Rest {
+class Product {
   private data: Data
   private data_c: ComputedRef<Data>
+
+  private rest: Rest
 
   private _page_count: ComputedRef<number>
   private _pages: ComputedRef<number[]>
@@ -32,10 +36,11 @@ class Product extends Rest {
    * Инициализирует реактивные данные, вычисляемые свойства и наблюдатель за изменениями фильтра.
    */
   constructor() {
-    super('product')
+    this.rest = new Rest('product')
 
     this.data = reactive({
       products: {},
+      product: {},
       is_loading: false,
     })
     this.data_c = computed(() => this.data)
@@ -57,6 +62,17 @@ class Product extends Rest {
       },
       { deep: true },
     )
+  }
+
+  get product() {
+    return this.data_c.value.product
+  }
+
+  async init_product(id: number) {
+    this.data.is_loading = true
+    const res = await this.rest.get(id)
+    Object.assign(this.data.product, res.data)
+    this.data.is_loading = false
   }
 
   /**
@@ -106,16 +122,15 @@ class Product extends Rest {
    * @param data Опциональные опции для GET-запроса.
    * @returns Промис, разрешающийся в fetched данные.
    */
-  async all<T = Record<string, any>>(data?: GetOptions): Promise<T> {
+  async all<T = Record<string, any>>(data?: GetOptions): Promise<any> {
     this.data.is_loading = true
-    const res = await super.all<T>({
+    const res = await this.rest.all<T>({
       limit: 48,
       ...data,
       ...filter.value,
-    }) // Слияние дефолтного лимита с предоставленными данными, если они есть
+    })
     Object.assign(this.data.products, res)
     this.data.is_loading = false
-    return res
   }
 
   /**
@@ -123,7 +138,7 @@ class Product extends Rest {
    * @returns Объект продуктов или пустой объект, если не определено.
    */
   get products() {
-    return this.data_c.value.products || {}
+    return this.data_c.value.products
   }
 
   /**
@@ -132,6 +147,10 @@ class Product extends Rest {
    */
   get is_loading() {
     return this.data_c.value.is_loading || false
+  }
+
+  resetProduct() {
+    Object.keys(product.product).forEach((key) => delete product.product[key])
   }
 }
 

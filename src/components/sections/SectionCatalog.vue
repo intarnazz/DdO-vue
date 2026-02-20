@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { product as p } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
@@ -10,6 +10,8 @@ import ComponentOrder from '@/components/ComponentOrder.vue'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
 import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
+
+const props = defineProps(['type'])
 </script>
 
 <template>
@@ -50,9 +52,16 @@ import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vu
           />
           <CatalogLimit :arguments="[48, 96, 192]" />
         </div>
-
-        <div v-if="p.products.data.length > 0" class="catalog__grid">
-          <div
+        <div v-if="p.products.success" class="catalog__grid">
+          <RouterLink
+            :to="{
+              name: 'product',
+              params: {
+                type: props.type,
+                id: product.id,
+                name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),
+              },
+            }"
             v-for="(product, key) in p.products.data"
             :key="key"
             class="box-y center catalog__item gap-4"
@@ -81,7 +90,7 @@ import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vu
               <IconBarChart />
               <IconShopping />
             </div>
-          </div>
+          </RouterLink>
         </div>
         <div v-else class="box-x center w"></div>
         <div class="center">

@@ -72,7 +72,7 @@ const fill = computed(() => {
     height="24px"
     viewBox="0 -960 960 960"
     width="24px"
-    :fill="fill"
+    :style="`fill: ${fill};`"
   >
     <path d="M400-304 240-464l56-56 104 104 264-264 56 56-320 320Z" />
   </svg>

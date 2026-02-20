@@ -20,9 +20,9 @@ interface ArgItem {
   /** Тип элемента. */
   type: string
   /** Описание элемента. */
-  desc: string
+  desc?: string
   /** Флаг переключения. */
-  turn: boolean
+  turn?: boolean
 }
 
 /**
