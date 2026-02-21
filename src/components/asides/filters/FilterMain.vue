@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { filter as f } from '@/api/api'
 import { computed, ref } from 'vue'
-import FilterList from '@/components/asides/filters/FilterList.vue'
-import FilterColors from '@/components/asides/filters/FilterColors.vue'
+import StyleTypeDefault from '@/components/asides/filters/style-types/StyleTypeDefault.vue'
+import StyleTypeColors from '@/components/asides/filters/style-types/StyleTypeColors.vue'
 
 const props = defineProps(['filter'])
 
@@ -40,7 +40,7 @@ function expand_change() {
 </script>
 
 <template>
-  <FilterColors
+  <StyleTypeColors
     v-if="is_color"
     @expand_change="expand_change"
     @send_active_filters_ids="send_active_filters_ids"
@@ -51,7 +51,7 @@ function expand_change() {
     :active_filters_ids="active_filters_ids"
   />
 
-  <FilterList
+  <StyleTypeDefault
     v-else
     @expand_change="expand_change"
     @send_active_filters_ids="send_active_filters_ids"

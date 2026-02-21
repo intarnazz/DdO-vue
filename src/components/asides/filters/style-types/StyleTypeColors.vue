@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
-import ComponentFilter from '@/components/ComponentFilter.vue'
+import ButtonCheckBox from '@/components/buttons/ButtonCheckBox.vue'
 
 const props = defineProps(['is_expand_validation', 'is_expand', 'filter', 'active_filters_ids'])
 const emit = defineEmits(['expand_change', 'send_active_filters_ids'])
@@ -41,7 +41,7 @@ function send_active_filters_ids(content) {
     <div class="box-x px-4">
       <div class="filter__grid py-2 gap-4">
         <template v-for="(content, key) in props.filter.content" :key="key">
-          <ComponentFilter
+          <ButtonCheckBox
             :is_color="true"
             :content="content"
             :active_filters_ids="props.active_filters_ids"

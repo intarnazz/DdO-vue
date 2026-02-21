@@ -1,13 +1,12 @@
-<script setup>
-import ComponentTags from '@/components/ComponentTags.vue'
-import ComponentFiltersBox from '@/components/ComponentFiltersBox.vue'
+<script setup lang="ts">
+import FilterList from '@/components/asides/filters/FilterList.vue'
+import AsideTags from '@/components/asides/AsideTags.vue'
 </script>
 
 <template>
-  <aside class="filters box-y gap-8">
-    <ComponentTags />
-    <ComponentFiltersBox />
-    <div class="flex"></div>
+  <aside class="filters box-y gap-8 js">
+    <AsideTags />
+    <FilterList />
   </aside>
 </template>
 

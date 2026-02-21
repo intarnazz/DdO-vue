@@ -71,7 +71,7 @@ class Product {
   async init_product(id: number) {
     this.data.is_loading = true
     const res = await this.rest.get(id)
-    Object.assign(this.data.product, res.data)
+    if (res.success) Object.assign(this.data.product, res.data)
     this.data.is_loading = false
   }
 

@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
-import ButtonFilterCheckBox from '@/components/buttons/ButtonFilterCheckBox.vue'
-import ButtonColorCheckBox from '@/components/buttons/ButtonColorCheckBox.vue'
+import CheckBoxColor from './check-boxes/CheckBoxColor.vue'
+import CheckBoxFilter from './check-boxes/CheckBoxMain.vue'
 
 const props = defineProps(['content', 'active_filters_ids', 'is_color'])
 const emit = defineEmits(['send_active_filters_ids'])
@@ -26,14 +26,14 @@ function send_active_filters_ids() {
 </script>
 
 <template>
-  <ButtonColorCheckBox
+  <CheckBoxColor
     v-if="props.is_color"
     @send_active_filters_ids="send_active_filters_ids"
     :content="content"
     :is_active="is_active"
   />
 
-  <ButtonFilterCheckBox
+  <CheckBoxFilter
     v-else
     @send_active_filters_ids="send_active_filters_ids"
     :content="content"
