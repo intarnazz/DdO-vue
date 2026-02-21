@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
+import SectionProduct from '@/components/sections/SectionProduct.vue'
 import { up_fast } from '@/utilte/utilte'
 import { onMounted, onUnmounted, ref } from 'vue'
 
@@ -19,10 +20,7 @@ onUnmounted(product.resetProduct)
 
 <template>
   <template v-if="!is_loading">
-    <h2>CatalogProduct {{ product.product.id }}</h2>
-    <p>
-      {{ product.product }}
-    </p>
+    <SectionProduct />
   </template>
 </template>
 

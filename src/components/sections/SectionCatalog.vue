@@ -7,20 +7,20 @@ import IconShopping from '@/components/icons/IconShopping.vue'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
-import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
 import CatalogOrder from '@/components/domains/catalog/CatalogOrder.vue'
+import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
 
 const props = defineProps(['type'])
 </script>
 
 <template>
-  <soction class="catalog box-y gap2">
+  <section class="catalog box-y gap-8">
     <div class="box-x">
       <CatalogTitle />
       <div class="flex"></div>
     </div>
-    <div class="box-x as gap2">
+    <div class="box-x as gap-8">
       <AsideFilters />
       <div class="w box-y gap-8 justify-start">
         <div class="box-x gap-4">
@@ -98,7 +98,7 @@ const props = defineProps(['type'])
         </div>
       </div>
     </div>
-  </soction>
+  </section>
 </template>
 
 <style lang="sass" scoped>
