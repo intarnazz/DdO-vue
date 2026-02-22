@@ -43,7 +43,7 @@ const left = computed<number>(() => {
  * Вычисляемое свойство для ширины активного переключателя.
  * @returns Ширина активной вкладки в пикселях.
  */
-const switch_width = computed<number>(() => props.content[props.active].width)
+const switch_width = computed<number>(() => props.content[props.active].width || 0)
 
 /**
  * Вычисляемое свойство для правого отступа активной полосы.

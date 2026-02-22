@@ -36,7 +36,13 @@ const numbers = ref<ArgItem[]>(
 /**
  * Реактивная ссылка на индекс активной вкладки.
  */
-const active = ref<number>(props.arguments.indexOf(filter.limit))
+const active = ref<number>(
+  (() => {
+    const active = props.arguments.indexOf(filter.limit)
+    if (active < 0) return 0
+    return active
+  })(),
+)
 
 /**
  * Устанавливает активную вкладку и эмитит выбранный элемент.
