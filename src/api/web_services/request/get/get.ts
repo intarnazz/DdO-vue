@@ -53,14 +53,8 @@ export interface GetOptions {
    * Используется для динамического построения условий на стороне API
    * (например, `WHERE status = 'active' AND isFeatured = true`).
    *
-   * @example
-   * filters: [
-   *   { status: 'active' },
-   *   { category: 'electronics' },
-   *   { isFeatured: true }
-   * ]
    */
-  filters?: Record<string, string | null>
+  filters?: Record<string, any>
 
   /**
    * Строка поиска.
@@ -75,10 +69,18 @@ export interface GetOptions {
    */
   order?: string
 
-  /**
-   * Атрибут сортировки
-   */
   desc?: string
+
+  /**
+   * Сигнал для отмены запроса.
+   * Позволяет прервать запрос с помощью AbortController.
+   *
+   * @example
+   * const controller = new AbortController();
+   * get('/products', { signal: controller.signal });
+   * // Позже: controller.abort();
+   */
+  signal?: AbortSignal
 }
 
 // Helper function to base64-encode a UTF-8 string
@@ -107,13 +109,24 @@ function base64EncodeUTF8(str: string): string {
  * обработка ошибок и авторизации) выполняется на более
  * высоком уровне (`__request` или аналог).
  *
+ * Поддерживает отмену запроса через `AbortSignal`.
+ *
  * @param url Путь запроса относительно `API_URL`
- * @param options Параметры запроса (limit, offset, search)
+ * @param options Параметры запроса (limit, offset, search, signal и т.д.)
  * @returns Promise с объектом `Response`
  *
  * @example
- * const response = await get('/products', { limit: 10 })
- * const data = await response.json()
+ * const controller = new AbortController();
+ * const responsePromise = get('/products', { limit: 10, signal: controller.signal });
+ * // Для отмены: controller.abort();
+ * try {
+ *   const response = await responsePromise;
+ *   const data = await response.json();
+ * } catch (error) {
+ *   if (error.name === 'AbortError') {
+ *     console.log('Запрос отменён');
+ *   }
+ * }
  */
 export async function get(url: string, options: GetOptions = {}): Promise<Response> {
   const search = options.search ?? ''
@@ -131,6 +144,7 @@ export async function get(url: string, options: GetOptions = {}): Promise<Respon
       search: encoded_search,
       Authorization: `Bearer ${user.token ?? ''}`,
     },
+    signal: options.signal,
   })
 
   return response

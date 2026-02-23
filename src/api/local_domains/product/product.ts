@@ -150,9 +150,10 @@ class Product {
    * @returns Промис, разрешающийся в fetched данные.
    */
   async all(data?: GetOptions): Promise<any> {
-    const res = await this.promise_controller.await(() =>
+    const res = await this.promise_controller.await((signal) =>
       this.rest.all({
         limit: 48,
+        signal: signal,
         ...data,
         ...filter.value,
       }),

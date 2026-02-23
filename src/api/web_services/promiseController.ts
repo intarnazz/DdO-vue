@@ -12,12 +12,12 @@ interface Data {
   /**
    * Идентификатор ответа (используется для отслеживания актуальности).
    */
-  respons_id: number
+  response_id: number
 }
 
 /**
- * Класс для управления промисами с контролем состояния загрузки и идентификатора ответа.
- * Позволяет обрабатывать асинхронные операции, избегая обновлений от устаревших промисов.
+ * Класс для управления промисами с контролем состояния загрузки, идентификатора ответа и отменой.
+ * Позволяет обрабатывать асинхронные операции, отменяя устаревшие промисы.
  */
 export default class PromiseController {
   /**
@@ -30,6 +30,11 @@ export default class PromiseController {
    * @private
    */
   private data_c: ComputedRef<Data>
+  /**
+   * Текущий AbortController для активного промиса.
+   * @private
+   */
+  private abort_controller: AbortController | null = null
 
   /**
    * Конструктор класса.
@@ -38,54 +43,53 @@ export default class PromiseController {
   constructor() {
     this.data = reactive({
       is_loading: false,
-      respons_id: 0,
+      response_id: 0,
     })
     this.data_c = computed(() => this.data)
   }
 
   /**
-   * Асинхронный метод для ожидания выполнения функции.
-   * Устанавливает состояние загрузки, инкрементирует идентификатор ответа и проверяет актуальность после выполнения.
-   * @param foo - Функция, возвращающая промис.
+   * Асинхронный метод для ожидания выполнения функции с поддержкой отмены.
+   * Устанавливает состояние загрузки, инкрементирует идентификатор, отменяет предыдущий промис (если есть)
+   * и проверяет актуальность после выполнения.
+   * @param foo - Функция, возвращающая промис. Принимает AbortSignal для поддержки отмены.
    * @returns Результат выполнения функции или false, если ответ устарел.
    */
-  async await(foo: Function): Promise<Record<string, any> | false> {
+  async await<T>(foo: (signal: AbortSignal) => Promise<T>): Promise<T | false> {
+    // Отменяем предыдущий промис, если он существует
+    if (this.abort_controller) {
+      this.abort_controller.abort()
+    }
+
+    // Создаем новый AbortController
+    this.abort_controller = new AbortController()
+    const { signal } = this.abort_controller
+
     this.data.is_loading = true
-    this.respons_id++
-    const respons_id = this.respons_id
+    this.data.response_id++
+    const current_response_id = this.data.response_id
 
-    const res = await foo()
-    if (respons_id !== this.respons_id) return false
+    try {
+      const res = await foo(signal)
+      // Проверяем, не был ли промис отменен или устарел
+      if (signal.aborted) {
+        return false // Или throw new Error('Aborted') если нужно
+      }
+      if (current_response_id !== this.data.response_id) {
+        return false
+      }
 
-    this.data.is_loading = false
-    return res
-  }
-
-  /**
-   * Геттер для идентификатора ответа.
-   * @private
-   * @returns Текущий идентификатор ответа.
-   */
-  private get respons_id() {
-    return this.data_c.value.respons_id
-  }
-
-  /**
-   * Сеттер для идентификатора ответа.
-   * @private
-   * @param respons_id - Новое значение идентификатора.
-   */
-  private set respons_id(respons_id) {
-    this.data.respons_id = respons_id
-  }
-
-  /**
-   * Сеттер для состояния загрузки.
-   * @private
-   * @param is_loading - Новое значение флага загрузки.
-   */
-  private set is_loading(is_loading) {
-    this.data.is_loading = is_loading
+      this.data.is_loading = false
+      this.abort_controller = null // Очищаем после успеха
+      return res
+    } catch (error) {
+      this.data.is_loading = false
+      this.abort_controller = null
+      if (error.name === 'AbortError') {
+        return false // Игнорируем abort-ошибки
+      }
+      throw error // Перебрасываем другие ошибки
+    }
   }
 
   /**
