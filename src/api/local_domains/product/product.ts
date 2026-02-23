@@ -3,6 +3,7 @@ import type { ComputedRef } from 'vue'
 import type { PostBody, GetOptions } from '../../web_services/request/request'
 import Rest from '../../web_services/rest'
 import filter from '../filter/filter'
+import PromiseController from '../../web_services/PromiseController'
 
 /**
  * Интерфейс для структуры реактивных данных.
@@ -12,10 +13,6 @@ interface Data {
   products: Record<string, any>
 
   product: Record<string, any>
-  /** Флаг, указывающий на загрузку данных. */
-  is_loading: boolean
-
-  respons_id: number
 }
 
 /**
@@ -27,6 +24,7 @@ class Product {
   private data_c: ComputedRef<Data>
 
   private rest: Rest
+  private promise_controller: PromiseController
 
   private _page_count: ComputedRef<number>
   private _pages: ComputedRef<number[]>
@@ -39,12 +37,11 @@ class Product {
    */
   constructor() {
     this.rest = new Rest('product')
+    this.promise_controller = new PromiseController()
 
     this.data = reactive({
       products: {},
       product: {},
-      is_loading: false,
-      respons_id: 0,
     })
     this.data_c = computed(() => this.data)
 
@@ -58,8 +55,6 @@ class Product {
     watch(
       () => (filter as any).value,
       () => {
-        // if (this.data.is_loading) return
-        this.data.is_loading = true
         if (this.current_page > this.page_count) this.current_page = this.page_count
         this.all()
       },
@@ -67,28 +62,14 @@ class Product {
     )
   }
 
-  private get respons_id() {
-    return this.data_c.value.respons_id
-  }
-
-  private set respons_id(respons_id) {
-    this.data.respons_id = respons_id
-  }
-
   get product() {
     return this.data_c.value.product
   }
 
   async init_product(id: number) {
-    this.data.is_loading = true
-    const res = await this.rest.get(id)
-    this.respons_id++
-    const respons_id = this.respons_id
-
-    if (respons_id !== this.respons_id) return
+    const res = await this.promise_controller.await(() => this.rest.get(id))
+    if (res === false) return
     if (res.success) Object.assign(this.data.product, res)
-
-    this.data.is_loading = false
   }
 
   /**
@@ -138,18 +119,16 @@ class Product {
    * @param data Опциональные опции для GET-запроса.
    * @returns Промис, разрешающийся в fetched данные.
    */
-  async all<T = Record<string, any>>(data?: GetOptions): Promise<any> {
-    this.data.is_loading = true
-    this.respons_id++
-    const respons_id = this.respons_id
-    const res = await this.rest.all<T>({
-      limit: 48,
-      ...data,
-      ...filter.value,
-    })
-    if (respons_id !== this.respons_id) return
+  async all(data?: GetOptions): Promise<any> {
+    const res = await this.promise_controller.await(() =>
+      this.rest.all({
+        limit: 48,
+        ...data,
+        ...filter.value,
+      }),
+    )
+    if (res === false) return
     if (res.success) Object.assign(this.data.products, res)
-    this.data.is_loading = false
   }
 
   /**
@@ -158,14 +137,6 @@ class Product {
    */
   get products() {
     return this.data_c.value.products
-  }
-
-  /**
-   * Геттер для состояния загрузки.
-   * @returns Флаг загрузки или false, если не определено.
-   */
-  get is_loading() {
-    return this.data_c.value.is_loading || false
   }
 
   resetProduct() {
