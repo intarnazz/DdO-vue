@@ -81,6 +81,16 @@ export interface GetOptions {
   desc?: string
 }
 
+// Helper function to base64-encode a UTF-8 string
+function base64EncodeUTF8(str: string): string {
+  // Encode to URI component, then replace %XX with chars, then base64
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+      return String.fromCharCode(parseInt(p1, 16))
+    }),
+  )
+}
+
 // ============================================================================
 // GET
 // ============================================================================
@@ -106,6 +116,9 @@ export interface GetOptions {
  * const data = await response.json()
  */
 export async function get(url: string, options: GetOptions = {}): Promise<Response> {
+  const search = options.search ?? ''
+  const encoded_search = search ? base64EncodeUTF8(search) : ''
+
   const response = await fetch(`${API_URL}${url}`, {
     method: 'GET',
     headers: {
@@ -115,7 +128,7 @@ export async function get(url: string, options: GetOptions = {}): Promise<Respon
       filters: JSON.stringify(options.filters ?? {}),
       order: String(options.order ?? ''),
       desc: String(options.desc ?? ''),
-      search: String(options.search ?? ''),
+      search: encoded_search,
       Authorization: `Bearer ${user.token ?? ''}`,
     },
   })
