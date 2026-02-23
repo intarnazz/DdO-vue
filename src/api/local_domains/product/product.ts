@@ -174,7 +174,7 @@ class Product {
   }
 
   private set products(products) {
-    Object.assign(this.data.products, products)
+    this.data.products = products
   }
 
   resetProduct() {

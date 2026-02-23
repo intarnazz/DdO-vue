@@ -9,7 +9,7 @@ const if_filter_filters_length = computed(() => Boolean(Number(filter.filters.le
   <div class="catalog-title box-x gap as">
     <h2>{{ type.type.visible_name }}</h2>
     <p class="c-sub">
-      {{ p.products.pagingInfo?.totalCount }} товаров
+      {{ p.pagingInfo.totalCount }} товаров
       <template v-if="if_filter_filters_length">
         <span class="c-main">/ </span> {{ filter.filters.length }} активных фильтра
         <span class="c-main">/ </span>
