@@ -106,13 +106,6 @@ export interface GetOptions {
  * const data = await response.json()
  */
 export async function get(url: string, options: GetOptions = {}): Promise<Response> {
-  let search = ''
-
-  // Кодируем строку поиска в base64 (UTF-8 safe)
-  if (options.search) {
-    search = btoa(unescape(encodeURIComponent(options.search)))
-  }
-
   const response = await fetch(`${API_URL}${url}`, {
     method: 'GET',
     headers: {
@@ -122,7 +115,7 @@ export async function get(url: string, options: GetOptions = {}): Promise<Respon
       filters: JSON.stringify(options.filters ?? {}),
       order: String(options.order ?? ''),
       desc: String(options.desc ?? ''),
-      search,
+      search: String(options.search ?? ''),
       Authorization: `Bearer ${user.token ?? ''}`,
     },
   })

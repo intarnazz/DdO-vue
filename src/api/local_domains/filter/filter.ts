@@ -26,6 +26,8 @@ interface FilterState {
 
   /** offset запроса для пагинации */
   offset: number
+
+  search: string
 }
 
 /**
@@ -53,13 +55,28 @@ class Filter extends Rest {
 
       limit: 48,
       offset: 0,
+
+      search: '',
     })
 
     this.#data_c = computed(() => this.#data)
 
     this.#loadFromUrl()
 
-    watch([() => this.filters, () => this.order, () => this.desc], () => (this.offset = 0))
+    watch(
+      [() => this.filters, () => this.order, () => this.desc, () => this.search],
+      () => (this.offset = 0),
+    )
+  }
+
+  get search() {
+    return this.#data_c.value.search
+  }
+
+  set search(search) {
+    this.#data.search = search
+
+    this.#saveToUrl()
   }
 
   /**
@@ -84,6 +101,7 @@ class Filter extends Rest {
   }
 
   set offset(offset: number) {
+    if (offset < 0) offset = 0
     this.#data.offset = offset
 
     this.#saveToUrl()
@@ -171,6 +189,7 @@ class Filter extends Rest {
           ...(this.#data_c.value.desc ? { desc: this.#data_c.value.desc } : {}),
           ...(this.#data_c.value.limit ? { limit: this.#data_c.value.limit } : {}),
           ...(this.#data_c.value.offset ? { offset: this.#data_c.value.offset } : {}),
+          ...(this.#data_c.value.search ? { search: this.#data_c.value.search } : {}),
         },
       })
       .catch(() => {})
@@ -190,11 +209,13 @@ class Filter extends Rest {
     this.#data.desc = filters.desc ?? ''
     this.#data.limit = Number(filters.limit) || 48
     this.#data.offset = Number(filters.offset) || 0
+    this.#data.search = filters.search || ''
 
     delete filters.order
     delete filters.desc
     delete filters.limit
     delete filters.offset
+    delete filters.search
 
     Object.assign(this.#data.filters, filters)
   }

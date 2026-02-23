@@ -10,15 +10,17 @@ import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
 import CatalogOrder from '@/components/domains/catalog/CatalogOrder.vue'
 import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
+import FormSearch from '@/components/forms/FormSearch.vue'
+import ComponentLoader from '../ComponentLoader.vue'
 
 const props = defineProps(['type'])
 </script>
 
 <template>
   <section class="catalog box-y gap-8">
-    <div class="box-x">
+    <div class="box-x gap-8">
       <CatalogTitle />
-      <div class="flex"></div>
+      <FormSearch />
     </div>
     <div class="box-x as gap-8">
       <AsideFilters />
@@ -52,7 +54,7 @@ const props = defineProps(['type'])
           />
           <CatalogLimit :arguments="[48, 96, 192]" />
         </div>
-        <div v-if="p.products.success" class="catalog__grid">
+        <div v-if="p.products.data.length" class="catalog__grid">
           <RouterLink
             :to="{
               name: 'product',
@@ -66,7 +68,7 @@ const props = defineProps(['type'])
             :key="key"
             class="box-y center catalog__item gap-4"
             :class="{
-              'opacity-50': p.is_loading,
+              'opacity-80': p.is_loading,
             }"
           >
             <div class="box-x gap-2 content center">
@@ -92,7 +94,9 @@ const props = defineProps(['type'])
             </div>
           </RouterLink>
         </div>
-        <div v-else class="box-x center w"></div>
+        <div v-else class="box-x center w">
+          <ComponentLoader />
+        </div>
         <div class="center">
           <CatalogPagination />
         </div>

@@ -14,6 +14,8 @@ interface Data {
   product: Record<string, any>
   /** Флаг, указывающий на загрузку данных. */
   is_loading: boolean
+
+  respons_id: number
 }
 
 /**
@@ -42,6 +44,7 @@ class Product {
       products: {},
       product: {},
       is_loading: false,
+      respons_id: 0,
     })
     this.data_c = computed(() => this.data)
 
@@ -55,13 +58,21 @@ class Product {
     watch(
       () => (filter as any).value,
       () => {
-        if (this.data.is_loading) return
+        // if (this.data.is_loading) return
         this.data.is_loading = true
         if (this.current_page > this.page_count) this.current_page = this.page_count
         this.all()
       },
       { deep: true },
     )
+  }
+
+  private get respons_id() {
+    return this.data_c.value.respons_id
+  }
+
+  private set respons_id(respons_id) {
+    this.data.respons_id = respons_id
   }
 
   get product() {
@@ -71,7 +82,12 @@ class Product {
   async init_product(id: number) {
     this.data.is_loading = true
     const res = await this.rest.get(id)
-    if (res.success) Object.assign(this.data.product, res.data)
+    this.respons_id++
+    const respons_id = this.respons_id
+
+    if (respons_id !== this.respons_id) return
+    if (res.success) Object.assign(this.data.product, res)
+
     this.data.is_loading = false
   }
 
@@ -124,12 +140,15 @@ class Product {
    */
   async all<T = Record<string, any>>(data?: GetOptions): Promise<any> {
     this.data.is_loading = true
+    this.respons_id++
+    const respons_id = this.respons_id
     const res = await this.rest.all<T>({
       limit: 48,
       ...data,
       ...filter.value,
     })
-    Object.assign(this.data.products, res)
+    if (respons_id !== this.respons_id) return
+    if (res.success) Object.assign(this.data.products, res)
     this.data.is_loading = false
   }
 

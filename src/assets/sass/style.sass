@@ -257,6 +257,13 @@ button
   &:hover
     & svg
       fill: $mark
+  &:disabled
+    cursor: default
+    & svg
+      fill: $sub-90
+    &:hover
+      & svg
+        fill: $sub-90
 
 button:focus
   outline: none
