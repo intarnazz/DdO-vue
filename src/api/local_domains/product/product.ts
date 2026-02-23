@@ -10,9 +10,11 @@ import PromiseController from '../../web_services/PromiseController'
  */
 interface Data {
   /** Объект, содержащий данные о продуктах. */
-  products: Record<string, any>
-
+  products: Record<string, any>[]
   product: Record<string, any>
+
+  pagingInfo: Record<string, any>
+  meta: Record<string, any>
 }
 
 /**
@@ -40,15 +42,17 @@ class Product {
     this.promise_controller = new PromiseController()
 
     this.data = reactive({
-      products: {},
+      products: [],
       product: {},
+      pagingInfo: {},
+      meta: {},
     })
     this.data_c = computed(() => this.data)
 
-    this._page_count = computed(() => Math.ceil(this.products.pagingInfo.totalCount / filter.limit))
+    this._page_count = computed(() => Math.ceil(this.pagingInfo.totalCount / filter.limit))
     this._pages = computed(() => Array.from({ length: this.page_count }, (_, i) => i + 1))
     this._current_page = computed(() => Math.ceil(filter.offset / filter.limit + 1))
-    this._is_pagination = computed(() => filter.limit < this.products.pagingInfo.totalCount)
+    this._is_pagination = computed(() => filter.limit < this.pagingInfo.totalCount)
 
     this.all()
 
@@ -62,14 +66,40 @@ class Product {
     )
   }
 
-  get product() {
+  public get is_loading() {
+    return this.promise_controller.is_loading
+  }
+
+  public get meta() {
+    return this.data_c.value.meta
+  }
+
+  private set meta(meta) {
+    Object.assign(this.data_c.value.meta, meta)
+  }
+
+  public get pagingInfo() {
+    return this.data_c.value.pagingInfo
+  }
+
+  private set pagingInfo(pagingInfo) {
+    Object.assign(this.data_c.value.pagingInfo, pagingInfo)
+  }
+
+  public get product() {
     return this.data_c.value.product
+  }
+
+  private set product(product) {
+    Object.assign(this.data.product, product)
   }
 
   async init_product(id: number) {
     const res = await this.promise_controller.await(() => this.rest.get(id))
     if (res === false) return
-    if (res.success) Object.assign(this.data.product, res)
+    if (!res.success) return
+
+    this.product = res.data
   }
 
   /**
@@ -128,15 +158,23 @@ class Product {
       }),
     )
     if (res === false) return
-    if (res.success) Object.assign(this.data.products, res)
+    if (!res.success) return
+
+    this.products = res.data
+    this.pagingInfo = res.pagingInfo
+    this.meta = res.meta
   }
 
   /**
    * Геттер для данных о продуктах.
    * @returns Объект продуктов или пустой объект, если не определено.
    */
-  get products() {
+  public get products() {
     return this.data_c.value.products
+  }
+
+  private set products(products) {
+    Object.assign(this.data.products, products)
   }
 
   resetProduct() {

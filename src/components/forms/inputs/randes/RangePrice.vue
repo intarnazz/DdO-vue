@@ -16,7 +16,7 @@ function roundUp(value: number) {
  * @type {ComputedRef<number>}
  * @default 0
  */
-const _min = computed(() => product.products?.meta.price.min ?? 0)
+const _min = computed(() => product.meta?.price.min ?? 0)
 const min = computed(() => roundUp(_min.value))
 
 /**
@@ -25,7 +25,7 @@ const min = computed(() => roundUp(_min.value))
  * @type {ComputedRef<number>}
  * @default 0
  */
-const _max = computed(() => product.products?.meta.price.max ?? 0)
+const _max = computed(() => product.meta?.price.max ?? 0)
 const max = computed(() => roundUp(_max.value))
 
 function _range_init() {

@@ -54,7 +54,7 @@ const props = defineProps(['type'])
           />
           <CatalogLimit :arguments="[48, 96, 192]" />
         </div>
-        <div v-if="p.products.data.length" class="catalog__grid">
+        <div v-if="p.products.length" class="catalog__grid">
           <RouterLink
             :to="{
               name: 'product',
@@ -64,7 +64,7 @@ const props = defineProps(['type'])
                 name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),
               },
             }"
-            v-for="(product, key) in p.products.data"
+            v-for="(product, key) in p.products"
             :key="key"
             class="box-y center catalog__item gap-4"
             :class="{
