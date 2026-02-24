@@ -24,7 +24,7 @@ const router = createRouter({
       component: PageCatalog,
     },
     {
-      path: '/catalog/:type/:id/:name',
+      path: '/catalog/:type/:model/:id/:name',
       name: 'product',
       props: true,
       component: PageCatalog,

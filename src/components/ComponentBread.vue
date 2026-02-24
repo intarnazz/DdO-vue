@@ -22,6 +22,11 @@ import { product, type } from '@/api/api'
         >{{ type.type.visible_name }}
       </RouterLink>
       <IconRight />
+      <RouterLink class="c-sub a" :to="{ name: 'home' }">
+        {{ product.product.variant.name }}
+      </RouterLink>
+      <IconRight />
+
       <p class="c-sub">{{ product.product.name }}</p>
     </template>
     <p v-else class="c-sub">{{ type.type.visible_name }}</p>

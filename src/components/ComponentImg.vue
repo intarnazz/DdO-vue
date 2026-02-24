@@ -7,7 +7,9 @@ import { image } from '@/api/api'
  */
 interface Props {
   /** Идентификатор изображения для получения через API */
-  id: number
+  id?: number
+
+  storage?: string
   /** Атрибут alt для изображения. Если не указан, используется значение по умолчанию 'image' */
   alt?: string
 }
@@ -24,6 +26,11 @@ const props = defineProps<Props>()
  * иначе значение по умолчанию 'image'
  */
 const alt = computed(() => props.alt ?? 'image')
+
+const src = computed(() => {
+  if (props.id) return image.get_by_id(props.id)
+  if (props.storage) return image.get_by_storage(props.storage)
+})
 </script>
 
 <template>
@@ -31,7 +38,7 @@ const alt = computed(() => props.alt ?? 'image')
     Компонент для отображения изображения.
     Источник изображения берется через image.get(id) из API.
   -->
-  <img :src="image.get(props.id)" :alt="alt" />
+  <img :src="src" :alt="alt" />
 </template>
 
 <style scoped lang="sass"></style>

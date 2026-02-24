@@ -60,6 +60,7 @@ const props = defineProps(['type'])
               name: 'product',
               params: {
                 type: props.type,
+                model: product.variant.name,
                 id: product.id,
                 name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),
               },
