@@ -1,0 +1,13 @@
+<script setup></script>
+
+<template>
+  <svg width="18" height="10" viewBox="0 0 18 10" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 10V8H14V10H0ZM2 6V4H16V6H2ZM4 2V0H18V2H4Z" />
+  </svg>
+</template>
+
+<style lang="sass" scoped>
+//
+svg
+    fill: $main
+</style>

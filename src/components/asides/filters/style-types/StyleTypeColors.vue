@@ -35,7 +35,7 @@ function send_active_filters_ids(content) {
       >
         <IconKeyboardArrowUp class="filter__expand-button-icon" />
       </div>
-      <h3>{{ props.filter.name }}</h3>
+      <strong>{{ props.filter.name }}</strong>
       <div class="flex"></div>
     </button>
     <div class="box-x px-4">

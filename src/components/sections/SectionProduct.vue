@@ -22,8 +22,13 @@ import ComponentImg from '../ComponentImg.vue'
           </div>
         </div>
       </div>
-      <div class="box-y flex">
+      <div class="box-y flex js gap-8">
         <h2>{{ product.product.name }}</h2>
+        <div class="box-x font-normal">
+          <button>в избранное</button>
+          <button>сравнить</button>
+          <p>{{ product.product.article }}</p>
+        </div>
       </div>
     </div>
   </section>

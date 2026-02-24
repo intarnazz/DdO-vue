@@ -48,8 +48,8 @@ function send_active_filters_ids(content) {
         <IconKeyboardArrowUp class="filter__expand-button-icon" />
       </div>
       <div class="box-x gap-4">
-        <h3>{{ props.filter.name }}</h3>
-        <p v-if="props.is_expand_validation">подробнее</p>
+        <strong>{{ props.filter.name }}</strong>
+        <span v-if="props.is_expand_validation">подробнее</span>
       </div>
       <div class="flex"></div>
     </button>
@@ -90,7 +90,7 @@ function send_active_filters_ids(content) {
   border: 1px solid $sub-90
   border-bottom: none
   &__title
-    & p
+    & span
       color: $sub
       text-decoration: underline
       text-decoration-color: $main
@@ -100,7 +100,7 @@ function send_active_filters_ids(content) {
     &_hover
       &:hover
         color: $mark
-        & p
+        & span
           text-decoration-color: $mark
   &:first-child
     border-top-left-radius: 5px

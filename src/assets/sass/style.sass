@@ -73,24 +73,20 @@ h1
 
 h2
   font-size: 2rem
-h3
+h3,
+strong
   font-size: 1rem
   font-weight: 400
 
-h2::first-letter
-  text-transform: uppercase
-
-h3::first-letter
-  text-transform: uppercase
-
-p::first-letter
-  text-transform: uppercase
-
-button::first-letter
-  text-transform: uppercase
-
-a::first-letter
-  text-transform: uppercase
+h2,
+h3,
+p,
+strong,
+span,
+button,
+a
+  &::first-letter
+    text-transform: uppercase
 
 a.c-w 
   color: $w

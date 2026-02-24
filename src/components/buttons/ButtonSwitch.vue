@@ -43,9 +43,9 @@ function emit_click() {
     @mouseleave="is_hover = false"
     class="box-x gap-1 switch-button"
   >
-    <p>
+    <span>
       {{ button.text }}
-    </p>
+    </span>
     <IconKeyboardArrowUp
       v-if="button.turn === true"
       :is_turn="is_turn"

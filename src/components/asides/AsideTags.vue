@@ -26,9 +26,9 @@ function send_active_tag_id(id: string) {
         }"
         v-if="Number(key) < MIN || is_expand || tag.is_visible || f.filters['tag'] == tag.id"
       >
-        <p>
+        <div>
           {{ tag.name }}
-        </p>
+        </div>
       </button>
     </template>
 
@@ -45,8 +45,8 @@ function send_active_tag_id(id: string) {
       >
         <IconKeyboardArrowDown />
       </div>
-      <p v-if="is_expand">свернуть</p>
-      <p v-else>подробнее</p>
+      <span v-if="is_expand">свернуть</span>
+      <span v-else>подробнее</span>
       <div class="flex"></div>
     </button>
   </div>

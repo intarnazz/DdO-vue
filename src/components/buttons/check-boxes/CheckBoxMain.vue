@@ -58,9 +58,9 @@ function send_active_filters_ids() {
         alt=""
       />
     </div>
-    <p>
+    <span>
       {{ props.content.name }}
-    </p>
+    </span>
     <div class="flex"></div>
   </button>
 </template>
