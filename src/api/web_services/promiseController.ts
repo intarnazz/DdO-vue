@@ -55,7 +55,7 @@ export default class PromiseController {
    * @param foo - Функция, возвращающая промис. Принимает AbortSignal для поддержки отмены.
    * @returns Результат выполнения функции или false, если ответ устарел.
    */
-  async await<T>(foo: (signal: AbortSignal) => Promise<T>): Promise<T | false> {
+  async await<T = Record<string, any>>(foo: (signal: AbortSignal) => Promise<T>): Promise<T | false> {
     // Отменяем предыдущий промис, если он существует
     if (this.abort_controller) {
       this.abort_controller.abort()

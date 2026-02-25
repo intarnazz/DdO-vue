@@ -3,15 +3,228 @@ import type { ComputedRef } from 'vue'
 import type { PostBody, GetOptions } from '../../web_services/request/request'
 import Rest from '../../web_services/rest'
 import filter from '../filter/filter'
-import PromiseController from '../../web_services/PromiseController'
+import PromiseController from '../../web_services/promiseController'
+import user from '@/storage/user'
+
+const rest = new Rest('product')
+const promiseController = new PromiseController()
+
+interface Image {
+  id: number
+  name: string
+  path: string
+  second_path: string
+}
+
+interface Variant {
+  id: number
+  type_id: number
+  name: string
+  description: string
+}
+
+interface ProductCategory {
+  id: number
+  self_id: number | null
+  name: string
+  visible_name: string
+  description: string
+}
+
+interface Tag {
+  id: number
+  type_id: number
+  name: string
+  description: string
+}
+
+interface Brand {
+  id: number
+  image_id: number
+  text_id: number
+  name: string
+  description: string
+  type: string
+  image: Image
+}
+
+interface Characteristic {
+  id: number
+  filter_id: number
+  image_id: number
+  name: string
+  description: string
+  is_visible: number
+  image: Image
+}
+
+interface DefaultProductType {
+  id: number
+  type_id: number
+  tag_id: number
+  variant_id: number
+  brand_id: number
+  image_id: number
+  name: string
+  description: string
+  video_url: string
+  views: number
+  price: number
+  discount: number
+  article: string
+  is_stock: number
+  is_in_store: number
+  image: Image
+  variant: Variant
+  type: ProductCategory
+  tag: Tag
+  brand: Brand
+  images: Image[]
+  charactristics?: Characteristic[]
+}
+
+type Init = (id: number) => Promise<void>
+type Reset = () => void
+
+interface ProductType extends DefaultProductType {
+  is_favorite: boolean
+  init: Init
+  reset: Reset
+}
+
+class Product {
+  private data: Record<string, any>
+  private data_c: ComputedRef<Record<string, any>>
+  private rest: Rest
+  private promise_controller: PromiseController
+
+  constructor() {
+    this.rest = rest
+
+    this.promise_controller = promiseController
+
+    this.data = reactive({})
+    this.data_c = computed(() => this.data)
+  }
+
+  public reset: Reset = async () => {
+    Object.keys(this.data_c.value).forEach((key) => delete this.data[key])
+    console.log(this.data_c.value)
+  }
+
+  public init: Init = async (id) => {
+    const res = await this.promise_controller.await(() => this.rest.get(id))
+    if (res === false) return
+    if (!res.success) return
+
+    Object.assign(this.data_c.value, res.data)
+  }
+
+  public get is_favorite(): boolean {
+    if (!this.data_c.value.id) return false
+    return user.favorite.includes(this.id)
+  }
+
+  public set is_favorite(is_favorite: boolean) {
+    if (!this.id) return
+    if (this.is_favorite !== is_favorite) user.favorite = this.id
+  }
+
+  public get id(): number {
+    return this.data_c.value.id || 0
+  }
+
+  public get type_id(): number {
+    return this.data_c.value.type_id || 0
+  }
+
+  public get tag_id(): number {
+    return this.data_c.value.tag_id || 0
+  }
+
+  public get variant_id(): number {
+    return this.data_c.value.variant_id || 0
+  }
+
+  public get brand_id(): number {
+    return this.data_c.value.brand_id || 0
+  }
+
+  public get image_id(): number {
+    return this.data_c.value.image_id || 0
+  }
+
+  public get name(): string {
+    return this.data_c.value.name || ''
+  }
+
+  public get description(): string {
+    return this.data_c.value.description || ''
+  }
+
+  public get video_url(): string {
+    return this.data_c.value.video_url || ''
+  }
+
+  public get views(): number {
+    return this.data_c.value.views || 0
+  }
+
+  public get price(): number {
+    return this.data_c.value.price || 0
+  }
+
+  public get discount(): number {
+    return this.data_c.value.discount || 0
+  }
+
+  public get article(): string {
+    return this.data_c.value.article || ''
+  }
+
+  public get is_stock(): number {
+    return this.data_c.value.is_stock || 0
+  }
+
+  public get is_in_store(): number {
+    return this.data_c.value.is_in_store || 0
+  }
+
+  public get image(): Image {
+    return this.data_c.value.image || null
+  }
+
+  public get variant(): Variant {
+    return this.data_c.value.variant || null
+  }
+
+  public get type(): ProductCategory {
+    return this.data_c.value.type || null
+  }
+
+  public get tag(): Tag {
+    return this.data_c.value.tag || null
+  }
+
+  public get brand(): Brand {
+    return this.data_c.value.brand || null
+  }
+
+  public get images(): Image[] {
+    return this.data_c.value.images || []
+  }
+
+  public get characteristics(): Characteristic[] {
+    return this.data_c.value.characteristics || []
+  }
+}
 
 /**
  * Интерфейс для структуры реактивных данных.
  */
-interface Data {
+interface ProductServiceType {
   /** Объект, содержащий данные о продуктах. */
-  products: Record<string, any>[]
-  product: Record<string, any>
+  products: ProductType[]
 
   pagingInfo: Record<string, any>
   meta: Record<string, any>
@@ -21,11 +234,12 @@ interface Data {
  * Класс, представляющий обработчик продуктов, расширяющий сервис Rest.
  * Управляет fetching'ом данных о продуктах и состоянием.
  */
-class Product {
-  private data: Data
-  private data_c: ComputedRef<Data>
+class ProductService {
+  private data: ProductServiceType
+  private data_c: ComputedRef<ProductServiceType>
 
   private rest: Rest
+  private _product: ProductType
   private promise_controller: PromiseController
 
   private _page_count: ComputedRef<number>
@@ -38,12 +252,13 @@ class Product {
    * Инициализирует реактивные данные, вычисляемые свойства и наблюдатель за изменениями фильтра.
    */
   constructor() {
-    this.rest = new Rest('product')
     this.promise_controller = new PromiseController()
+
+    this.rest = rest
+    this._product = new Product()
 
     this.data = reactive({
       products: [],
-      product: {},
       pagingInfo: {},
       meta: {},
     })
@@ -87,19 +302,7 @@ class Product {
   }
 
   public get product() {
-    return this.data_c.value.product
-  }
-
-  private set product(product) {
-    Object.assign(this.data.product, product)
-  }
-
-  async init_product(id: number) {
-    const res = await this.promise_controller.await(() => this.rest.get(id))
-    if (res === false) return
-    if (!res.success) return
-
-    this.product = res.data
+    return this._product
   }
 
   /**
@@ -152,7 +355,7 @@ class Product {
   async all(data?: GetOptions): Promise<any> {
     const res = await this.promise_controller.await((signal) =>
       this.rest.all({
-        limit: 48,
+        // limit: 48,
         signal: signal,
         ...data,
         ...filter.value,
@@ -177,11 +380,8 @@ class Product {
   private set products(products) {
     this.data.products = products
   }
-
-  resetProduct() {
-    Object.keys(product.product).forEach((key) => delete product.product[key])
-  }
 }
 
-const product = new Product()
+const product = new ProductService()
+
 export default product

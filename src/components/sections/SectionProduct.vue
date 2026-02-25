@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
-import ComponentImg from '../ComponentImg.vue'
+import ComponentImg from '@/components/ComponentImg.vue'
+import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 </script>
 
 <template>
@@ -25,7 +26,7 @@ import ComponentImg from '../ComponentImg.vue'
       <div class="box-y flex js gap-8">
         <h2>{{ product.product.name }}</h2>
         <div class="box-x font-normal">
-          <button>в избранное</button>
+          <ButtonFavorite />
           <button>сравнить</button>
           <p>{{ product.product.article }}</p>
         </div>
