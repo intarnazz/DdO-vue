@@ -109,7 +109,6 @@ class Product {
 
   public reset: Reset = async () => {
     Object.keys(this.data_c.value).forEach((key) => delete this.data[key])
-    console.log(this.data_c.value)
   }
 
   public init: Init = async (id) => {
@@ -121,7 +120,7 @@ class Product {
   }
 
   public get is_favorite(): boolean {
-    if (!this.data_c.value.id) return false
+    if (!this.id) return false
     return user.favorite.includes(this.id)
   }
 

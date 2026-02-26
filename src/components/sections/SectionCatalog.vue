@@ -12,6 +12,7 @@ import CatalogOrder from '@/components/domains/catalog/CatalogOrder.vue'
 import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
 import FormSearch from '@/components/forms/FormSearch.vue'
 import ComponentLoader from '../ComponentLoader.vue'
+import ButtonFavorite from '../buttons/ButtonFavorite.vue'
 
 const props = defineProps(['type'])
 </script>
@@ -89,7 +90,7 @@ const props = defineProps(['type'])
             <h3 class="catalog__title title">{{ product.name }}</h3>
             <p class="catalog__price">{{ price(product.price) }}</p>
             <div class="box-x gap">
-              <IconFavorite />
+              <ButtonFavorite />
               <IconBarChart />
               <IconShopping />
             </div>

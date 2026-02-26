@@ -24,7 +24,7 @@ class User {
     this.#token = ref<string | null>(this.#tokenStorage.get() || null)
 
     this.favoriteStorage = new Storage('favorite')
-    this._favorite = ref(this.favorite)
+    this._favorite = ref(this.favoriteStorage.get() || [])
 
     // Следим за изменением token и сохраняем/удаляем через Storage
     watch(this.#token, (newToken) => {
@@ -38,7 +38,7 @@ class User {
   }
 
   public get favorite(): number[] {
-    return this.favoriteStorage.get() || []
+    return this._favorite.value
   }
 
   public set favorite(favorite_id: number) {
