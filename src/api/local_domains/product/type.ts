@@ -1,5 +1,6 @@
 import { reactive, computed, ComputedRef } from 'vue'
 import Rest from '../../web_services/rest'
+import product from './product'
 
 interface Data {
   type: Record<string, any>
@@ -23,16 +24,18 @@ class Type extends Rest {
       names: [type],
     })
     if (res.success) {
-      this.type = res.data[0]
-      await this.#__init_get__()
+      const type = res.data[0]
+      await this.#__init_get__(type)
     }
   }
 
-  async #__init_get__() {
-    const res = await this.get(this.type.id)
+  async #__init_get__(type: Record<string, any>) {
+    const res = await this.get(type.id)
     if (res.success) {
       this.type = res.data
     }
+
+    await product.all()
   }
 
   set type(type) {

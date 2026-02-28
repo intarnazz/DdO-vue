@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { product as p } from '@/api/api'
+import { product as p, product } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import IconBarChart from '@/components/icons/IconBarChart.vue'
@@ -15,6 +15,10 @@ import ComponentLoader from '../ComponentLoader.vue'
 import ButtonFavorite from '../buttons/ButtonFavorite.vue'
 
 const props = defineProps(['type'])
+
+function set_product(product: typeof p.product) {
+  p.product = product
+}
 </script>
 
 <template>
@@ -69,6 +73,7 @@ const props = defineProps(['type'])
             class="catalog__item box-y center gap-4"
           >
             <RouterLink
+              @click="set_product(product)"
               :to="{
                 name: 'product',
                 params: {

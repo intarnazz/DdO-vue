@@ -3,6 +3,7 @@ import PageNotFound from '@/pages/PageNotFound.vue'
 import PageAboutUs from '@/pages/PageAboutUs.vue'
 import PageHome from '@/pages/PageHome.vue'
 import PageCatalog from '@/pages/PageCatalog.vue'
+import composer from '@/composer/composer'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,12 +23,20 @@ const router = createRouter({
       name: 'catalog',
       props: true,
       component: PageCatalog,
+      beforeEnter: async (to, from, next) => {
+        await composer.essence_init(to.params)
+        next()
+      },
     },
     {
       path: '/catalog/:type/:model/:id/:name',
       name: 'product',
       props: true,
       component: PageCatalog,
+      beforeEnter: async (to, from, next) => {
+        await composer.essence_init(to.params)
+        next()
+      },
     },
     {
       path: '/:pathMatch(.*)*', // 404

@@ -1,4 +1,4 @@
-import { reactive, computed, watch, markRaw } from 'vue'
+import { reactive, computed, watch, markRaw, toRaw } from 'vue'
 import type { ComputedRef } from 'vue'
 import type { PostBody, GetOptions } from '../../web_services/request/request'
 import Rest from '../../web_services/rest'
@@ -6,6 +6,8 @@ import filter from '../filter/filter'
 import PromiseController from '../../web_services/promiseController'
 import user from '@/storage/user'
 import BaseModel from '@/models/baseModel'
+import { type } from '@/api/api'
+import { price } from '@/utilte/utilte'
 
 const rest = new Rest('product')
 const promiseController = new PromiseController()
@@ -252,7 +254,6 @@ class Product extends BaseModel {
     return this.data_c.value.characteristics || []
   }
 }
-
 /**
  * Интерфейс для структуры реактивных данных.
  */
@@ -294,7 +295,9 @@ class ProductService {
     this.data = reactive({
       products: [],
       pagingInfo: {},
-      meta: {},
+      meta: {
+        price: {},
+      },
     })
     this.data_c = computed(() => this.data)
 
@@ -303,7 +306,7 @@ class ProductService {
     this._current_page = computed(() => Math.ceil(filter.offset / filter.limit + 1))
     this._is_pagination = computed(() => filter.limit < this.pagingInfo.totalCount)
 
-    this.all()
+    // this.all()
 
     watch(
       () => (filter as any).value,
@@ -321,13 +324,16 @@ class ProductService {
    * @param data Опциональные опции для GET-запроса.
    * @returns Промис, разрешающийся в fetched данные.
    */
-  async all(data?: GetOptions): Promise<any> {
+  public async all(data: GetOptions = {}): Promise<any> {
+    const filter_local = structuredClone(toRaw(filter.value))
+    filter_local.filters['type'] = type.type.id
+
     const res = await this.promise_controller.await((signal) =>
       this.rest.all({
         // limit: 48,
         signal: signal,
         ...data,
-        ...filter.value,
+        ...filter_local,
       }),
     )
     if (res === false) return
@@ -363,6 +369,10 @@ class ProductService {
 
   public get product() {
     return this._product
+  }
+
+  public set product(product) {
+    this._product = new Product(product)
   }
 
   /**
