@@ -1,44 +1,51 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { image } from '@/api/api'
 
-/**
- * Интерфейс для props компонента ImageComponent
- */
 interface Props {
-  /** Идентификатор изображения для получения через API */
   id?: number
-
   storage?: string
-  /** Атрибут alt для изображения. Если не указан, используется значение по умолчанию 'image' */
   alt?: string
 }
 
-/**
- * Получаем props с типизацией
- */
 const props = defineProps<Props>()
 
-/**
- * Вычисляемый alt для тега img
- *
- * Если props.alt передан, используется он,
- * иначе значение по умолчанию 'image'
- */
 const alt = computed(() => props.alt ?? 'image')
-
-const src = computed(() => {
+const fullSrc = computed(() => {
   if (props.id) return image.get_by_id(props.id)
   if (props.storage) return image.get_by_storage(props.storage)
+})
+
+const imgRef = ref<HTMLImageElement | null>(null)
+const src = ref<string | undefined>(undefined)
+const loaded = ref(false)
+
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          src.value = fullSrc.value
+          observer.disconnect()
+        }
+      })
+    },
+    { rootMargin: '200px' }, // начать загрузку за 200px до появления
+  )
+
+  if (imgRef.value) observer.observe(imgRef.value)
 })
 </script>
 
 <template>
-  <!-- 
-    Компонент для отображения изображения.
-    Источник изображения берется через image.get(id) из API.
-  -->
-  <img :src="src" :alt="alt" />
+  <img ref="imgRef" :src="src" :alt="alt" :class="{ loaded }" @load="loaded = true" />
 </template>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+img
+  opacity: 0
+  transition: opacity 0.3s ease
+
+  &.loaded
+    opacity: 1
+</style>

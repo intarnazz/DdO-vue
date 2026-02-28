@@ -64,7 +64,7 @@ function set_product(product: typeof p.product) {
           v-if="p.products.length"
           class="catalog__grid"
           :class="{
-            'opacity-80': p.is_loading,
+            // 'opacity-80': p.is_loading,
           }"
         >
           <div
