@@ -5,9 +5,11 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   product: typeof p.product
+  is_mini?: boolean
 }>()
 
 const product = computed(() => props.product)
+const is_mini = computed(() => props.is_mini || false)
 
 function set_favorite() {
   product.value.is_favorite = !product.value.is_favorite
@@ -16,12 +18,13 @@ function set_favorite() {
 
 <template>
   <button
+    title="Добавить продукт в избранное"
     @click="set_favorite"
     class="button-favorite box-x gap-2 font-normal"
     :class="{ checked: product.is_favorite }"
   >
     <IconFavorite :active="product.is_favorite" />
-    <div class="action button-favorite__text">
+    <div v-if="!is_mini" class="action button-favorite__text">
       <span class="option-1">в избранное</span>
       <span class="option-2">В избранном</span>
     </div>

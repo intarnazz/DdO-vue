@@ -98,7 +98,7 @@ const props = defineProps(['type'])
               <p class="catalog__price">{{ price(product.price) }}</p>
             </RouterLink>
             <div class="box-x gap">
-              <ButtonFavorite :product="product" />
+              <ButtonFavorite :product="product" :is_mini="true" />
               <IconBarChart />
               <IconShopping />
             </div>
