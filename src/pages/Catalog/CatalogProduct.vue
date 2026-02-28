@@ -15,7 +15,7 @@ onMounted(async () => {
   is_loading.value = false
 })
 
-onUnmounted(product.product.reset)
+// onUnmounted(product.product.reset)
 </script>
 
 <template>

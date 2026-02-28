@@ -1,115 +1,149 @@
-import { reactive, computed, watch } from 'vue'
+import { reactive, computed, watch, markRaw } from 'vue'
 import type { ComputedRef } from 'vue'
 import type { PostBody, GetOptions } from '../../web_services/request/request'
 import Rest from '../../web_services/rest'
 import filter from '../filter/filter'
 import PromiseController from '../../web_services/promiseController'
 import user from '@/storage/user'
+import BaseModel from '@/models/baseModel'
 
 const rest = new Rest('product')
 const promiseController = new PromiseController()
 
+// prettier-ignore
 interface Image {
-  id: number
-  name: string
-  path: string
+  id         : number
+  name       : string
+  path       : string
   second_path: string
 }
 
+// prettier-ignore
 interface Variant {
-  id: number
-  type_id: number
-  name: string
+  id         : number
+  type_id    : number
+  name       : string
   description: string
 }
 
+// prettier-ignore
 interface ProductCategory {
-  id: number
-  self_id: number | null
-  name: string
+  id          : number
+  self_id     : number | null
+  name        : string
   visible_name: string
-  description: string
+  description : string
 }
 
+// prettier-ignore
 interface Tag {
-  id: number
-  type_id: number
-  name: string
+  id         : number
+  type_id    : number
+  name       : string
   description: string
 }
 
+// prettier-ignore
 interface Brand {
-  id: number
-  image_id: number
-  text_id: number
-  name: string
+  id         : number
+  image_id   : number
+  text_id    : number
+  name       : string
   description: string
-  type: string
-  image: Image
+  type       : string
+  image      : Image
 }
 
+// prettier-ignore
 interface Characteristic {
-  id: number
-  filter_id: number
-  image_id: number
-  name: string
+  id         : number
+  filter_id  : number
+  image_id   : number
+  name       : string
   description: string
-  is_visible: number
-  image: Image
+  is_visible : number
+  image      : Image
 }
 
+// prettier-ignore
 interface DefaultProductType {
-  id: number
-  type_id: number
-  tag_id: number
-  variant_id: number
-  brand_id: number
-  image_id: number
-  name: string
-  description: string
-  video_url: string
-  views: number
-  price: number
-  discount: number
-  article: string
-  is_stock: number
-  is_in_store: number
-  image: Image
-  variant: Variant
-  type: ProductCategory
-  tag: Tag
-  brand: Brand
-  images: Image[]
-  charactristics?: Characteristic[]
+  id             : number
+  type_id        : number
+  tag_id         : number
+  variant_id     : number
+  brand_id       : number
+  image_id       : number
+  name           : string
+  description    : string
+  video_url      : string
+  views          : number
+  price          : number
+  discount       : number
+  article        : string
+  is_stock       : number
+  is_in_store    : number
+  image          : Image
+  variant        : Variant
+  type           : ProductCategory
+  tag            : Tag
+  brand          : Brand
+  images         : Image[]
+  characteristics: Characteristic[]
 }
 
 type Init = (id: number) => Promise<void>
-type Reset = () => void
+// type Reset = () => void
 
 interface ProductType extends DefaultProductType {
   is_favorite: boolean
   init: Init
-  reset: Reset
+  // reset: Reset
 }
 
-class Product {
-  private data: Record<string, any>
-  private data_c: ComputedRef<Record<string, any>>
+class Product extends BaseModel {
+  private data: DefaultProductType
+  private data_c: ComputedRef<DefaultProductType>
   private rest: Rest
   private promise_controller: PromiseController
 
-  constructor() {
-    this.rest = rest
+  constructor(product: Record<string, any> = {}) {
+    super()
 
+    this.rest = rest
     this.promise_controller = promiseController
 
-    this.data = reactive({})
+    // prettier-ignore
+    this.data = reactive({
+      id             : this.toNum(product.id),
+      type_id        : this.toNum(product.type_id),
+      tag_id         : this.toNum(product.tag_id),
+      variant_id     : this.toNum(product.variant_id),
+      brand_id       : this.toNum(product.brand_id),
+      image_id       : this.toNum(product.image_id),
+      views          : this.toNum(product.views),
+      price          : this.toNum(product.price),
+      discount       : this.toNum(product.discount),
+      is_stock       : this.toNum(product.is_stock),
+      is_in_store    : this.toNum(product.is_in_store),
+      name           : this.toStr(product.name),
+      description    : this.toStr(product.description),
+      video_url      : this.toStr(product.video_url),
+      article        : this.toStr(product.article),
+      image          : product.image ?? {},
+      variant        : product.variant ?? {},
+      type           : product.type ?? {},
+      tag            : product.tag ?? {},
+      brand          : product.brand ?? {},
+      images         : product.images ?? [],
+      characteristics: product.characteristics ?? [],
+    })
+
     this.data_c = computed(() => this.data)
   }
 
-  public reset: Reset = async () => {
-    Object.keys(this.data_c.value).forEach((key) => delete this.data[key])
-  }
+  // public reset: Reset = async () => {
+  //   Object.keys(this.data_c.value).forEach((key) => delete this.data[key])
+  // }
 
   public init: Init = async (id) => {
     const res = await this.promise_controller.await(() => this.rest.get(id))
@@ -222,9 +256,7 @@ class Product {
  * Интерфейс для структуры реактивных данных.
  */
 interface ProductServiceType {
-  /** Объект, содержащий данные о продуктах. */
   products: ProductType[]
-
   pagingInfo: Record<string, any>
   meta: Record<string, any>
 }
@@ -278,6 +310,32 @@ class ProductService {
       },
       { deep: true },
     )
+  }
+
+  /**
+   * Асинхронно fetches все продукты.
+   * Устанавливает состояние загрузки, fetches данные и обновляет продукты.
+   * @param data Опциональные опции для GET-запроса.
+   * @returns Промис, разрешающийся в fetched данные.
+   */
+  async all(data?: GetOptions): Promise<any> {
+    const res = await this.promise_controller.await((signal) =>
+      this.rest.all({
+        // limit: 48,
+        signal: signal,
+        ...data,
+        ...filter.value,
+      }),
+    )
+    if (res === false) return
+    if (!res.success) return
+
+    this.products = res.data.map((product: any) => {
+      return new Product(product)
+    })
+
+    this.pagingInfo = res.pagingInfo
+    this.meta = res.meta
   }
 
   public get is_loading() {
@@ -346,38 +404,16 @@ class ProductService {
   }
 
   /**
-   * Асинхронно fetches все продукты.
-   * Устанавливает состояние загрузки, fetches данные и обновляет продукты.
-   * @param data Опциональные опции для GET-запроса.
-   * @returns Промис, разрешающийся в fetched данные.
-   */
-  async all(data?: GetOptions): Promise<any> {
-    const res = await this.promise_controller.await((signal) =>
-      this.rest.all({
-        // limit: 48,
-        signal: signal,
-        ...data,
-        ...filter.value,
-      }),
-    )
-    if (res === false) return
-    if (!res.success) return
-
-    this.products = res.data
-    this.pagingInfo = res.pagingInfo
-    this.meta = res.meta
-  }
-
-  /**
    * Геттер для данных о продуктах.
    * @returns Объект продуктов или пустой объект, если не определено.
    */
-  public get products() {
+  public get products(): ProductType[] {
     return this.data_c.value.products
   }
 
-  private set products(products) {
-    this.data.products = products
+  private set products(products: ProductType[]) {
+    const raw = products.map((p) => markRaw(p))
+    this.data_c.value.products.splice(0, this.data_c.value.products.length, ...raw)
   }
 }
 

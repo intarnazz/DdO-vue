@@ -55,47 +55,56 @@ const props = defineProps(['type'])
           />
           <CatalogLimit :arguments="[48, 96, 192]" />
         </div>
-        <div v-if="p.products.length" class="catalog__grid">
-          <RouterLink
-            :to="{
-              name: 'product',
-              params: {
-                type: props.type,
-                model: product.variant.name,
-                id: product.id,
-                name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),
-              },
-            }"
+
+        <div
+          v-if="p.products.length"
+          class="catalog__grid"
+          :class="{
+            'opacity-80': p.is_loading,
+          }"
+        >
+          <div
             v-for="(product, key) in p.products"
-            :key="key"
-            class="box-y center catalog__item gap-4"
-            :class="{
-              'opacity-80': p.is_loading,
-            }"
+            :key="product.id"
+            class="catalog__item box-y center gap-4"
           >
-            <div class="box-x gap-2 content center">
-              <div class="box-x relative h-67.5 max-h-67.5">
-                <ComponentImg
-                  class="catalog__img object-cover h-full w-full"
-                  :id="product.image.id"
-                />
+            <RouterLink
+              :to="{
+                name: 'product',
+                params: {
+                  type: props.type,
+                  model: product.variant.name,
+                  id: product.id,
+                  name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),
+                },
+              }"
+              class="box-y center gap-4"
+            >
+              <div class="box-x gap-2 content center">
+                <div class="box-x relative h-67.5 max-h-67.5">
+                  <ComponentImg
+                    class="catalog__img object-cover h-full w-full"
+                    :id="product.image.id"
+                  />
+                </div>
+                <div class="box-x relative h-67.5 max-h-67.5">
+                  <ComponentImg
+                    class="catalog__img object-cover h-full w-full"
+                    :id="product.image.id"
+                  />
+                </div>
               </div>
-              <div class="box-x relative h-67.5 max-h-67.5">
-                <ComponentImg
-                  class="catalog__img object-cover h-full w-full"
-                  :id="product.image.id"
-                />
-              </div>
-            </div>
-            <h3 class="catalog__title title">{{ product.name }}</h3>
-            <p class="catalog__price">{{ price(product.price) }}</p>
+              <h3 class="catalog__title title">{{ product.name }}</h3>
+              <p class="catalog__price">{{ price(product.price) }}</p>
+            </RouterLink>
             <div class="box-x gap">
-              <ButtonFavorite />
+              <ButtonFavorite :product="product" />
               <IconBarChart />
               <IconShopping />
             </div>
-          </RouterLink>
+          </div>
         </div>
+
         <div v-else class="box-x center w">
           <ComponentLoader />
         </div>

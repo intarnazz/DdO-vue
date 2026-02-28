@@ -26,7 +26,7 @@ import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
       <div class="box-y flex js gap-8">
         <h2>{{ product.product.name }}</h2>
         <div class="box-x">
-          <ButtonFavorite />
+          <ButtonFavorite :product="product.product" />
           <button>сравнить</button>
           <p>{{ product.product.article }}</p>
         </div>
