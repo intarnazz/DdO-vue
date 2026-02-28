@@ -94,17 +94,18 @@ interface DefaultProductType {
 type Init = (id: number) => Promise<void>
 // type Reset = () => void
 
+// prettier-ignore
 interface ProductType extends DefaultProductType {
   is_favorite: boolean
-  init: Init
-  // reset: Reset
+  init       : Init
+    // reset: Reset
 }
 
 class Product extends BaseModel {
-  private data: DefaultProductType
-  private data_c: ComputedRef<DefaultProductType>
-  private rest: Rest
-  private promise_controller: PromiseController
+  private data              : DefaultProductType // prettier-ignore
+  private data_c            : ComputedRef<DefaultProductType> // prettier-ignore
+  private rest              : Rest // prettier-ignore
+  private promise_controller: PromiseController // prettier-ignore
 
   constructor(product: Record<string, any> = {}) {
     super()
@@ -255,10 +256,11 @@ class Product extends BaseModel {
 /**
  * Интерфейс для структуры реактивных данных.
  */
+// prettier-ignore
 interface ProductServiceType {
-  products: ProductType[]
+  products  : ProductType[]
   pagingInfo: Record<string, any>
-  meta: Record<string, any>
+  meta      : Record<string, any>
 }
 
 /**
@@ -266,17 +268,18 @@ interface ProductServiceType {
  * Управляет fetching'ом данных о продуктах и состоянием.
  */
 class ProductService {
-  private data: ProductServiceType
-  private data_c: ComputedRef<ProductServiceType>
+  private data  : ProductServiceType // prettier-ignore
+  private data_c: ComputedRef<ProductServiceType> // prettier-ignore
 
-  private rest: Rest
-  private _product: ProductType
-  private promise_controller: PromiseController
+  private _product: ProductType // prettier-ignore
 
-  private _page_count: ComputedRef<number>
-  private _pages: ComputedRef<number[]>
-  private _current_page: ComputedRef<number>
-  private _is_pagination: ComputedRef<boolean>
+  private rest              : Rest // prettier-ignore
+  private promise_controller: PromiseController // prettier-ignore
+
+  private _page_count   : ComputedRef<number> // prettier-ignore
+  private _pages        : ComputedRef<number[]> // prettier-ignore
+  private _current_page : ComputedRef<number> // prettier-ignore
+  private _is_pagination: ComputedRef<boolean> // prettier-ignore
 
   /**
    * Конструктор класса Product.
