@@ -5,7 +5,7 @@ import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 </script>
 
 <template>
-  <section class="product box-y gap-8">
+  <section v-if="product.product.image.path" class="product box-y gap-8">
     <div class="box-x gap-8 as">
       <div class="box-y flex">
         <div class="box-x gap-4 content center">

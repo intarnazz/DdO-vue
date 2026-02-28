@@ -64,7 +64,7 @@ function set_product(product: typeof p.product) {
           v-if="p.products.length"
           class="catalog__grid"
           :class="{
-            // 'opacity-80': p.is_loading,
+            'opacity-80': p.is_loading,
           }"
         >
           <div
@@ -89,13 +89,15 @@ function set_product(product: typeof p.product) {
                 <div class="box-x relative h-67.5 max-h-67.5">
                   <ComponentImg
                     class="catalog__img object-cover h-full w-full"
-                    :id="product.image.id"
+                    :storage="product.image.path"
+                    :is_lazy="true"
                   />
                 </div>
                 <div class="box-x relative h-67.5 max-h-67.5">
                   <ComponentImg
                     class="catalog__img object-cover h-full w-full"
-                    :id="product.image.id"
+                    :storage="product.image.second_path"
+                    :is_lazy="true"
                   />
                 </div>
               </div>
