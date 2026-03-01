@@ -8,9 +8,9 @@ const router = useRoute()
 
 <template>
   <div class="box-x 2 w js">
-    <RouterLink class="c-sub a" :to="{ name: 'home' }"> Главная </RouterLink>
+    <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
     <IconRight />
-    <RouterLink class="c-sub a" :to="{ name: 'home' }"> Каталог </RouterLink>
+    <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
     <IconRight />
     <template v-if="router.name === 'product'">
       <RouterLink
@@ -20,11 +20,11 @@ const router = useRoute()
             type: type.type.name,
           },
         }"
-        class="c-sub a"
+        class="c-sub a a_sub"
         >{{ type.type.visible_name }}
       </RouterLink>
       <IconRight />
-      <RouterLink class="c-sub a" :to="{ name: 'home' }">
+      <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }">
         {{ product.product.variant.name }}
       </RouterLink>
       <IconRight />
