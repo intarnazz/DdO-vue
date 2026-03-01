@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <div v-if="!isLoading" class="nav py-2 bs bgf">
+  <div class="nav py-2 bs bgf">
     <LayoutWrapper>
       <div class="box-x">
         <img class="h-11" src="@/assets/icons/logo.svg" alt="logo" />

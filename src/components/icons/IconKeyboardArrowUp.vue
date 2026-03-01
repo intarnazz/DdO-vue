@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 
 const props = defineProps(['fill', 'is_turn', 'default_turn'])
@@ -20,7 +20,6 @@ const default_turn = computed(() => props.default_turn)
         off: default_turn === false,
       },
       fill,
-      _class,
     ]"
     width="12"
     height="8"

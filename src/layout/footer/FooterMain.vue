@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Iconlogo from '@/components/icons/Iconlogo.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 </script>

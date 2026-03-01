@@ -9,7 +9,7 @@ function expand_change() {
   emit('expand_change')
 }
 
-function send_active_filters_ids(content) {
+function send_active_filters_ids(content: Record<string, any>) {
   emit('send_active_filters_ids', content)
 }
 </script>

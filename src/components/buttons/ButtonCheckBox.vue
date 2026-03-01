@@ -6,7 +6,7 @@ import CheckBoxFilter from './check-boxes/CheckBoxMain.vue'
 const props = defineProps(['content', 'active_filters_ids', 'is_color'])
 const emit = defineEmits(['send_active_filters_ids'])
 
-const __is_active = ref(null)
+const __is_active = ref<boolean | null>(null)
 
 const content = computed(() => props.content || {})
 const active_filters_ids = computed(() => props.active_filters_ids || [])

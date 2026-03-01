@@ -8,7 +8,7 @@ interface Props {
   /**
    * Indicates whether the filter is currently active.
    */
-  is_active: boolean
+  is_active: boolean | null
 
   /**
    * The content object containing the name of the filter.

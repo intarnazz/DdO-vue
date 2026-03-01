@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { namesToKeys, formatPhone, copyToClipboard } from '@/utilte/utilte'
 import { contact } from '@/api/api'
 import { onMounted, ref } from 'vue'
 
 const isLoading = ref(true)
-const contacts = ref([])
+const contacts = ref<Record<string, any>>({})
 
 async function init() {
   isLoading.value = true

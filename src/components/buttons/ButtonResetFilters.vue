@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { filter } from '@/api/api'
 import IconClearAll from '../icons/IconClearAll.vue'
 </script>

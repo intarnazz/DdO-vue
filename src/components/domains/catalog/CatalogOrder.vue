@@ -1,10 +1,4 @@
 <script setup lang="ts">
-/**
- * @file ComponentOrder.vue
- * @description Vue-компонент, реализующий переключающую навигационную панель с динамическими ширинами вкладок.
- * Он использует LayoutResize для измерения ширины вкладок и отображает кнопки переключения.
- */
-
 import { filter } from '@/api/api'
 import { onMounted, ref } from 'vue'
 import LayoutResize from '@/layout/LayoutResize.vue'
@@ -101,7 +95,7 @@ const active = ref<number>(0)
 function setActive(key: number) {
   active.value = key
   filter.order = content.value[key].type
-  filter.desc = content.value[key].desc
+  filter.desc = content.value[key].desc || ''
 }
 </script>
 

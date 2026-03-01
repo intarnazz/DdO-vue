@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { filter } from '@/api/api'
 import { up, up_fast } from '@/utilte/utilte'
 import { ref, onMounted, onUnmounted, computed, watch } from 'vue'

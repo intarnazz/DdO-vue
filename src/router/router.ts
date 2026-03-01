@@ -25,7 +25,7 @@ const router = createRouter({
       props: true,
       component: PageCatalog,
       beforeEnter: async (to, from, next) => {
-        await composer.essence_init(to.params)
+        await composer.essence_init(to.params as Record<string, string>)
         next()
       },
     },
@@ -35,7 +35,7 @@ const router = createRouter({
       props: true,
       component: PageProduct,
       beforeEnter: async (to, from, next) => {
-        await composer.essence_init(to.params)
+        await composer.essence_init(to.params as Record<string, string>)
         next()
       },
     },

@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <div v-if="!isLoading" class="product-nav py-4 bs c-w">
+  <div class="product-nav py-4 bs c-w">
     <LayoutWrapper>
       <div class="box-x">
         <!-- <div class="box-x gap2">

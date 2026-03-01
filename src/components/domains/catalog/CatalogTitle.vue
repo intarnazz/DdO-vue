@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { filter, product as p, type } from '@/api/api'
 import ButtonResetFilters from '@/components/buttons/ButtonResetFilters.vue'
 import { computed } from 'vue'

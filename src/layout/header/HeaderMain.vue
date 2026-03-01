@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import MainAddress from '@/layout/header/main/MainAddress.vue'
 import MainNav from '@/layout/header/main/MainNav.vue'
 import ProductNav from '@/layout/header/main/ProductNav.vue'

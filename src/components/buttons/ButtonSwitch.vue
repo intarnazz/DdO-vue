@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import { filter } from '@/api/api'
@@ -6,7 +6,7 @@ import { filter } from '@/api/api'
 const props = defineProps(['button', 'index', 'active'])
 const emit = defineEmits(['click'])
 
-const is_hover = ref(null)
+const is_hover = ref<boolean | null>(null)
 
 const button = computed(() => props.button || {})
 const key = computed(() => props.index ?? NaN)
@@ -14,7 +14,7 @@ const active = computed(() => props.active || false)
 
 const is_active = computed(() => active.value === key.value)
 
-const is_turn = ref(null)
+const is_turn = ref<boolean | null>(null)
 
 const fill = computed(() => {
   if (is_hover.value) return 'mark'

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import ComponentImg from '@/components/ComponentImg.vue'
 </script>
 

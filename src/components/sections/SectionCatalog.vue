@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { product as p, product } from '@/api/api'
+import { product as p } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import IconBarChart from '@/components/icons/IconBarChart.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
-import IconFavorite from '@/components/icons/IconFavorite.vue'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
 import CatalogOrder from '@/components/domains/catalog/CatalogOrder.vue'
 import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
 import FormSearch from '@/components/forms/FormSearch.vue'
-import ComponentLoader from '../ComponentLoader.vue'
-import ButtonFavorite from '../buttons/ButtonFavorite.vue'
+import ComponentLoader from '@/components/ComponentLoader.vue'
+import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 
 const props = defineProps(['type'])
 

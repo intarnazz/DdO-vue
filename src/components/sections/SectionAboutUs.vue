@@ -1,29 +1,11 @@
-<script setup>
-import { onMounted, ref } from 'vue'
-import { product as p } from '@/api/api'
+<script setup lang="ts">
 import ComponentImg from '@/components/ComponentImg.vue'
-
-const isLoading = ref(true)
-const product = ref(null)
-
-async function init() {
-  isLoading.value = true
-  const res = await p.get(1)
-  if (res.success) product.value = res.data
-  isLoading.value = false
-}
-
-onMounted(async () => {
-  await init()
-})
 </script>
 
 <template>
-  <div v-if="!isLoading" class="about">
-    <p>T{{ product }}</p>
-
+  <section class="about-us">
     <ComponentImg :id="14" class="h-dvh object-cover" />
-  </div>
+  </section>
 </template>
 
 <style>

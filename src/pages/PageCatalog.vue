@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
