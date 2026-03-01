@@ -2,8 +2,11 @@
 import { RouterLink, useRoute } from 'vue-router'
 import IconRight from '@/components/icons/IconRight.vue'
 import { product, type } from '@/api/api'
+import { computed } from 'vue'
 
 const router = useRoute()
+
+const type_name = computed(() => product.product.type.visible_name || type.type.visible_name || '')
 </script>
 
 <template>
@@ -21,7 +24,7 @@ const router = useRoute()
           },
         }"
         class="c-sub a a_sub"
-        >{{ type.type.visible_name }}
+        >{{ type_name }}
       </RouterLink>
       <IconRight />
       <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }">
