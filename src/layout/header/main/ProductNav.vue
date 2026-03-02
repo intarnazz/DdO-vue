@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { filter } from '@/api/api'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { RouterLink } from 'vue-router'
+
+console.log(filter.value)
 </script>
 
 <template>
@@ -10,9 +13,22 @@ import { RouterLink } from 'vue-router'
         <!-- <div class="box-x gap2">
         </div> -->
         <RouterLink :to="{ name: 'home' }" class="">Акции</RouterLink>
-        <RouterLink :to="{ name: 'catalog', params: { type: 'entrance-doors' } }" class=""
-          >Входные двери</RouterLink
+        <RouterLink
+          :to="{
+            name: 'catalog',
+            params: { type: 'entrance-doors' },
+            query: {
+              ...filter.value.filters,
+              limit: filter.value.limit,
+              order: filter.value.order,
+              desc: filter.value.desc,
+              offset: filter.value.offset,
+            },
+          }"
+          class=""
         >
+          Входные двери
+        </RouterLink>
         <RouterLink :to="{ name: 'home' }" class="">Межкомнотные двери</RouterLink>
         <RouterLink :to="{ name: 'home' }" class="">Фурнитура</RouterLink>
         <RouterLink :to="{ name: 'home' }" class="">Напольные покрытия</RouterLink>

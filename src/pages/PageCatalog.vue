@@ -4,6 +4,12 @@ import LayoutPage from '@/layout/LayoutPage.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import SectionCatalog from '@/components/sections/SectionCatalog.vue'
 import ComponentBread from '@/components/ComponentBread.vue'
+import { onMounted } from 'vue'
+import { filter } from '@/api/api'
+
+// onMounted(() => {
+//   filter.saveToUrl()
+// })
 </script>
 
 <template>

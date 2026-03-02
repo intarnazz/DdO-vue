@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router'
 import IconRight from '@/components/icons/IconRight.vue'
-import { product, type } from '@/api/api'
+import { filter, product, type } from '@/api/api'
 import { computed } from 'vue'
 
 const router = useRoute()
@@ -20,14 +20,20 @@ const type_name = computed(() => product.product.type.name || type.type.name || 
     <IconRight />
     <template v-if="router.name === 'product'">
       <RouterLink
+        class="c-sub a a_sub"
         :to="{
           name: 'catalog',
-          params: {
-            type: type_name,
+          params: { type: type_name },
+          query: {
+            ...filter.value.filters,
+            limit: filter.value.limit,
+            order: filter.value.order,
+            desc: filter.value.desc,
+            offset: filter.value.offset,
           },
         }"
-        class="c-sub a a_sub"
-        >{{ type_visible_name }}
+      >
+        {{ type_visible_name }}
       </RouterLink>
       <IconRight />
       <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }">

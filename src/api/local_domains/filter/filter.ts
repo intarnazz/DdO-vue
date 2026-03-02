@@ -36,10 +36,10 @@ interface FilterState {
  */
 class Filter extends Rest {
   /** Реактивное состояние фильтра */
-  #data: FilterState
+  data: FilterState
 
   /** Computed-обёртка над состоянием */
-  #data_c: ComputedRef<FilterState>
+  data_c: ComputedRef<FilterState>
 
   /**
    * Создаёт экземпляр фильтра,
@@ -48,7 +48,7 @@ class Filter extends Rest {
   constructor() {
     super('filter')
 
-    this.#data = reactive<FilterState>({
+    this.data = reactive<FilterState>({
       filters: {},
       order: '',
       desc: '',
@@ -59,7 +59,7 @@ class Filter extends Rest {
       search: '',
     })
 
-    this.#data_c = computed(() => this.#data)
+    this.data_c = computed(() => this.data)
 
     this.#loadFromUrl()
 
@@ -70,41 +70,40 @@ class Filter extends Rest {
   }
 
   get search() {
-    return this.#data_c.value.search
+    return this.data_c.value.search
   }
 
   set search(search) {
-    this.#data.search = search
-
-    this.#saveToUrl()
+    this.data.search = search
+    this.saveToUrl()
   }
 
   /**
    * Полное состояние фильтра.
    */
   get value(): FilterState {
-    return this.#data_c.value
+    return this.data_c.value
   }
 
   get limit(): number {
-    return this.#data_c.value.limit
+    return this.data_c.value.limit
   }
 
   set limit(limit: number) {
-    this.#data.limit = limit
+    this.data.limit = limit
 
-    this.#saveToUrl()
+    this.saveToUrl()
   }
 
   get offset(): number {
-    return this.#data_c.value.offset
+    return this.data_c.value.offset
   }
 
   set offset(offset: number) {
     if (offset < 0) offset = 0
-    this.#data.offset = offset
+    this.data.offset = offset
 
-    this.#saveToUrl()
+    this.saveToUrl()
   }
 
   /**
@@ -112,8 +111,8 @@ class Filter extends Rest {
    */
   get filters(): Filters {
     return {
-      ...this.#data_c.value.filters,
-      length: String(Object.keys(this.#data_c.value.filters).length),
+      ...this.data_c.value.filters,
+      length: String(Object.keys(this.data_c.value.filters).length),
     }
   }
 
@@ -127,23 +126,23 @@ class Filter extends Rest {
     const key = Object.keys(obj)[0]
     const value = Object.values(obj)[0]
 
-    if (!value || this.#data.filters[key] === value) delete this.#data.filters[key]
-    else Object.assign(this.#data.filters, obj)
+    if (!value || this.data.filters[key] === value) delete this.data.filters[key]
+    else Object.assign(this.data.filters, obj)
 
-    this.#saveToUrl()
+    this.saveToUrl()
   }
 
   resetFilters() {
-    Object.keys(this.#data.filters).forEach((key) => delete this.#data.filters[key])
+    Object.keys(this.data.filters).forEach((key) => delete this.data.filters[key])
 
-    this.#saveToUrl()
+    this.saveToUrl()
   }
 
   /**
    * Поле сортировки.
    */
   get order(): string {
-    return this.#data_c.value.order || ''
+    return this.data_c.value.order || ''
   }
 
   /**
@@ -152,15 +151,15 @@ class Filter extends Rest {
    * @param order Название поля
    */
   set order(order: string) {
-    this.#data.order = String(order)
-    this.#saveToUrl()
+    this.data.order = String(order)
+    this.saveToUrl()
   }
 
   /**
    * Направление сортировки.
    */
   get desc(): string {
-    return this.#data_c.value.desc || ''
+    return this.data_c.value.desc || ''
   }
 
   /**
@@ -169,27 +168,27 @@ class Filter extends Rest {
    * @param desc Направление (`asc` / `desc`)
    */
   set desc(desc: string) {
-    this.#data.desc = String(desc)
-    this.#saveToUrl()
+    this.data.desc = String(desc)
+    this.saveToUrl()
   }
 
   /**
    * Сохраняет текущее состояние фильтров и сортировки в URL.
    */
-  #saveToUrl(): void {
+  public saveToUrl(): void {
     const filters = Object.fromEntries(
-      Object.entries(this.#data_c.value.filters).filter(([, value]) => value),
+      Object.entries(this.data_c.value.filters).filter(([, value]) => value),
     )
 
     router
       .replace({
         query: {
           ...filters,
-          ...(this.#data_c.value.order ? { order: this.#data_c.value.order } : {}),
-          ...(this.#data_c.value.desc ? { desc: this.#data_c.value.desc } : {}),
-          ...(this.#data_c.value.limit ? { limit: this.#data_c.value.limit } : {}),
-          ...(this.#data_c.value.offset ? { offset: this.#data_c.value.offset } : {}),
-          ...(this.#data_c.value.search ? { search: this.#data_c.value.search } : {}),
+          ...(this.data_c.value.order ? { order: this.data_c.value.order } : {}),
+          ...(this.data_c.value.desc ? { desc: this.data_c.value.desc } : {}),
+          ...(this.data_c.value.limit ? { limit: this.data_c.value.limit } : {}),
+          ...(this.data_c.value.offset ? { offset: this.data_c.value.offset } : {}),
+          ...(this.data_c.value.search ? { search: this.data_c.value.search } : {}),
         },
       })
       .catch(() => {})
@@ -205,11 +204,11 @@ class Filter extends Rest {
 
     filters = Object.fromEntries(Object.entries(filters).filter(([, value]) => value))
 
-    this.#data.order = filters.order ?? ''
-    this.#data.desc = filters.desc ?? ''
-    this.#data.limit = Number(filters.limit) || 48
-    this.#data.offset = Number(filters.offset) || 0
-    this.#data.search = filters.search || ''
+    this.data.order = filters.order ?? ''
+    this.data.desc = filters.desc ?? ''
+    this.data.limit = Number(filters.limit) || 48
+    this.data.offset = Number(filters.offset) || 0
+    this.data.search = filters.search || ''
 
     delete filters.order
     delete filters.desc
@@ -217,7 +216,7 @@ class Filter extends Rest {
     delete filters.offset
     delete filters.search
 
-    Object.assign(this.#data.filters, filters)
+    Object.assign(this.data.filters, filters)
   }
 }
 
