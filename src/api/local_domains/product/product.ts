@@ -271,7 +271,9 @@ class ProductService {
   private data  : ProductServiceType // prettier-ignore
   private data_c: ComputedRef<ProductServiceType> // prettier-ignore
 
-  private _product: ProductType // prettier-ignore
+  private _product: {
+    value: ProductType
+  } // prettier-ignore
 
   private rest              : Rest // prettier-ignore
   private promise_controller: PromiseController // prettier-ignore
@@ -289,7 +291,7 @@ class ProductService {
     this.promise_controller = new PromiseController()
 
     this.rest = rest
-    this._product = new Product()
+    this._product = { value: new Product() }
 
     this.data = reactive({
       products: [],
@@ -367,11 +369,12 @@ class ProductService {
   }
 
   public get product() {
-    return this._product
+    return this._product.value
   }
 
   public set product(product) {
-    this._product = new Product(product)
+    //if (product.id !== this.product.id) 
+    this._product.value = new Product(product)
   }
 
   /**

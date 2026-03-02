@@ -13,8 +13,8 @@ const props = defineProps<{
 
 const product = computed(() => props.product)
 
-function set_product(product: typeof p.product) {
-  p.product = product
+function set_product() {
+  p.product = product.value
 }
 </script>
 
@@ -25,7 +25,7 @@ function set_product(product: typeof p.product) {
       :to="{
         name: 'product',
         params: {
-          type: type.type.visible_name,
+          type: type.type.name,
           model: product.variant.name,
           id: product.id,
           name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),

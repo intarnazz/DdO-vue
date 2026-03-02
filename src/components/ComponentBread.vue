@@ -6,11 +6,14 @@ import { computed } from 'vue'
 
 const router = useRoute()
 
-const type_name = computed(() => product.product.type.visible_name || type.type.visible_name || '')
+const type_visible_name = computed(
+  () => product.product.type.visible_name || type.type.visible_name || '',
+)
+const type_name = computed(() => product.product.type.name || type.type.name || '')
 </script>
 
 <template>
-  <div class="box-x 2 w js">
+  <div v-if="type_name" class="box-x 2 w js">
     <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
     <IconRight />
     <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
@@ -20,11 +23,11 @@ const type_name = computed(() => product.product.type.visible_name || type.type.
         :to="{
           name: 'catalog',
           params: {
-            type: type.type.name,
+            type: type_name,
           },
         }"
         class="c-sub a a_sub"
-        >{{ type_name }}
+        >{{ type_visible_name }}
       </RouterLink>
       <IconRight />
       <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }">
@@ -33,7 +36,7 @@ const type_name = computed(() => product.product.type.visible_name || type.type.
       <IconRight />
       <p class="c-sub">{{ product.product.name }}</p>
     </template>
-    <p v-else class="c-sub">{{ type.type.visible_name }}</p>
+    <p v-else class="c-sub">{{ type_visible_name }}</p>
   </div>
 </template>
 
