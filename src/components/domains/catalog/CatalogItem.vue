@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { product as p, type } from '@/api/api'
+import { computed } from 'vue'
+import { filter, product as p, type } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import IconBarChart from '@/components/icons/IconBarChart.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
-import { computed } from 'vue'
+import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
 
 const props = defineProps<{
   product: typeof p.product
@@ -49,7 +50,9 @@ function set_product() {
           />
         </div>
       </div>
-      <h3 class="catalog__title title">{{ product.name }}</h3>
+      <h3>
+        <ComponentHighlightText :text="product.name" :search="filter.search" />
+      </h3>
       <p class="catalog__price">{{ price(product.price) }}</p>
     </RouterLink>
     <div class="box-x gap">
