@@ -8,8 +8,3 @@ import App from '@/App.vue'
 import router from '@/router/router.ts'
 
 createApp(App).use(router).mount('#app')
-
-
-// function set_product(product: typeof p.product) {
-//   p.product = product
-// }
