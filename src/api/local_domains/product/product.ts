@@ -7,7 +7,6 @@ import PromiseController from '../../web_services/promiseController'
 import user from '@/storage/user'
 import BaseModel from '@/models/baseModel'
 import { type } from '@/api/api'
-import { price } from '@/utilte/utilte'
 
 const rest = new Rest('product')
 const promiseController = new PromiseController()
@@ -326,7 +325,7 @@ class ProductService {
    */
   public async all(data: GetOptions = {}): Promise<any> {
     const filter_local = structuredClone(toRaw(filter.value))
-    filter_local.filters['type'] = type.type.id
+    filter_local.filters['type'] = String(type.type.id)
 
     const res = await this.promise_controller.await((signal) =>
       this.rest.all({
