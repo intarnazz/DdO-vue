@@ -175,7 +175,7 @@ class Filter extends Rest {
   /**
    * Сохраняет текущее состояние фильтров и сортировки в URL.
    */
-  public saveToUrl(): void {
+  private saveToUrl(): void {
     const filters = Object.fromEntries(
       Object.entries(this.data_c.value.filters).filter(([, value]) => value),
     )
