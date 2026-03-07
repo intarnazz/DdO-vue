@@ -358,10 +358,6 @@ class ProductService {
   }
 
   public set comparison_product(comparison_product) {
-    console.log(
-      '🚀 ~ ProductService ~ comparison_product ~ comparison_product:',
-      comparison_product,
-    )
     this._comparison_product.value = comparison_product
   }
 
