@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { product as p } from '@/api/api'
+import { ProductType } from '@/api/local_domains/product/product'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
 import { computed } from 'vue'
 
 const props = defineProps<{
-  product: typeof p.product
+  product: ProductType
   is_mini?: boolean
 }>()
 

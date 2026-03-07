@@ -96,7 +96,7 @@ type Init = (id: number) => Promise<void>
 // type Reset = () => void
 
 // prettier-ignore
-interface ProductType extends DefaultProductType {
+export interface ProductType extends DefaultProductType {
   is_favorite: boolean
   init       : Init
     // reset: Reset
@@ -272,8 +272,12 @@ class ProductService {
   private data_c: ComputedRef<ProductServiceType> // prettier-ignore
 
   private _product: {
-    value: ProductType
-  } // prettier-ignore
+    value: ProductType | null
+  }
+
+  private _comparison_product: {
+    value: ProductType | null
+  }
 
   private rest              : Rest // prettier-ignore
   private promise_controller: PromiseController // prettier-ignore
@@ -292,6 +296,7 @@ class ProductService {
 
     this.rest = rest
     this._product = { value: new Product() }
+    this._comparison_product = { value: new Product() }
 
     this.data = reactive({
       products: [],
@@ -348,6 +353,14 @@ class ProductService {
     this.meta = res.meta
   }
 
+  public get comparison_product(): ProductType | null {
+    return this._comparison_product.value
+  }
+
+  private set comparison_product(comparison_product: ProductType) {
+    this._comparison_product.value = new Product(comparison_product)
+  }
+
   public get is_loading() {
     return this.promise_controller.is_loading
   }
@@ -368,12 +381,11 @@ class ProductService {
     Object.assign(this.data_c.value.pagingInfo, pagingInfo)
   }
 
-  public get product() {
+  public get product(): ProductType | null {
     return this._product.value
   }
 
-  public set product(product) {
-    //if (product.id !== this.product.id) 
+  public set product(product: ProductType) {
     this._product.value = new Product(product)
   }
 
