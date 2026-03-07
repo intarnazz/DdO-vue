@@ -1,5 +1,5 @@
-import { reactive, computed, watch, markRaw, toRaw } from 'vue'
-import type { ComputedRef } from 'vue'
+import { reactive, computed, watch, markRaw, toRaw, ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import type { PostBody, GetOptions } from '../../web_services/request/request'
 import Rest from '../../web_services/rest'
 import filter from '../filter/filter'
@@ -272,12 +272,10 @@ class ProductService {
   private data_c: ComputedRef<ProductServiceType> // prettier-ignore
 
   private _product: {
-    value: ProductType | null
+    value: ProductType
   }
 
-  private _comparison_product: {
-    value: ProductType | null
-  }
+  private _comparison_product: Ref<Readonly<ProductType> | null>
 
   private rest              : Rest // prettier-ignore
   private promise_controller: PromiseController // prettier-ignore
@@ -295,8 +293,10 @@ class ProductService {
     this.promise_controller = new PromiseController()
 
     this.rest = rest
+
     this._product = { value: new Product() }
-    this._comparison_product = { value: new Product() }
+
+    this._comparison_product = ref(null)
 
     this.data = reactive({
       products: [],
@@ -353,12 +353,16 @@ class ProductService {
     this.meta = res.meta
   }
 
-  public get comparison_product(): ProductType | null {
+  public get comparison_product() {
     return this._comparison_product.value
   }
 
-  private set comparison_product(comparison_product: ProductType) {
-    this._comparison_product.value = new Product(comparison_product)
+  public set comparison_product(comparison_product) {
+    console.log(
+      '🚀 ~ ProductService ~ comparison_product ~ comparison_product:',
+      comparison_product,
+    )
+    this._comparison_product.value = comparison_product
   }
 
   public get is_loading() {
@@ -381,11 +385,11 @@ class ProductService {
     Object.assign(this.data_c.value.pagingInfo, pagingInfo)
   }
 
-  public get product(): ProductType | null {
+  public get product() {
     return this._product.value
   }
 
-  public set product(product: ProductType) {
+  public set product(product) {
     this._product.value = new Product(product)
   }
 

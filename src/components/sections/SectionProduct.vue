@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
 import ComponentImg from '@/components/ComponentImg.vue'
+import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 </script>
 
 <template>
-  <section v-if="product.product.image.path" class="product box-y gap-8">
+  <section v-if="product.product !== null" class="product box-y gap-8">
     <div class="box-x gap-8 as">
       <div class="box-y flex">
         <div class="box-x gap-4 content center">
@@ -27,7 +28,7 @@ import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
         <h2>{{ product.product.name }}</h2>
         <div class="box-x">
           <ButtonFavorite :product="product.product" />
-          <button>сравнить</button>
+          <ButtonComparison :product="product.product" />
           <p>{{ product.product.article }}</p>
         </div>
       </div>

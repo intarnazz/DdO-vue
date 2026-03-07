@@ -39,6 +39,9 @@ svg
   cursor: pointer
   fill: $main
 
+.active
+  fill: $red
+
 .active_on
   animation: active_on .125s forwards linear
 
