@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { product as p } from '@/api/api'
-import { ProductType } from '@/api/local_domains/product/product'
+import { ProductType } from '@/api/local_domains/catalog/product'
 import IconBarChart from '@/components/icons/IconBarChart.vue'
 import { computed } from 'vue'
 

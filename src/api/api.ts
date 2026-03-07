@@ -1,10 +1,10 @@
 // api
-import type from './local_domains/product/type'
+import type from './local_domains/catalog/type/type'
 import Rest from './web_services/rest'
 import image from './web_services/image'
 import user from './local_domains/user/user'
 import filter from './local_domains/filter/filter'
-import product from './local_domains/product/product'
+import product from './local_domains/catalog/product/index'
 
 /**
  * Глобальный модуль для взаимодействия с API.

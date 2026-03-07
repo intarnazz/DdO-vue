@@ -1,7 +1,7 @@
 import { reactive, computed, ComputedRef } from 'vue'
-import Rest from '../../web_services/rest'
-import product from './product'
+import Rest from '../../../web_services/rest'
 import BaseModel from '@/models/baseModel'
+import { product } from '@/api/api'
 
 const rest = new Rest('type')
 

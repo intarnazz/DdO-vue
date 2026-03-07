@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProductType } from '@/api/local_domains/product/product'
+import { ProductType } from '@/api/local_domains/catalog/product'
 import IconFavorite from '@/components/icons/IconFavorite.vue'
 import { computed } from 'vue'
 
