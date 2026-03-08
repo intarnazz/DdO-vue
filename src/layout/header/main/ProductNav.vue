@@ -2,8 +2,6 @@
 import { filter } from '@/api/api'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { RouterLink } from 'vue-router'
-
-console.log(filter.value)
 </script>
 
 <template>
@@ -17,13 +15,7 @@ console.log(filter.value)
           :to="{
             name: 'catalog',
             params: { type: 'entrance-doors' },
-            query: {
-              ...filter.value.filters,
-              limit: filter.value.limit,
-              order: filter.value.order,
-              desc: filter.value.desc,
-              offset: filter.value.offset,
-            },
+            query: filter.query,
           }"
           class=""
         >

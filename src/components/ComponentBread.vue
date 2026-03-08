@@ -24,13 +24,7 @@ const type_name = computed(() => product.product.type.name || type.type.name || 
         :to="{
           name: 'catalog',
           params: { type: type_name },
-          query: {
-            ...filter.value.filters,
-            limit: filter.value.limit,
-            order: filter.value.order,
-            desc: filter.value.desc,
-            offset: filter.value.offset,
-          },
+          query: filter.query,
         }"
       >
         {{ type_visible_name }}

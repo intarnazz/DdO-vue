@@ -1,4 +1,4 @@
 export default class BaseModel {
-  protected toNum = (v: any) => (v != null ? Number(v) : 0)
-  protected toStr = (v: any) => (v != null ? String(v) : '')
+  protected toNum = (v: any, def: number = 0) => (v != null ? Number(v) : def)
+  protected toStr = (v: any, def: string = '') => (v != null ? String(v) : def)
 }
