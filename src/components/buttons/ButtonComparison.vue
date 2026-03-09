@@ -11,16 +11,17 @@ const props = defineProps<{
 
 const product = computed(() => props.product)
 const is_mini = computed(() => props.is_mini || false)
-const comparison_product_id = computed<number>(() =>
-  p.comparison_product !== null ? p.comparison_product.id : NaN,
-)
+
+const comparison_product_id = computed<number>(() => {
+  if (p.comparison_product === null) return NaN
+  return p.comparison_product.id
+})
+
 const active = computed(() => comparison_product_id.value === product.value.id)
 
 function set_comparison_product() {
   if (p.comparison_product === null) p.comparison_product = product.value
   else p.comparison_product = null
-
-  console.log(p.comparison_product)
 }
 </script>
 
