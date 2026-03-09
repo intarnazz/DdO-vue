@@ -44,6 +44,8 @@ svg
     fill: $sub-95 !important
   &_mark
     fill: $mark !important
+  &_red
+    fill: $red !important
 
 .off
   transform: rotate(0deg);

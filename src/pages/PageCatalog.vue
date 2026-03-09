@@ -8,7 +8,7 @@ import ComponentBread from '@/components/ComponentBread.vue'
 
 <template>
   <LayoutPage class="main box-y gap-16">
-    <LayoutWrapper class="box-y gap-16">
+    <LayoutWrapper class="box-y gap-12">
       <ComponentBread />
       <SectionCatalog />
     </LayoutWrapper>

@@ -1,21 +1,40 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { filter, product as p, type } from '@/api/api'
-import { price } from '@/utilte/utilte'
+import { filter, product as api_product, type } from '@/api/api'
+import { price as utilte_price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
+import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
+import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
 
 const props = defineProps<{
-  product: typeof p.product
+  product: typeof api_product.product
 }>()
 
 const product = computed(() => props.product)
+const price = computed(() => utilte_price(product.value.price))
+
+const is_more = computed<boolean>(() => {
+  if (api_product.comparison_product !== null)
+    return product.value.price > api_product.comparison_product.price
+  return false
+})
+const is_less = computed<boolean>(() => {
+  if (api_product.comparison_product !== null)
+    return product.value.price < api_product.comparison_product.price
+  return false
+})
+const is_equal = computed<boolean>(() => {
+  if (api_product.comparison_product !== null)
+    return product.value.price === api_product.comparison_product.price
+  return false
+})
 
 function set_product() {
-  p.product = product.value
+  api_product.product = product.value
 }
 </script>
 
@@ -53,7 +72,26 @@ function set_product() {
       <h3>
         <ComponentHighlightText :text="product.name" :search="filter.search" />
       </h3>
-      <p class="catalog__price">{{ price(product.price) }}</p>
+      <div class="catalog__price box-x gap-2">
+        <p v-if="is_less">
+          <ComponentHighlightText :text="price" :search="price" />
+        </p>
+        <p v-else>
+          {{ price }}
+        </p>
+
+        <template v-if="api_product.comparison_product !== null">
+          <div class="box-y" v-if="is_more">
+            <IconKeyboardArrowUp fill="red" />
+            <IconKeyboardArrowUp fill="red" />
+          </div>
+          <div class="box-y" v-if="is_less">
+            <IconKeyboardArrowDown fill="green" />
+            <IconKeyboardArrowDown fill="green" />
+          </div>
+          <span class="c-main" v-if="is_equal"> --- </span>
+        </template>
+      </div>
     </RouterLink>
     <div class="box-x gap">
       <ButtonFavorite :product="product" :is_mini="true" />

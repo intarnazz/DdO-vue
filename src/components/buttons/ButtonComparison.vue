@@ -20,7 +20,8 @@ const comparison_product_id = computed<number>(() => {
 const active = computed(() => comparison_product_id.value === product.value.id)
 
 function set_comparison_product() {
-  if (p.comparison_product === null) p.comparison_product = product.value
+  if (p.comparison_product === null || p.comparison_product.id !== product.value.id)
+    p.comparison_product = product.value
   else p.comparison_product = null
 }
 </script>

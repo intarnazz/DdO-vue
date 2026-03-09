@@ -3,6 +3,7 @@ import { RouterLink, useRoute } from 'vue-router'
 import IconRight from '@/components/icons/IconRight.vue'
 import { filter, product, type } from '@/api/api'
 import { computed } from 'vue'
+import { price } from '@/utilte/utilte'
 
 const router = useRoute()
 
@@ -13,30 +14,58 @@ const type_name = computed(() => product.product.type.name || type.type.name || 
 </script>
 
 <template>
-  <div v-if="type_name" class="box-x 2 w js">
-    <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
-    <IconRight />
-    <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
-    <IconRight />
-    <template v-if="router.name === 'product'">
-      <RouterLink
-        class="c-sub a a_sub"
-        :to="{
-          name: 'catalog',
-          params: { type: type_name },
-          query: filter.query,
+  <div class="box-y gap-4">
+    <div v-if="type_name" class="box-x 2 w js">
+      <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
+      <IconRight />
+      <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
+      <IconRight />
+      <template v-if="router.name === 'product'">
+        <RouterLink
+          class="c-sub a a_sub"
+          :to="{
+            name: 'catalog',
+            params: { type: type_name },
+            query: filter.query,
+          }"
+        >
+          {{ type_visible_name }}
+        </RouterLink>
+        <IconRight />
+        <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }">
+          {{ product.product.variant.name }}
+        </RouterLink>
+        <IconRight />
+        <p class="c-sub">{{ product.product.name }}</p>
+      </template>
+      <p v-else class="c-sub">{{ type_visible_name }}</p>
+    </div>
+    <div class="">
+      <p
+        :class="{
+          'opacity-0': !product.comparison_product,
         }"
+        class="c-sub"
       >
-        {{ type_visible_name }}
-      </RouterLink>
-      <IconRight />
-      <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }">
-        {{ product.product.variant.name }}
-      </RouterLink>
-      <IconRight />
-      <p class="c-sub">{{ product.product.name }}</p>
-    </template>
-    <p v-else class="c-sub">{{ type_visible_name }}</p>
+        данные в сравнении с:
+        <template v-if="product.comparison_product">
+          <RouterLink
+            class="c-sub a a_sub"
+            :to="{
+              name: 'product',
+              params: {
+                id: product.comparison_product.id,
+                name: product.comparison_product.name,
+                model: product.comparison_product.variant.name,
+              },
+            }"
+            >{{ product.comparison_product.name }}</RouterLink
+          >
+          /
+          {{ price(product.comparison_product.price) }}
+        </template>
+      </p>
+    </div>
   </div>
 </template>
 
