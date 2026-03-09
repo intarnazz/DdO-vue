@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { filter } from '@/api/api'
+import ButtonResetFilters from '@/components/buttons/ButtonResetFilters.vue'
+import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
+</script>
 
 <template>
   <div class="box-y gap-16 center py-16">
@@ -18,7 +22,16 @@
       </svg>
       <p class="text" data-text="404..."></p>
     </div>
-    <h2>Ничего не нашлось</h2>
+    <div class="box-y center gap-4">
+      <p class="c-sub">
+        для запроса:
+        <span class="c-b">
+          <ComponentHighlightText :text="filter.search" :search="filter.search" />
+        </span>
+      </p>
+      <h2>Ничего не нашлось</h2>
+      <ButtonResetFilters />
+    </div>
   </div>
 </template>
 

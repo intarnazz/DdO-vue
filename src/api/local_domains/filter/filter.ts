@@ -3,7 +3,7 @@ import Rest from '../../web_services/rest'
 import BaseModel from '@/models/baseModel'
 import UrlStorage from '@/storage/storage.url'
 
-type Filters = Record<string, string | null>
+type Filters = Record<string, string | null | number>
 
 // prettier-ignore
 interface FilterData {
@@ -62,7 +62,7 @@ class Filter extends BaseModel {
     return this.data_c.value.search
   }
 
-  set search(search: any) {
+  set search(search: string) {
     this.data.search = this.toStr(search)
   }
 
@@ -74,7 +74,7 @@ class Filter extends BaseModel {
     return this.data_c.value.limit
   }
 
-  set limit(limit: any) {
+  set limit(limit: number) {
     this.data.limit = this.toNum(limit, 48)
   }
 
@@ -82,15 +82,15 @@ class Filter extends BaseModel {
     return this.data_c.value.offset
   }
 
-  set offset(offset: any) {
+  set offset(offset: number) {
     if (offset < 0 || !offset) offset = 0
     this.data.offset = offset
   }
 
-  get filters(): Filters {
+  get filters(): Filters & { length: number } {
     return {
       ...this.data_c.value.filters,
-      length: String(Object.keys(this.data_c.value.filters).length),
+      length: Object.keys(this.data_c.value.filters).length,
     }
   }
 
@@ -106,7 +106,7 @@ class Filter extends BaseModel {
     return this.data_c.value.order || ''
   }
 
-  set order(order: any) {
+  set order(order: string) {
     this.data.order = this.toStr(order)
   }
 
@@ -114,7 +114,7 @@ class Filter extends BaseModel {
     return this.data_c.value.desc || ''
   }
 
-  set desc(desc: any) {
+  set desc(desc: string) {
     this.data.desc = this.toStr(desc)
   }
 
