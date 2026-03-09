@@ -3,10 +3,10 @@ import { computed } from 'vue'
 import { filter, product as p, type } from '@/api/api'
 import { price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
-import IconBarChart from '@/components/icons/IconBarChart.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
+import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 
 const props = defineProps<{
   product: typeof p.product
@@ -57,7 +57,7 @@ function set_product() {
     </RouterLink>
     <div class="box-x gap">
       <ButtonFavorite :product="product" :is_mini="true" />
-      <IconBarChart />
+      <ButtonComparison :product="product" :is_mini="true" />
       <IconShopping />
     </div>
   </div>

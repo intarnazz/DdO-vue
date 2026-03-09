@@ -25,7 +25,7 @@ function set_favorite() {
   >
     <IconFavorite class="relative z-2" :active="product.is_favorite" />
     <div v-if="!is_mini" class="action button-favorite__text">
-      <span class="option-1">в избранное</span>
+      <span class="option-1 c-sub">в избранное</span>
       <span class="option-2">в избранном</span>
     </div>
   </button>

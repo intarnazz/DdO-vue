@@ -32,7 +32,13 @@ function set_comparison_product() {
     class="button-favorite box-x gap-2 font-normal relative z-1 min-h-6"
   >
     <IconBarChart class="relative z-2" :active="active" />
-    <span v-if="!is_mini">сравнить</span>
+    <span
+      v-if="!is_mini"
+      :class="{
+        'c-sub': !active,
+      }"
+      >сравнить</span
+    >
   </button>
 </template>
 
