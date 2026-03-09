@@ -11,20 +11,26 @@ const props = defineProps<{
 
 const product = computed(() => props.product)
 const is_mini = computed(() => props.is_mini || false)
+const comparison_product_id = computed<number>(() =>
+  p.comparison_product !== null ? p.comparison_product.id : NaN,
+)
+const active = computed(() => comparison_product_id.value === product.value.id)
 
 function set_comparison_product() {
   if (p.comparison_product === null) p.comparison_product = product.value
   else p.comparison_product = null
+
+  console.log(p.comparison_product)
 }
 </script>
 
 <template>
   <button
-    title="Добавить продукт в избранное"
+    title="Сравнить с другими продуктами"
     @click="set_comparison_product"
     class="button-favorite box-x gap-2 font-normal relative z-1 min-h-6"
   >
-    <IconBarChart class="relative z-2" :active="Boolean(p.comparison_product)" />
+    <IconBarChart class="relative z-2" :active="active" />
     <span v-if="!is_mini">сравнить</span>
   </button>
 </template>

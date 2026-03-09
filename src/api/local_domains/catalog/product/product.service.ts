@@ -1,5 +1,5 @@
-import { reactive, computed, watch, markRaw, toRaw, ref } from 'vue'
-import type { ComputedRef, Ref } from 'vue'
+import { reactive, computed, watch, markRaw, toRaw, ref, shallowRef } from 'vue'
+import type { ComputedRef, ShallowRef } from 'vue'
 import type { GetOptions } from '../../../web_services/request/request'
 import Rest from '../../../web_services/rest'
 import filter from '../../filter/filter'
@@ -38,19 +38,15 @@ class ProductService {
     value: ProductType
   }
 
-  /** Продукт, выбранный для сравнения */
-  private _comparison_product: Ref<Readonly<ProductType> | null>
+  /** Продукт, выбранный для сравнения. null означает "не выбран" */
+  private _comparison_product: ShallowRef<ProductType | null> // prettier-ignore
 
   private rest              : Rest // prettier-ignore
   private promise_controller: PromiseController // prettier-ignore
 
-  /** Вычисляемое общее количество страниц */
   private _page_count   : ComputedRef<number> // prettier-ignore
-  /** Вычисляемый массив номеров страниц */
   private _pages        : ComputedRef<number[]> // prettier-ignore
-  /** Вычисляемый номер текущей страницы */
   private _current_page : ComputedRef<number> // prettier-ignore
-  /** Вычисляемый флаг наличия пагинации */
   private _is_pagination: ComputedRef<boolean> // prettier-ignore
 
   /**
@@ -67,7 +63,7 @@ class ProductService {
 
     this._product = { value: new Product() }
 
-    this._comparison_product = ref(null)
+    this._comparison_product = shallowRef<ProductType | null>(null)
 
     this.data = reactive({
       products: [],
@@ -125,8 +121,7 @@ class ProductService {
   }
 
   /**
-   * Продукт, выбранный для сравнения.
-   * `null`, если сравнение не активно.
+   * Продукт, выбранный для сравнения. `null` если не выбран.
    */
   public get comparison_product() {
     return this._comparison_product.value
@@ -134,10 +129,11 @@ class ProductService {
 
   /**
    * Устанавливает продукт для сравнения.
-   * @param comparison_product - Продукт для сравнения или `null` для сброса
+   * Передай `null` чтобы сбросить.
    */
   public set comparison_product(comparison_product) {
-    this._comparison_product.value = comparison_product
+    this._comparison_product.value =
+      comparison_product === null ? null : new Product(comparison_product)
   }
 
   /**
