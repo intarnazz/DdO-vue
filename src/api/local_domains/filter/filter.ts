@@ -54,6 +54,10 @@ class Filter extends BaseModel {
     )
   }
 
+  resetFilters() {
+    Object.keys(this.data.filters).forEach((key) => delete this.data.filters[key])
+  }
+
   get search() {
     return this.data_c.value.search
   }
