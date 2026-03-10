@@ -34,6 +34,4 @@ function set_product() {
 
 <style lang="sass" scoped>
 //
-span
-  cursor: pointer
 </style>
