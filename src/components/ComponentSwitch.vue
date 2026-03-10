@@ -43,7 +43,7 @@ const left = computed<number>(() => {
  * Вычисляемое свойство для ширины активного переключателя.
  * @returns Ширина активной вкладки в пикселях.
  */
-const switch_width = computed<number>(() => props.content[props.active].width || 0)
+const switch_width = computed<number>(() => props.content[props.active]?.width || 0)
 
 /**
  * Вычисляемое свойство для правого отступа активной полосы.
@@ -56,7 +56,7 @@ const right = computed<number>(() => {
 </script>
 
 <template>
-  <div class="box-x active-bar">
+  <div v-if="switch_width > 0" class="box-x active-bar">
     <div :style="`flex: 0 0 ${left}px;`" class="active-bar__left"></div>
     <div :style="`flex: 0 0 ${switch_width}px;`" class="active-bar__switch h-0.75"></div>
     <div :style="`flex: 0 0 ${right}px;`" class="active-bar__right"></div>
