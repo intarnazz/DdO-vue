@@ -4,6 +4,7 @@ import IconRight from '@/components/icons/IconRight.vue'
 import { filter, product, type } from '@/api/api'
 import { computed } from 'vue'
 import { price } from '@/utilte/utilte'
+import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 
 const router = useRoute()
 
@@ -49,18 +50,9 @@ const type_name = computed(() => product.product.type.name || type.type.name || 
       >
         данные в сравнении с:
         <template v-if="product.comparison_product">
-          <RouterLink
-            class="c-sub a a_sub"
-            :to="{
-              name: 'product',
-              params: {
-                id: product.comparison_product.id,
-                name: product.comparison_product.name,
-                model: product.comparison_product.variant.name,
-              },
-            }"
-            >{{ product.comparison_product.name }}</RouterLink
-          >
+          <RouterLinkProduct :product="product.comparison_product" class="c-sub a a_sub">{{
+            product.comparison_product.name
+          }}</RouterLinkProduct>
           /
           {{ price(product.comparison_product.price) }}
         </template>

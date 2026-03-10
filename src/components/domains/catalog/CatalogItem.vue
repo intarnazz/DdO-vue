@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { filter, product as api_product, type } from '@/api/api'
+import { filter, product as api_product } from '@/api/api'
 import { price as utilte_price } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
@@ -9,6 +9,7 @@ import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
+import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 
 const props = defineProps<{
   product: typeof api_product.product
@@ -32,27 +33,11 @@ const is_equal = computed<boolean>(() => {
     return product.value.price === api_product.comparison_product.price
   return false
 })
-
-function set_product() {
-  api_product.product = product.value
-}
 </script>
 
 <template>
   <div class="catalog__item box-y center gap-4">
-    <RouterLink
-      @click="set_product"
-      :to="{
-        name: 'product',
-        params: {
-          type: type.type.name,
-          model: product.variant.name,
-          id: product.id,
-          name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),
-        },
-      }"
-      class="box-y center gap-4"
-    >
+    <RouterLinkProduct :product="product" class="box-y center gap-4">
       <div class="box-x gap-2 content center">
         <div class="box-x relative h-67.5 max-h-67.5">
           <ComponentImg
@@ -92,7 +77,7 @@ function set_product() {
           <span class="c-main" v-if="is_equal"> --- </span>
         </template>
       </div>
-    </RouterLink>
+    </RouterLinkProduct>
     <div class="box-x gap">
       <ButtonFavorite :product="product" :is_mini="true" />
       <ButtonComparison :product="product" :is_mini="true" />

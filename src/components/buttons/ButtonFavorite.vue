@@ -22,6 +22,7 @@ function set_favorite() {
     @click="set_favorite"
     class="button-favorite box-x gap-2 font-normal relative z-1 min-h-6"
     :class="{ checked: product.is_favorite }"
+    :key="product.id"
   >
     <IconFavorite class="relative z-2" :active="product.is_favorite" />
     <div v-if="!is_mini" class="action button-favorite__text">

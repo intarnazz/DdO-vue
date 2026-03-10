@@ -24,20 +24,12 @@ const router = createRouter({
       name: 'catalog',
       props: true,
       component: PageCatalog,
-      beforeEnter: async (to, from, next) => {
-        await composer.essence_init(to.params as Record<string, string>)
-        next()
-      },
     },
     {
       path: '/catalog/:type/:model/:id/:name',
       name: 'product',
       props: true,
       component: PageProduct,
-      beforeEnter: async (to, from, next) => {
-        await composer.essence_init(to.params as Record<string, string>)
-        next()
-      },
     },
     {
       path: '/:pathMatch(.*)*', // 404
@@ -45,6 +37,13 @@ const router = createRouter({
       component: PageNotFound,
     },
   ],
+})
+
+router.beforeEach(async (to, from, next) => {
+  if (to.name === 'product' || to.name === 'catalog') {
+    await composer.essence_init(to.params as Record<string, string>)
+  }
+  next()
 })
 
 export default router

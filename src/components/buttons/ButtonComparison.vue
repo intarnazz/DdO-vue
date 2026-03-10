@@ -31,6 +31,7 @@ function set_comparison_product() {
     title="Сравнить с другими продуктами"
     @click="set_comparison_product"
     class="button-favorite box-x gap-2 font-normal relative z-1 min-h-6"
+    :key="product.id"
   >
     <IconBarChart class="relative z-2" :active="active" />
     <span

@@ -34,11 +34,10 @@ class ProductService {
   private data_c: ComputedRef<ProductServiceType> // prettier-ignore
 
   /** Текущий выбранный продукт */
-  private _product: {
-    value: ProductType
-  }
+  private _product: ShallowRef<ProductType> // prettier-ignore
 
   /** Продукт, выбранный для сравнения. null означает "не выбран" */
+
   private _comparison_product: ShallowRef<ProductType | null> // prettier-ignore
 
   private rest              : Rest // prettier-ignore
@@ -61,8 +60,7 @@ class ProductService {
 
     this.rest = rest
 
-    this._product = { value: new Product() }
-
+    this._product = shallowRef<ProductType>(new Product())
     this._comparison_product = shallowRef<ProductType | null>(null)
 
     this.data = reactive({
