@@ -6,15 +6,12 @@ import { ProductType } from '@/api/local_domains/catalog/product'
 
 const props = defineProps<{
   product: ProductType
-  inheritable?: boolean
 }>()
-
-const inheritable = computed(() => props.inheritable || false)
 
 const product = computed(() => props.product)
 
 function set_product() {
-  if (inheritable.value) api_product.product = product.value
+  api_product.product = product.value
 }
 </script>
 
