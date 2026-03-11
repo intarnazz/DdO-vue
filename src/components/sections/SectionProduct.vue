@@ -12,7 +12,6 @@ import { computed } from 'vue'
 
 const product_price = computed(() => price(product.product.price)) // TODO: выделить компонент
 
-// TODO: секция корзины
 // TODO: product__price: Вычисляемое свойство "обрамления"
 </script>
 
