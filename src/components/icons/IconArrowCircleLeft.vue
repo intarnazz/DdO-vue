@@ -11,5 +11,5 @@
 <style lang="sass" scoped>
 //
 svg
-    fill: $main
+  fill: $main
 </style>

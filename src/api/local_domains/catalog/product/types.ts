@@ -134,9 +134,9 @@ export interface DefaultProductType {
   /** Артикул продукта */
   article        : string
   /** Наличие на складе (1 — в наличии, 0 — отсутствует) */
-  is_stock       : number
+  is_stock       : number // FIXME: должен быть <boolean>
   /** Наличие в магазине (1 — есть, 0 — нет) */
-  is_in_store    : number
+  is_in_store    : number // FIXME: должен быть <boolean>
   /** Основное изображение продукта */
   image          : Image
   /** Вариант продукта */

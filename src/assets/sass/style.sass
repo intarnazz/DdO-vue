@@ -104,26 +104,45 @@ mark
 .flex
   flex: 1
 
-.box-x
+=box-x
   display: flex
   justify-content: space-between
   align-items: center
+.box-x
+  +box-x
 
-.as
+=as
   align-items: stretch
+.as
+  +as
 
-.box-y
+=box-y
   display: flex
   flex-direction: column
   justify-content: space-between
+.box-y
+  +box-y
 
-.js
+=js
   justify-content: flex-start
+.js
+  +js
 .je
   justify-content: flex-end
 
 .justify-start
   justify-content: flex-start
+
+=border
+  border: 1px solid $sub-90
+  +br
+.border
+  +border
+
+=box
+  background-color: $sub-95
+.box
+  +box
 
 .center
   display: flex
@@ -262,11 +281,29 @@ button
       & svg
         fill: $sub-90
 
+svg
+  &.disabled
+    fill: $sub-90 !important
+
 button:focus
   outline: none
   
 button:disabled
   cursor: default
+
+select
+  appearance: none
+  -webkit-appearance: none
+  -moz-appearance: none
+  padding-right: 36px
+  background-image: none
+  cursor: pointer
+
+select:focus
+  outline: none
+
+option
+
 
 a
   text-decoration: none
@@ -291,6 +328,8 @@ select
     color: $sub
     &:hover
       color: $mark
+      & svg 
+        fill: $mark
   &:hover
     text-decoration-color: $mark
   &_w
@@ -301,8 +340,31 @@ select
     color: $main
     text-decoration: underline
     text-decoration-color: $main
+
 .button
+  +box-x
+  +as
+  min-width: 301px
+  color: $w
+  & svg
+    +h
+    fill: $main
+  & strong
+    font-weight: 700
+  &__content
+    +box-x
+    +js
+    gap: 1rem
+    padding-left: 1rem 
+    border-radius: 5px 0px 0px 5px
+    +w
+    +g
+    & svg 
+      fill: $w !important
   &:hover
+    & .button
+      &__content
+        +g-hover
   &__form
     &:hover
 
@@ -372,7 +434,7 @@ select
   -webkit-box-orient: vertical
 
 .box-x-r
-  flex-direction: row-reverse 
+  flex-direction: row-reverse
 
 
 @media screen and (max-width: 1440px)

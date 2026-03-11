@@ -33,6 +33,8 @@ const is_equal = computed<boolean>(() => {
     return product.value.price === api_product.comparison_product.price
   return false
 })
+
+// TODO: скидки
 </script>
 
 <template>

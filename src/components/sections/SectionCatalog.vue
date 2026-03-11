@@ -7,7 +7,7 @@ import CatalogOrder from '@/components/domains/catalog/CatalogOrder.vue'
 import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
 import FormSearch from '@/components/forms/FormSearch.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
-import CatalogItem from '../domains/catalog/CatalogItem.vue'
+import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 </script>
 
 <template>
@@ -46,7 +46,7 @@ import CatalogItem from '../domains/catalog/CatalogItem.vue'
               },
             ]"
           />
-          <CatalogLimit :arguments="[48, 96, 192]" />
+          <CatalogLimit :arguments="[48, 96, 192]" /> //FIXME: передача типа
         </div>
 
         <div

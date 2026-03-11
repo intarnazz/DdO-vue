@@ -29,7 +29,10 @@ function set_comparison_product() {
 <template>
   <button
     title="Сравнить с другими продуктами"
-    @click="set_comparison_product"
+    @click="
+      set_comparison_product
+      // TODO: это должна быть ссылка
+    "
     class="button-favorite box-x gap-2 font-normal relative z-1 min-h-6"
     :key="product.id"
   >
