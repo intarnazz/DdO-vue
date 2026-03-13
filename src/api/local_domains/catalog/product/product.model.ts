@@ -58,8 +58,8 @@ class Product extends BaseModel {
       views          : this.toNum(product.views),
       price          : this.toNum(product.price),
       discount       : this.toNum(product.discount),
-      is_stock       : this.toNum(product.is_stock),
-      is_in_store    : this.toNum(product.is_in_store),
+      is_stock       : Boolean(product.is_stock),
+      is_in_store    : Boolean(product.is_in_store),
       name           : this.toStr(product.name),
       description    : this.toStr(product.description),
       video_url      : this.toStr(product.video_url),
@@ -175,14 +175,14 @@ class Product extends BaseModel {
     return this.data_c.value.article || ''
   }
 
-  /** Наличие на складе (1 — есть, 0 — нет) */
-  public get is_stock(): number {
-    return this.data_c.value.is_stock || 0
+  /** Наличие на складе */
+  public get is_stock(): boolean {
+    return this.data_c.value.is_stock
   }
 
-  /** Наличие в физическом магазине (1 — есть, 0 — нет) */
-  public get is_in_store(): number {
-    return this.data_c.value.is_in_store || 0
+  /** Наличие в физическом магазине */
+  public get is_in_store(): boolean {
+    return this.data_c.value.is_in_store
   }
 
   /** Основное изображение продукта */

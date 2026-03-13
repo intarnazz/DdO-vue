@@ -96,8 +96,8 @@ export interface Characteristic {
   name       : string
   /** Описание характеристики */
   description: string
-  /** Флаг видимости характеристики (1 — видима, 0 — скрыта) */
-  is_visible : number
+  /** Флаг видимости характеристики */
+  is_visible : boolean
   /** Объект изображения характеристики */
   image      : Image
 }
@@ -133,10 +133,10 @@ export interface DefaultProductType {
   discount       : number
   /** Артикул продукта */
   article        : string
-  /** Наличие на складе (1 — в наличии, 0 — отсутствует) */
-  is_stock       : number // FIXME: должен быть <boolean>
-  /** Наличие в магазине (1 — есть, 0 — нет) */
-  is_in_store    : number // FIXME: должен быть <boolean>
+  /** Наличие на складе */
+  is_stock       : boolean
+  /** Наличие в магазине */
+  is_in_store    : boolean 
   /** Основное изображение продукта */
   image          : Image
   /** Вариант продукта */
