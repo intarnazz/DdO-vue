@@ -1,6 +1,8 @@
 // user.ts
 import { ref, computed, watch, Ref, ComputedRef } from 'vue'
 import Storage from './storage'
+import StorageSession from '@/storage/storage.session'
+import { CartType } from '@/api/local_domains/cart/cart'
 
 /**
  * Класс User
@@ -10,31 +12,47 @@ import Storage from './storage'
  */
 class User {
   /** Экземпляр Storage для хранения токена */
-  #tokenStorage: Storage<string>
+  private tokenStorage: Storage<string>
   private favoriteStorage: Storage<number[]>
+  private cartStorage: StorageSession<CartType[]>
   private _favorite: Ref<number[]>
+  private _token: Ref<string | null>
+  private _cart: Ref<CartType[]>
 
-  /** Реактивная переменная токена */
-  #token: Ref<string | null>
   /**
    * Создает новый экземпляр User
    */
   constructor() {
-    this.#tokenStorage = new Storage<string>('token')
-    this.#token = ref<string | null>(this.#tokenStorage.get() || null)
+    this.tokenStorage = new Storage<string>('token')
+    this._token = ref<string | null>(this.tokenStorage.get() || null)
 
     this.favoriteStorage = new Storage('favorite')
     this._favorite = ref(this.favoriteStorage.get() || [])
 
+    this.cartStorage = new StorageSession('cart')
+    this._cart = ref(this.cartStorage.load() || [])
+
     // Следим за изменением token и сохраняем/удаляем через Storage
-    watch(this.#token, (newToken) => {
-      if (newToken === null) this.#tokenStorage.remove()
-      else this.#tokenStorage.set(newToken)
+    watch(this.token, (newToken) => {
+      if (newToken === null) this.tokenStorage.remove()
+      else this.tokenStorage.set(newToken)
     })
 
     watch(this._favorite.value, () => {
       this.favoriteStorage.set(this._favorite.value)
     })
+
+    watch(this._cart, () => {
+      this.cartStorage.save(this._cart.value)
+    })
+  }
+
+  public get cart() {
+    return this._cart.value
+  }
+
+  public set cart(cart) {
+    this._cart.value = cart
   }
 
   public get favorite(): number[] {
@@ -50,7 +68,7 @@ class User {
    * Получить реактивный токен
    */
   public get token(): ComputedRef<string | null> {
-    return computed(() => this.#token.value)
+    return computed(() => this._token.value)
   }
 
   /**
@@ -58,14 +76,14 @@ class User {
    * @param newToken - строка токена
    */
   public setToken(newToken: string): void {
-    this.#token.value = newToken
+    this._token.value = newToken
   }
 
   /**
    * Удалить токен
    */
   public unsetToken(): void {
-    this.#token.value = null
+    this._token.value = null
   }
 }
 

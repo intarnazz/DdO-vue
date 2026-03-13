@@ -121,7 +121,7 @@ const product_price = computed(() => price(product.product.price)) // TODO: вы
           </div>
 
           <div class="product__button-wrapper box-x">
-            <ButtonAddToCart />
+            <ButtonAddToCart :product="product.product" />
           </div>
         </div>
       </div>
