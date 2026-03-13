@@ -62,7 +62,7 @@ const product_price = computed(() => price(product.product.price)) // TODO: вы
               <select class="p-2 border" name="" id="">
                 <option value="">960×2050 левая</option>
                 <!-- 
-                // LARAVEL: size опция для продукта // TODO: Модуль ComponentSelect
+                // TODO: Модуль ComponentSelect
                 -->
               </select>
               <div class="box-x">
@@ -116,12 +116,7 @@ const product_price = computed(() => price(product.product.price)) // TODO: вы
               class="box-x gap-2"
             >
               <p>Есть в магазине</p>
-              <IconTaskAlt
-                :active="
-                  Boolean(product.product.is_in_store)
-                  // LARAVEL: Установть true value
-                "
-              />
+              <IconTaskAlt :active="Boolean(product.product.is_in_store)" />
             </div>
           </div>
 

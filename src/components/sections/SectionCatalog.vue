@@ -46,7 +46,10 @@ import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
               },
             ]"
           />
-          <CatalogLimit :arguments="[48, 96, 192]" /> //FIXME: передача типа
+          <CatalogLimit :arguments="[48, 96, 192]" />
+          <!-- 
+          //FIXME: передача типа
+          -->
         </div>
 
         <div
