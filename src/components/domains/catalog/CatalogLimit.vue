@@ -48,9 +48,9 @@ const active = ref<number>(
  * Устанавливает активную вкладку и эмитит выбранный элемент.
  * @param key Индекс вкладки для активации.
  */
-function setLimit(key: number) {
+function setLimit(button: ArgItem, key: number) {
   active.value = key
-  filter.limit = numbers.value[key].number
+  filter.limit = button.number
 }
 </script>
 
@@ -65,7 +65,7 @@ function setLimit(key: number) {
           :button="button"
           :class="{ 'active-tab': active === key }"
         >
-          <button @click="setLimit(key)">
+          <button @click="setLimit(button, key)">
             {{ button.number }}
           </button>
         </LayoutResize>
