@@ -13,7 +13,6 @@ class Cart {
 
   public remove_produc(product: ProductType) {
     this.products = this.products.filter((p) => p.id !== product.id)
-    console.log("🚀 ~ Cart ~ remove_produc ~ this.products:", this.products)
   }
 
   public get products(): CartType[] {

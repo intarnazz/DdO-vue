@@ -21,7 +21,6 @@ function change_cart() {
   else cart.remove_produc(product)
 }
 
-
 // TODO: анимация если уже добавлена
 // TODO: key на все кнопки
 </script>
@@ -31,11 +30,9 @@ function change_cart() {
     <IconShopping />
     <strong> в корзину </strong>
   </LayoutButton>
-  <button @click="change_cart" v-if="is_mini">
+  <button @click="change_cart" v-if="is_mini" class="button_icon min-h-6">
     <IconShopping :active="active" />
   </button>
 </template>
 
-<style lang="sass" scoped>
-//
-</style>
+<style lang="sass" scoped></style>
