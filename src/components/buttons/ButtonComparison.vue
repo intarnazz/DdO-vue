@@ -1,50 +1,41 @@
 <script setup lang="ts">
-import { product as p } from '@/api/api'
+import { product as api_product } from '@/api/api'
 import { ProductType } from '@/api/local_domains/catalog/product'
-import IconBarChart from '@/components/icons/IconBarChart.vue'
+import ComparisonMain from '@/components/buttons/comparisons/ComparisonMain.vue'
+import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { computed } from 'vue'
 
-const props = defineProps<{
+const { product, is_mini = false } = defineProps<{
   product: ProductType
   is_mini?: boolean
 }>()
 
-const product = computed(() => props.product)
-const is_mini = computed(() => props.is_mini || false)
-
 const comparison_product_id = computed<number>(() => {
-  if (p.comparison_product === null) return NaN
-  return p.comparison_product.id
+  if (api_product.comparison_product === null) return NaN
+  return api_product.comparison_product.id
 })
 
-const active = computed(() => comparison_product_id.value === product.value.id)
+const active = computed(() => comparison_product_id.value === product.id)
 
 function set_comparison_product() {
-  if (p.comparison_product === null || p.comparison_product.id !== product.value.id)
-    p.comparison_product = product.value
-  else p.comparison_product = null
+  if (api_product.comparison_product === null || api_product.comparison_product.id !== product.id)
+    api_product.comparison_product = product
+  else api_product.comparison_product = null
 }
-
 </script>
 
 <template>
-  <button
+  <RouterLinkCatalog
+    v-if="!active"
+    :type_name="api_product.product.type.name"
     title="Сравнить с другими продуктами"
-    @click="
-      set_comparison_product
-      // TODO: это должна быть ссылка
-    "
-    class="button_icon box-x gap-2 font-normal relative z-1 min-h-6"
-    :key="product.id"
+    @click="set_comparison_product"
   >
-    <IconBarChart class="relative z-2" :active="active" />
-    <span
-      v-if="!is_mini"
-      :class="{
-        'c-sub': !active,
-      }"
-      >сравнить</span
-    >
+    <ComparisonMain :product="product" :active="active" :is_mini="is_mini" />
+  </RouterLinkCatalog>
+
+  <button v-else title="Сравнить с другими продуктами" @click="set_comparison_product">
+    <ComparisonMain :product="product" :active="active" :is_mini="is_mini" />
   </button>
 </template>
 

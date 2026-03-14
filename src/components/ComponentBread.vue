@@ -6,6 +6,7 @@ import { computed } from 'vue'
 import { price } from '@/utilte/utilte'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import IconClose from '@/components/icons/IconClose.vue'
+import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 
 const router = useRoute()
 
@@ -27,16 +28,9 @@ function set_comparison_product() {
       <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
       <IconRight />
       <template v-if="router.name === 'product'">
-        <RouterLink
-          class="c-sub a a_sub"
-          :to="{
-            name: 'catalog',
-            params: { type: type_name },
-            query: filter.query,
-          }"
-        >
+        <RouterLinkCatalog :type_name="type_name">
           {{ type_visible_name }}
-        </RouterLink>
+        </RouterLinkCatalog>
         <IconRight />
         <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }">
           {{ product.product.variant.name }}

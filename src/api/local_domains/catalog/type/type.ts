@@ -87,7 +87,7 @@ interface DefaultTypeInterface {
 type Init = (typeName: string) => Promise<void>
 
 // prettier-ignore
-interface TypeInterface extends DefaultTypeInterface {
+export interface TypeInterface extends DefaultTypeInterface {
   init: Init
 }
 
