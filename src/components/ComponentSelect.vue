@@ -32,6 +32,9 @@ function change_selected_option(new_key: number) {
       class="select__button-selected box-x gap-4 p-2 px-4 border"
     >
       <span>
+        <!-- 
+        //TODO: нужен leading
+        -->
         {{ selected_option.id }} -
         {{ selected_option.name }}
       </span>

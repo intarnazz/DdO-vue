@@ -35,7 +35,8 @@ const is_equal = computed<boolean>(() => {
   return false
 })
 
-// [ ]: скидки // LARAVEL: discount - должен быть равен процентам
+// [ ]: скидки 
+// LARAVEL: discount - должен быть равен процентам
 </script>
 
 <template>
