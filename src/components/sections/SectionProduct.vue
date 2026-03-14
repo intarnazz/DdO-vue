@@ -10,9 +10,9 @@ import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
 import { price } from '@/utilte/utilte'
 import { computed } from 'vue'
 
-const product_price = computed(() => price(product.product.price)) // TODO: выделить компонент
+const product_price = computed(() => price(product.product.price)) // [ ] - Полная секция продукта //:выделить компонент
 
-// TODO: product__price: Вычисляемое свойство "обрамления"
+// [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
 </script>
 
 <template>
@@ -49,7 +49,7 @@ const product_price = computed(() => price(product.product.price)) // TODO: вы
               <RouterLink
                 class="a box-x gap-2 c-sub a_sub font-normal"
                 :to="{
-                  name: 'home', // TODO: ссылка на документацию
+                  name: 'home', // [ ] - Страница документации //: ссылка на документацию
                 }"
               >
                 <IconIndeterminateQuestionBox />
