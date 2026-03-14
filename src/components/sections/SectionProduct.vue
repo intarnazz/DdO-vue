@@ -49,7 +49,7 @@ const product_price = computed(() => price(product.product.price)) // TODO: вы
               <RouterLink
                 class="a box-x gap-2 c-sub a_sub font-normal"
                 :to="{
-                  name: 'home', // TODO:ссылка на документацию
+                  name: 'home', // TODO: ссылка на документацию
                 }"
               >
                 <IconIndeterminateQuestionBox />
