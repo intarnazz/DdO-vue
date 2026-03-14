@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps<{
-  fill: string
+const { fill: props_fill = '' } = defineProps<{
+  fill?: string
 }>()
 
-const fill = computed(() => (props.fill ? `fill_${props.fill}` : ''))
+const fill = computed(() => (props_fill ? `fill_${props_fill}` : ''))
 </script>
 
 <template>

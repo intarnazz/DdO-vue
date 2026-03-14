@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
 import ComponentImg from '@/components/ComponentImg.vue'
+import ComponentSelect from '@/components/ComponentSelect.vue'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
@@ -10,7 +11,11 @@ import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
 import { price } from '@/utilte/utilte'
 import { computed } from 'vue'
 
-const product_price = computed(() => price(product.product.price)) // [ ] - Полная секция продукта //:выделить компонент
+const product_price = computed(() => price(product.product.price)) // TODO: выделить как модуль // [ ] - Полная секция продукта //:выделить компонент
+
+const size_characteristics = computed(() =>
+  product.product.characteristics.filter((c) => c.filter.name === 'size'),
+)
 
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
 </script>
@@ -59,12 +64,7 @@ const product_price = computed(() => price(product.product.price)) // [ ] - По
             </div>
 
             <div class="box-x js gap-8">
-              <select class="p-2 border" name="" id="">
-                <option value="">960×2050 левая</option>
-                <!-- 
-                // TODO: Модуль ComponentSelect
-                -->
-              </select>
+              <ComponentSelect :options="size_characteristics" />
               <div class="box-x">
                 <RouterLink
                   class="a box-x gap-2 c-sub a_sub font-normal"

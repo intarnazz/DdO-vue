@@ -82,6 +82,21 @@ export interface Brand {
 }
 
 /**
+ * Фильтр характеристики продукта.
+ */
+// prettier-ignore
+export interface Filter {
+  /** Уникальный идентификатор фильтра */
+  id         : number
+  /** Системное название фильтра */
+  name       : string
+  /** Описание фильтра */
+  description: string
+  /** Тип фильтра */
+  type       : string
+}
+
+/**
  * Характеристика продукта.
  */
 // prettier-ignore
@@ -100,6 +115,8 @@ export interface Characteristic {
   is_visible : boolean
   /** Объект изображения характеристики */
   image      : Image
+  /** Связанный фильтр */
+  filter     : Filter
 }
 
 /**
