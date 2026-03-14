@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { disabled = false } = defineProps<{
+  disabled?: boolean
+}>()
+</script>
 
 <template>
-  <button class="button">
+  <button :disabled="disabled" class="button">
     <div class="button__content">
       <slot />
     </div>
@@ -13,6 +17,9 @@
       xmlns="http://www.w3.org/2000/svg"
     >
       <g clip-path="url(#clip0_2490_1800)">
+        <!-- 
+        //TODO: исправить svg позор
+        -->
         <mask
           id="mask0_2490_1800"
           style="mask-type: alpha"

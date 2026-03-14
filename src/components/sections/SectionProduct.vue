@@ -122,6 +122,10 @@ const product_price = computed(() => price(product.product.price)) // TODO: вы
 
           <div class="product__button-wrapper box-x">
             <ButtonAddToCart :product="product.product" />
+            <!-- 
+            // TODO: кнопка удалить из корзины / layout для кнопок
+            // TODO: ссылка на корзинку
+            -->
           </div>
         </div>
       </div>

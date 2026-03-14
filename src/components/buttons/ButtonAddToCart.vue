@@ -11,6 +11,7 @@ const { product, is_mini = false } = defineProps<{
 }>()
 
 const active = computed(() => cart.products.some((p) => p.id === product.id))
+const strong_text = computed(() => (active.value ? 'уже в корзине' : 'в корзину'))
 
 function add_to_cart() {
   cart.add_produc(product)
@@ -21,14 +22,13 @@ function change_cart() {
   else cart.remove_produc(product)
 }
 
-// TODO: анимация если уже добавлена
 // TODO: key на все кнопки
 </script>
 
 <template>
-  <LayoutButton v-if="!is_mini" @click="add_to_cart">
+  <LayoutButton v-if="!is_mini" @click="add_to_cart" :disabled="active">
     <IconShopping />
-    <strong> в корзину </strong>
+    <strong> {{ strong_text }} </strong>
   </LayoutButton>
   <button @click="change_cart" v-if="is_mini" class="button_icon min-h-6">
     <IconShopping :active="active" />
