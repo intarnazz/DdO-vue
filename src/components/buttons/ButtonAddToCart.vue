@@ -21,8 +21,6 @@ function change_cart() {
   if (!active.value) add_to_cart()
   else cart.remove_produc(product)
 }
-
-// TODO: key на все кнопки
 </script>
 
 <template>
