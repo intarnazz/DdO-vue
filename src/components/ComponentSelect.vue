@@ -26,18 +26,12 @@ function change_selected_option(new_key: number) {
 
 <template>
   <div class="gap-2 box-y select">
-    <button
-      v-if="selected_option"
-      ref="buttonSelected"
-      class="select__button-selected box-x gap-4 p-2 px-4 border"
-    >
-      <span>
-        <!-- 
-        //TODO: нужен leading
-        -->
+    <button ref="buttonSelected" class="select__button-selected box-x gap-4 p-2 px-4 border">
+      <span v-if="selected_option">
         {{ selected_option.id }} -
         {{ selected_option.name }}
       </span>
+      <span v-else> Loading... </span>
       <IconKeyboardArrowDown />
     </button>
     <div class="relative h-0">
