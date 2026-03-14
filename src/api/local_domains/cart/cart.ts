@@ -11,6 +11,11 @@ class Cart {
       this.products = [({ ...product } as Record<string, any>).data, ...this.products]
   }
 
+  public remove_produc(product: ProductType) {
+    this.products = this.products.filter((p) => p.id !== product.id)
+    console.log("🚀 ~ Cart ~ remove_produc ~ this.products:", this.products)
+  }
+
   public get products(): CartType[] {
     return user.cart
   }

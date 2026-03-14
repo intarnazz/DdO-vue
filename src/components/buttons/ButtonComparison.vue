@@ -24,6 +24,8 @@ function set_comparison_product() {
     p.comparison_product = product.value
   else p.comparison_product = null
 }
+
+// BUG:Потеря сущности Type
 </script>
 
 <template>

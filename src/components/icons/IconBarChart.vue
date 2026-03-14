@@ -1,34 +1,31 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import LayoutIcon from '@/layout/LayoutIcon.vue'
 
 const props = defineProps<{
   active: boolean
 }>()
-
-const active = computed(() => props.active || false)
-
-const _active = ref<boolean | number>(active.value ? 1 : 0)
-
-watch(
-  () => active.value,
-  (n) => (_active.value = n),
-)
 </script>
 
 <template>
-  <svg
-    :class="{
-      active: _active == true,
-      active_on: _active === true,
-      active_off: _active === false,
-    }"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
+  <LayoutIcon
+    class="relative z-1"
+    :active="props.active"
+    v-slot="{ active, active_on, active_off }"
   >
-    <path d="M16 20V13H20V20H16ZM10 20V4H14V20H10ZM4 20V9H8V20H4Z" />
-  </svg>
+    <svg
+      class="relative z-2"
+      :class="{
+        active: active,
+        active_on: active_on,
+        active_off: active_off,
+      }"
+      width="24"
+      height="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M16 20V13H20V20H16ZM10 20V4H14V20H10ZM4 20V9H8V20H4Z" />
+    </svg>
+  </LayoutIcon>
 </template>
 
 <style lang="sass" scoped>

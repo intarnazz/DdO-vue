@@ -1,16 +1,63 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LayoutIcon from '@/layout/LayoutIcon.vue'
+
+const { active: props_active = false } = defineProps<{
+  active?: boolean
+}>()
+</script>
 
 <template>
-  <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M7 22C6.45 22 5.97917 21.8042 5.5875 21.4125C5.19583 21.0208 5 20.55 5 20C5 19.45 5.19583 18.9792 5.5875 18.5875C5.97917 18.1958 6.45 18 7 18C7.55 18 8.02083 18.1958 8.4125 18.5875C8.80417 18.9792 9 19.45 9 20C9 20.55 8.80417 21.0208 8.4125 21.4125C8.02083 21.8042 7.55 22 7 22ZM17 22C16.45 22 15.9792 21.8042 15.5875 21.4125C15.1958 21.0208 15 20.55 15 20C15 19.45 15.1958 18.9792 15.5875 18.5875C15.9792 18.1958 16.45 18 17 18C17.55 18 18.0208 18.1958 18.4125 18.5875C18.8042 18.9792 19 19.45 19 20C19 20.55 18.8042 21.0208 18.4125 21.4125C18.0208 21.8042 17.55 22 17 22ZM6.15 6L8.55 11H15.55L18.3 6H6.15ZM5.2 4H19.95C20.3333 4 20.625 4.17083 20.825 4.5125C21.025 4.85417 21.0333 5.2 20.85 5.55L17.3 11.95C17.1167 12.2833 16.8708 12.5417 16.5625 12.725C16.2542 12.9083 15.9167 13 15.55 13H8.1L7 15H19V17H7C6.25 17 5.68333 16.6708 5.3 16.0125C4.91667 15.3542 4.9 14.7 5.25 14.05L6.6 11.6L3 4H1V2H4.25L5.2 4Z"
-    />
-  </svg>
+  <LayoutIcon :active="props_active" v-slot="{ active, active_on, active_off }">
+    <svg
+      :class="{
+        active: active,
+        active_on: active_on,
+        active_off: active_off,
+      }"
+      xmlns="http://www.w3.org/2000/svg"
+      height="24px"
+      viewBox="0 -960 960 960"
+      width="24px"
+      fill="#FFFFFF"
+    >
+      <path
+        d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"
+      />
+    </svg>
+  </LayoutIcon>
 </template>
 
 <style lang="sass" scoped>
-//
 svg
   cursor: pointer
   fill: $main
+
+.active
+  fill: $w
+  background-color: $mark
+  +br
+
+.active_on
+  animation: active_on .125s forwards linear
+
+.active_off
+  animation: active_off .125s forwards linear
+
+@keyframes active_on
+  0%
+    margin-bottom: -1rem
+  100%
+    margin-bottom: 0rem
+
+// @keyframes active_on
+//   0%
+//     margin-bottom: -1rem
+//   100%
+//     margin-bottom: 0rem
+
+@keyframes active_off
+  0%
+    margin-bottom: -1rem
+  100%
+    margin-bottom: 0rem
 </style>

@@ -10,6 +10,7 @@ import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
+import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 
 const props = defineProps<{
   product: typeof api_product.product
@@ -83,7 +84,7 @@ const is_equal = computed<boolean>(() => {
     <div class="box-x gap">
       <ButtonFavorite :product="product" :is_mini="true" />
       <ButtonComparison :product="product" :is_mini="true" />
-      <IconShopping />
+      <ButtonAddToCart :product="product" :is_mini="true" />
     </div>
   </div>
 </template>
