@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { image } from '@/api/api'
 
-interface Props {
+const {
+  id,
+  storage,
+  alt = 'image',
+  isLazy = true,
+} = defineProps<{
   id?: number
   storage?: string
   alt?: string
   isLazy?: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  isLazy: true,
-})
-
-const alt = computed(() => props.alt ?? 'image')
+}>()
 
 const src = computed(() => {
-  if (props.id) return image.get_by_id(props.id)
-  if (props.storage) return image.get_by_storage(props.storage)
+  if (id) return image.get_by_id(id)
+  if (storage) return image.get_by_storage(storage)
+  return undefined
 })
 
 const imgRef = ref<HTMLImageElement | null>(null)
 const lazySrc = ref<string | undefined>(undefined)
 const loaded = ref(false)
+const isVisible = ref(false)
 
-let isVisible = false
+let observer: IntersectionObserver | null = null
 
 onMounted(() => {
-  if (!props.isLazy) return
+  if (!isLazy) return
 
-  const observer = new IntersectionObserver(
+  observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          isVisible = true
-          lazySrc.value = src.value
-          observer.disconnect()
-        }
-      })
+      const entry = entries[0] as IntersectionObserverEntry | undefined
+      if (!entry?.isIntersecting) return
+
+      isVisible.value = true
+      lazySrc.value = src.value
+      observer?.disconnect()
     },
     { rootMargin: '200px' },
   )
@@ -45,8 +45,12 @@ onMounted(() => {
   if (imgRef.value) observer.observe(imgRef.value)
 })
 
+onUnmounted(() => observer?.disconnect())
+
+// src может прийти позже чем сработал observer (props ещё не были готовы)
+// isVisible гарантирует что обновляем lazySrc только для видимых элементов
 watch(src, (newSrc) => {
-  if (!props.isLazy || !isVisible) return
+  if (!isLazy || !isVisible.value) return
   loaded.value = false
   lazySrc.value = newSrc
 })

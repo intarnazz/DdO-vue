@@ -1,86 +1,73 @@
 // user.ts
-import { ref, computed, watch, Ref, ComputedRef } from 'vue'
-import Storage from './storage'
-import StorageSession from '@/storage/storage.session'
-import { CartType } from '@/api/local_domains/cart/cart'
+import { computed } from 'vue'
+import { useLocalStorage, useSessionStorage } from '@vueuse/core'
+import type { RemovableRef } from '@vueuse/core'
+import type { CartType } from '@/api/local_domains/cart/cart'
 
 /**
  * Класс User
  *
- * Управляет токеном пользователя с реактивностью Vue
- * и хранением в localStorage через Storage.
+ * Управляет состоянием пользователя (токен, избранное, корзина).
+ * Хранение и реактивность обеспечиваются через VueUse:
+ *   - useLocalStorage  → token, favorite (persist между сессиями)
+ *   - useSessionStorage → cart (только в рамках вкладки)
+ *
+ * watch и ручное сохранение больше не нужны —
+ * VueUse синхронизирует значения автоматически.
  */
 class User {
-  /** Экземпляр Storage для хранения токена */
-  private tokenStorage: Storage<string>
-  private favoriteStorage: Storage<number[]>
-  private cartStorage: StorageSession<CartType[]>
-  private _favorite: Ref<number[]>
-  private _token: Ref<string | null>
-  private _cart: Ref<CartType[]>
+  private _token: RemovableRef<string | null>
+  private _favorite: RemovableRef<number[]>
+  private _cart: RemovableRef<CartType[]>
 
-  /**
-   * Создает новый экземпляр User
-   */
   constructor() {
-    this.tokenStorage = new Storage<string>('token')
-    this._token = ref<string | null>(this.tokenStorage.get() || null)
-
-    this.favoriteStorage = new Storage('favorite')
-    this._favorite = ref(this.favoriteStorage.get() || [])
-
-    this.cartStorage = new StorageSession('cart')
-    this._cart = ref(this.cartStorage.load() || [])
-
-    // Следим за изменением token и сохраняем/удаляем через Storage
-    watch(this.token, (newToken) => {
-      if (newToken === null) this.tokenStorage.remove()
-      else this.tokenStorage.set(newToken)
-    })
-
-    watch(this._favorite.value, () => {
-      this.favoriteStorage.set(this._favorite.value)
-    })
-
-    watch(this._cart, () => {
-      this.cartStorage.save(this._cart.value)
-    })
+    this._token = useLocalStorage<string | null>('token', null)
+    this._favorite = useLocalStorage<number[]>('favorite', [])
+    this._cart = useSessionStorage<CartType[]>('cart', [])
   }
 
-  public get cart() {
+  // ─── Cart ────────────────────────────────────────────────────────────────
+
+  public get cart(): CartType[] {
     return this._cart.value
   }
 
-  public set cart(cart) {
+  public set cart(cart: CartType[]) {
     this._cart.value = cart
   }
+
+  // ─── Favorite ────────────────────────────────────────────────────────────
 
   public get favorite(): number[] {
     return this._favorite.value
   }
 
+  /**
+   * Переключает id в списке избранного (добавляет если нет, удаляет если есть).
+   */
   public set favorite(favorite_id: number) {
-    const index = this.favorite.indexOf(favorite_id)
+    const index = this._favorite.value.indexOf(favorite_id)
     if (index < 0) this._favorite.value.unshift(favorite_id)
     else this._favorite.value.splice(index, 1)
   }
+
+  // ─── Token ───────────────────────────────────────────────────────────────
+
   /**
-   * Получить реактивный токен
+   * Реактивный computed токен.
+   * Можно использовать в watch, шаблоне или как зависимость.
    */
-  public get token(): ComputedRef<string | null> {
+  public get token() {
     return computed(() => this._token.value)
   }
 
-  /**
-   * Установить новый токен
-   * @param newToken - строка токена
-   */
   public setToken(newToken: string): void {
     this._token.value = newToken
   }
 
   /**
-   * Удалить токен
+   * Удаляет токен из памяти и localStorage.
+   * useLocalStorage автоматически удаляет ключ при null.
    */
   public unsetToken(): void {
     this._token.value = null

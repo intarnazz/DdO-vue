@@ -1,61 +1,19 @@
+import { useLocalStorage } from '@vueuse/core'
+import type { RemovableRef } from '@vueuse/core'
+
 /**
- * Класс Storage
+ * Фабричная функция для работы с localStorage через VueUse.
+ * Возвращает реактивный ref, синхронизированный с localStorage.
  *
- * Универсальный менеджер для работы с localStorage.
- * Позволяет хранить, получать и удалять значения любого типа T.
+ * @param key   - ключ в localStorage
+ * @param defaultValue - значение по умолчанию (если ключа нет)
+ * @returns RemovableRef<T> — реактивная ссылка с методом .value и поддержкой remove()
  *
- * @template T - тип значения, которое будет храниться
+ * @example
+ * const token = createStorage<string>('token', null)
+ * token.value = 'abc123'   // сохраняет в localStorage
+ * token.value = null       // эквивалентно remove() — удаляет ключ
  */
-export default class Storage<T = any> {
-  /** Ключ в localStorage */
-  private key: string
-
-  /**
-   * Создает экземпляр Storage для указанного ключа
-   *
-   * @param key - ключ для хранения значения в localStorage
-   */
-  constructor(key: string) {
-    this.key = key
-  }
-
-  /**
-   * Получить значение из localStorage
-   *
-   * Если значения нет или произошла ошибка при парсинге JSON, возвращает null.
-   *
-   * @returns {T | null} Значение из localStorage или null
-   */
-  public get(): T | null {
-    const item = localStorage.getItem(this.key)
-    if (!item) return null
-
-    try {
-      return JSON.parse(item) as T
-    } catch (error) {
-      console.error(`Ошибка при парсинге JSON для ключа "${this.key}":`, error)
-      return null
-    }
-  }
-
-  /**
-   * Сохранить значение в localStorage
-   *
-   * @param value - значение типа T для сохранения
-   */
-  public set(value: T): void {
-    try {
-      const json = JSON.stringify(value)
-      localStorage.setItem(this.key, json)
-    } catch (error) {
-      console.error(`Ошибка при сохранении JSON для ключа "${this.key}":`, error)
-    }
-  }
-
-  /**
-   * Удалить значение из localStorage
-   */
-  public remove(): void {
-    localStorage.removeItem(this.key)
-  }
+export function createStorage<T>(key: string, defaultValue: T): RemovableRef<T> {
+  return useLocalStorage<T>(key, defaultValue)
 }

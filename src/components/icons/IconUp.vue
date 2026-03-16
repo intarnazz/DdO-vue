@@ -1,24 +1,12 @@
 <script setup lang="ts">
+import { computed, watch } from 'vue'
+import { useScroll } from '@vueuse/core'
 import { filter } from '@/api/api'
 import { up, up_fast } from '@/utilte/utilte'
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 
-const scrollY = ref(0)
+const { y } = useScroll(window)
 
-const onScroll = () => {
-  scrollY.value = window.scrollY || document.documentElement.scrollTop
-}
-
-onMounted(() => {
-  onScroll()
-  window.addEventListener('scroll', onScroll, { passive: true })
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', onScroll)
-})
-
-const h = computed(() => scrollY.value)
+const h = computed(() => y.value)
 
 watch(() => filter.offset, up_fast)
 </script>

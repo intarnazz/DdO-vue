@@ -26,7 +26,10 @@ onMounted(async () => {
     <LayoutWrapper>
       <div class="box-x gap">
         <div
-          @click="copyToClipboard(contacts['address'].description, $event)"
+          @click="
+            copyToClipboard(contacts['address'].description, $event)
+            // TODO Удалиить кастомное поведение для копирования и добавит нормальное
+          "
           :title="contacts['address'].description"
           class="box-x gap cursor-pointer select-none py-2"
         >
@@ -70,7 +73,10 @@ onMounted(async () => {
           </div>
 
           <div
-            @click="copyToClipboard(contacts['phone'].description, $event)"
+            @click="
+              copyToClipboard(contacts['phone'].description, $event)
+              // TODO Удалиить кастомное поведение для копирования и добавит нормальное
+            "
             :title="contacts['phone'].description"
             class="box-x gap5 cursor-pointer select-none py-2"
           >

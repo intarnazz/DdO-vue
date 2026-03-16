@@ -11,9 +11,10 @@ import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
+import { ProductType } from '@/api/local_domains/catalog/product'
 
 const props = defineProps<{
-  product: typeof api_product.product
+  product: ProductType
 }>()
 
 const product = computed(() => props.product)
@@ -35,7 +36,7 @@ const is_equal = computed<boolean>(() => {
   return false
 })
 
-// [ ]: скидки 
+// [ ]: скидки
 // LARAVEL: discount - должен быть равен процентам
 </script>
 
@@ -47,14 +48,12 @@ const is_equal = computed<boolean>(() => {
           <ComponentImg
             class="catalog__img object-cover h-full w-full"
             :storage="product.image.path"
-            :is_lazy="true"
           />
         </div>
         <div class="box-x relative h-67.5 max-h-67.5">
           <ComponentImg
             class="catalog__img object-cover h-full w-full"
             :storage="product.image.second_path"
-            :is_lazy="true"
           />
         </div>
       </div>

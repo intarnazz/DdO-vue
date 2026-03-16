@@ -11,8 +11,8 @@ import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
 import { price } from '@/utilte/utilte'
 import { computed } from 'vue'
 
-const product_price = computed(() => price(product.product.price)) 
-// TODO: выделить как модуль 
+const product_price = computed(() => price(product.product.price))
+// TODO: выделить как модуль
 // [ ] - Полная секция продукта //:выделить компонент
 
 const size_characteristics = computed(() =>

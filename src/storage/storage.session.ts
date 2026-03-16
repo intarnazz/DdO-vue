@@ -1,30 +1,19 @@
-export default class StorageSession<T = unknown> {
-  private readonly key: string
+import { useSessionStorage } from '@vueuse/core'
+import type { RemovableRef } from '@vueuse/core'
 
-  constructor(key: string) {
-    this.key = key
-  }
-
-  save(data: T): void {
-    sessionStorage.setItem(this.key, JSON.stringify(data))
-  }
-
-  load(): T | null {
-    const raw = sessionStorage.getItem(this.key)
-    if (raw === null) return null
-
-    try {
-      return JSON.parse(raw) as T
-    } catch {
-      return null
-    }
-  }
-
-  clear(): void {
-    sessionStorage.removeItem(this.key)
-  }
-
-  has(): boolean {
-    return sessionStorage.getItem(this.key) !== null
-  }
+/**
+ * Фабричная функция для работы с sessionStorage через VueUse.
+ * Возвращает реактивный ref, синхронизированный с sessionStorage.
+ *
+ * @param key   - ключ в sessionStorage
+ * @param defaultValue - значение по умолчанию (если ключа нет)
+ * @returns RemovableRef<T> — реактивная ссылка с методом .value и поддержкой remove()
+ *
+ * @example
+ * const cart = createSessionStorage<CartType[]>('cart', [])
+ * cart.value = [{ id: 1 }]  // сохраняет в sessionStorage
+ * cart.value = null          // удаляет ключ
+ */
+export function createSessionStorage<T>(key: string, defaultValue: T): RemovableRef<T> {
+  return useSessionStorage<T>(key, defaultValue)
 }

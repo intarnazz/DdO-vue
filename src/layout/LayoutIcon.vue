@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 
-const props = defineProps<{
+const { active = false } = defineProps<{
   active: boolean
 }>()
 
-const active = computed(() => props.active || false)
-const _active = ref<boolean | number>(active.value ? 1 : 0)
+const _active = ref<boolean | number>(active ? 1 : 0)
+
 const active_on = computed(() => _active.value === true)
 const active_off = computed(() => _active.value === false)
 
 watch(
-  () => active.value,
+  () => active,
   (n) => (_active.value = n),
 )
 </script>
