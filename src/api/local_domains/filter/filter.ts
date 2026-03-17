@@ -15,7 +15,7 @@ interface FilterData {
   search : string
 }
 
-const URL_STORAGE_KEY = 'f'
+const URL_STORAGE_KEY = <string>'f'
 
 class Filter extends BaseModel {
   private rest       : Rest // prettier-ignore
@@ -118,7 +118,7 @@ class Filter extends BaseModel {
     this.data.desc = this.toStr(desc)
   }
 
-  get query() {
+  get query(): Record<string, string> {
     if (this.url_storage.query === null) return {}
     return { [URL_STORAGE_KEY]: this.url_storage.query }
   }

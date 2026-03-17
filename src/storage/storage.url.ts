@@ -16,7 +16,7 @@ import type { Ref } from 'vue'
  * if (storage.has()) { ... }
  * storage.clear()
  */
-export default class UrlStorage {
+export default class UrlStorage<T = unknown> {
   /** Ключ URL-параметра и ключ записи в `sessionStorage`. */
   private key: string
 
@@ -24,21 +24,21 @@ export default class UrlStorage {
    * Реактивная закодированная строка текущего состояния.
    * Используй `storage.query` для отслеживания в шаблоне или watch.
    */
-  public query: Ref<string | null>
+  private _query: Ref<string | null>
 
   constructor(key: string = 'state') {
     this.key = key
-    this.query = ref<string | null>(null)
+    this._query = ref<string | null>(null)
   }
 
   /**
    * Сохраняет объект в URL и `sessionStorage`.
    */
-  public save(data: Record<string, any>): void {
+  public save(data: T): void {
     const json = JSON.stringify(data)
     const encoded = encodeURIComponent(btoa(unescape(encodeURIComponent(json))))
 
-    this.query.value = encoded
+    this.query = encoded
 
     const url = new URL(window.location.href)
     url.searchParams.set(this.key, encoded)
@@ -53,7 +53,7 @@ export default class UrlStorage {
    *
    * @returns Десериализованный объект или `null`.
    */
-  public load(): Record<string, any> | null {
+  public load(): T | null {
     const url = new URL(window.location.href)
     const encoded = url.searchParams.get(this.key) ?? sessionStorage.getItem(this.key)
 
@@ -61,7 +61,7 @@ export default class UrlStorage {
 
     try {
       const json = decodeURIComponent(escape(atob(decodeURIComponent(encoded))))
-      this.query.value = encoded
+      this.query = encoded
       return JSON.parse(json)
     } catch {
       console.error(`[UrlStorage] Failed to parse state from URL (key: "${this.key}")`)
@@ -78,7 +78,7 @@ export default class UrlStorage {
     window.history.replaceState(null, '', url.toString())
 
     sessionStorage.removeItem(this.key)
-    this.query.value = null
+    this.query = null
   }
 
   /**
@@ -87,5 +87,13 @@ export default class UrlStorage {
   public has(): boolean {
     const url = new URL(window.location.href)
     return url.searchParams.has(this.key) || sessionStorage.getItem(this.key) !== null
+  }
+
+  public get query(): string | null {
+    return this._query.value
+  }
+
+  protected set query(query: string | null) {
+    this._query.value = query
   }
 }

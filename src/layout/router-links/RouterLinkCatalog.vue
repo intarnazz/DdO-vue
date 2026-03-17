@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { filter, type } from '@/api/api'
+import { filter } from '@/api/api'
 
-const props = defineProps<{
-  type_name: typeof type.type.name
+const { type_name } = defineProps<{
+  type_name: string
 }>()
 </script>
 
