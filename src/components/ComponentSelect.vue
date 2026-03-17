@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
 import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
 import { onClickOutside } from '@vueuse/core'
 import { computed, ref } from 'vue'
@@ -36,8 +37,10 @@ function change_selected_option(new_key: number) {
       :class="{ 'border-mark': popup_is_open }"
     >
       <span v-if="selected_option">
-        {{ selected_option.id }} -
-        {{ selected_option.name }}
+        <ComponentRecolorText
+          :text="`${selected_option.id} - ${selected_option.name}`"
+          :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu"
+        />
       </span>
       <span v-else>Loading...</span>
       <IconKeyboardArrowDown />
@@ -55,8 +58,10 @@ function change_selected_option(new_key: number) {
             :key="option.id"
           >
             <span>
-              {{ option.id }} -
-              {{ option.name }}
+              <ComponentRecolorText
+                :text="`${option.id} - ${option.name}`"
+                :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu"
+              />
               <!-- 
             // TODO: выделение символов как в макете
             -->

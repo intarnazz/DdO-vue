@@ -67,7 +67,7 @@ watch(
     <div class="box-x center">
       <p v-if="range" class="font-normal price">
         <span class="c-sub font-light">до: </span>
-        <ComponentRecolorText :text="price(range)" />
+        <ComponentRecolorText :match="/[pPрР]/g" :text="price(range)" />
       </p>
       <p v-else class="c-sub">любая цена</p>
     </div>
