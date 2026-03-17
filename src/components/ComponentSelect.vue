@@ -47,10 +47,10 @@ function change_selected_option(new_key: number) {
         :class="{ 'h-auto': popup_is_open, 'h-0': !popup_is_open }"
         class="select__popup shadow-xl overflow-hidden bg-white whitespace-nowrap"
       >
-        <div class="select__list border box-y py-1">
+        <div class="select__list border box-y py-2">
           <button
             @click="change_selected_option(key)"
-            class="select__item option px-4 py-1"
+            class="select__item option px-4 py-2"
             v-for="(option, key) in options"
             :key="option.id"
           >
