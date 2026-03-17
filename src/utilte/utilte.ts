@@ -1,3 +1,9 @@
+export const base64FromJson = (json: string): string => {
+  const bytes = new TextEncoder().encode(json)
+  const binary = String.fromCharCode(...bytes)
+  return encodeURIComponent(btoa(binary))
+}
+
 /**
  * Преобразует первую букву строки в верхний регистр, если строка задана.
  * @param i - Входная строка или undefined.

@@ -21,7 +21,7 @@ class Filter extends BaseModel {
   private rest       : Rest // prettier-ignore
   private data       : FilterData // prettier-ignore
   private data_c     : ComputedRef<FilterData> // prettier-ignore
-  private url_storage: UrlStorage // prettier-ignore
+  private url_storage: UrlStorage<FilterData> // prettier-ignore
 
   constructor() {
     super()

@@ -36,7 +36,11 @@ export default class UrlStorage<T = unknown> {
    */
   public save(data: T): void {
     const json = JSON.stringify(data)
-    const encoded = encodeURIComponent(btoa(unescape(encodeURIComponent(json)))) // TODO устарел
+    const encoded = encodeURIComponent(
+      btoa(
+        new TextEncoder().encode(json).reduce((acc, byte) => acc + String.fromCharCode(byte), ''),
+      ),
+    )
 
     this.query = encoded
 
@@ -60,7 +64,9 @@ export default class UrlStorage<T = unknown> {
     if (!encoded) return null
 
     try {
-      const json = decodeURIComponent(escape(atob(decodeURIComponent(encoded))))
+      const json = new TextDecoder().decode(
+        Uint8Array.from(atob(decodeURIComponent(encoded)), (c) => c.charCodeAt(0)),
+      )
       this.query = encoded
       return JSON.parse(json)
     } catch {

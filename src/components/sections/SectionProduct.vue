@@ -70,7 +70,7 @@ const size_characteristics = computed(() =>
                 <RouterLink
                   class="a box-x gap-2 c-sub a_sub font-normal"
                   :to="{
-                    name: 'home', //TODO: ссылка на контакты
+                    name: 'home', //[ ]: Страница Контакты // ссылка на контакты
                   }"
                 >
                   <IconHandshake />
@@ -85,7 +85,7 @@ const size_characteristics = computed(() =>
               <strong class="product__price font-normal">
                 {{ product_price }}
                 <!-- 
-                // TODO: Выбор между разными price
+                // [ ]  Полная секция продукта // Выбор между разными price
                 -->
               </strong>
               <p>комплект</p>
@@ -124,8 +124,7 @@ const size_characteristics = computed(() =>
           <div class="product__button-wrapper box-x">
             <ButtonAddToCart :product="product.product" />
             <!-- 
-            // TODO: кнопка удалить из корзины / layout для кнопок
-            // TODO: ссылка на корзинку
+            // [ ] Страница корзины // ссылка на корзинку // добавить в корзину ещё +1 раз
             -->
           </div>
         </div>

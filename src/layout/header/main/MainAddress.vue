@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
-import { namesToKeys, formatPhone, copyToClipboard } from '@/utilte/utilte'
+import { namesToKeys, formatPhone } from '@/utilte/utilte'
 import { contact } from '@/api/api'
 import { onMounted, ref } from 'vue'
 
@@ -25,66 +25,42 @@ onMounted(async () => {
   <div v-if="!isLoading" class="address">
     <LayoutWrapper>
       <div class="box-x gap">
-        <div
-          @click="
-            copyToClipboard(contacts['address'].description, $event)
-            // TODO Удалиить кастомное поведение для копирования и добавит нормальное
-          "
-          :title="contacts['address'].description"
-          class="box-x gap cursor-pointer select-none py-2"
-        >
-          <p class="sp">наш адрес:</p>
-          <div class="box-x gap5">
+        <div :title="contacts['address'].description" class="box-x gap py-2">
+          <p class="c-sub">
+            наш адрес:
             <a class="c-w" :href="contacts['address'].link">
               {{ contacts['address'].description }}
             </a>
-            <img class="icon" src="@/assets/icons/content_copy.svg" alt="content_copy" />
-          </div>
+          </p>
         </div>
 
         <div class="box-x gap2">
           <div class="box-x gap">
-            <div
-              :title="contacts['whatsapp'].description"
-              class="box-x gap5 cursor-pointer select-none py-2"
-            >
+            <div :title="contacts['whatsapp'].description" class="box-x gap5 py-2">
               <a class="c-w" :href="`${contacts['whatsapp'].link}`">
                 <img class="icon" src="@/assets/icons/whatsapp.svg" alt="content_copy" />
               </a>
             </div>
 
-            <div
-              :title="contacts['odnoklassniki'].description"
-              class="box-x gap5 cursor-pointer select-none py-2"
-            >
+            <div :title="contacts['odnoklassniki'].description" class="box-x gap5 py-2">
               <a class="c-w" :href="`${contacts['odnoklassniki'].link}`">
                 <img class="icon" src="@/assets/icons/odnoklassniki.svg" alt="content_copy" />
               </a>
             </div>
 
-            <div
-              :title="contacts['vk'].description"
-              class="box-x gap5 cursor-pointer select-none py-2"
-            >
+            <div :title="contacts['vk'].description" class="box-x gap5 py-2">
               <a class="c-w" :href="`${contacts['vk'].link}`">
                 <img class="icon" src="@/assets/icons/vk.svg" alt="content_copy" />
               </a>
             </div>
           </div>
 
-          <div
-            @click="
-              copyToClipboard(contacts['phone'].description, $event)
-              // TODO Удалиить кастомное поведение для копирования и добавит нормальное
-            "
-            :title="contacts['phone'].description"
-            class="box-x gap5 cursor-pointer select-none py-2"
-          >
+          <p class="c-sub" :title="contacts['phone'].description">
+            номер:
             <a class="c-w" :href="`tel:${contacts['phone'].link}`">
               {{ formatPhone(contacts['phone'].description) }}
             </a>
-            <img class="icon" src="@/assets/icons/content_copy.svg" alt="content_copy" />
-          </div>
+          </p>
         </div>
       </div>
     </LayoutWrapper>
@@ -92,6 +68,7 @@ onMounted(async () => {
 </template>
 
 <style lang="sass" scoped>
+//
 .address
   background-color: $b
 </style>
