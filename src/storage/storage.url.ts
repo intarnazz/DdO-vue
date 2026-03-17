@@ -36,7 +36,7 @@ export default class UrlStorage<T = unknown> {
    */
   public save(data: T): void {
     const json = JSON.stringify(data)
-    const encoded = encodeURIComponent(btoa(unescape(encodeURIComponent(json))))
+    const encoded = encodeURIComponent(btoa(unescape(encodeURIComponent(json)))) // TODO устарел
 
     this.query = encoded
 
