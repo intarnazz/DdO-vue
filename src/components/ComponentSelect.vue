@@ -62,9 +62,6 @@ function change_selected_option(new_key: number) {
                 :text="`${option.id} - ${option.name}`"
                 :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu"
               />
-              <!-- 
-            // TODO: выделение символов как в макете
-            -->
             </span>
           </button>
         </div>
