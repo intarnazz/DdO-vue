@@ -35,6 +35,7 @@ const is_equal = computed<boolean>(() => {
   return false
 })
 
+// TODO: выделять alt-тег при полном совпадении
 // [ ]: скидки
 </script>
 

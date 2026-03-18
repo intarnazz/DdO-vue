@@ -41,7 +41,7 @@ import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
                 type: 'discount',
               },
               {
-                text: 'модель',
+                text: 'модель', // LARAVEL фильрация по модели должна вернуть список моделей
                 type: 'variant_id',
               },
             ]"

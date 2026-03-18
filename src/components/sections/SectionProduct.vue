@@ -8,15 +8,23 @@ import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
+import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { price } from '@/utilte/utilte'
 import { computed } from 'vue'
 
-const product_price = computed(() => price(product.product.price))
+const product_price = computed(() => price(product.product.price)) //TODO: component
 
 const size_characteristics = computed(() =>
+  //TODO: component
   product.product.characteristics.filter((c) => c.filter.name === 'size'),
 )
 
+const color_characteristics = computed(() =>
+  //TODO: component
+  product.product.characteristics.filter((c) => c.filter.name === 'color'),
+)
+
+// LARAVEL: seed массив images
 // [ ] - Полная секция продукта //:выделить компонент
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
 </script>
@@ -42,10 +50,10 @@ const size_characteristics = computed(() =>
       </div>
       <div class="product__right-box box-y flex js gap-8">
         <h2>{{ product.product.name }}</h2>
-        <div class="product__button-wrapper box-x">
+        <div class="product__button-wrapper box-x js gap-8">
           <ButtonFavorite :product="product.product" />
           <ButtonComparison :product="product.product" />
-          <p>{{ product.product.article }}</p>
+          <p class="c-sub">{{ product.product.article }}</p>
         </div>
 
         <div class="product__bitton-cart-box box-y border p-4 gap-8">
@@ -128,6 +136,25 @@ const size_characteristics = computed(() =>
             -->
           </div>
         </div>
+
+        <div class="product__contact">
+          <!-- {{ contact. }} // TODO: сущность contact -->
+        </div>
+        <div v-if="color_characteristics[0]" class="product__color">
+          <!-- LARAVEL: указать продукты с тем же цветом и группой -->
+          <!-- LARAVEL: цветов может быть два -->
+          {{ color_characteristics[0].name }}
+        </div>
+        <RouterLinkCatalog
+          :type_name="
+            product.product.type.name
+            // TODO ссылка на каталог и фильтром бренда
+          "
+          class="box-x js gap-1"
+        >
+          <p class="">Все модели бренда</p>
+          <p>{{ product.product.brand.name }}</p>
+        </RouterLinkCatalog>
       </div>
     </div>
   </section>

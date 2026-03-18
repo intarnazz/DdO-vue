@@ -27,7 +27,7 @@ class Filter extends BaseModel {
     super()
 
     this.rest = new Rest('filter')
-    this.url_storage = new UrlStorage(URL_STORAGE_KEY)
+    this.url_storage = new UrlStorage(URL_STORAGE_KEY) // XXX Переделать систему сохранения параметров запроса
 
     this.data = reactive<FilterData>({
       filters: {},

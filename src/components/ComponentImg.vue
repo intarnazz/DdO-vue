@@ -54,6 +54,8 @@ watch(src, (newSrc) => {
   loaded.value = false
   lazySrc.value = newSrc
 })
+
+// LARAVEL: убрать лишии ссылки в image. 1 image = 1 сслыка
 </script>
 
 <template>
