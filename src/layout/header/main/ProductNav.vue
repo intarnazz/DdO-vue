@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { filter } from '@/api/api'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
+import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue';
 import { RouterLink } from 'vue-router'
 </script>
 
@@ -11,16 +12,12 @@ import { RouterLink } from 'vue-router'
         <!-- <div class="box-x gap2">
         </div> -->
         <RouterLink :to="{ name: 'home' }" class="">Акции</RouterLink>
-        <RouterLink
-          :to="{
-            name: 'catalog',
-            params: { type: 'entrance-doors' },
-            query: filter.query,
-          }"
-          class=""
+        <RouterLinkCatalog
+
+          :type_name="`entrance-doors`"
         >
           Входные двери
-        </RouterLink>
+        </RouterLinkCatalog>
         <RouterLink :to="{ name: 'home' }" class="">Межкомнотные двери</RouterLink>
         <RouterLink :to="{ name: 'home' }" class="">Фурнитура</RouterLink>
         <RouterLink :to="{ name: 'home' }" class="">Напольные покрытия</RouterLink>

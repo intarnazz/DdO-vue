@@ -17,7 +17,6 @@ class Image {
    *
    * @example
    * const url = new Image().get('123')
-   * console.log(url) // "http://localhost:8000/api/image/123"
    */
   public get_by_id(id: string | number): string {
     return `${API_URL}image/${id}`

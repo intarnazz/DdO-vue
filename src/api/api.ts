@@ -3,7 +3,7 @@ import type from './local_domains/catalog/type/type'
 import Rest from './web_services/rest'
 import image from './web_services/image'
 import user from './local_domains/user/user'
-import filter from './local_domains/filter/filter'
+import filter from './local_domains/filter'
 import product from './local_domains/catalog/product/index'
 import cart from './local_domains/cart/cart'
 

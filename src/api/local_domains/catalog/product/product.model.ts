@@ -28,7 +28,6 @@ const promiseController = new PromiseController()
  * ```ts
  * const p = new Product({ id: 1, name: 'Товар' })
  * await p.init(1) // загрузка свежих данных с сервера
- * console.log(p.name) // 'Товар'
  * ```
  */
 class Product extends BaseModel {

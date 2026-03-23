@@ -1,10 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import composer from '@/composer/composer'
-import PageNotFound from '@/pages/PageNotFound.vue'
 import PageAboutUs from '@/pages/PageAboutUs.vue'
-import PageHome from '@/pages/PageHome.vue'
 import PageCatalog from '@/pages/PageCatalog.vue'
+import PageHome from '@/pages/PageHome.vue'
+import PageNotFound from '@/pages/PageNotFound.vue'
 import PageProduct from '@/pages/PageProduct.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,13 +36,6 @@ const router = createRouter({
       component: PageNotFound,
     },
   ],
-})
-
-router.beforeEach(async (to, from, next) => {
-  if (to.name === 'product' || to.name === 'catalog') {
-    await composer.essence_init(to.params as Record<string, string>)
-  }
-  next()
 })
 
 export default router

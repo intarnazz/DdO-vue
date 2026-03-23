@@ -1,10 +1,9 @@
-import { reactive, computed, watch, markRaw, toRaw, ref, shallowRef } from 'vue'
+import { reactive, computed, watch, markRaw, toRaw, shallowRef } from 'vue'
 import type { ComputedRef, ShallowRef } from 'vue'
 import type { GetOptions } from '../../../web_services/request/request'
 import Rest from '../../../web_services/rest'
-import filter from '../../filter/filter'
 import PromiseController from '../../../web_services/promiseController'
-import { type } from '@/api/api'
+import { filter, type } from '@/api/api'
 import Product from './product.model'
 import type { ProductType, ProductServiceType } from './types'
 
@@ -78,7 +77,7 @@ class ProductService {
     this._is_pagination = computed(() => filter.limit < this.pagingInfo.totalCount)
 
     watch(
-      () => (filter as any).value,
+      () => filter.value,
       () => {
         if (this.current_page > this.page_count) this.current_page = this.page_count
         this.all()
@@ -96,21 +95,20 @@ class ProductService {
    * @param data - Дополнительные опции для GET-запроса (переопределяют параметры фильтра)
    * @returns Промис, разрешающийся после обновления состояния
    */
-  public async all(data: GetOptions = {}): Promise<any> {
-    const filter_local = structuredClone(toRaw(filter.value))
-    filter_local.filters['type'] = String(type.type.id)
-
+  public async all(data: GetOptions = {}): Promise<unknown> {
+    if (!type.type.id) return
     const res = await this.promise_controller.await((signal) =>
       this.rest.all({
         signal: signal,
         ...data,
-        ...filter_local,
+        ...filter.query,
+        type: type.type.id,
       }),
     )
     if (res === false) return
     if (!res.success) return
 
-    this.products = res.data.map((product: any) => {
+    this.products = res.data.map((product: Record<string, unknown>) => {
       return new Product(product)
     })
 

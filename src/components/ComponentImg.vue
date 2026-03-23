@@ -56,6 +56,7 @@ watch(src, (newSrc) => {
 })
 
 // LARAVEL: убрать лишии ссылки в image. 1 image = 1 сслыка
+// TODO: анимация всплытия  через opasity
 </script>
 
 <template>

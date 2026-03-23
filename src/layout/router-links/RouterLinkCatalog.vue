@@ -9,7 +9,6 @@ const { type_name } = defineProps<{
 
 <template>
   <RouterLink
-    class="c-sub a a_sub"
     :to="{
       name: 'catalog',
       params: { type: type_name },

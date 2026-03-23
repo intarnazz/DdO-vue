@@ -44,19 +44,6 @@ export interface GetOptions {
   names?: string[]
 
   /**
-   * Массив объектов фильтрации.
-   *
-   * Каждый фильтр представляет собой объект в формате
-   * `{ [key: string]: string | number | boolean }`,
-   * где `key` — имя поля, а `value` — значение для фильтрации.
-   *
-   * Используется для динамического построения условий на стороне API
-   * (например, `WHERE status = 'active' AND isFeatured = true`).
-   *
-   */
-  filters?: Record<string, any>
-
-  /**
    * Строка поиска.
    *
    * Перед отправкой кодируется в base64 (UTF-8),
@@ -69,7 +56,7 @@ export interface GetOptions {
    */
   order?: string
 
-  desc?: string
+  desc?: boolean | number
 
   /**
    * Сигнал для отмены запроса.
@@ -81,16 +68,7 @@ export interface GetOptions {
    * // Позже: controller.abort();
    */
   signal?: AbortSignal
-}
-
-// Helper function to base64-encode a UTF-8 string
-function base64EncodeUTF8(str: string): string {
-  // Encode to URI component, then replace %XX with chars, then base64
-  return btoa(
-    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
-      return String.fromCharCode(parseInt(p1, 16))
-    }),
-  )
+  [key: string]: string | string[] | number | number[] | undefined | AbortSignal | boolean
 }
 
 // ============================================================================
@@ -111,7 +89,7 @@ function base64EncodeUTF8(str: string): string {
  *
  * Поддерживает отмену запроса через `AbortSignal`.
  *
- * @param url Путь запроса относительно `API_URL`
+ * @param domen Путь запроса относительно `API_URL`
  * @param options Параметры запроса (limit, offset, search, signal и т.д.)
  * @returns Promise с объектом `Response`
  *
@@ -124,24 +102,24 @@ function base64EncodeUTF8(str: string): string {
  *   const data = await response.json();
  * } catch (error) {
  *   if (error.name === 'AbortError') {
- *     console.log('Запрос отменён');
  *   }
  * }
  */
-export async function get(url: string, options: GetOptions = {}): Promise<Response> {
-  const search = options.search ?? ''
-  const encoded_search = search ? base64EncodeUTF8(search) : ''
+export async function get(domen: string, options: GetOptions = {}): Promise<Response> {
+  // XXX get
+  const url = new URL(`${API_URL}${domen}`)
 
-  const response = await fetch(`${API_URL}${url}`, {
+  Object.keys(options).forEach((key) => {
+    if (key === 'signal') return
+    if (key === 'desc') return
+    const value = options[key]
+    if (key === 'order') url.searchParams.append('desc', String(Number(Boolean(options.desc))))
+    if (value) url.searchParams.append(key, String(value))
+  })
+
+  const response = await fetch(url.toString(), {
     method: 'GET',
     headers: {
-      limit: String(options.limit || 5),
-      offset: String(options.offset ?? 0),
-      names: String(options.names ?? ''),
-      filters: JSON.stringify(options.filters ?? {}),
-      order: String(options.order ?? ''),
-      desc: String(options.desc ?? ''),
-      search: encoded_search,
       Authorization: `Bearer ${user.token ?? ''}`,
     },
     signal: options.signal,

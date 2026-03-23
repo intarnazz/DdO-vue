@@ -34,6 +34,8 @@ function emit_click() {
   }
   emit('click')
 }
+
+// LARAVEL: просмотры при get
 </script>
 
 <template>

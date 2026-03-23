@@ -7,6 +7,31 @@
  * Содержимое компонента вставляется через слот.
  */
 import IconUp from '@/components/icons/IconUp.vue'
+import { onMounted, ref, watch } from 'vue'
+import { RouteLocationNormalizedLoadedGeneric, useRoute } from 'vue-router'
+
+const { foo } = defineProps<{
+  foo?: (params: RouteLocationNormalizedLoadedGeneric) => Promise<unknown>
+}>()
+
+const route = useRoute()
+const isLoading = ref(true)
+
+async function init() {
+  if (!foo) return
+  isLoading.value = true
+  await foo(route)
+  isLoading.value = false
+}
+
+onMounted(async () => {
+  await init()
+})
+
+watch(
+  () => route.params.id,
+  () => init(),
+)
 </script>
 
 <template>
@@ -15,7 +40,7 @@ import IconUp from '@/components/icons/IconUp.vue'
     <IconUp />
 
     <!-- Слот для вставки дочернего контента -->
-    <slot></slot>
+    <slot :isLoading="isLoading" />
   </main>
 </template>
 
