@@ -106,7 +106,6 @@ export interface GetOptions {
  * }
  */
 export async function get(domen: string, options: GetOptions = {}): Promise<Response> {
-  // XXX get
   const url = new URL(`${API_URL}${domen}`)
 
   Object.keys(options).forEach((key) => {
