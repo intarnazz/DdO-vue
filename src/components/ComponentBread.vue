@@ -18,6 +18,7 @@ const type_name = computed(() => product.product.type.name || type.type.name || 
 function set_comparison_product() {
   product.comparison_product = null
 }
+// TODO: преписать под router
 </script>
 
 <template>

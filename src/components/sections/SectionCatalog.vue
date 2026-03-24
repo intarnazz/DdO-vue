@@ -42,10 +42,6 @@ import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
                 type: 'discount',
                 desc: 'desc',
               },
-              {
-                text: 'модель', // LARAVEL фильрация по модели должна вернуть список моделей
-                type: 'variant_id',
-              },
             ]"
           />
           <CatalogLimit :arguments="[48, 96, 192]" />

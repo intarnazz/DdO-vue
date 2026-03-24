@@ -24,7 +24,6 @@ const color_characteristics = computed(() =>
   product.product.characteristics.filter((c) => c.filter.name === 'color'),
 )
 
-// LARAVEL: seed массив images
 // [ ] - Полная секция продукта //:выделить компонент
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
 </script>
@@ -141,14 +140,13 @@ const color_characteristics = computed(() =>
           <!-- {{ contact. }} // TODO: сущность contact -->
         </div>
         <div v-if="color_characteristics[0]" class="product__color">
-          <!-- LARAVEL: указать продукты с тем же цветом и группой -->
-          <!-- LARAVEL: цветов может быть два -->
           {{ color_characteristics[0].name }}
         </div>
         <RouterLinkCatalog
           :type_name="
             product.product.type.name
             // TODO ссылка на каталог и фильтром бренда
+            // TODO ссылка на каталог и фильтром модели
           "
           class="box-x js gap-1"
         >
