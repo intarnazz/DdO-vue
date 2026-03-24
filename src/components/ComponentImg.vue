@@ -54,8 +54,6 @@ watch(src, (newSrc) => {
   loaded.value = false
   lazySrc.value = newSrc
 })
-
-// TODO: анимация всплытия  через opasity
 </script>
 
 <template>
