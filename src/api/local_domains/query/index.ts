@@ -134,5 +134,5 @@ class Query extends BaseModel {
   }
 }
 
-const filter = new Query()
-export default filter
+const query = new Query()
+export default query
