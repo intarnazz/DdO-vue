@@ -37,13 +37,13 @@ const color_characteristics = computed(() =>
           <div class="box-x relative h-132.5">
             <ComponentImg
               class="product__img object-cover h-full w-full"
-              :storage="product.product.image.path"
+              :storage="product.product.image_primary.path"
             />
           </div>
           <div class="box-x relative h-132.5">
             <ComponentImg
               class="product__img object-cover h-full w-full"
-              :storage="product.product.image.second_path"
+              :storage="product.product.image_secondary.path"
             />
           </div>
         </div>

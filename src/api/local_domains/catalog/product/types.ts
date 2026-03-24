@@ -4,13 +4,11 @@
 // prettier-ignore
 export interface Image {
   /** Уникальный идентификатор изображения */
-  id         : number
+  id  : number
   /** Название изображения */
-  name       : string
-  /** Основной путь к изображению */
-  path       : string
-  /** Дополнительный путь к изображению */
-  second_path: string
+  name: string
+  /** Путь к изображению */
+  path: string
 }
 
 /**
@@ -125,49 +123,53 @@ export interface Characteristic {
 // prettier-ignore
 export interface DefaultProductType {
   /** Уникальный идентификатор продукта */
-  id             : number
+  id                 : number
   /** Идентификатор типа/категории продукта */
-  type_id        : number
+  type_id            : number
   /** Идентификатор тега продукта */
-  tag_id         : number
+  tag_id             : number
   /** Идентификатор варианта продукта */
-  variant_id     : number
+  variant_id         : number
   /** Идентификатор бренда продукта */
-  brand_id       : number
+  brand_id           : number
   /** Идентификатор основного изображения продукта */
-  image_id       : number
+  image_primary_id   : number
+  /** Идентификатор вторичного изображения продукта */
+  image_secondary_id : number
   /** Название продукта */
-  name           : string
+  name               : string
   /** Описание продукта */
-  description    : string
+  description        : string
   /** Ссылка на видео продукта */
-  video_url      : string
+  video_url          : string
   /** Количество просмотров */
-  views          : number
+  views              : number
   /** Цена продукта */
-  price          : number
+  price              : number
   /** Скидка на продукт */
-  discount       : number
+  discount           : number
   /** Артикул продукта */
-  article        : string
+  article            : string
   /** Наличие на складе */
-  is_stock       : boolean
+  is_stock           : boolean
   /** Наличие в магазине */
-  is_in_store    : boolean 
+  is_in_store        : boolean
   /** Основное изображение продукта */
-  image          : Image
+  image_primary      : Image
+  /** Вторичное изображение продукта */
+  image_secondary    : Image
   /** Вариант продукта */
-  variant        : Variant
+  variant            : Variant
   /** Категория продукта */
-  type           : ProductCategory
+  type               : ProductCategory
   /** Тег продукта */
-  tag            : Tag
+  tag                : Tag
   /** Бренд продукта */
-  brand          : Brand
+  brand              : Brand
   /** Список изображений продукта */
-  images         : Image[]
+  images             : Image[]
   /** Список характеристик продукта */
-  characteristics: Characteristic[]
+  characteristics    : Characteristic[]
 }
 
 /**
@@ -190,14 +192,47 @@ export interface ProductType extends DefaultProductType {
 }
 
 /**
+ * Информация о пагинации.
+ */
+// prettier-ignore
+export interface PagingInfo {
+  /** Максимальное количество элементов на странице */
+  limit     : number
+  /** Смещение от начала выборки */
+  offset    : number
+  /** Общее количество элементов */
+  totalCount: number
+}
+
+/**
+ * Диапазон цен продуктов в выборке.
+ */
+// prettier-ignore
+export interface PriceMeta {
+  /** Минимальная цена */
+  min: number
+  /** Максимальная цена */
+  max: number
+}
+
+/**
+ * Мета-данные выборки продуктов.
+ */
+// prettier-ignore
+export interface ProductMeta {
+  /** Диапазон цен */
+  price: PriceMeta
+}
+
+/**
  * Структура реактивного состояния сервиса продуктов.
  */
 // prettier-ignore
 export interface ProductServiceType {
   /** Список продуктов текущей страницы */
   products  : ProductType[]
-  /** Информация о пагинации (totalCount, offset и т.д.) */
-  pagingInfo: Record<string, any>
-  /** Мета-данные выборки (например, диапазон цен) */
-  meta      : Record<string, any>
+  /** Информация о пагинации */
+  pagingInfo: PagingInfo
+  /** Мета-данные выборки */
+  meta      : ProductMeta
 }

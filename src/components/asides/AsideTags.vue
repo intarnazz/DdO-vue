@@ -24,7 +24,7 @@ function send_active_tag_id(id: string) {
         :class="{
           filters__tags_active: f.filters['tag'] == tag.id,
         }"
-        v-if="Number(key) < MIN || is_expand || tag.is_visible || f.filters['tag'] == tag.id"
+        v-if="Number(key) < MIN || is_expand || f.filters['tag'] == tag.id"
       >
         <div>
           {{ tag.name }}

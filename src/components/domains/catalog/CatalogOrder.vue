@@ -94,6 +94,7 @@ const active = ref<number>(0)
  */
 function setActive(key: number) {
   active.value = key
+  if (!content.value[key]) return
   filter.order = content.value[key].type
   filter.desc = content.value[key].desc || ''
 }

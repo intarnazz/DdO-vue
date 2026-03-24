@@ -15,9 +15,6 @@ import type {
   Init,
 } from './types'
 
-const rest = new Rest('product')
-const promiseController = new PromiseController()
-
 /**
  * Модель продукта.
  *
@@ -40,36 +37,38 @@ class Product extends BaseModel {
    * Создаёт экземпляр модели продукта.
    * @param product - Исходный объект с данными продукта (может быть пустым)
    */
-  constructor(product: Record<string, any> = {}) {
+  constructor(product: Partial<DefaultProductType> = {}) {
     super()
 
-    this.rest = rest
-    this.promise_controller = promiseController
+    this.rest = new Rest('product')
+    this.promise_controller = new PromiseController()
 
     // prettier-ignore
     this.data = reactive({
-      id             : this.toNum(product.id),
-      type_id        : this.toNum(product.type_id),
-      tag_id         : this.toNum(product.tag_id),
-      variant_id     : this.toNum(product.variant_id),
-      brand_id       : this.toNum(product.brand_id),
-      image_id       : this.toNum(product.image_id),
-      views          : this.toNum(product.views),
-      price          : this.toNum(product.price),
-      discount       : this.toNum(product.discount),
-      is_stock       : Boolean(product.is_stock),
-      is_in_store    : Boolean(product.is_in_store),
-      name           : this.toStr(product.name),
-      description    : this.toStr(product.description),
-      video_url      : this.toStr(product.video_url),
-      article        : this.toStr(product.article),
-      image          : product.image ?? {},
-      variant        : product.variant ?? {},
-      type           : product.type ?? {},
-      tag            : product.tag ?? {},
-      brand          : product.brand ?? {},
-      images         : product.images ?? [],
-      characteristics: product.characteristics ?? [],
+      id                 : this.toNum(product.id),
+      type_id            : this.toNum(product.type_id),
+      tag_id             : this.toNum(product.tag_id),
+      variant_id         : this.toNum(product.variant_id),
+      brand_id           : this.toNum(product.brand_id),
+      image_primary_id   : this.toNum(product.image_primary_id),
+      image_secondary_id : this.toNum(product.image_secondary_id),
+      views              : this.toNum(product.views),
+      price              : this.toNum(product.price),
+      discount           : this.toNum(product.discount),
+      is_stock           : Boolean(product.is_stock),
+      is_in_store        : Boolean(product.is_in_store),
+      name               : this.toStr(product.name),
+      description        : this.toStr(product.description),
+      video_url          : this.toStr(product.video_url),
+      article            : this.toStr(product.article),
+      image_primary      : product.image_primary   ?? {} as Image,
+      image_secondary    : product.image_secondary ?? {} as Image,
+      variant            : product.variant         ?? {} as Variant,
+      type               : product.type            ?? {} as ProductCategory,
+      tag                : product.tag             ?? {} as Tag,
+      brand              : product.brand           ?? {} as Brand,
+      images             : product.images          ?? [] as Image[],
+      characteristics    : product.characteristics ?? [] as Characteristic[],
     })
 
     this.data_c = computed(() => this.data)
@@ -135,8 +134,13 @@ class Product extends BaseModel {
   }
 
   /** Идентификатор основного изображения продукта */
-  public get image_id(): number {
-    return this.data_c.value.image_id || 0
+  public get image_primary_id(): number {
+    return this.data_c.value.image_primary_id || 0
+  }
+
+  /** Идентификатор вторичного изображения продукта */
+  public get image_secondary_id(): number {
+    return this.data_c.value.image_secondary_id || 0
   }
 
   /** Название продукта */
@@ -185,8 +189,13 @@ class Product extends BaseModel {
   }
 
   /** Основное изображение продукта */
-  public get image(): Image {
-    return this.data_c.value.image || null
+  public get image_primary(): Image {
+    return this.data_c.value.image_primary || null
+  }
+
+  /** Вторичное изображение продукта */
+  public get image_secondary(): Image {
+    return this.data_c.value.image_secondary || null
   }
 
   /** Вариант продукта */

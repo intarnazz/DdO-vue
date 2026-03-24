@@ -6,9 +6,9 @@ import StyleTypeColors from '@/components/asides/filters/style-types/StyleTypeCo
 
 const props = defineProps(['filter'])
 
-const active_filters_ids = computed(
-  () => f.filters[filter.value.type]?.split(',').map(Number) || [],
-)
+const active_filters_ids = computed(() => {
+  return String(f.filters[filter.value.type]).split(',').map(Number) || []
+})
 
 const is_expand = ref<boolean | null>(null)
 

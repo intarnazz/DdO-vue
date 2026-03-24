@@ -1,11 +1,17 @@
-import { reactive, computed, watch, markRaw, toRaw, shallowRef } from 'vue'
+import { reactive, computed, watch, markRaw, shallowRef } from 'vue'
 import type { ComputedRef, ShallowRef } from 'vue'
 import type { GetOptions } from '../../../web_services/request/request'
 import Rest from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
 import { filter, type } from '@/api/api'
 import Product from './product.model'
-import type { ProductType, ProductServiceType } from './types'
+import type {
+  ProductType,
+  ProductServiceType,
+  PagingInfo,
+  ProductMeta,
+  DefaultProductType,
+} from './types'
 
 const rest = new Rest('product')
 
@@ -36,7 +42,6 @@ class ProductService {
   private _product: ShallowRef<ProductType> // prettier-ignore
 
   /** Продукт, выбранный для сравнения. null означает "не выбран" */
-
   private _comparison_product: ShallowRef<ProductType | null> // prettier-ignore
 
   private rest              : Rest // prettier-ignore
@@ -64,10 +69,8 @@ class ProductService {
 
     this.data = reactive({
       products: [],
-      pagingInfo: {},
-      meta: {
-        price: {},
-      },
+      pagingInfo: { limit: 0, offset: 0, totalCount: 0 } as PagingInfo,
+      meta: { price: { min: 0, max: 0 } } as ProductMeta,
     })
     this.data_c = computed(() => this.data)
 
@@ -108,12 +111,9 @@ class ProductService {
     if (res === false) return
     if (!res.success) return
 
-    this.products = res.data.map((product: Record<string, unknown>) => {
-      return new Product(product)
-    })
-
-    this.pagingInfo = res.pagingInfo
-    this.meta = res.meta
+    this.products = res.data.map((product: Partial<DefaultProductType>) => new Product(product))
+    this.pagingInfo = res.pagingInfo as PagingInfo
+    this.meta = res.meta as ProductMeta
   }
 
   /**
@@ -143,24 +143,24 @@ class ProductService {
   /**
    * Мета-данные последней выборки (например, диапазон цен).
    */
-  public get meta() {
+  public get meta(): ProductMeta {
     return this.data_c.value.meta
   }
 
   /** @internal */
-  private set meta(meta) {
+  private set meta(meta: ProductMeta) {
     Object.assign(this.data_c.value.meta, meta)
   }
 
   /**
    * Информация о пагинации последней выборки (totalCount, offset и т.д.).
    */
-  public get pagingInfo() {
+  public get pagingInfo(): PagingInfo {
     return this.data_c.value.pagingInfo
   }
 
   /** @internal */
-  private set pagingInfo(pagingInfo) {
+  private set pagingInfo(pagingInfo: PagingInfo) {
     Object.assign(this.data_c.value.pagingInfo, pagingInfo)
   }
 
