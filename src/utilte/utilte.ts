@@ -4,6 +4,18 @@ export const base64FromJson = (json: string): string => {
   return encodeURIComponent(btoa(binary))
 }
 
+export const objectFilter = <
+  TInput extends Record<string, unknown>,
+  TOutput extends Partial<TInput>,
+>(
+  obj: TInput,
+  foo: (key: string, value: unknown) => boolean,
+): TOutput => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key, value]) => foo(key, value)),
+  ) as TOutput
+}
+
 /**
  * Преобразует первую букву строки в верхний регистр, если строка задана.
  * @param i - Входная строка или undefined.

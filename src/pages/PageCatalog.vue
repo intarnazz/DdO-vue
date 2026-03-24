@@ -7,9 +7,14 @@ import ComponentBread from '@/components/ComponentBread.vue'
 import { filter, type } from '@/api/api'
 import { RouteLocationNormalizedGeneric } from 'vue-router'
 import ComponentContext from '@/components/ComponentContext.vue'
+import { objectFilter } from '@/utilte/utilte'
 
 async function init(route: RouteLocationNormalizedGeneric) {
-  if (route.query) filter.update(route.query)
+  const query = objectFilter(route.query, (_, value) => Array.isArray(value)) as Record<
+    string,
+    string
+  >
+  if (route.query) filter.update(query)
   if (route.params.type && route.params.type !== type.type.name)
     await type.type.init(String(route.params.type))
 }

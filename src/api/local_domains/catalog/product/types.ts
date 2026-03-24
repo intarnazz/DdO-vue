@@ -12,6 +12,27 @@ export interface Image {
 }
 
 /**
+ * Цвет продукта.
+ */
+// prettier-ignore
+export interface Color {
+  /** Уникальный идентификатор цвета */
+  id        : number
+  /** Идентификатор связанного фильтра */
+  filter_id : number
+  /** Идентификатор изображения цвета */
+  image_id  : number
+  /** Название цвета (HEX) */
+  name      : string
+  /** Описание цвета */
+  description: string
+  /** Флаг видимости цвета */
+  is_visible: boolean
+  /** Объект изображения цвета */
+  image     : Image
+}
+
+/**
  * Вариант продукта (например, цвет, размер).
  */
 // prettier-ignore
@@ -24,6 +45,55 @@ export interface Variant {
   name       : string
   /** Описание варианта */
   description: string
+  /** Список продуктов варианта */
+  products   ?: VariantProduct[]
+}
+
+/**
+ * Продукт внутри варианта (упрощённая версия без рекурсии variant.products).
+ */
+// prettier-ignore
+export interface VariantProduct {
+  /** Уникальный идентификатор продукта */
+  id                 : number
+  /** Идентификатор типа/категории продукта */
+  type_id            : number
+  /** Идентификатор тега продукта */
+  tag_id             : number
+  /** Идентификатор варианта продукта */
+  variant_id         : number
+  /** Идентификатор бренда продукта */
+  brand_id           : number
+  /** Идентификатор основного изображения продукта */
+  image_primary_id   : number
+  /** Идентификатор вторичного изображения продукта */
+  image_secondary_id : number
+  /** Название продукта */
+  name               : string
+  /** Описание продукта */
+  description        : string
+  /** Ссылка на видео продукта */
+  video_url          : string
+  /** Количество просмотров */
+  views              : number
+  /** Цена продукта */
+  price              : number
+  /** Скидка на продукт */
+  discount           : number
+  /** Артикул продукта */
+  article            : string
+  /** Наличие на складе */
+  is_stock           : boolean
+  /** Наличие в магазине */
+  is_in_store        : boolean
+  /** Основное изображение продукта */
+  image_primary      : Image
+  /** Вторичное изображение продукта */
+  image_secondary    : Image
+  /** Вариант продукта */
+  variant            : Variant
+  /** Список цветов продукта */
+  color              : Color[]
 }
 
 /**
@@ -160,6 +230,8 @@ export interface DefaultProductType {
   image_secondary    : Image
   /** Вариант продукта */
   variant            : Variant
+  /** Список цветов продукта */
+  color              : Color[]
   /** Категория продукта */
   type               : ProductCategory
   /** Тег продукта */

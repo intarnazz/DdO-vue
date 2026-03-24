@@ -1,5 +1,5 @@
 // prettier-ignore
-export type FiltersValue = string | number | string[] | number[] | (string | null)[] | null | undefined
+export type FiltersValue = string | number | null | undefined
 export type Filters = Record<string, FiltersValue>
 export type Mask = string[] | string
 
