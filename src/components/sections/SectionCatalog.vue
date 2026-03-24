@@ -29,6 +29,7 @@ import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
               {
                 text: 'самые популярные',
                 type: 'views',
+                desc: 'desc',
               },
               {
                 text: 'цена',
@@ -39,6 +40,7 @@ import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
               {
                 text: 'скидки',
                 type: 'discount',
+                desc: 'desc',
               },
               {
                 text: 'модель', // LARAVEL фильрация по модели должна вернуть список моделей
@@ -56,7 +58,7 @@ import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
             'opacity-80': p.is_loading,
           }"
         >
-          <CatalogItem v-for="(product, key) in p.products" :key="product.id" :product="product" />
+          <CatalogItem v-for="product in p.products" :key="product.id" :product="product" />
         </div>
 
         <div v-else class="box-x center w">
