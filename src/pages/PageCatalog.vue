@@ -6,6 +6,7 @@ import SectionCatalog from '@/components/sections/SectionCatalog.vue'
 import ComponentBread from '@/components/ComponentBread.vue'
 import { filter, type } from '@/api/api'
 import { RouteLocationNormalizedGeneric } from 'vue-router'
+import ComponentContext from '@/components/ComponentContext.vue'
 
 async function init(route: RouteLocationNormalizedGeneric) {
   if (route.query) filter.update(route.query)
@@ -17,7 +18,10 @@ async function init(route: RouteLocationNormalizedGeneric) {
 <template>
   <LayoutPage :foo="init" v-slot="{ isLoading }" class="main box-y gap-16">
     <LayoutWrapper class="box-y gap-12">
-      <ComponentBread />
+      <div class="box-y gap-4">
+        <ComponentBread />
+        <ComponentContext />
+      </div>
       <SectionCatalog v-if="!isLoading" />
     </LayoutWrapper>
   </LayoutPage>

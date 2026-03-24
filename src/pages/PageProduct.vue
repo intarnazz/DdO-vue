@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
 import ComponentBread from '@/components/ComponentBread.vue'
+import ComponentContext from '@/components/ComponentContext.vue'
 import SectionProduct from '@/components/sections/SectionProduct.vue'
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
@@ -21,7 +22,10 @@ async function init(route: RouteLocationNormalizedGeneric) {
 <template>
   <LayoutPage :foo="init" class="main box-y gap-16">
     <LayoutWrapper class="box-y gap-12">
-      <ComponentBread />
+      <div class="box-y gap-4">
+        <ComponentBread />
+        <ComponentContext />
+      </div>
       <SectionProduct />
     </LayoutWrapper>
   </LayoutPage>
