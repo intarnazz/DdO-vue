@@ -23,11 +23,7 @@ async function init(route: RouteLocationNormalizedGeneric) {
 watch(
   () => route.query,
   (n) => {
-    console.log('🚀 ~ filter.query:', filter.query)
-    console.log('🚀 ~ n:', n)
     if (JSON.stringify(n) === JSON.stringify(filter.query)) return
-
-    console.log('PageCatalog watch')
     init(route)
   },
 )
