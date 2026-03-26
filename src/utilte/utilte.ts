@@ -4,6 +4,9 @@ export const base64FromJson = (json: string): string => {
   return encodeURIComponent(btoa(binary))
 }
 
+export const toNum = (v: unknown, def: number = 0) => (v != null ? Number(v) : def)
+export const toStr = (v: unknown, def: string = '') => (v != null ? String(v) : def)
+
 export const objectFilter = <
   TInput extends Record<string, unknown>,
   TOutput extends Partial<TInput>,

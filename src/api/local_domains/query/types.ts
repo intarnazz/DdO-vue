@@ -5,8 +5,8 @@ export type Mask = string[] | string
 
 // prettier-ignore
 export interface PaginData {
-  limit  : number | string
-  offset : number | string
+  limit  : number
+  offset : number
 }
 
 // prettier-ignore

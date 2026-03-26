@@ -112,7 +112,8 @@ export async function get(domen: string, options: GetOptions = {}): Promise<Resp
     if (key === 'signal') return
     if (key === 'desc') return
     const value = options[key]
-    if (key === 'order') url.searchParams.append('desc', String(Number(Boolean(options.desc))))
+    if (key === 'order' && Boolean(value))
+      url.searchParams.append('desc', String(Number(Boolean(options.desc))))
     if (value) url.searchParams.append(key, String(value))
   })
 

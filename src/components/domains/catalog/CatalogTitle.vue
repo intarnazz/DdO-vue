@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { filter, product as p, type } from '@/api/api'
 import ButtonResetFilters from '@/components/buttons/ButtonResetFilters.vue'
-import { computed } from 'vue'
-
-const if_filter_filters_length = computed(() => Boolean(Number(filter.filters.length)))
 </script>
 
 <template>
@@ -11,7 +8,7 @@ const if_filter_filters_length = computed(() => Boolean(Number(filter.filters.le
     <h2>{{ type.type.visible_name }}</h2>
     <p class="c-sub">
       {{ p.pagingInfo.totalCount }} товаров
-      <template v-if="if_filter_filters_length">
+      <template v-if="filter.length">
         <span class="c-main">/ </span> {{ filter.filters.length }} активных фильтра
         <span class="c-main">/ </span>
         <ButtonResetFilters />

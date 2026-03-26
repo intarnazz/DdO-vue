@@ -1,5 +1,4 @@
 import { computed, ComputedRef, watch } from 'vue'
-import BaseModel from '@/models/baseModel'
 import UrlStorage from '@/storage/storage.url'
 
 import { Pagin } from './pagin'
@@ -7,32 +6,44 @@ import { Order } from './order'
 import { Search } from './search'
 import { FilterStore } from './filters'
 
-import { Filters, FiltersData, QueryData } from './types'
+import { Filters, QueryData } from './types'
+import { toNum, toStr } from '@/utilte/utilte'
 
-class Query extends BaseModel {
-  private _urlStorage  : UrlStorage // prettier-ignore
-  private _pagin       : Pagin // prettier-ignore
-  private _order       : Order // prettier-ignore
-  private _search      : Search // prettier-ignore
-  private _filterStore : FilterStore // prettier-ignore
-  private _query       : ComputedRef<Filters> // prettier-ignore
+class Query {
+  private _urlStorage : UrlStorage // prettier-ignore
+  private _pagin      : Pagin // prettier-ignore
+  private _order      : Order // prettier-ignore
+  private _search     : Search // prettier-ignore
+  private _filterStore: FilterStore // prettier-ignore
+  private _query      : ComputedRef<Filters> // prettier-ignore
+  private _value      : ComputedRef<QueryData> // prettier-ignore
 
   constructor() {
-    super()
-
-    this._urlStorage = new UrlStorage()
-    this._pagin = new Pagin()
-    this._order = new Order()
-    this._search = new Search()
-    this._filterStore = new FilterStore()
+    this._urlStorage  = new UrlStorage() // prettier-ignore
+    this._pagin       = new Pagin() // prettier-ignore
+    this._order       = new Order() // prettier-ignore
+    this._search      = new Search() // prettier-ignore
+    this._filterStore = new FilterStore() // prettier-ignore
 
     // Сводный computed только из непустых значений
     this._query = computed(() =>
-      this.objectFilter<Filters>(
-        computed(() => this.value),
-        (_, value) => Boolean(value),
+      Object.fromEntries(
+        Object.entries(this.value)
+          .filter(([, v]) => Boolean(v))
+          .map(([k, v]) => [k, String(v)]),
       ),
     )
+    // prettier-ignore
+    this._value = computed(() => {
+      return {
+        limit : this.limit,
+        offset: this.offset,
+        order : this.order,
+        desc  : this.desc,
+        search: this.search,
+        ...this._filterStore.filters,
+      }
+    })
 
     // Сброс offset при смене фильтров / сортировки / поиска
     watch(
@@ -51,12 +62,7 @@ class Query extends BaseModel {
   // ─── Общий вид ───────────────────────────────────────────────────────────
 
   get value(): QueryData {
-    return {
-      ...this._pagin.value,
-      ...this._order.value,
-      ...this._search.value,
-      ...this._filterStore.value,
-    }
+    return this._value.value
   }
 
   // Не реактивен — использовать только для формирования запроса, не в шаблонах
@@ -112,7 +118,11 @@ class Query extends BaseModel {
 
   // ─── Filters ─────────────────────────────────────────────────────────────
 
-  get filters(): Filters & { length: number } {
+  get length(): number {
+    return this._filterStore.length
+  }
+
+  get filters(): Filters {
     return this._filterStore.filters
   }
 
@@ -127,10 +137,14 @@ class Query extends BaseModel {
   update(saved: Partial<QueryData>) {
     const { limit, offset, order, desc, search, ...rest } = saved
 
-    this._pagin.load({ limit, offset })
-    this._order.load({ order, desc })
-    this._search.load({ search })
-    this._filterStore.load(rest as FiltersData)
+    this.limit  = toNum(limit, 48) // prettier-ignore
+    this.offset = toNum(offset) // prettier-ignore
+    this.order  = toStr(order) // prettier-ignore
+    this.desc   = toStr(desc) // prettier-ignore
+    this.search = toStr(search) // prettier-ignore
+
+    this._filterStore.reset()
+    this.filters = rest // prettier-ignore
   }
 }
 

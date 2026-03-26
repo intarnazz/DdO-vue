@@ -3,7 +3,6 @@ import { filter as f, type as t } from '@/api/api'
 import { computed, ref } from 'vue'
 import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
 
-const props = defineProps(['filter'])
 const is_expand = ref(false)
 
 const MIN = 7
@@ -11,7 +10,8 @@ const MIN = 7
 const is_expand_validation = computed(() => MIN < t.type.tags.length)
 
 function send_active_tag_id(id: string) {
-  f.filters = { tag: id }
+  if (f.filters['tag'] !== id) f.filters = { tag: id }
+  else f.filters = { tag: undefined }
 }
 </script>
 

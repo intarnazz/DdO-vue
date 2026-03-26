@@ -13,13 +13,13 @@ export default class UrlStorage {
       query[key] = String(value)
     })
 
-    router.replace({ query })
+    router.push({ query })
   }
 
   /**
    * Очищает все query-параметры через router.replace()
    */
   public clear(): void {
-    router.replace({ query: {} })
+    router.push({ query: {} })
   }
 }

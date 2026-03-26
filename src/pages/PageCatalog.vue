@@ -5,19 +5,32 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import SectionCatalog from '@/components/sections/SectionCatalog.vue'
 import ComponentBread from '@/components/ComponentBread.vue'
 import { filter, type } from '@/api/api'
-import { RouteLocationNormalizedGeneric } from 'vue-router'
+import { RouteLocationNormalizedGeneric, useRoute } from 'vue-router'
 import ComponentContext from '@/components/ComponentContext.vue'
-import { objectFilter } from '@/utilte/utilte'
+import { watch } from 'vue'
+
+const route = useRoute()
 
 async function init(route: RouteLocationNormalizedGeneric) {
-  const query = objectFilter(route.query, (_, value) => Array.isArray(value)) as Record<
-    string,
-    string
-  >
+  const query = Object.fromEntries(
+    Object.entries(route.query).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]),
+  )
   if (route.query) filter.update(query)
   if (route.params.type && route.params.type !== type.type.name)
     await type.type.init(String(route.params.type))
 }
+
+watch(
+  () => route.query,
+  (n) => {
+    console.log('🚀 ~ filter.query:', filter.query)
+    console.log('🚀 ~ n:', n)
+    if (JSON.stringify(n) === JSON.stringify(filter.query)) return
+
+    console.log('PageCatalog watch')
+    init(route)
+  },
+)
 </script>
 
 <template>
