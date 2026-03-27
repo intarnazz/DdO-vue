@@ -7,23 +7,25 @@ import ComponentBread from '@/components/ComponentBread.vue'
 import { filter, type } from '@/api/api'
 import { RouteLocationNormalizedGeneric, useRoute } from 'vue-router'
 import ComponentContext from '@/components/ComponentContext.vue'
-import { watch } from 'vue'
+import { computed, watch } from 'vue'
 
 const route = useRoute()
+
+const queryIsUpdate = computed(() => JSON.stringify(route.query) !== JSON.stringify(filter.query))
 
 async function init(route: RouteLocationNormalizedGeneric) {
   const query = Object.fromEntries(
     Object.entries(route.query).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]),
   )
-  if (route.query) filter.update(query)
+  if (queryIsUpdate.value) filter.update(query)
   if (route.params.type && route.params.type !== type.type.name)
     await type.type.init(String(route.params.type))
 }
 
 watch(
   () => route.query,
-  (n) => {
-    if (JSON.stringify(n) === JSON.stringify(filter.query)) return
+  () => {
+    if (!queryIsUpdate.value) return
     init(route)
   },
 )
