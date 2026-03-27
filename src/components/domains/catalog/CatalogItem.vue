@@ -41,43 +41,53 @@ const is_equal = computed<boolean>(() => {
 
 <template>
   <div class="catalog__item box-y center gap-4">
-    <RouterLinkProduct :product="product" class="box-y center gap-4">
-      <div class="box-x gap-2 content center">
-        <div class="box-x relative h-67.5 max-h-67.5">
-          <ComponentImg
-            class="catalog__img object-cover h-full w-full"
-            :storage="product.image_primary.path"
-          />
+    <RouterLinkProduct :product="product" class="box-y js">
+      <p
+        :class="{
+          'opacity-0': !Boolean(filter.search),
+        }"
+        class="c-sub"
+      >
+        alt-tag: {{ product.article }}
+      </p>
+      <div class="box-y center gap-4">
+        <div class="box-x gap-2 content center">
+          <div class="box-x relative h-67.5 max-h-67.5">
+            <ComponentImg
+              class="catalog__img object-cover h-full w-full"
+              :storage="product.image_primary.path"
+            />
+          </div>
+          <div class="box-x relative h-67.5 max-h-67.5">
+            <ComponentImg
+              class="catalog__img object-cover h-full w-full"
+              :storage="product.image_secondary.path"
+            />
+          </div>
         </div>
-        <div class="box-x relative h-67.5 max-h-67.5">
-          <ComponentImg
-            class="catalog__img object-cover h-full w-full"
-            :storage="product.image_secondary.path"
-          />
-        </div>
-      </div>
-      <h3>
-        <ComponentHighlightText :text="product.name" :search="filter.search" />
-      </h3>
-      <div class="catalog__price box-x gap-2">
-        <p v-if="is_less">
-          <ComponentHighlightText :text="price" :search="price" />
-        </p>
-        <p v-else>
-          {{ price }}
-        </p>
+        <h3>
+          <ComponentHighlightText :text="product.name" :search="filter.search" />
+        </h3>
+        <div class="catalog__price box-x gap-2">
+          <p v-if="is_less">
+            <ComponentHighlightText :text="price" :search="price" />
+          </p>
+          <p v-else>
+            {{ price }}
+          </p>
 
-        <template v-if="api_product.comparison_product !== null">
-          <div class="box-y" v-if="is_more">
-            <IconKeyboardArrowUp fill="red" />
-            <IconKeyboardArrowUp fill="red" />
-          </div>
-          <div class="box-y" v-if="is_less">
-            <IconKeyboardArrowDown fill="green" />
-            <IconKeyboardArrowDown fill="green" />
-          </div>
-          <span class="c-main" v-if="is_equal"> --- </span>
-        </template>
+          <template v-if="api_product.comparison_product !== null">
+            <div class="box-y" v-if="is_more">
+              <IconKeyboardArrowUp fill="red" />
+              <IconKeyboardArrowUp fill="red" />
+            </div>
+            <div class="box-y" v-if="is_less">
+              <IconKeyboardArrowDown fill="green" />
+              <IconKeyboardArrowDown fill="green" />
+            </div>
+            <span class="c-main" v-if="is_equal"> --- </span>
+          </template>
+        </div>
       </div>
     </RouterLinkProduct>
     <div class="box-x gap">

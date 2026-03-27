@@ -13,7 +13,7 @@ export default class UrlStorage {
       query[key] = String(value)
     })
 
-    router.push({ query })
+    router.push({ path: router.currentRoute.value.path, query })
   }
 
   /**
