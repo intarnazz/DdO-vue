@@ -8,6 +8,7 @@ import { FilterStore } from './query.filters'
 
 import { Filters, QueryData } from './types'
 import { toNum, toStr } from '@/utilte/utilte'
+import { LocationQuery } from 'vue-router'
 
 class Query {
   private _urlStorage : UrlStorage // prettier-ignore
@@ -134,8 +135,18 @@ class Query {
     this._filterStore.reset()
   }
 
-  update(saved: Partial<QueryData>) {
-    const { limit, offset, order, desc, search, ...rest } = saved
+  update(saved: LocationQuery) {
+    console.log('update')
+
+    const query = Object.fromEntries(
+      Object.entries(saved)
+        .filter(([, v]) => v !== null)
+        .map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]),
+    ) as Partial<QueryData>
+
+    if (JSON.stringify(this.query) === JSON.stringify(query)) return
+
+    const { limit, offset, order, desc, search, ...rest } = query
 
     this.limit  = toNum(limit, 48) // prettier-ignore
     this.offset = toNum(offset) // prettier-ignore

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { filter } from '@/api/api'
-import { onMounted, ref } from 'vue'
+import { ref, computed } from 'vue'
 import LayoutResize from '@/layout/LayoutResize.vue'
 import ButtonSwitch from '@/components/buttons/ButtonSwitch.vue'
 import ComponentSwitch from '@/components/ComponentSwitch.vue'
@@ -36,25 +36,6 @@ const props = defineProps<{
 }>()
 
 /**
- * Инициализирует компонент, устанавливая активную вкладку на основе значения filter.order.
- */
-function init(): void {
-  // Попытаться найти индекс элемента, у которого type совпадает с filter.order
-  const orderType = typeof filter.order === 'string' ? filter.order : String(filter.order)
-  const idx = content.value.findIndex((item) => item.type === orderType)
-
-  // Если найден — установить active на этот индекс, иначе оставить 0
-  active.value = idx >= 0 ? idx : 0
-}
-
-/**
- * Хук жизненного цикла, вызываемый после монтирования компонента.
- */
-onMounted(() => {
-  init()
-})
-
-/**
  * Создает объект SwitchItem на основе переданного ArgItem.
  * @param item Входной объект ArgItem.
  * @returns Новый объект SwitchItem.
@@ -84,16 +65,20 @@ function switchs(arr: ArgItem[]): SwitchItem[] {
 const content = ref<SwitchItem[]>(switchs(props.arguments))
 
 /**
- * Реактивная ссылка на индекс активной вкладки.
+ * Вычисляемый индекс активной вкладки на основе filter.order.
+ * Автоматически реагирует на любые изменения filter.order.
  */
-const active = ref<number>(0)
+const active = computed<number>(() => {
+  const orderType = typeof filter.order === 'string' ? filter.order : String(filter.order)
+  const idx = content.value.findIndex((item) => item.type === orderType)
+  return idx >= 0 ? idx : 0
+})
 
 /**
  * Устанавливает активную вкладку и эмитит выбранный элемент.
  * @param key Индекс вкладки для активации.
  */
 function setActive(key: number) {
-  active.value = key
   if (!content.value[key]) return
   filter.order = content.value[key].type
   filter.desc = content.value[key].desc || ''

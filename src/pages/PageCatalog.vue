@@ -5,36 +5,32 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import SectionCatalog from '@/components/sections/SectionCatalog.vue'
 import ComponentBread from '@/components/ComponentBread.vue'
 import { filter, type } from '@/api/api'
-import { RouteLocationNormalizedGeneric, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import ComponentContext from '@/components/ComponentContext.vue'
-import { computed, watch } from 'vue'
+import { onMounted, watch } from 'vue'
 
 const route = useRoute()
 
-const queryIsUpdate = computed(() => JSON.stringify(route.query) !== JSON.stringify(filter.query))
+const { type: type_name } = defineProps<{
+  type: string
+}>()
 
-async function init(route: RouteLocationNormalizedGeneric) {
-  if (queryIsUpdate.value)
-    filter.update(
-      Object.fromEntries(
-        Object.entries(route.query).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]),
-      ),
-    )
-  if (route.params.type && route.params.type !== type.type.name)
-    await type.type.init(String(route.params.type))
-}
+onMounted(async () => {
+  filter.update(route.query)
+  if (!type.type.id) await type.type.init(type_name)
+})
 
 watch(
   () => route.query,
   () => {
-    if (!queryIsUpdate.value) return
-    init(route)
+    filter.update(route.query)
   },
 )
 </script>
 
 <template>
-  <LayoutPage :foo="init" class="main box-y gap-16">
+  <!-- <LayoutPage :foo="init" class="main box-y gap-16"> -->
+  <LayoutPage class="main box-y gap-16">
     <LayoutWrapper class="box-y gap-12">
       <div class="box-y gap-4">
         <ComponentBread />

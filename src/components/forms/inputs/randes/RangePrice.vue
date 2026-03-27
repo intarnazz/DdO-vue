@@ -29,7 +29,7 @@ const _max = computed(() => product.meta?.price.max ?? 0)
 const max = computed(() => roundUp(_max.value))
 
 function _range_init() {
-  return roundUp(Number(filter.filters['price-max'])) || max.value
+  return roundUp(Number(filter.filters['price-max']) || max.value)
 }
 
 /**
@@ -40,7 +40,7 @@ function _range_init() {
  * @type {Ref<number>}
  */
 const _range = ref(_range_init())
-const range = computed(() => (_range.value != max.value ? String(_range.value) : null))
+const range = computed(() => (_range.value != max.value ? String(_range.value) : undefined))
 
 /**
  * Обработчик изменения значения слайдера.
@@ -55,13 +55,13 @@ function rangeChange() {
 }
 
 watch(
-  () => filter.filters['price-max'],
+  [() => filter.filters['price-max'], () => product.meta.price.max, () => product.meta.price.min],
   () => (_range.value = _range_init()),
 )
 </script>
 
 <template>
-  <div class="input_box box-y gap-4 px-4 py-2">
+  <div v-if="_range" class="input_box box-y gap-4 px-4 py-2">
     <input @change="rangeChange" v-model="_range" :max="max" :min="min" step="5000" type="range" />
 
     <div class="box-x center">

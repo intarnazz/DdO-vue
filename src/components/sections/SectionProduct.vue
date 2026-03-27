@@ -12,15 +12,15 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { price } from '@/utilte/utilte'
 import { computed } from 'vue'
 
-const product_price = computed(() => price(product.product.price)) //TODO: component
+const product_price = computed(() => price(product.product.price)) //[ ]: component
 
 const size_characteristics = computed(() =>
-  //TODO: component
+  //[ ]: component
   product.product.characteristics.filter((c) => c.filter.name === 'size'),
 )
 
 const color_characteristics = computed(() =>
-  //TODO: component
+  //[ ]: component
   product.product.characteristics.filter((c) => c.filter.name === 'color'),
 )
 
@@ -137,21 +137,33 @@ const color_characteristics = computed(() =>
         </div>
 
         <div class="product__contact">
-          <!-- {{ contact. }} // TODO: сущность contact -->
+          <!-- {{ contact. }} // [ ]: сущность contact -->
         </div>
         <div v-if="color_characteristics[0]" class="product__color">
           {{ color_characteristics[0].name }}
         </div>
         <RouterLinkCatalog
+          :query="{
+            brand: product.product.brand.id,
+          }"
           :type_name="
             product.product.type.name
             // TODO ссылка на каталог и фильтром бренда
-            // TODO ссылка на каталог и фильтром модели
           "
           class="box-x js gap-1"
         >
           <p class="">Все модели бренда</p>
           <p>{{ product.product.brand.name }}</p>
+        </RouterLinkCatalog>
+        <RouterLinkCatalog
+          :type_name="
+            product.product.type.name
+            // TODO ссылка на каталог и фильтром модели
+          "
+          class="box-x js gap-1"
+        >
+          <p class="">Все модели</p>
+          <p>{{ product.product.variant.name }}</p>
         </RouterLinkCatalog>
       </div>
     </div>
