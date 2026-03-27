@@ -3,6 +3,7 @@ import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import RangePrice from '@/components/forms/inputs/randes/RangePrice.vue'
 import { computed } from 'vue'
 import ButtonCheckBox from '@/components/buttons/ButtonCheckBox.vue'
+import { Characteristic } from '@/api/local_domains/catalog/product/types'
 
 const props = defineProps([
   'is_expand_validation',
@@ -21,11 +22,9 @@ function expand_change() {
   emit('expand_change')
 }
 
-function send_active_filters_ids(content: Record<string, any>) {
+function send_active_filters_ids(content: Characteristic) {
   emit('send_active_filters_ids', content)
 }
-
-// LARAVEL: seeder brand
 </script>
 
 <template>
