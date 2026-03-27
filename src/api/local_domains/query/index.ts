@@ -1,10 +1,10 @@
 import { computed, ComputedRef, watch } from 'vue'
 import UrlStorage from '@/storage/storage.url'
 
-import { Pagin } from './pagin'
-import { Order } from './order'
-import { Search } from './search'
-import { FilterStore } from './filters'
+import { Pagin } from './query.pagin'
+import { Order } from './query.order'
+import { Search } from './query.search'
+import { FilterStore } from './query.filters'
 
 import { Filters, QueryData } from './types'
 import { toNum, toStr } from '@/utilte/utilte'
