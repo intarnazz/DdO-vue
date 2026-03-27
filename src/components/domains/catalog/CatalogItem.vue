@@ -35,7 +35,6 @@ const is_equal = computed<boolean>(() => {
   return false
 })
 
-// TODO: выделять alt-тег при полном совпадении
 // [ ]: скидки
 </script>
 
@@ -48,7 +47,7 @@ const is_equal = computed<boolean>(() => {
         }"
         class="c-sub"
       >
-        alt-tag: {{ product.article }}
+        {{ product.article }}
       </p>
       <div class="box-y center gap-4">
         <div class="box-x gap-2 content center">
