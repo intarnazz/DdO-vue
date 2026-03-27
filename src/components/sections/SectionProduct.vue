@@ -148,7 +148,7 @@ const color_characteristics = computed(() =>
           }"
           :type_name="
             product.product.type.name
-            // TODO ссылка на каталог и фильтром бренда
+            // [ ] ссылка на каталог и фильтром бренда
           "
           class="box-x js gap-1"
         >
@@ -158,7 +158,7 @@ const color_characteristics = computed(() =>
         <RouterLinkCatalog
           :type_name="
             product.product.type.name
-            // TODO ссылка на каталог и фильтром модели
+            // [ ] ссылка на каталог и фильтром модели
           "
           class="box-x js gap-1"
         >
