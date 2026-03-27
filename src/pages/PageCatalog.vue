@@ -14,10 +14,12 @@ const route = useRoute()
 const queryIsUpdate = computed(() => JSON.stringify(route.query) !== JSON.stringify(filter.query))
 
 async function init(route: RouteLocationNormalizedGeneric) {
-  const query = Object.fromEntries(
-    Object.entries(route.query).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]),
-  )
-  if (queryIsUpdate.value) filter.update(query)
+  if (queryIsUpdate.value)
+    filter.update(
+      Object.fromEntries(
+        Object.entries(route.query).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]),
+      ),
+    )
   if (route.params.type && route.params.type !== type.type.name)
     await type.type.init(String(route.params.type))
 }
@@ -32,13 +34,13 @@ watch(
 </script>
 
 <template>
-  <LayoutPage :foo="init" v-slot="{ isLoading }" class="main box-y gap-16">
+  <LayoutPage :foo="init" class="main box-y gap-16">
     <LayoutWrapper class="box-y gap-12">
       <div class="box-y gap-4">
         <ComponentBread />
         <ComponentContext />
       </div>
-      <SectionCatalog v-if="!isLoading" />
+      <SectionCatalog v-if="type.type.id" />
     </LayoutWrapper>
   </LayoutPage>
   <FooterMain />

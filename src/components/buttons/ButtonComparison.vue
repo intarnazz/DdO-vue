@@ -4,11 +4,14 @@ import { ProductType } from '@/api/local_domains/catalog/product'
 import ComparisonMain from '@/components/buttons/comparisons/ComparisonMain.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 const { product, is_mini = false } = defineProps<{
   product: ProductType
   is_mini?: boolean
 }>()
+
+const route = useRoute()
 
 const comparison_product_id = computed<number>(() => {
   if (api_product.comparison_product === null) return NaN
@@ -26,7 +29,7 @@ function set_comparison_product() {
 
 <template>
   <RouterLinkCatalog
-    v-if="!active"
+    v-if="!active && api_product.product.type.name && route.name !== 'catalog'"
     :type_name="api_product.product.type.name"
     title="Сравнить с другими продуктами"
     @click="set_comparison_product"
