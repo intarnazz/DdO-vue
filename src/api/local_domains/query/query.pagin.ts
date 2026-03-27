@@ -1,9 +1,11 @@
 import { reactive, computed, ComputedRef } from 'vue'
 import { PaginData } from './types'
 
+const LIMIT: number = Number(import.meta.env.VITE_LIMIT)
+
 export class Pagin {
   private data: PaginData = reactive<PaginData>({
-    limit: 48, // TODO: .env
+    limit: LIMIT,
     offset: 0,
   })
   private data_c: ComputedRef<PaginData> = computed(() => this.data)
