@@ -8,8 +8,6 @@ import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vu
 import FormSearch from '@/components/forms/FormSearch.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
-
-// TODO: скрол вниз
 </script>
 
 <template>
