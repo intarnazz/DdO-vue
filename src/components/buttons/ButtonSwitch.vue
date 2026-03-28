@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import { filter } from '@/api/api'
 
@@ -35,6 +35,12 @@ function emit_click() {
   emit('click')
 }
 
+watch(
+  () => filter.desc,
+  () => {
+    if (active.value === key.value) is_turn.value = Boolean(filter.desc)
+  },
+)
 </script>
 
 <template>
