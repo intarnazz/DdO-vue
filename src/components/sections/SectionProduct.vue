@@ -63,21 +63,23 @@ const set_current_image = (image: null | Image) => (current_image.value = image)
         </LayoutIcon>
 
         <div class="box-x gap-4 relative content center">
-          <div v-if="!user.interior_is_active.value" class="box-x relative h-132.5">
+          <button v-if="!user.interior_is_active.value" class="box-x relative h-132.5">
             <ComponentImg
+              @click="set_current_image(product.product.image_primary)"
               :class="{
                 product__img_shadow: !user.interior_is_active.value,
               }"
-              class="product__img object-cover h-full"
+              class="product__img object-cover h-full cursor-zoom-in"
               :storage="product.product.image_primary.path"
             />
-          </div>
+          </button>
           <div class="box-x relative h-132.5">
             <ComponentImg
+              @click="set_current_image(product.product.image_secondary)"
               :class="{
                 product__img_shadow: !user.interior_is_active.value,
               }"
-              class="product__img object-cover h-full w-full"
+              class="product__img object-cover h-full w-full cursor-zoom-in"
               :storage="product.product.image_secondary.path"
             />
           </div>
@@ -90,14 +92,14 @@ const set_current_image = (image: null | Image) => (current_image.value = image)
         />
 
         <div class="product__image-list relative">
-          <button
+          <div
             v-for="image in product.product.images"
             :key="image.id"
             @click="set_current_image(image)"
-            class="h-25 product__image-list-item center"
+            class="h-25 product__image-list-item center cursor-zoom-in"
           >
             <ComponentImg class="br h-full object-cover" :storage="image.path" />
-          </button>
+          </div>
         </div>
       </div>
 
