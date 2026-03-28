@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { product, user } from '@/api/api'
+import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
+import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
 import ComponentSelect from '@/components/ComponentSelect.vue'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
@@ -9,9 +11,10 @@ import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
+import LayoutIcon from '@/layout/LayoutIcon.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { price } from '@/utilte/utilte'
-import { computed } from 'vue'
+import { computed, Ref, ref } from 'vue'
 
 const product_price = computed(() => price(product.product.price)) //[ ]: component
 
@@ -28,6 +31,9 @@ const color_characteristics = computed(() =>
 // [ ] - Полная секция продукта //:выделить компонент
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
 // LARAVEL: delete лишнее фото
+
+const current_image: Ref<Image | null> = ref(null)
+const set_current_image = (image: null | Image) => (current_image.value = image)
 </script>
 
 <template>
@@ -35,19 +41,26 @@ const color_characteristics = computed(() =>
     <div class="box-x gap-8 as">
       <!-- ? LEFT BOX -->
       <div class="product__left-box box-y flex gap-16 relative">
-        <div
-          :class="{
-            interior_active_on: user.interior_is_active.value,
-            interior_active_off: !user.interior_is_active.value,
-          }"
-          class="absolute top-0 left-0 h-162.5 w-full -mt-8"
+        <LayoutIcon
+          v-slot="{ active, active_on, active_off }"
+          :active="user.interior_is_active.value"
         >
-          <img
-            class="h-full img br"
-            src="@/assets/img/product_image_bg.jpg"
-            alt="product_image_bg"
-          />
-        </div>
+          <div
+            :class="{
+              'opacity-100': active,
+              'opacity-0': !active,
+              interior_active_on: active_on,
+              interior_active_off: active_off,
+            }"
+            class="absolute top-0 left-0 h-162.5 w-full -mt-8"
+          >
+            <img
+              class="h-full img br"
+              src="@/assets/img/product_image_bg.jpg"
+              alt="product_image_bg"
+            />
+          </div>
+        </LayoutIcon>
 
         <div class="box-x gap-4 relative content center">
           <div v-if="!user.interior_is_active.value" class="box-x relative h-132.5">
@@ -70,14 +83,21 @@ const color_characteristics = computed(() =>
           </div>
         </div>
 
+        <ComponentOpenImage
+          v-if="current_image"
+          @close="set_current_image(null)"
+          :image="current_image"
+        />
+
         <div class="product__image-list relative">
-          <div
+          <button
             v-for="image in product.product.images"
             :key="image.id"
+            @click="set_current_image(image)"
             class="h-25 product__image-list-item center"
           >
             <ComponentImg class="br h-full object-cover" :storage="image.path" />
-          </div>
+          </button>
         </div>
       </div>
 

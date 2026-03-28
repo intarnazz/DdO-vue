@@ -14,6 +14,8 @@ watch(
   () => active,
   (n) => (_active.value = n),
 )
+
+// TODO: rename modul
 </script>
 
 <template>

@@ -1,14 +1,19 @@
+import { Ref, ref } from 'vue'
+import { Image as ImageType } from '@/api/local_domains/catalog/product/types'
+
 /**
  * Базовый URL API для получения изображений
  */
 const API_URL: string = import.meta.env.VITE_API_URL
 const URL: string = import.meta.env.VITE_URL
 
+// TODO: выднлить как домен
+
 /**
  * Класс для работы с изображениями через API
  */
 class Image {
-  constructor() {}
+  current_image: Ref<ImageType | null> = ref(null)
 
   /**
    * Получение полного URL изображения по его идентификатору
