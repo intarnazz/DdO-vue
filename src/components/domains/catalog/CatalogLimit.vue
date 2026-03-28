@@ -6,7 +6,7 @@
  */
 
 import { filter } from '@/api/api'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import LayoutResize from '@/layout/LayoutResize.vue'
 import ComponentSwitch from '@/components/ComponentSwitch.vue'
 
@@ -34,22 +34,19 @@ const numbers = ref<ArgItem[]>(
 )
 
 /**
- * Реактивная ссылка на индекс активной вкладки.
+ * Вычисляемый индекс активной вкладки на основе filter.limit.
+ * Автоматически реагирует на любые изменения filter.limit.
  */
-const active = ref<number>(
-  (() => {
-    const active = props.arguments.indexOf(filter.limit)
-    if (active < 0) return 0
-    return active
-  })(),
-)
+const active = computed<number>(() => {
+  const idx = numbers.value.findIndex((item) => item.number === filter.limit)
+  return idx >= 0 ? idx : 0
+})
 
 /**
  * Устанавливает активную вкладку и эмитит выбранный элемент.
- * @param key Индекс вкладки для активации.
+ * @param button Элемент переключателя.
  */
-function setLimit(button: ArgItem, key: number) {
-  active.value = key
+function setLimit(button: ArgItem) {
   filter.limit = button.number
 }
 </script>
@@ -65,7 +62,7 @@ function setLimit(button: ArgItem, key: number) {
           :button="button"
           :class="{ 'active-tab': active === key }"
         >
-          <button @click="setLimit(button, key)">
+          <button @click="setLimit(button)">
             {{ button.number }}
           </button>
         </LayoutResize>
