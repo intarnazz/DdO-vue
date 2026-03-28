@@ -22,9 +22,7 @@ onMounted(async () => {
 
 watch(
   () => route.query,
-  () => {
-    filter.update(route.query)
-  },
+  () => filter.update(route.query),
 )
 </script>
 
