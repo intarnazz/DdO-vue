@@ -19,6 +19,7 @@ watch(
   () => filter.search,
   () => (search.value = filter.search),
 )
+// [ ]: кастомный список рекомендаций
 </script>
 
 <template>
