@@ -2,28 +2,45 @@
 import { filter } from '@/api/api'
 import IconSearch from '../icons/IconSearch.vue'
 import IconClose from '../icons/IconClose.vue'
+import { ref, watch } from 'vue'
+
+const search = ref(filter.search)
+
+const set_search = () => (filter.search = search.value)
+
+watch(
+  () => search.value,
+  (n) => {
+    if (n === '') set_search()
+  },
+)
+
+watch(
+  () => filter.search,
+  () => (search.value = filter.search),
+)
 </script>
 
 <template>
   <form
     class="form search"
     :class="{
-      flex: filter.search !== '',
+      flex: search !== '',
     }"
-    @submit.prevent=""
+    @submit.prevent="set_search"
   >
     <div class="search__input-wrapper min-w-53.25 w px-4 py-2 box-x gap-2">
       <input
-        v-model="filter.search"
+        v-model="search"
         placeholder="поиск по каталогу..."
         name="search"
         type="text"
         class="search__input w"
       />
-      <button @click="filter.search = ''" :disabled="filter.search === ''" type="button">
+      <button @click="search = ''" :disabled="search === ''" type="button">
         <IconClose />
       </button>
-      <button :disabled="filter.search === ''" type="submit">
+      <button :disabled="search === ''" type="submit">
         <IconSearch />
       </button>
     </div>
