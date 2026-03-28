@@ -53,13 +53,13 @@ const is_equal = computed<boolean>(() => {
         <div class="box-x gap-2 content center">
           <div class="box-x relative h-67.5 max-h-67.5">
             <ComponentImg
-              class="catalog__img object-cover h-full w-full"
+              class="catalog__img object-cover h-full"
               :storage="product.image_primary.path"
             />
           </div>
           <div class="box-x relative h-67.5 max-h-67.5">
             <ComponentImg
-              class="catalog__img object-cover h-full w-full"
+              class="catalog__img object-cover h-full"
               :storage="product.image_secondary.path"
             />
           </div>

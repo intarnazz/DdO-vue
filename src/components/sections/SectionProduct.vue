@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { product } from '@/api/api'
+import { product, user } from '@/api/api'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentSelect from '@/components/ComponentSelect.vue'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
+import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
@@ -26,33 +27,71 @@ const color_characteristics = computed(() =>
 
 // [ ] - Полная секция продукта //:выделить компонент
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
+// LARAVEL: delete лишнее фото
 </script>
 
 <template>
   <section class="product box-y gap-8">
     <div class="box-x gap-8 as">
-      <div class="product__left-box box-y flex">
-        <div class="box-x gap-4 content center">
-          <div class="box-x relative h-132.5">
+      <!-- ? LEFT BOX -->
+      <div class="product__left-box box-y flex gap-16 relative">
+        <div
+          :class="{
+            interior_active_on: user.interior_is_active.value,
+            interior_active_off: !user.interior_is_active.value,
+          }"
+          class="absolute top-0 left-0 h-162.5 w-full -mt-8"
+        >
+          <img
+            class="h-full img br"
+            src="@/assets/img/product_image_bg.jpg"
+            alt="product_image_bg"
+          />
+        </div>
+
+        <div class="box-x gap-4 relative content center">
+          <div v-if="!user.interior_is_active.value" class="box-x relative h-132.5">
             <ComponentImg
-              class="product__img object-cover h-full w-full"
+              :class="{
+                product__img_shadow: !user.interior_is_active.value,
+              }"
+              class="product__img object-cover h-full"
               :storage="product.product.image_primary.path"
             />
           </div>
           <div class="box-x relative h-132.5">
             <ComponentImg
+              :class="{
+                product__img_shadow: !user.interior_is_active.value,
+              }"
               class="product__img object-cover h-full w-full"
               :storage="product.product.image_secondary.path"
             />
           </div>
         </div>
+
+        <div class="product__image-list relative">
+          <div
+            v-for="image in product.product.images"
+            :key="image.id"
+            class="h-25 product__image-list-item center"
+          >
+            <ComponentImg class="br h-full object-cover" :storage="image.path" />
+          </div>
+        </div>
       </div>
+
+      <!-- ? RIGHT BOX -->
       <div class="product__right-box box-y flex js gap-8">
-        <h2>{{ product.product.name }}</h2>
+        <div class="box-y">
+          <h2>{{ product.product.name }}</h2>
+          <p class="c-sub">{{ product.product.article }}</p>
+        </div>
+
         <div class="product__button-wrapper box-x js gap-8">
           <ButtonFavorite :product="product.product" />
+          <ButtonInterior />
           <ButtonComparison :product="product.product" />
-          <p class="c-sub">{{ product.product.article }}</p>
         </div>
 
         <div class="product__bitton-cart-box box-y border p-4 gap-8">
@@ -92,7 +131,7 @@ const color_characteristics = computed(() =>
               <strong class="product__price font-normal">
                 {{ product_price }}
                 <!-- 
-                // [ ]  Полная секция продукта // Выбор между разными price
+                 [ ]  Полная секция продукта // Выбор между разными price
                 -->
               </strong>
               <p>комплект</p>
@@ -131,7 +170,7 @@ const color_characteristics = computed(() =>
           <div class="product__button-wrapper box-x">
             <ButtonAddToCart :product="product.product" />
             <!-- 
-            // [ ] Страница корзины // ссылка на корзинку // добавить в корзину ещё +1 раз
+            [ ] Страница корзины // ссылка на корзинку // добавить в корзину ещё +1 раз
             -->
           </div>
         </div>
@@ -173,8 +212,30 @@ const color_characteristics = computed(() =>
 <style lang="sass" scoped>
 //
 .product
+  &__image-list
+    display: grid
+    gap: 1rem
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr
   &__price
     font-size: 2rem
   &__img
-    box-shadow: 0px 15px 20px 0px $b-50
+    &_shadow
+      box-shadow: 0px 15px 20px 0px $b-50
+
+.interior_active_on
+  animation: interior_active_on .125s forwards ease-in
+
+.interior_active_off
+  animation: interior_active_off .125s forwards ease-in
+
+@keyframes interior_active_on
+  0%
+    opacity: 0%
+  100%
+    opacity: 100%
+@keyframes interior_active_off
+  0%
+    opacity: 100%
+  100%
+    opacity: 0%
 </style>
