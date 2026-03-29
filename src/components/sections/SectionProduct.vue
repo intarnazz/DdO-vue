@@ -32,8 +32,13 @@ const color_characteristics = computed(() =>
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
 // LARAVEL: delete лишнее фото
 
-const current_image: Ref<Image | null> = ref(null)
-const set_current_image = (image: null | Image) => (current_image.value = image)
+const current_image: Ref<Image | Image[] | null> = ref(null)
+const index: Ref<number> = ref(0)
+
+const set_current_image = (image: null | Image | Image[], key: number = 0) => {
+  current_image.value = image
+  index.value = key
+}
 </script>
 
 <template>
@@ -89,14 +94,15 @@ const set_current_image = (image: null | Image) => (current_image.value = image)
           v-if="current_image"
           @close="set_current_image(null)"
           :image="current_image"
+          :index="index"
         />
 
         <div class="product__image-list relative">
           <div
-            v-for="image in product.product.images"
+            v-for="(image, key) in product.product.images"
             :key="image.id"
-            @click="set_current_image(image)"
-            class="h-25 product__image-list-item center cursor-zoom-in box br"
+            @click="set_current_image(product.product.images, key)"
+            class="h-25 product__image-list-item center cursor-zoom-in box"
           >
             <ComponentImg class="br h-full object-cover" :storage="image.path" />
           </div>

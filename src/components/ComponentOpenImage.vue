@@ -1,22 +1,58 @@
 <script setup lang="ts">
 import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
+import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
+import IconChevronRight from '@/components/icons/IconChevronRight.vue'
+import { computed, ref } from 'vue'
 
-const { image } = defineProps<{
-  image: Image
+const { image: image_props, index: index_props = 0 } = defineProps<{
+  image: Image | Image[]
+  index?: number
 }>()
 
 const emit = defineEmits(['close'])
 
-// TODO: silde
+const images = computed(() => (Array.isArray(image_props) ? image_props : null))
+const image = computed(() => (Array.isArray(image_props) ? null : image_props))
+const index = ref(index_props)
+
+const increment_index = (number: number) => {
+  index.value += number
+  if (images.value && index.value < 0) index.value = images.value.length - 1
+  if (images.value && index.value >= images.value.length) index.value = 0
+}
 </script>
 
 <template>
-  <div
-    @click="emit('close', true)"
-    class="open-image select-none cursor-zoom-out fixed top-0 left-0 w-full z-4 h-full center p-16"
-  >
-    <ComponentImg class="max-h-full" ref="imageRef" :id="image.id" />
+  <div class="select-none fixed top-0 left-0 w-full z-4 h-full center p-16">
+    <div
+      @click="emit('close', true)"
+      class="open-image cursor-zoom-out absolute top-0 left-0 w-full h-full"
+    />
+
+    <ComponentImg
+      @click="emit('close', true)"
+      v-if="image"
+      class="max-h-full relative cursor-zoom-out"
+      ref="imageRef"
+      :id="image.id"
+    />
+    <ComponentImg
+      @click="emit('close', true)"
+      v-else-if="images"
+      class="max-h-full relative cursor-zoom-out"
+      ref="imageRef"
+      :id="images[index]?.id"
+    />
+
+    <template v-if="images">
+      <button @click.prevent="increment_index(-1)" class="p-20 absolute left-0">
+        <IconChevronLeft />
+      </button>
+      <button @click.prevent="increment_index(1)" class="p-20 absolute right-0">
+        <IconChevronRight />
+      </button>
+    </template>
   </div>
 </template>
 
