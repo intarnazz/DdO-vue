@@ -2,11 +2,17 @@
 import { RouterLink } from 'vue-router'
 import { filter } from '@/api/api'
 import { Filters } from '@/api/local_domains/query/types'
-// TODO: query
-const { type_name, query } = defineProps<{
+import { computed } from 'vue'
+
+const { type_name, query: propsQuery } = defineProps<{
   type_name: string
   query?: Filters
 }>()
+
+const query = computed(() => {
+  if (propsQuery) return { limit: filter.limit, ...propsQuery }
+  return filter.query
+})
 </script>
 
 <template>
@@ -14,7 +20,7 @@ const { type_name, query } = defineProps<{
     :to="{
       name: 'catalog',
       params: { type: type_name },
-      query: { limit: filter.limit, ...query },
+      query: query,
     }"
   >
     <slot />
