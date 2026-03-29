@@ -96,7 +96,7 @@ const set_current_image = (image: null | Image) => (current_image.value = image)
             v-for="image in product.product.images"
             :key="image.id"
             @click="set_current_image(image)"
-            class="h-25 product__image-list-item center cursor-zoom-in"
+            class="h-25 product__image-list-item center cursor-zoom-in box br"
           >
             <ComponentImg class="br h-full object-cover" :storage="image.path" />
           </div>

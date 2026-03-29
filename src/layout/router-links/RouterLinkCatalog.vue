@@ -2,7 +2,7 @@
 import { RouterLink } from 'vue-router'
 import { filter } from '@/api/api'
 import { Filters } from '@/api/local_domains/query/types'
-
+// TODO: query
 const { type_name, query } = defineProps<{
   type_name: string
   query?: Filters

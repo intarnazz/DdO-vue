@@ -7,12 +7,14 @@ const { image } = defineProps<{
 }>()
 
 const emit = defineEmits(['close'])
+
+// TODO: silde
 </script>
 
 <template>
   <div
     @click="emit('close', true)"
-    class="open-image cursor-zoom-out fixed top-0 left-0 w-full z-4 h-full center p-16"
+    class="open-image select-none cursor-zoom-out fixed top-0 left-0 w-full z-4 h-full center p-16"
   >
     <ComponentImg class="max-h-full" ref="imageRef" :id="image.id" />
   </div>
