@@ -8,8 +8,8 @@ import ButtonResetFilters from '@/components/buttons/ButtonResetFilters.vue'
     <h2>{{ type.type.visible_name }}</h2>
     <p class="c-sub">
       {{ p.pagingInfo.totalCount }} товаров
-      <template v-if="filter.length">
-        <span class="c-main">/ </span> {{ filter.filters.length }} активных фильтра
+      <template v-if="Boolean(filter.length)">
+        <span class="c-main">/ </span> {{ filter.length }} активных фильтра
         <span class="c-main">/ </span>
         <ButtonResetFilters />
       </template>
