@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { product as api_product } from '@/api/api'
 import { RouterLink } from 'vue-router'
 import { ProductType } from '@/api/local_domains/catalog/product'
 
-const props = defineProps<{
+const { product } = defineProps<{
   product: ProductType
 }>()
 
-const product = computed(() => props.product)
-
 function set_product() {
-  api_product.product = product.value
+  api_product.product = product
 }
 </script>
 

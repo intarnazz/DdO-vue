@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { product, user } from '@/api/api'
 import Product from '@/api/local_domains/catalog/product/product.model'
-import { Image } from '@/api/local_domains/catalog/product/types'
+import { Image, ProductType } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
 import ComponentSelect from '@/components/ComponentSelect.vue'
@@ -215,7 +215,15 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
             <!-- LARAVEL: colors -->
 
             <template v-for="p in product.product.variant.products" :key="p.id">
-              <RouterLinkProduct v-if="p.id !== product.product.id" :product="new Product(p)">
+              <RouterLinkProduct
+                v-if="p.id !== product.product.id"
+                :product="{
+                  //TODO: computed
+                  ...{ ...product.product }.data,
+                  ...p,
+                  variant: { ...product.product }.data.variant,
+                }"
+              >
                 <ProductColor :colors="p.color" :is_active="false" />
               </RouterLinkProduct>
               <ProductColor v-else :colors="p.color" :is_active="true" />
