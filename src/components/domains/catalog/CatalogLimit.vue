@@ -52,7 +52,7 @@ function setLimit(button: ArgItem) {
 </script>
 
 <template>
-  <div class="box-x gap-4 switch-nav">
+  <div class="box-x gap-4 switch-nav c-sub">
     <p>на странице:</p>
     <div class="box-y">
       <div class="box-x switch-nav__button-wrapper">
@@ -63,7 +63,7 @@ function setLimit(button: ArgItem) {
           :class="{ 'active-tab': active === key }"
         >
           <button @click="setLimit(button)">
-            {{ button.number }}
+            <strong>{{ button.number }}</strong>
           </button>
         </LayoutResize>
       </div>
@@ -74,8 +74,6 @@ function setLimit(button: ArgItem) {
 
 <style lang="sass" scoped>
 .switch-nav
-  font-weight: 400
-  color: $sub
   & button
     &:hover
       color: $mark

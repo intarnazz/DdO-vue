@@ -204,9 +204,10 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
         </div>
 
         <div class="product__contact">
-          <!-- {{ contact. }} // [ ]: сущность contact -->
+          <!-- {{ contact. }} // TODO: отправить как мета данные -->
         </div>
         <div v-if="color_characteristics[0]" class="product__color">
+          <h3>цвет</h3>
           {{ color_characteristics[0].name }}
         </div>
         <RouterLinkCatalog
