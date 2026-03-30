@@ -6,6 +6,7 @@ import user from '@/storage/user'
 import BaseModel from '@/models/baseModel'
 import type {
   Image,
+  Color,
   Variant,
   ProductCategory,
   Tag,
@@ -67,6 +68,7 @@ class Product extends BaseModel {
       type               : product.type            ?? {} as ProductCategory,
       tag                : product.tag             ?? {} as Tag,
       brand              : product.brand           ?? {} as Brand,
+      color              : product.color            ?? [] as Color[],
       images             : product.images          ?? [] as Image[],
       characteristics    : product.characteristics ?? [] as Characteristic[],
     })
@@ -216,6 +218,11 @@ class Product extends BaseModel {
   /** Бренд продукта */
   public get brand(): Brand {
     return this.data_c.value.brand || null
+  }
+
+  /** Список цветов продукта */
+  public get color(): Color[] {
+    return this.data_c.value.color || []
   }
 
   /** Список дополнительных изображений продукта */

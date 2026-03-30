@@ -15,6 +15,8 @@ const parts = computed(() => {
     match: i % 2 === 1,
   }))
 })
+
+// TODO: скрыть лишний текст как "..."
 </script>
 
 <template>

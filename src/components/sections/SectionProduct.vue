@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { product, user } from '@/api/api'
+import Product from '@/api/local_domains/catalog/product/product.model'
 import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
@@ -8,11 +9,13 @@ import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
+import ProductColor from '@/components/domains/product/ProductColor.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
 import LayoutIcon from '@/layout/LayoutIcon.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
+import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import { price } from '@/utilte/utilte'
 import { computed, Ref, ref } from 'vue'
 
@@ -206,9 +209,18 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
         <div class="product__contact">
           <!-- {{ contact. }} // TODO: отправить как мета данные -->
         </div>
-        <div v-if="color_characteristics[0]" class="product__color">
+        <div v-if="color_characteristics[0]" class="product__color box-y gap-4">
           <h3>цвет</h3>
-          {{ color_characteristics[0].name }}
+          <div class="product__color-list box-x js gap-4 flex-wrap">
+            <!-- LARAVEL: colors -->
+
+            <template v-for="p in product.product.variant.products" :key="p.id">
+              <RouterLinkProduct v-if="p.id !== product.product.id" :product="new Product(p)">
+                <ProductColor :colors="p.color" :is_active="false" />
+              </RouterLinkProduct>
+              <ProductColor v-else :colors="p.color" :is_active="true" />
+            </template>
+          </div>
         </div>
         <RouterLinkCatalog
           :query="{

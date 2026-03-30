@@ -2,17 +2,45 @@
 import { RouterLink, useRoute } from 'vue-router'
 import IconRight from '@/components/icons/IconRight.vue'
 import { product, type } from '@/api/api'
-import { computed } from 'vue'
+import { Ref, ref, watch } from 'vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 
 const route = useRoute()
 
-const type_visible_name = computed(
-  () => product.product.type.visible_name || type.type.visible_name || '',
+const type_name: Ref<string> = ref(product.product.type.name || type.type.name || '')
+const type_visible_name: Ref<string> = ref(
+  product.product.type.visible_name || type.type.visible_name || '',
 )
-const type_name = computed(() => product.product.type.name || type.type.name || '')
 // [ ]: каталог
 // [ ]: модели продукта
+
+const set_type_name = (new_type_name: string | null | undefined) => {
+  if (new_type_name) type_name.value = new_type_name
+}
+
+const set_type_visible_name = (new_type_visible_name: string | null | undefined) => {
+  if (new_type_visible_name) type_visible_name.value = new_type_visible_name
+}
+
+watch(
+  () => product.product.type.name,
+  (n) => set_type_name(n),
+)
+
+watch(
+  () => type.type.name,
+  (n) => set_type_name(n),
+)
+
+watch(
+  () => product.product.type.visible_name,
+  (n) => set_type_visible_name(n),
+)
+
+watch(
+  () => type.type.visible_name,
+  (n) => set_type_visible_name(n),
+)
 </script>
 
 <template>
