@@ -45,6 +45,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
 
 <template>
   <section class="product box-y gap-8">
+    <!-- ? 1 BOX -->
     <div class="box-x gap-8 as">
       <!-- ? LEFT BOX -->
       <div class="product__left-box box-y flex gap-16 relative">
@@ -110,7 +111,6 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
           </div>
         </div>
       </div>
-
       <!-- ? RIGHT BOX -->
       <div class="product__right-box box-y flex js gap-8">
         <div class="box-y">
@@ -238,9 +238,9 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
               product.product.type.name
               // [ ] ссылка на каталог и фильтром бренда
             "
-            class="a a_sub"
+            class="a"
           >
-            <strong> Все модели бренда {{ title(product.product.brand.name) }} </strong>
+            <h3>Все модели бренда {{ title(product.product.brand.name) }}</h3>
           </RouterLinkCatalog>
         </div>
         <div class="box-x js">
@@ -252,11 +252,34 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
               product.product.type.name
               // [ ] ссылка на каталог и фильтром бренда
             "
-            class="a a_sub"
+            class="a"
           >
-            <strong> Все модели {{ title(product.product.variant.name) }} </strong>
+            <h3>Все модели {{ title(product.product.variant.name) }}</h3>
           </RouterLinkCatalog>
         </div>
+      </div>
+    </div>
+  </section>
+  <section v-if="product.product.characteristics.length > 0" class="box-y gap-8">
+    <!-- ? 2 BOX -->
+    <h2>описание</h2>
+    <div class="box-x gap-8 as">
+      <!-- ? LEFT BOX -->
+      <div class="box-y flex gap-4">
+        <div
+          v-for="characteristic in product.product.characteristics"
+          :key="characteristic.id"
+          class="box-x box p-2 br gap-4"
+        >
+          <strong class="c-sub flex-1">{{ characteristic.filter.name }}</strong>
+          <p class="flex-4">{{ characteristic.description }}</p>
+        </div>
+      </div>
+      <!-- ? RIGHT BOX -->
+      <div class="box-y flex">
+        <p>
+          Стальной дверной блок с открыванием наружу. Поставляется с правым и левым открыванием.
+        </p>
       </div>
     </div>
   </section>

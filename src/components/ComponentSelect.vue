@@ -45,7 +45,7 @@ function change_selected_option(new_key: number) {
       <span v-else>Loading...</span>
       <IconKeyboardArrowDown />
     </button>
-    <div class="relative h-0">
+    <div class="relative z-1 h-0">
       <div
         :class="{ 'h-auto': popup_is_open, 'h-0': !popup_is_open }"
         class="select__popup shadow-xl overflow-hidden bg-white whitespace-nowrap"
