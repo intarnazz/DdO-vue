@@ -35,14 +35,14 @@ const increment_index = (number: number) => {
       v-if="image"
       class="max-h-full relative cursor-zoom-out"
       ref="imageRef"
-      :id="image.id"
+      :storage="image.path"
     />
     <ComponentImg
       @click="emit('close', true)"
       v-else-if="images"
       class="max-h-full relative cursor-zoom-out"
       ref="imageRef"
-      :id="images[index]?.id"
+      :storage="images[index]?.path"
     />
 
     <template v-if="images">

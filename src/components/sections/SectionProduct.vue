@@ -15,7 +15,7 @@ import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
 import LayoutIcon from '@/layout/LayoutIcon.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
-import { price } from '@/utilte/utilte'
+import { price, title } from '@/utilte/utilte'
 import { computed, Ref, ref } from 'vue'
 
 const product_price = computed(() => price(product.product.price)) //[ ]: component
@@ -229,29 +229,34 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
             </template>
           </div>
         </div>
-        <RouterLinkCatalog
-          :query="{
-            brand: product.product.brand.id,
-          }"
-          :type_name="
-            product.product.type.name
-            // [ ] ссылка на каталог и фильтром бренда
-          "
-          class="box-x js gap-1"
-        >
-          <p class="">Все модели бренда</p>
-          <p>{{ product.product.brand.name }}</p>
-        </RouterLinkCatalog>
-        <RouterLinkCatalog
-          :type_name="
-            product.product.type.name
-            // [ ] ссылка на каталог и фильтром модели
-          "
-          class="box-x js gap-1"
-        >
-          <p class="">Все модели</p>
-          <p>{{ product.product.variant.name }}</p>
-        </RouterLinkCatalog>
+        <div class="box-x js">
+          <RouterLinkCatalog
+            :query="{
+              brand: product.product.brand.id,
+            }"
+            :type_name="
+              product.product.type.name
+              // [ ] ссылка на каталог и фильтром бренда
+            "
+            class="a a_sub"
+          >
+            <strong> Все модели бренда {{ title(product.product.brand.name) }} </strong>
+          </RouterLinkCatalog>
+        </div>
+        <div class="box-x js">
+          <RouterLinkCatalog
+            :query="{
+              variant: product.product.variant.id,
+            }"
+            :type_name="
+              product.product.type.name
+              // [ ] ссылка на каталог и фильтром бренда
+            "
+            class="a a_sub"
+          >
+            <strong> Все модели {{ title(product.product.variant.name) }} </strong>
+          </RouterLinkCatalog>
+        </div>
       </div>
     </div>
   </section>
