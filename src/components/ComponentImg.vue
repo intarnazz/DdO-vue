@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { image } from '@/api/api'
-
+// LARAVEL: нельзя срейлить больше оригенала
 const {
   id,
+  max_w,
+  max_h,
   storage,
   alt = 'image',
   isLazy = true,
 } = defineProps<{
   id?: number
+  max_w?: number
+  max_h?: number
   storage?: string
   alt?: string
   isLazy?: boolean
 }>()
 
 const src = computed(() => {
-  if (id) return image.get_by_id(id)
+  if (id)
+    return image.get_by_id(id, {
+      h: max_h,
+      w: max_w,
+    })
   if (storage) return image.get_by_storage(storage)
   return undefined
 })

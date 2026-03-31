@@ -258,6 +258,8 @@ export type Init = (id: number) => Promise<void>
 // prettier-ignore
 export interface ProductType extends DefaultProductType {
   /** Флаг нахождения продукта в избранном текущего пользователя */
+  object: ProductType
+
   is_favorite: boolean
   /** Метод загрузки данных продукта по идентификатору */
   init       : Init

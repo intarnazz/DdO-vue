@@ -94,6 +94,10 @@ class Product extends BaseModel {
     Object.assign(this.data_c.value, res.data)
   }
 
+  public get object() {
+    return this.data_c.value
+  }
+
   /**
    * Возвращает `true`, если продукт находится в избранном текущего пользователя.
    */

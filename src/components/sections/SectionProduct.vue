@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { product, user } from '@/api/api'
-import Product from '@/api/local_domains/catalog/product/product.model'
-import { Image, ProductType } from '@/api/local_domains/catalog/product/types'
+import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
 import ComponentSelect from '@/components/ComponentSelect.vue'
@@ -107,7 +106,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
             @click="set_current_image(product.product.images, key)"
             class="h-25 product__image-list-item center cursor-zoom-in box"
           >
-            <ComponentImg class="br h-full object-cover" :storage="image.path" />
+            <ComponentImg class="br h-full object-cover" :id="image.id" :max_h="100" />
           </div>
         </div>
       </div>
@@ -219,9 +218,9 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
                 v-if="p.id !== product.product.id"
                 :product="{
                   //TODO: computed
-                  ...{ ...product.product }.data,
+                  ...product.product.object,
                   ...p,
-                  variant: { ...product.product }.data.variant,
+                  variant: product.product.object.variant,
                 }"
               >
                 <ProductColor :colors="p.color" :is_active="false" />
