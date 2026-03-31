@@ -9,6 +9,7 @@ import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
 import ProductColor from '@/components/domains/product/ProductColor.vue'
+import ProductNav from '@/components/domains/product/ProductNav.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
@@ -262,7 +263,12 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
   </section>
   <section v-if="product.product.characteristics.length > 0" class="box-y gap-8">
     <!-- ? 2 BOX -->
-    <h2>описание</h2>
+
+    <ProductNav v-slot="{ content }" :arguments="['описание', 'обрамление']">
+      <button class="h2">
+        {{ content.value }}
+      </button>
+    </ProductNav>
     <div class="box-x gap-8 as">
       <!-- ? LEFT BOX -->
       <div class="box-y flex gap-4">
