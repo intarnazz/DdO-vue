@@ -1,0 +1,45 @@
+<script setup lang="ts"></script>
+
+<template>
+  <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#filter0_d_2215_672)">
+      <path
+        d="M29.1666 37.5L16.6666 25L29.1666 12.5L32.0833 15.4167L22.5 25L32.0833 34.5833L29.1666 37.5Z"
+        fill="#FFFFFF"
+      />
+    </g>
+    <defs>
+      <filter
+        id="filter0_d_2215_672"
+        x="13.6666"
+        y="8.5"
+        width="23.4166"
+        height="33"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset dx="1" />
+        <feGaussianBlur stdDeviation="2" />
+        <feComposite in2="hardAlpha" operator="out" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0.160784 0 0 0 0 0.552941 0 0 0 0 0.839216 0 0 0 1 0"
+        />
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2215_672" />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow_2215_672"
+          result="shape"
+        />
+      </filter>
+    </defs>
+  </svg>
+</template>

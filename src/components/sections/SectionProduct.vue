@@ -12,6 +12,8 @@ import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import ProductColor from '@/components/domains/product/ProductColor.vue'
 import ProductNav from '@/components/domains/product/ProductNav.vue'
+import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
+import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
@@ -32,7 +34,6 @@ const color_characteristics = computed(() =>
   //[ ]: component
   product.product.characteristics.filter((c) => c.filter.name === 'color'),
 )
-
 // [ ] - Полная секция продукта //:выделить компонент
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
 // LARAVEL: delete лишнее фото
@@ -44,6 +45,9 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
   current_image.value = image
   index.value = key
 }
+
+const active = ref('')
+const set_active = (value: string) => (active.value = value)
 </script>
 
 <template>
@@ -264,13 +268,24 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
     </div>
   </section>
   <!-- ? 2 BOX -->
-  <section v-if="product.product.characteristics.length > 0" class="box-y gap-8">
-    <hr />
-    <ProductNav v-slot="{ content }" :arguments="['описание', 'обрамление']">
-      <button class="h2">
-        {{ content.value }}
-      </button>
-    </ProductNav>
+  <hr />
+  <!-- TODO: услоовия для аргументов -->
+  <ProductNav v-slot="{ content }" @new_active="set_active" :arguments="['описание', 'обрамление']">
+    <button class="h2">
+      {{ content.value }}
+    </button>
+  </ProductNav>
+  <!-- ? обрамление -->
+  <section v-if="active === 'обрамление'">
+    <!-- LARAVEL: Добавить "опции" -->
+    <!-- {{ product.product. }} -->
+
+    <IconChevronLeft />
+    <IconChevronRight />
+
+    <ButtonAddToCart :product="product.product" />
+  </section>
+  <section v-else-if="product.product.characteristics.length > 0" class="box-y gap-8">
     <div class="box-x gap-8 as">
       <!-- ? LEFT BOX -->
       <div class="box-y flex gap-4">
@@ -279,6 +294,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
           :key="characteristic.id"
           class="box-x box p-2 br gap-4"
         >
+          <!-- TODO: добавить ":" -->
           <strong class="c-sub flex-1">{{ characteristic.filter.name }}</strong>
           <p class="flex-4">{{ characteristic.description }}</p>
         </div>

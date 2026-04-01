@@ -12,6 +12,8 @@ const { arguments: props_arguments } = defineProps<{
   arguments: string[]
 }>()
 
+const emit = defineEmits(['new_active'])
+
 const content = ref<ArgItem[]>(
   props_arguments.map((n) => ({
     value: n,
@@ -21,7 +23,10 @@ const content = ref<ArgItem[]>(
 
 const active = ref(0)
 
-const set_active = (value: number) => (active.value = value)
+const set_active = (key: number, value: string) => {
+  active.value = key
+  emit('new_active', value)
+}
 </script>
 
 <template>
@@ -33,7 +38,7 @@ const set_active = (value: number) => (active.value = value)
           :key="key"
           :button="button"
           :class="{ 'active-tab': active === key }"
-          @click="set_active(key)"
+          @click="set_active(key, button.value)"
         >
           <slot :active="active" :content="button" />
         </LayoutResize>

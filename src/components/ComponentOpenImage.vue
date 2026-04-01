@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
-import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
-import IconChevronRight from '@/components/icons/IconChevronRight.vue'
+import IconChevronLeftCastom from '@/components/icons/IconChevronLeftCastom.vue'
+import IconChevronRightCastom from '@/components/icons/IconChevronRightCastom.vue'
 import { computed, ref } from 'vue'
 
 const { image: image_props, index: index_props = 0 } = defineProps<{
@@ -47,10 +47,10 @@ const increment_index = (number: number) => {
 
     <template v-if="images">
       <button @click.prevent="increment_index(-1)" class="p-20 absolute left-0">
-        <IconChevronLeft />
+        <IconChevronLeftCastom />
       </button>
       <button @click.prevent="increment_index(1)" class="p-20 absolute right-0">
-        <IconChevronRight />
+        <IconChevronRightCastom />
       </button>
     </template>
   </div>
