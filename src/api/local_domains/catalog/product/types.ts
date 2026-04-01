@@ -93,7 +93,7 @@ export interface VariantProduct {
   /** Вариант продукта */
   variant            : Variant
   /** Список цветов продукта */
-  color              : Color[]
+  colors             : Color[]
 }
 
 /**
@@ -188,6 +188,27 @@ export interface Characteristic {
 }
 
 /**
+ * Опция продукта (дополнительный аксессуар/комплектующее).
+ */
+// prettier-ignore
+export interface Option {
+  /** Уникальный идентификатор опции */
+  id        : number
+  /** Идентификатор продукта */
+  product_id: number
+  /** Идентификатор изображения опции (null, если отсутствует) */
+  image_id  : number | null
+  /** Название опции */
+  name      : string
+  /** Описание опции */
+  description: string
+  /** Цена опции */
+  price     : number
+  /** Объект изображения опции (null, если отсутствует) */
+  image     : Image | null
+}
+
+/**
  * Базовая структура данных продукта (без дополнительных вычисляемых полей).
  */
 // prettier-ignore
@@ -231,7 +252,7 @@ export interface DefaultProductType {
   /** Вариант продукта */
   variant            : Variant
   /** Список цветов продукта */
-  color              : Color[]
+  colors             : Color[]
   /** Категория продукта */
   type               : ProductCategory
   /** Тег продукта */
@@ -240,6 +261,8 @@ export interface DefaultProductType {
   brand              : Brand
   /** Список изображений продукта */
   images             : Image[]
+  /** Список опций продукта */
+  options            : Option[]
   /** Список характеристик продукта */
   characteristics    : Characteristic[]
 }

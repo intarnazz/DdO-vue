@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { image } from '@/api/api'
-// LARAVEL: нельзя срейлить больше оригенала
 const {
   id,
   max_w,

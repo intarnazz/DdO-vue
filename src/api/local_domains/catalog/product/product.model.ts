@@ -12,6 +12,7 @@ import type {
   Tag,
   Brand,
   Characteristic,
+  Option,
   DefaultProductType,
   Init,
 } from './types'
@@ -70,8 +71,9 @@ class Product extends BaseModel {
       type              : product.type            ?? {} as ProductCategory,
       tag               : product.tag             ?? {} as Tag,
       brand             : product.brand           ?? {} as Brand,
-      color             : product.color           ?? [] as Color[],
+      colors            : product.colors          ?? [] as Color[],
       images            : product.images          ?? [] as Image[],
+      options           : product.options         ?? [] as Option[],
       characteristics   : product.characteristics ?? [] as Characteristic[],
     })
 
@@ -227,13 +229,18 @@ class Product extends BaseModel {
   }
 
   /** Список цветов продукта */
-  public get color(): Color[] {
-    return this.data_c.value.color || []
+  public get colors(): Color[] {
+    return this.data_c.value.colors || []
   }
 
   /** Список дополнительных изображений продукта */
   public get images(): Image[] {
     return this.data_c.value.images || []
+  }
+
+  /** Список опций продукта */
+  public get options(): Option[] {
+    return this.data_c.value.options || []
   }
 
   /** Список характеристик продукта */

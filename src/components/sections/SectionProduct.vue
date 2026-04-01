@@ -36,7 +36,6 @@ const color_characteristics = computed(() =>
 )
 // [ ] - Полная секция продукта //:выделить компонент
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
-// LARAVEL: delete лишнее фото
 
 const current_image: Ref<Image | Image[] | null> = ref(null)
 const index: Ref<number> = ref(0)
@@ -218,7 +217,6 @@ const set_active = (value: string) => (active.value = value)
         <div v-if="color_characteristics[0]" class="product__color box-y gap-4">
           <h3>цвет</h3>
           <div class="product__color-list box-x js gap-4 flex-wrap">
-            <!-- LARAVEL: colors -->
 
             <template v-for="p in product.product.variant.products" :key="p.id">
               <RouterLinkProduct
@@ -230,9 +228,9 @@ const set_active = (value: string) => (active.value = value)
                   variant: product.product.object.variant,
                 }"
               >
-                <ProductColor :colors="p.color" :is_active="false" />
+                <ProductColor :colors="p.colors" :is_active="false" />
               </RouterLinkProduct>
-              <ProductColor v-else :colors="p.color" :is_active="true" />
+              <ProductColor v-else :colors="p.colors" :is_active="true" />
             </template>
           </div>
         </div>
@@ -277,8 +275,9 @@ const set_active = (value: string) => (active.value = value)
   </ProductNav>
   <!-- ? обрамление -->
   <section v-if="active === 'обрамление'">
-    <!-- LARAVEL: Добавить "опции" -->
-    <!-- {{ product.product. }} -->
+    <p>donec volutpat turpis tellus, a pretium velit semper nec. Quisque sed egestas tortor.</p>
+
+    {{ product.product.options }}
 
     <IconChevronLeft />
     <IconChevronRight />
