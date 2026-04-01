@@ -12,26 +12,25 @@ import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import { ProductType } from '@/api/local_domains/catalog/product'
 
-const props = defineProps<{
+const { product } = defineProps<{
   product: ProductType
 }>()
 
-const product = computed(() => props.product)
-const price = computed(() => utilte_price(product.value.price))
+const price = computed(() => utilte_price(product.price))
 
 const is_more = computed<boolean>(() => {
   if (api_product.comparison_product !== null)
-    return product.value.price > api_product.comparison_product.price
+    return product.price > api_product.comparison_product.price
   return false
 })
 const is_less = computed<boolean>(() => {
   if (api_product.comparison_product !== null)
-    return product.value.price < api_product.comparison_product.price
+    return product.price < api_product.comparison_product.price
   return false
 })
 const is_equal = computed<boolean>(() => {
   if (api_product.comparison_product !== null)
-    return product.value.price === api_product.comparison_product.price
+    return product.price === api_product.comparison_product.price
   return false
 })
 
