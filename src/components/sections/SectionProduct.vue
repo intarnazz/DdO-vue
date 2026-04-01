@@ -217,7 +217,6 @@ const set_active = (value: string) => (active.value = value)
         <div v-if="color_characteristics[0]" class="product__color box-y gap-4">
           <h3>цвет</h3>
           <div class="product__color-list box-x js gap-4 flex-wrap">
-
             <template v-for="p in product.product.variant.products" :key="p.id">
               <RouterLinkProduct
                 v-if="p.id !== product.product.id"
@@ -274,7 +273,7 @@ const set_active = (value: string) => (active.value = value)
     </button>
   </ProductNav>
   <!-- ? обрамление -->
-  <section v-if="active === 'обрамление'">
+  <section class="box-y gap-8" v-if="active === 'обрамление'">
     <p>donec volutpat turpis tellus, a pretium velit semper nec. Quisque sed egestas tortor.</p>
 
     {{ product.product.options }}
