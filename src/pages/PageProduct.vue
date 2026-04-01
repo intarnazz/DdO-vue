@@ -6,13 +6,7 @@ import SectionProduct from '@/components/sections/SectionProduct.vue'
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
-import { up_fast } from '@/utilte/utilte'
-import { onMounted } from 'vue'
 import { RouteLocationNormalizedGeneric } from 'vue-router'
-
-onMounted(async () => {
-  up_fast()
-})
 
 async function init(route: RouteLocationNormalizedGeneric) {
   if (route.params.id) product.product.init(Number(route.params.id))

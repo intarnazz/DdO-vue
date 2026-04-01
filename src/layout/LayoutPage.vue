@@ -7,6 +7,7 @@
  * Содержимое компонента вставляется через слот.
  */
 import IconUp from '@/components/icons/IconUp.vue'
+import { up_fast } from '@/utilte/utilte'
 import { onMounted, ref, watch } from 'vue'
 import { RouteLocationNormalizedLoadedGeneric, useRoute } from 'vue-router'
 
@@ -25,12 +26,16 @@ async function init() {
 }
 
 onMounted(async () => {
+  up_fast()
   await init()
 })
 
 watch(
   () => route.params.id,
-  () => init(),
+  () => {
+    up_fast()
+    init()
+  },
 )
 </script>
 

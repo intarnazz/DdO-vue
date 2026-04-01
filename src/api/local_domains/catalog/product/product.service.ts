@@ -167,7 +167,7 @@ class ProductService {
   /**
    * Текущий выбранный продукт.
    */
-  public get product() {
+  public get product(): ProductType {
     return this._product.value
   }
 
@@ -175,7 +175,7 @@ class ProductService {
    * Устанавливает текущий продукт, создавая новый экземпляр {@link Product}.
    * @param product - Данные нового продукта
    */
-  public set product(product) {
+  public set product(product: DefaultProductType) {
     this._product.value = new Product(product)
   }
 

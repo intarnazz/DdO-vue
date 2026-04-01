@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { product, user } from '@/api/api'
+import Product from '@/api/local_domains/catalog/product/product.model'
 import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
@@ -8,6 +9,7 @@ import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
+import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import ProductColor from '@/components/domains/product/ProductColor.vue'
 import ProductNav from '@/components/domains/product/ProductNav.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
@@ -45,8 +47,8 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
 </script>
 
 <template>
+  <!-- ? 1 BOX -->
   <section class="product box-y gap-8">
-    <!-- ? 1 BOX -->
     <div class="box-x gap-8 as">
       <!-- ? LEFT BOX -->
       <div class="product__left-box box-y flex gap-16 relative">
@@ -261,9 +263,9 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
       </div>
     </div>
   </section>
+  <!-- ? 2 BOX -->
   <section v-if="product.product.characteristics.length > 0" class="box-y gap-8">
-    <!-- ? 2 BOX -->
-
+    <hr />
     <ProductNav v-slot="{ content }" :arguments="['описание', 'обрамление']">
       <button class="h2">
         {{ content.value }}
@@ -289,11 +291,23 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
       </div>
     </div>
   </section>
+  <section class="box-y gap-8">
+    <hr />
+    <h2>похожие товары</h2>
+    <div class="product__list gap-12">
+      <template v-for="p in product.product.variant.products" :key="p.id">
+        <CatalogItem v-if="p.id !== product.product.id" :product="new Product(p)" />
+      </template>
+    </div>
+  </section>
 </template>
 
 <style lang="sass" scoped>
 //
 .product
+  &__list
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
   &__image-list
     display: grid
     gap: 1rem

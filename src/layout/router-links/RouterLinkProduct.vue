@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { product as api_product } from '@/api/api'
 import { RouterLink } from 'vue-router'
-import { ProductType } from '@/api/local_domains/catalog/product'
+import { DefaultProductType } from '@/api/local_domains/catalog/product/types'
 
 const { product } = defineProps<{
-  product: ProductType
+  product: DefaultProductType
 }>()
 
 function set_product() {
