@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { product, user } from '@/api/api'
-import Product from '@/api/local_domains/catalog/product/product.model'
 import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
@@ -9,11 +8,7 @@ import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
-import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import ProductColor from '@/components/domains/product/ProductColor.vue'
-import ProductNav from '@/components/domains/product/ProductNav.vue'
-import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
-import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
@@ -44,9 +39,6 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
   current_image.value = image
   index.value = key
 }
-
-const active = ref('')
-const set_active = (value: string) => (active.value = value)
 </script>
 
 <template>
@@ -262,56 +254,6 @@ const set_active = (value: string) => (active.value = value)
           </RouterLinkCatalog>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- ? 2 BOX -->
-  <hr />
-  <!-- TODO: услоовия для аргументов -->
-  <ProductNav v-slot="{ content }" @new_active="set_active" :arguments="['описание', 'обрамление']">
-    <button class="h2">
-      {{ content.value }}
-    </button>
-  </ProductNav>
-  <!-- ? обрамление -->
-  <section class="box-y gap-8" v-if="active === 'обрамление'">
-    <p>donec volutpat turpis tellus, a pretium velit semper nec. Quisque sed egestas tortor.</p>
-
-    {{ product.product.options }}
-
-    <IconChevronLeft />
-    <IconChevronRight />
-
-    <ButtonAddToCart :product="product.product" />
-  </section>
-  <section v-else-if="product.product.characteristics.length > 0" class="box-y gap-8">
-    <div class="box-x gap-8 as">
-      <!-- ? LEFT BOX -->
-      <div class="box-y flex gap-4">
-        <div
-          v-for="characteristic in product.product.characteristics"
-          :key="characteristic.id"
-          class="box-x box p-2 br gap-4"
-        >
-          <!-- TODO: добавить ":" -->
-          <strong class="c-sub flex-1">{{ characteristic.filter.name }}</strong>
-          <p class="flex-4">{{ characteristic.description }}</p>
-        </div>
-      </div>
-      <!-- ? RIGHT BOX -->
-      <div class="box-y flex">
-        <p>
-          Стальной дверной блок с открыванием наружу. Поставляется с правым и левым открыванием.
-        </p>
-      </div>
-    </div>
-  </section>
-  <section class="box-y gap-8">
-    <hr />
-    <h2>похожие товары</h2>
-    <div class="product__list gap-12">
-      <template v-for="p in product.product.variant.products" :key="p.id">
-        <CatalogItem v-if="p.id !== product.product.id" :product="new Product(p)" />
-      </template>
     </div>
   </section>
 </template>
