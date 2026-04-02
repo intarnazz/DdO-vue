@@ -206,6 +206,8 @@ export interface Option {
   price     : number
   /** Объект изображения опции (null, если отсутствует) */
   image     : Image | null
+
+  count     : number | undefined
 }
 
 /**

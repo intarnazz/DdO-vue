@@ -4,7 +4,7 @@ import ComponentBread from '@/components/ComponentBread.vue'
 import ComponentContext from '@/components/ComponentContext.vue'
 import ProductDescription from '@/components/sections/products/ProductDescription.vue'
 import ProductMain from '@/components/sections/products/ProductMain.vue'
-import ProductOption from '@/components/sections/products/ProductOption.vue'
+import ProductOptions from '@/components/sections/products/ProductOptions.vue'
 import ProductSimilarProduct from '@/components/sections/products/ProductSimilarProduct.vue'
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
@@ -24,7 +24,7 @@ async function init(route: RouteLocationNormalizedGeneric) {
         <ComponentContext />
       </div>
       <ProductMain />
-      <ProductOption />
+      <ProductOptions />
       <ProductDescription />
       <ProductSimilarProduct />
     </LayoutWrapper>
