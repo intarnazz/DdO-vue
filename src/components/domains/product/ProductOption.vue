@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { Option } from '@/api/local_domains/catalog/product/types'
+import ComponentCount from '@/components/ComponentCount.vue'
 import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
-import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
-import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import { price } from '@/utilte/utilte'
-import { computed } from 'vue'
 
 const { option } = defineProps<{
   option: Option
@@ -14,7 +12,6 @@ const emit = defineEmits<{
   set_option_count: [value: number]
 }>()
 
-const has_option_count = computed<boolean>(() => option.count > 0)
 const set_option_count = (number: number) => emit('set_option_count', option.count + number)
 </script>
 
@@ -34,16 +31,7 @@ const set_option_count = (number: number) => emit('set_option_count', option.cou
     <div class="box-y min-w-40 gap-4 js">
       <strong> количество </strong>
       <div class="box-x gap-2 js">
-        <div class="box-x gap-2">
-          <button :disabled="!has_option_count" @click="set_option_count(-1)">
-            <IconChevronLeft />
-          </button>
-          <span class="c-main"> × </span>
-          {{ option.count }}
-          <button @click="set_option_count(1)">
-            <IconChevronRight />
-          </button>
-        </div>
+        <ComponentCount :count="option.count" @set_count="set_option_count" />
 
         <p v-if="option.is_set" class="c-sub">комплект</p>
         <p v-else class="c-sub">штук</p>

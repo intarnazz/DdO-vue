@@ -12,13 +12,12 @@ import ProductColor from '@/components/domains/product/ProductColor.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
+import ProductPrice from '@/components/sections/products/ProductPrice.vue'
 import LayoutIcon from '@/layout/LayoutIcon.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
-import { price, title } from '@/utilte/utilte'
+import { title } from '@/utilte/utilte'
 import { computed, Ref, ref } from 'vue'
-
-const product_price = computed(() => price(product.product.price)) //[ ]: component
 
 const size_characteristics = computed(() =>
   //[ ]: component
@@ -156,19 +155,12 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
 
           <div class="box-x js gap-4">
             <div class="box-y box br p-2">
-              <strong class="product__price font-normal">
-                {{ product_price }}
-                <!-- 
-                 [ ]  Полная секция продукта // Выбор между разными price
-                -->
-              </strong>
+              <ProductPrice :price="product.product.price" />
               <p>комплект</p>
             </div>
 
             <div class="box-y box br p-2">
-              <strong class="product__price font-normal">
-                {{ product_price }}
-              </strong>
+              <ProductPrice :price="product.product.price" />
               <p>комплект</p>
             </div>
           </div>
@@ -268,8 +260,6 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
     display: grid
     gap: 1rem
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr
-  &__price
-    font-size: 2rem
   &__img
     &_shadow
       box-shadow: 0px 15px 20px 0px $b-50

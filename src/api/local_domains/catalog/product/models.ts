@@ -194,7 +194,6 @@ export class CharacteristicModel {
   public filter     : FilterModel
 
   constructor(data: Partial<CharacteristicModel> = {}) {
-    console.log('CharacteristicModel');
     
     this.id          = toNum(data.id)
     this.filter_id   = toNum(data.filter_id)
@@ -220,9 +219,6 @@ export class OptionModel {
   public default_count: number
 
   constructor(data: Partial<OptionModel> = {}) {
-    console.log('Option');
-    console.log(toNum(data.count, data.default_count));
-
     this.id            = toNum(data.id)
     this.product_id    = toNum(data.product_id)
     this.count         = toNum(data.count, data.default_count)
