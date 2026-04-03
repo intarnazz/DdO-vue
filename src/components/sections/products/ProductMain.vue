@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { product, user } from '@/api/api'
+import Product from '@/api/local_domains/catalog/product/product.model'
 import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
@@ -156,11 +157,15 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
           <div class="box-x js gap-4">
             <div class="box-y box br p-2">
               <ProductPrice :price="product.product.price" />
-              <p>комплект</p>
+              <p>полотно</p>
             </div>
 
-            <div class="box-y box br p-2">
-              <ProductPrice :price="product.product.price" />
+            <div
+              v-if="product.product.price !== product.product.total_price"
+              class="box-y box br p-2"
+            >
+              <!-- TODO: анимация -->
+              <ProductPrice :price="product.product.total_price" />
               <p>комплект</p>
             </div>
           </div>
@@ -206,9 +211,10 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
                 v-if="p.id !== product.product.id"
                 :product="{
                   //TODO: computed
-                  ...product.product.object,
-                  ...p,
-                  variant: product.product.object.variant,
+                  ...new Product(p).object,
+                  variant: product.product.variant,
+                  characteristics: product.product.characteristics,
+                  type: product.product.type,
                 }"
               >
                 <ProductColor :colors="p.colors" :is_active="false" />

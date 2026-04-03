@@ -3,15 +3,16 @@ import IconChevronLeft from '@/components/icons/IconChevronLeft.vue'
 import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import { computed } from 'vue'
 
-const { count } = defineProps<{
+const { count, min = 0 } = defineProps<{
   count: number
+  min?: number
 }>()
 
 const emit = defineEmits<{
   set_count: [value: number]
 }>()
 
-const has_count = computed<boolean>(() => count > 0)
+const has_count = computed<boolean>(() => count > min)
 const set_count = (number: number) => emit('set_count', number)
 </script>
 

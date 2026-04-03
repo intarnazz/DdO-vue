@@ -289,6 +289,8 @@ export interface ProductType extends DefaultProductType {
   /** Флаг нахождения продукта в избранном текущего пользователя */
   object: DefaultProductType
 
+  total_price: number
+
   is_favorite: boolean
   /** Метод загрузки данных продукта по идентификатору */
   init       : Init

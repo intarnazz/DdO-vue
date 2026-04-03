@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import Rest from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
 import user from '@/storage/user'
@@ -64,6 +64,14 @@ class Product {
   private data              : DefaultProductType // prettier-ignore
   private rest              : Rest // prettier-ignore
   private promise_controller: PromiseController // prettier-ignore
+
+  private _total_price = computed(() => {
+    let price = 0
+    this.options.forEach((o) => {
+      price += o.default_count * o.price
+    })
+    return price + this.price
+  })
 
   /**
    * Создаёт экземпляр модели продукта.
@@ -245,6 +253,10 @@ class Product {
   /** Список характеристик продукта */
   public get characteristics(): CharacteristicModel[] {
     return this.data.characteristics
+  }
+
+  public get total_price(): number {
+    return this._total_price.value
   }
 }
 

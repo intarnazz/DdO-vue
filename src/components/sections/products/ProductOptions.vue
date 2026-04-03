@@ -9,13 +9,14 @@ import { computed, ref } from 'vue'
 
 const total_count = ref(1)
 
-const price = computed(() => {
+const total_price = computed(() => {
   let price = 0
   product.product.options.forEach((o) => {
     price += o.count * o.price
   })
-  return (price + product.product.price) * total_count.value
+  return price + product.product.price
 })
+const price = computed(() => total_price.value * total_count.value)
 
 const set_option_count = (option: Option, number: number) => (option.count = number)
 const set_total_count = (number: number) => (total_count.value += number)
@@ -41,7 +42,7 @@ const set_total_count = (number: number) => (total_count.value += number)
       <div class="box-y gap-4">
         <div class="box-x gap-4 js">
           <strong>общее количество:</strong>
-          <ComponentCount @set_count="set_total_count" :count="total_count" />
+          <ComponentCount @set_count="set_total_count" :count="total_count" :min="1" />
         </div>
         <div class="box-x gap-4 js">
           <strong>общая сумма:</strong>
