@@ -21,19 +21,19 @@ const set_option_count = (number: number) => emit('set_option_count', option_cou
 </script>
 
 <template>
-  <div class="br border option__item px-4 py-2 box-x gap-8">
+  <div class="br border option__item px-4 py-2 box-x gap-8 as">
     <div class="box-y gap-4">
       <strong> {{ option.name }}: </strong>
       <p class="c-sub">{{ option.description }}</p>
     </div>
-    <div class="box-y min-w-25 gap-4">
+    <div class="box-y min-w-25 gap-4 js">
       <strong> цена </strong>
       <p class="c-sub">
         <ComponentRecolorText :match="/[pPрР]/g" :text="price(option.price)" />
       </p>
     </div>
 
-    <div class="box-y min-w-35 gap-4">
+    <div class="box-y min-w-35 gap-4 js">
       <strong> количество </strong>
       <div class="box-x">
         <button :disabled="!has_option_count" @click="set_option_count(-1)">
@@ -48,7 +48,7 @@ const set_option_count = (number: number) => emit('set_option_count', option_cou
       </div>
     </div>
 
-    <div class="box-y gap-4 min-w-25 items-end">
+    <div class="box-y gap-4 min-w-25 items-end js">
       <strong> итого </strong>
       <p class="c-sub">
         <ComponentRecolorText :match="/[pPрР]/g" :text="price(option.price * option_count)" />

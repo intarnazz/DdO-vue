@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { product as api_product } from '@/api/api'
+import { product as api_product, type } from '@/api/api'
 import { RouterLink } from 'vue-router'
 import { DefaultProductType } from '@/api/local_domains/catalog/product/types'
 
@@ -18,7 +18,7 @@ function set_product() {
     :to="{
       name: 'product',
       params: {
-        type: api_product.product.type.name,
+        type: api_product.product.type.name || type.type.name,
         model: product.variant.name,
         id: product.id,
         name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),

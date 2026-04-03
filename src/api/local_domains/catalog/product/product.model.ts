@@ -3,19 +3,19 @@ import type { ComputedRef } from 'vue'
 import Rest from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
 import user from '@/storage/user'
-import BaseModel from '@/models/baseModel'
-import type {
-  Image,
-  Color,
-  Variant,
-  ProductCategory,
-  Tag,
-  Brand,
-  Characteristic,
-  Option,
-  DefaultProductType,
-  Init,
-} from './types'
+import type { DefaultProductType, Init } from './types'
+import { toNum, toStr } from '@/utilte/utilte'
+import {
+  buildArray,
+  ImageModel,
+  ColorModel,
+  VariantModel,
+  ProductCategoryModel,
+  TagModel,
+  BrandModel,
+  OptionModel,
+  CharacteristicModel,
+} from './models'
 
 /**
  * Модель продукта.
@@ -29,7 +29,7 @@ import type {
  * await p.init(1) // загрузка свежих данных с сервера
  * ```
  */
-class Product extends BaseModel {
+class Product {
   private data              : DefaultProductType // prettier-ignore
   private data_c            : ComputedRef<DefaultProductType> // prettier-ignore
   private rest              : Rest // prettier-ignore
@@ -40,41 +40,37 @@ class Product extends BaseModel {
    * @param product - Исходный объект с данными продукта (может быть пустым)
    */
   constructor(product: Partial<DefaultProductType> = {}) {
-    super()
-
-    console.log(product)
-
     this.rest = new Rest('product')
     this.promise_controller = new PromiseController()
 
     // prettier-ignore
     this.data = reactive({
-      id                : this.toNum(product.id),
-      type_id           : this.toNum(product.type_id),
-      tag_id            : this.toNum(product.tag_id),
-      variant_id        : this.toNum(product.variant_id),
-      brand_id          : this.toNum(product.brand_id),
-      image_primary_id  : this.toNum(product.image_primary_id),
-      image_secondary_id: this.toNum(product.image_secondary_id),
-      views             : this.toNum(product.views),
-      price             : this.toNum(product.price),
-      discount          : this.toNum(product.discount),
-      is_stock          : Boolean(product.is_stock),
-      is_in_store       : Boolean(product.is_in_store),
-      name              : this.toStr(product.name),
-      description       : this.toStr(product.description),
-      video_url         : this.toStr(product.video_url),
-      article           : this.toStr(product.article),
-      image_primary     : product.image_primary   ?? {} as Image,
-      image_secondary   : product.image_secondary ?? {} as Image,
-      variant           : product.variant         ?? {} as Variant,
-      type              : product.type            ?? {} as ProductCategory,
-      tag               : product.tag             ?? {} as Tag,
-      brand             : product.brand           ?? {} as Brand,
-      colors            : product.colors          ?? [] as Color[],
-      images            : product.images          ?? [] as Image[],
-      options           : product.options         ?? [] as Option[],
-      characteristics   : product.characteristics ?? [] as Characteristic[],
+      id                 : toNum(product.id),
+      type_id            : toNum(product.type_id),
+      tag_id             : toNum(product.tag_id),
+      variant_id         : toNum(product.variant_id),
+      brand_id           : toNum(product.brand_id),
+      image_primary_id   : toNum(product.image_primary_id),
+      image_secondary_id : toNum(product.image_secondary_id),
+      views              : toNum(product.views),
+      price              : toNum(product.price),
+      discount           : toNum(product.discount),
+      is_stock           : Boolean(product.is_stock),
+      is_in_store        : Boolean(product.is_in_store),
+      name               : toStr(product.name),
+      description        : toStr(product.description),
+      video_url          : toStr(product.video_url),
+      article            : toStr(product.article),
+      image_primary      : new ImageModel(product.image_primary),
+      image_secondary    : new ImageModel(product.image_secondary),
+      variant            : new VariantModel(product.variant),
+      type               : new ProductCategoryModel(product.type),
+      tag                : new TagModel(product.tag),
+      brand              : new BrandModel(product.brand),
+      colors             : buildArray(ColorModel,          product.colors),
+      images             : buildArray(ImageModel,          product.images),
+      options            : buildArray(OptionModel,         product.options),
+      characteristics    : buildArray(CharacteristicModel, product.characteristics),
     })
 
     this.data_c = computed(() => this.data)
@@ -120,72 +116,72 @@ class Product extends BaseModel {
 
   /** Уникальный идентификатор продукта */
   public get id(): number {
-    return this.data_c.value.id || 0
+    return this.data_c.value.id
   }
 
   /** Идентификатор типа/категории продукта */
   public get type_id(): number {
-    return this.data_c.value.type_id || 0
+    return this.data_c.value.type_id
   }
 
   /** Идентификатор тега продукта */
   public get tag_id(): number {
-    return this.data_c.value.tag_id || 0
+    return this.data_c.value.tag_id
   }
 
   /** Идентификатор варианта продукта */
   public get variant_id(): number {
-    return this.data_c.value.variant_id || 0
+    return this.data_c.value.variant_id
   }
 
   /** Идентификатор бренда продукта */
   public get brand_id(): number {
-    return this.data_c.value.brand_id || 0
+    return this.data_c.value.brand_id
   }
 
   /** Идентификатор основного изображения продукта */
   public get image_primary_id(): number {
-    return this.data_c.value.image_primary_id || 0
+    return this.data_c.value.image_primary_id
   }
 
   /** Идентификатор вторичного изображения продукта */
   public get image_secondary_id(): number {
-    return this.data_c.value.image_secondary_id || 0
+    return this.data_c.value.image_secondary_id
   }
 
   /** Название продукта */
   public get name(): string {
-    return this.data_c.value.name || ''
+    return this.data_c.value.name
   }
 
   /** Описание продукта */
   public get description(): string {
-    return this.data_c.value.description || ''
+    return this.data_c.value.description
   }
 
   /** Ссылка на видео продукта */
   public get video_url(): string {
-    return this.data_c.value.video_url || ''
+    return this.data_c.value.video_url
   }
 
   /** Количество просмотров продукта */
   public get views(): number {
-    return this.data_c.value.views || 0
+    return this.data_c.value.views
   }
 
   /** Цена продукта */
   public get price(): number {
-    return this.data_c.value.price || 0
+    return this.data_c.value.price
   }
 
   /** Скидка на продукт */
   public get discount(): number {
-    return this.data_c.value.discount || 0
+    return this.data_c.value.discount
   }
 
   /** Артикул продукта */
   public get article(): string {
-    return this.data_c.value.article || ''
+    return this.data_c.value.article
   }
 
   /** Наличие на складе */
@@ -199,53 +195,53 @@ class Product extends BaseModel {
   }
 
   /** Основное изображение продукта */
-  public get image_primary(): Image {
-    return this.data_c.value.image_primary || null
+  public get image_primary(): ImageModel {
+    return this.data_c.value.image_primary
   }
 
   /** Вторичное изображение продукта */
-  public get image_secondary(): Image {
-    return this.data_c.value.image_secondary || null
+  public get image_secondary(): ImageModel {
+    return this.data_c.value.image_secondary
   }
 
   /** Вариант продукта */
-  public get variant(): Variant {
-    return this.data_c.value.variant || null
+  public get variant(): VariantModel {
+    return this.data_c.value.variant
   }
 
   /** Категория продукта */
-  public get type(): ProductCategory {
-    return this.data_c.value.type || null
+  public get type(): ProductCategoryModel {
+    return this.data_c.value.type
   }
 
   /** Тег продукта */
-  public get tag(): Tag {
-    return this.data_c.value.tag || null
+  public get tag(): TagModel {
+    return this.data_c.value.tag
   }
 
   /** Бренд продукта */
-  public get brand(): Brand {
-    return this.data_c.value.brand || null
+  public get brand(): BrandModel {
+    return this.data_c.value.brand
   }
 
   /** Список цветов продукта */
-  public get colors(): Color[] {
-    return this.data_c.value.colors || []
+  public get colors(): ColorModel[] {
+    return this.data_c.value.colors
   }
 
   /** Список дополнительных изображений продукта */
-  public get images(): Image[] {
-    return this.data_c.value.images || []
+  public get images(): ImageModel[] {
+    return this.data_c.value.images
   }
 
   /** Список опций продукта */
-  public get options(): Option[] {
-    return this.data_c.value.options || []
+  public get options(): OptionModel[] {
+    return this.data_c.value.options
   }
 
   /** Список характеристик продукта */
-  public get characteristics(): Characteristic[] {
-    return this.data_c.value.characteristics || []
+  public get characteristics(): CharacteristicModel[] {
+    return this.data_c.value.characteristics
   }
 }
 

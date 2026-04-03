@@ -136,8 +136,6 @@ class Query {
   }
 
   update(saved: LocationQuery) {
-    console.log('update')
-
     const query = Object.fromEntries(
       Object.entries(saved)
         .filter(([, v]) => v !== null)
