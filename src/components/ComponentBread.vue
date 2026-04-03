@@ -12,7 +12,6 @@ const type_visible_name: Ref<string> = ref(
   product.product.type.visible_name || type.type.visible_name || '',
 )
 // [ ]: каталог
-// [ ]: модели продукта
 
 const set_type_name = (new_type_name: string | null | undefined) => {
   if (new_type_name) type_name.value = new_type_name
