@@ -36,7 +36,6 @@ const rest = new Rest('product')
  */
 class ProductService {
   private data  : ProductServiceType // prettier-ignore
-  private data_c: ComputedRef<ProductServiceType> // prettier-ignore
 
   /** Текущий выбранный продукт */
   private _product: ShallowRef<ProductType> // prettier-ignore
@@ -72,7 +71,6 @@ class ProductService {
       pagingInfo: { limit: 0, offset: 0, totalCount: 0 } as PagingInfo,
       meta: { price: { min: 0, max: 0 } } as ProductMeta,
     })
-    this.data_c = computed(() => this.data)
 
     this._page_count = computed(() => Math.ceil(this.pagingInfo.totalCount / filter.limit))
     this._pages = computed(() => Array.from({ length: this.page_count }, (_, i) => i + 1))
@@ -144,24 +142,24 @@ class ProductService {
    * Мета-данные последней выборки (например, диапазон цен).
    */
   public get meta(): ProductMeta {
-    return this.data_c.value.meta
+    return this.data.meta
   }
 
   /** @internal */
   private set meta(meta: ProductMeta) {
-    Object.assign(this.data_c.value.meta, meta)
+    Object.assign(this.data.meta, meta)
   }
 
   /**
    * Информация о пагинации последней выборки (totalCount, offset и т.д.).
    */
   public get pagingInfo(): PagingInfo {
-    return this.data_c.value.pagingInfo
+    return this.data.pagingInfo
   }
 
   /** @internal */
   private set pagingInfo(pagingInfo: PagingInfo) {
-    Object.assign(this.data_c.value.pagingInfo, pagingInfo)
+    Object.assign(this.data.pagingInfo, pagingInfo)
   }
 
   /**
@@ -221,13 +219,13 @@ class ProductService {
    * Список продуктов текущей страницы.
    */
   public get products(): ProductType[] {
-    return this.data_c.value.products
+    return this.data.products
   }
 
   /** @internal */
   private set products(products: ProductType[]) {
     const raw = products.map((p) => markRaw(p))
-    this.data_c.value.products.splice(0, this.data_c.value.products.length, ...raw)
+    this.data.products.splice(0, this.data.products.length, ...raw)
   }
 }
 

@@ -1,5 +1,4 @@
-import { reactive, computed } from 'vue'
-import type { ComputedRef } from 'vue'
+import { reactive } from 'vue'
 import Rest from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
 import user from '@/storage/user'
@@ -63,7 +62,6 @@ function buildProduct(product: Partial<DefaultProductType>): DefaultProductType 
  */
 class Product {
   private data              : DefaultProductType // prettier-ignore
-  private data_c            : ComputedRef<DefaultProductType> // prettier-ignore
   private rest              : Rest // prettier-ignore
   private promise_controller: PromiseController // prettier-ignore
 
@@ -77,7 +75,6 @@ class Product {
 
     // prettier-ignore
     this.data = reactive(buildProduct(product))
-    this.data_c = computed(() => this.data)
   }
 
   /**
@@ -93,13 +90,13 @@ class Product {
     if (res === false) return
     if (!res.success) return
 
-    Object.assign(this.data_c.value, buildProduct(res.data))
+    Object.assign(this.data, buildProduct(res.data))
 
-    this.data_c.value.options = buildArray(OptionModel, this.data_c.value.options)
+    this.data.options = buildArray(OptionModel, this.data.options)
   }
 
   public get object() {
-    return this.data_c.value
+    return this.data
   }
 
   /**
@@ -122,132 +119,132 @@ class Product {
 
   /** Уникальный идентификатор продукта */
   public get id(): number {
-    return this.data_c.value.id
+    return this.data.id
   }
 
   /** Идентификатор типа/категории продукта */
   public get type_id(): number {
-    return this.data_c.value.type_id
+    return this.data.type_id
   }
 
   /** Идентификатор тега продукта */
   public get tag_id(): number {
-    return this.data_c.value.tag_id
+    return this.data.tag_id
   }
 
   /** Идентификатор варианта продукта */
   public get variant_id(): number {
-    return this.data_c.value.variant_id
+    return this.data.variant_id
   }
 
   /** Идентификатор бренда продукта */
   public get brand_id(): number {
-    return this.data_c.value.brand_id
+    return this.data.brand_id
   }
 
   /** Идентификатор основного изображения продукта */
   public get image_primary_id(): number {
-    return this.data_c.value.image_primary_id
+    return this.data.image_primary_id
   }
 
   /** Идентификатор вторичного изображения продукта */
   public get image_secondary_id(): number {
-    return this.data_c.value.image_secondary_id
+    return this.data.image_secondary_id
   }
 
   /** Название продукта */
   public get name(): string {
-    return this.data_c.value.name
+    return this.data.name
   }
 
   /** Описание продукта */
   public get description(): string {
-    return this.data_c.value.description
+    return this.data.description
   }
 
   /** Ссылка на видео продукта */
   public get video_url(): string {
-    return this.data_c.value.video_url
+    return this.data.video_url
   }
 
   /** Количество просмотров продукта */
   public get views(): number {
-    return this.data_c.value.views
+    return this.data.views
   }
 
   /** Цена продукта */
   public get price(): number {
-    return this.data_c.value.price
+    return this.data.price
   }
 
   /** Скидка на продукт */
   public get discount(): number {
-    return this.data_c.value.discount
+    return this.data.discount
   }
 
   /** Артикул продукта */
   public get article(): string {
-    return this.data_c.value.article
+    return this.data.article
   }
 
   /** Наличие на складе */
   public get is_stock(): boolean {
-    return this.data_c.value.is_stock
+    return this.data.is_stock
   }
 
   /** Наличие в физическом магазине */
   public get is_in_store(): boolean {
-    return this.data_c.value.is_in_store
+    return this.data.is_in_store
   }
 
   /** Основное изображение продукта */
   public get image_primary(): ImageModel {
-    return this.data_c.value.image_primary
+    return this.data.image_primary
   }
 
   /** Вторичное изображение продукта */
   public get image_secondary(): ImageModel {
-    return this.data_c.value.image_secondary
+    return this.data.image_secondary
   }
 
   /** Вариант продукта */
   public get variant(): VariantModel {
-    return this.data_c.value.variant
+    return this.data.variant
   }
 
   /** Категория продукта */
   public get type(): ProductCategoryModel {
-    return this.data_c.value.type
+    return this.data.type
   }
 
   /** Тег продукта */
   public get tag(): TagModel {
-    return this.data_c.value.tag
+    return this.data.tag
   }
 
   /** Бренд продукта */
   public get brand(): BrandModel {
-    return this.data_c.value.brand
+    return this.data.brand
   }
 
   /** Список цветов продукта */
   public get colors(): ColorModel[] {
-    return this.data_c.value.colors
+    return this.data.colors
   }
 
   /** Список дополнительных изображений продукта */
   public get images(): ImageModel[] {
-    return this.data_c.value.images
+    return this.data.images
   }
 
   /** Список опций продукта */
   public get options(): OptionModel[] {
-    return this.data_c.value.options
+    return this.data.options
   }
 
   /** Список характеристик продукта */
   public get characteristics(): CharacteristicModel[] {
-    return this.data_c.value.characteristics
+    return this.data.characteristics
   }
 }
 
