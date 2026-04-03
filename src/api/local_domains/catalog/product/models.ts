@@ -194,35 +194,44 @@ export class CharacteristicModel {
   public filter     : FilterModel
 
   constructor(data: Partial<CharacteristicModel> = {}) {
+    console.log('CharacteristicModel');
+    
     this.id          = toNum(data.id)
     this.filter_id   = toNum(data.filter_id)
     this.image_id    = toNum(data.image_id)
+    this.is_visible  = Boolean(data.is_visible)
     this.name        = toStr(data.name)
     this.description = toStr(data.description)
-    this.is_visible  = Boolean(data.is_visible)
     this.image       = new ImageModel(data.image   ?? {})
     this.filter      = new FilterModel(data.filter ?? {})
   }
 }
 
 export class OptionModel {
-  public id         : number
-  public product_id : number
-  public image_id   : number | null
-  public name       : string
-  public description: string
-  public price      : number
-  public image      : ImageModel | null
-  public count      : number | undefined
+  public id           : number
+  public product_id   : number
+  public image_id     : number | null
+  public name         : string
+  public description  : string
+  public price        : number
+  public image        : ImageModel | null
+  public count        : number
+  public is_set       : boolean
+  public default_count: number
 
   constructor(data: Partial<OptionModel> = {}) {
-    this.id          = toNum(data.id)
-    this.product_id  = toNum(data.product_id)
-    this.image_id    = data.image_id != null ? toNum(data.image_id) : null
-    this.name        = toStr(data.name)
-    this.description = toStr(data.description)
-    this.price       = toNum(data.price)
-    this.image       = data.image != null ? new ImageModel(data.image) : null
-    this.count       = data.count != null ? toNum(data.count) : undefined
+    console.log('Option');
+    console.log(toNum(data.count, data.default_count));
+
+    this.id            = toNum(data.id)
+    this.product_id    = toNum(data.product_id)
+    this.count         = toNum(data.count, data.default_count)
+    this.price         = toNum(data.price)
+    this.default_count = toNum(data.default_count)
+    this.image_id      = toNum(data.image_id)
+    this.is_set        = Boolean(data.is_set)
+    this.name          = toStr(data.name)
+    this.description   = toStr(data.description)
+    this.image         = new ImageModel(data.image ?? {})
   }
 }

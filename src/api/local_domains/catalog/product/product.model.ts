@@ -17,6 +17,38 @@ import {
   CharacteristicModel,
 } from './models'
 
+function buildProduct(product: Partial<DefaultProductType>): DefaultProductType {
+  // prettier-ignore
+  return {
+    id                : toNum(product.id),
+    type_id           : toNum(product.type_id),
+    tag_id            : toNum(product.tag_id),
+    variant_id        : toNum(product.variant_id),
+    brand_id          : toNum(product.brand_id),
+    image_primary_id  : toNum(product.image_primary_id),
+    image_secondary_id: toNum(product.image_secondary_id),
+    views             : toNum(product.views),
+    price             : toNum(product.price),
+    discount          : toNum(product.discount),
+    is_stock          : Boolean(product.is_stock),
+    is_in_store       : Boolean(product.is_in_store),
+    name              : toStr(product.name),
+    description       : toStr(product.description),
+    video_url         : toStr(product.video_url),
+    article           : toStr(product.article),
+    image_primary     : new ImageModel(product.image_primary),
+    image_secondary   : new ImageModel(product.image_secondary),
+    variant           : new VariantModel(product.variant),
+    type              : new ProductCategoryModel(product.type),
+    tag               : new TagModel(product.tag),
+    brand             : new BrandModel(product.brand),
+    colors            : buildArray(ColorModel, product.colors),
+    images            : buildArray(ImageModel, product.images),
+    options           : buildArray(OptionModel, product.options),
+    characteristics   : buildArray(CharacteristicModel, product.characteristics),
+  }
+}
+
 /**
  * Модель продукта.
  *
@@ -44,35 +76,7 @@ class Product {
     this.promise_controller = new PromiseController()
 
     // prettier-ignore
-    this.data = reactive({
-      id                 : toNum(product.id),
-      type_id            : toNum(product.type_id),
-      tag_id             : toNum(product.tag_id),
-      variant_id         : toNum(product.variant_id),
-      brand_id           : toNum(product.brand_id),
-      image_primary_id   : toNum(product.image_primary_id),
-      image_secondary_id : toNum(product.image_secondary_id),
-      views              : toNum(product.views),
-      price              : toNum(product.price),
-      discount           : toNum(product.discount),
-      is_stock           : Boolean(product.is_stock),
-      is_in_store        : Boolean(product.is_in_store),
-      name               : toStr(product.name),
-      description        : toStr(product.description),
-      video_url          : toStr(product.video_url),
-      article            : toStr(product.article),
-      image_primary      : new ImageModel(product.image_primary),
-      image_secondary    : new ImageModel(product.image_secondary),
-      variant            : new VariantModel(product.variant),
-      type               : new ProductCategoryModel(product.type),
-      tag                : new TagModel(product.tag),
-      brand              : new BrandModel(product.brand),
-      colors             : buildArray(ColorModel,          product.colors),
-      images             : buildArray(ImageModel,          product.images),
-      options            : buildArray(OptionModel,         product.options),
-      characteristics    : buildArray(CharacteristicModel, product.characteristics),
-    })
-
+    this.data = reactive(buildProduct(product))
     this.data_c = computed(() => this.data)
   }
 
@@ -89,7 +93,9 @@ class Product {
     if (res === false) return
     if (!res.success) return
 
-    Object.assign(this.data_c.value, res.data)
+    Object.assign(this.data_c.value, buildProduct(res.data))
+
+    this.data_c.value.options = buildArray(OptionModel, this.data_c.value.options)
   }
 
   public get object() {

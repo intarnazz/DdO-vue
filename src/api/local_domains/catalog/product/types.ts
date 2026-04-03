@@ -207,7 +207,11 @@ export interface Option {
   /** Объект изображения опции (null, если отсутствует) */
   image     : Image | null
 
-  count     : number | undefined
+  count     : number
+
+  is_set    : boolean
+
+  default_count    : number
 }
 
 /**

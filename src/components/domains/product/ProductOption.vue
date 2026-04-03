@@ -14,10 +14,8 @@ const emit = defineEmits<{
   set_option_count: [value: number]
 }>()
 
-const option_count = computed<number>(() => option.count || 0)
-const has_option_count = computed<boolean>(() => option_count.value > 0)
-
-const set_option_count = (number: number) => emit('set_option_count', option_count.value + number)
+const has_option_count = computed<boolean>(() => option.count > 0)
+const set_option_count = (number: number) => emit('set_option_count', option.count + number)
 </script>
 
 <template>
@@ -33,25 +31,29 @@ const set_option_count = (number: number) => emit('set_option_count', option_cou
       </p>
     </div>
 
-    <div class="box-y min-w-35 gap-4 js">
+    <div class="box-y min-w-40 gap-4 js">
       <strong> количество </strong>
-      <div class="box-x">
-        <button :disabled="!has_option_count" @click="set_option_count(-1)">
-          <IconChevronLeft />
-        </button>
-        <span class="c-main"> × </span>
-        {{ option_count }}
-        <button @click="set_option_count(1)">
-          <IconChevronRight />
-        </button>
-        <p class="c-sub">штук</p>
+      <div class="box-x gap-2 js">
+        <div class="box-x gap-2">
+          <button :disabled="!has_option_count" @click="set_option_count(-1)">
+            <IconChevronLeft />
+          </button>
+          <span class="c-main"> × </span>
+          {{ option.count }}
+          <button @click="set_option_count(1)">
+            <IconChevronRight />
+          </button>
+        </div>
+
+        <p v-if="option.is_set" class="c-sub">комплект</p>
+        <p v-else class="c-sub">штук</p>
       </div>
     </div>
 
     <div class="box-y gap-4 min-w-25 items-end js">
       <strong> итого </strong>
       <p class="c-sub">
-        <ComponentRecolorText :match="/[pPрР]/g" :text="price(option.price * option_count)" />
+        <ComponentRecolorText :match="/[pPрР]/g" :text="price(option.price * option.count)" />
       </p>
     </div>
   </div>
