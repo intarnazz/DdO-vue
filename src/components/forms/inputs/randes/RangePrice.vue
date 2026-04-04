@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { product, filter } from '@/api/api'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { price } from '@/utilte/utilte'
 import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
 
@@ -16,8 +16,7 @@ function roundUp(value: number) {
  * @type {ComputedRef<number>}
  * @default 0
  */
-const _min = computed(() => product.meta?.price.min ?? 0)
-const min = computed(() => roundUp(_min.value))
+const min = computed(() => roundUp(product.meta.price.min))
 
 /**
  * Максимальная цена товаров (берётся из мета-данных API).
@@ -25,12 +24,14 @@ const min = computed(() => roundUp(_min.value))
  * @type {ComputedRef<number>}
  * @default 0
  */
-const _max = computed(() => product.meta?.price.max ?? 0)
-const max = computed(() => roundUp(_max.value))
+const max = computed(() => roundUp(product.meta.price.max))
 
-function _range_init() {
-  return roundUp(Number(filter.filters['price-max']) || max.value)
-}
+const _range = ref(0)
+const init = () => (_range.value = roundUp(Number(filter.filters['price-max']) || max.value))
+
+onMounted(() => {
+  init()
+})
 
 /**
  * Текущее выбранное значение максимальной цены (ползунок).
@@ -39,7 +40,6 @@ function _range_init() {
  *
  * @type {Ref<number>}
  */
-const _range = ref(_range_init())
 const range = computed(() => (_range.value != max.value ? String(_range.value) : undefined))
 
 /**
@@ -55,13 +55,13 @@ function rangeChange() {
 }
 
 watch(
-  [() => filter.filters['price-max'], () => product.meta.price.max, () => product.meta.price.min],
-  () => (_range.value = _range_init()),
+  () => filter.filters['price-max'],
+  () => init(),
 )
 </script>
 
 <template>
-  <div v-if="_range" class="input_box box-y gap-4 px-4 py-2">
+  <div v-if="max > 0" class="input_box box-y gap-4 px-4 py-2">
     <input @change="rangeChange" v-model="_range" :max="max" :min="min" step="5000" type="range" />
 
     <div class="box-x center">

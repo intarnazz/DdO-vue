@@ -14,6 +14,8 @@ import { RouteLocationNormalizedGeneric } from 'vue-router'
 async function init(route: RouteLocationNormalizedGeneric) {
   if (route.params.id) product.product.init(Number(route.params.id))
 }
+
+// FIXME: истиность id
 </script>
 
 <template>

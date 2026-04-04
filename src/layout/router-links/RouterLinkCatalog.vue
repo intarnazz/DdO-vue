@@ -1,27 +1,25 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { filter } from '@/api/api'
 import { Filters } from '@/api/local_domains/query/types'
-import { computed } from 'vue'
+import { filter } from '@/api/api'
 
-const { type_name, query: propsQuery } = defineProps<{
+const { type_name, type_id } = defineProps<{
+  type_id: number
   type_name: string
   query?: Filters
 }>()
-
-const query = computed(() => {
-  if (propsQuery) return { limit: filter.limit, ...propsQuery }
-  return filter.query
-})
 </script>
 
 <template>
   <RouterLink
-  v-if="type_name"
+    v-if="type_name"
     :to="{
       name: 'catalog',
-      params: { type: type_name },
-      query: query,
+      params: {
+        type: type_name,
+        id: type_id,
+      },
+      query: { limit: filter.limit },
     }"
   >
     <slot />

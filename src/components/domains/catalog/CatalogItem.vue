@@ -34,7 +34,7 @@ const is_equal = computed<boolean>(() => {
   return false
 })
 
-// [ ]: скидки
+// FIXME: скидки
 </script>
 
 <template>
