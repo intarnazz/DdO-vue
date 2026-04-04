@@ -24,6 +24,7 @@ import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
     </div>
     <div class="box-y center gap-4">
       <p class="c-sub">
+        <!-- TODO: !null -->
         для запроса:
         <span class="c-b">
           <ComponentHighlightText :text="filter.search" :search="filter.search" />
