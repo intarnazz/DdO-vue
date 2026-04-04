@@ -24,6 +24,7 @@ watch(
   () => route.query,
   () => filter.update(route.query),
 )
+// FIXME: watch type name
 </script>
 
 <template>

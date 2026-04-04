@@ -4,12 +4,14 @@ export const base64FromJson = (json: string): string => {
   return encodeURIComponent(btoa(binary))
 }
 
-export const toNum = (v: unknown, def: number = 0) => {
+export const toNum = (v: unknown, def: number = 0): number => {
   if (v == null) return def
   const number = Number(v)
   if (isNaN(number)) return def
   return number
 }
+
+export const toNumOrNull = (v: unknown): number | null => (v ? toNum(v) : null)
 
 export const toStr = (v: unknown, def: string = '') => (v != null ? String(v) : def)
 

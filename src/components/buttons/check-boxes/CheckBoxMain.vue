@@ -59,6 +59,7 @@ function send_active_filters_ids() {
       />
     </div>
     <span>
+      <!-- TODO: троеточий длинный name -->
       {{ props.content.name }}
     </span>
     <div class="flex"></div>

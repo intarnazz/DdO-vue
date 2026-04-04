@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { filter } from '@/api/api'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue';
 import { RouterLink } from 'vue-router'
@@ -12,15 +11,10 @@ import { RouterLink } from 'vue-router'
         <!-- <div class="box-x gap2">
         </div> -->
         <RouterLink :to="{ name: 'home' }" class="">Акции</RouterLink>
-        <RouterLinkCatalog
-
-          :type_name="`entrance-doors`"
-        >
-          Входные двери
-        </RouterLinkCatalog>
-        <RouterLink :to="{ name: 'home' }" class="">Межкомнотные двери</RouterLink>
-        <RouterLink :to="{ name: 'home' }" class="">Фурнитура</RouterLink>
-        <RouterLink :to="{ name: 'home' }" class="">Напольные покрытия</RouterLink>
+        <RouterLinkCatalog :type_name="`entrance-doors`">входные двери</RouterLinkCatalog>
+        <RouterLinkCatalog :type_name="`interior-doors`">межкомнотные двери</RouterLinkCatalog>
+        <RouterLink :to="{ name: 'home' }" class="">фурнитура</RouterLink>
+        <RouterLink :to="{ name: 'home' }" class="">напольные покрытия</RouterLink>
         <RouterLink :to="{ name: 'home' }" class="">мебель</RouterLink>
 
         <img class="h-6" src="@/assets/icons/search.svg" alt="search" />

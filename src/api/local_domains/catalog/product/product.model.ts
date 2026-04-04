@@ -3,7 +3,7 @@ import Rest from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
 import user from '@/storage/user'
 import type { DefaultProductType, Init } from './types'
-import { toNum, toStr } from '@/utilte/utilte'
+import { toNum, toNumOrNull, toStr } from '@/utilte/utilte'
 import {
   buildArray,
   ImageModel,
@@ -25,7 +25,7 @@ function buildProduct(product: Partial<DefaultProductType>): DefaultProductType 
     variant_id        : toNum(product.variant_id),
     brand_id          : toNum(product.brand_id),
     image_primary_id  : toNum(product.image_primary_id),
-    image_secondary_id: toNum(product.image_secondary_id),
+    image_secondary_id: toNumOrNull(product.image_secondary_id),
     views             : toNum(product.views),
     price             : toNum(product.price),
     discount          : toNum(product.discount),
@@ -36,7 +36,7 @@ function buildProduct(product: Partial<DefaultProductType>): DefaultProductType 
     video_url         : toStr(product.video_url),
     article           : toStr(product.article),
     image_primary     : new ImageModel(product.image_primary),
-    image_secondary   : new ImageModel(product.image_secondary),
+    image_secondary   : new ImageModel(product.image_secondary || undefined),
     variant           : new VariantModel(product.variant),
     type              : new ProductCategoryModel(product.type),
     tag               : new TagModel(product.tag),
@@ -156,7 +156,7 @@ class Product {
   }
 
   /** Идентификатор вторичного изображения продукта */
-  public get image_secondary_id(): number {
+  public get image_secondary_id(): number | null {
     return this.data.image_secondary_id
   }
 
@@ -211,7 +211,7 @@ class Product {
   }
 
   /** Вторичное изображение продукта */
-  public get image_secondary(): ImageModel {
+  public get image_secondary(): ImageModel | null {
     return this.data.image_secondary
   }
 
