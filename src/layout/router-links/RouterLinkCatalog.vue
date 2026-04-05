@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { Filters } from '@/api/local_domains/query/types'
 import { filter } from '@/api/api'
 
 const { type_name, type_id } = defineProps<{
   type_id: number
   type_name: string
-  query?: Filters
 }>()
 
 // const set_catalog = () => (type.type = { name: type_name, id: type_id })

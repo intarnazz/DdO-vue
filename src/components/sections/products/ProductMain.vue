@@ -69,7 +69,10 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
         </LayoutIcon>
 
         <div class="box-x gap-4 relative content center">
-          <button v-if="!user.interior_is_active.value" class="box-x relative h-132.5">
+          <button
+            v-if="!user.interior_is_active.value || !product.product.image_secondary"
+            class="box-x relative h-132.5"
+          >
             <ComponentImg
               @click="set_current_image(product.product.image_primary)"
               :class="{
@@ -79,7 +82,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
               :storage="product.product.image_primary.path"
             />
           </button>
-          <div class="box-x relative h-132.5">
+          <div v-if="product.product.image_secondary" class="box-x relative h-132.5">
             <ComponentImg
               @click="set_current_image(product.product.image_secondary)"
               :class="{
@@ -225,6 +228,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
         </div>
         <div class="box-x js">
           <RouterLinkCatalog
+            :type_id="product.product.type.id"
             :query="{
               brand: product.product.brand.id,
             }"
@@ -239,6 +243,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
         </div>
         <div class="box-x js">
           <RouterLinkCatalog
+            :type_id="product.product.type.id"
             :query="{
               variant: product.product.variant.id,
             }"
