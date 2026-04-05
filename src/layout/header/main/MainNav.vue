@@ -12,8 +12,9 @@ import { RouterLink } from 'vue-router'
         <nav class="box-x gap2 c-sub">
           <RouterLink :to="{ name: 'home' }">главная</RouterLink>
           <RouterLink :to="{ name: 'about-us' }">о нас</RouterLink>
+          <RouterLink :to="{ name: 'brands' }">бренды</RouterLink>
           <RouterLink :to="{ name: 'home' }">вакансии</RouterLink>
-          <RouterLink :to="{ name: 'home' }">Оплата и доставка</RouterLink>
+          <RouterLink :to="{ name: 'home' }">оплата и доставка</RouterLink>
           <RouterLink :to="{ name: 'home' }">контакты</RouterLink>
         </nav>
       </div>

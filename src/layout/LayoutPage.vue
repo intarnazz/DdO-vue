@@ -17,11 +17,12 @@ const { foo } = defineProps<{
 
 const route = useRoute()
 const isLoading = ref(true)
+const promise = ref<unknown>(null)
 
 async function init() {
   if (!foo) return
   isLoading.value = true
-  await foo(route)
+  promise.value = await foo(route)
   isLoading.value = false
 }
 
@@ -45,7 +46,7 @@ watch(
     <IconUp />
 
     <!-- Слот для вставки дочернего контента -->
-    <slot :isLoading="isLoading" />
+    <slot :isLoading="isLoading" :promise="promise" />
   </main>
 </template>
 

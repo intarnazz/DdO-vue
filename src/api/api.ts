@@ -18,5 +18,6 @@ import cart from './local_domains/cart/cart'
 // export const product = new Rest('product')
 export const contact = new Rest('contact')
 export const tag = new Rest('tag')
+export const brand = new Rest('brand')
 
 export { user, image, filter, product, type, cart }

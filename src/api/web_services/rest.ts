@@ -1,4 +1,3 @@
-import { an } from 'vue-router/dist/router-CWoNjPRp.mjs'
 import request from './request/request'
 import type { PostBody, GetOptions } from './request/request'
 
@@ -45,7 +44,7 @@ export default class Rest {
   public get<T = unknown>(
     id: string | number,
     header: GetOptions = {},
-  ): Promise<Record<string, any>> {
+  ): Promise<T> {
     return this.#request.get<T>(`${this.#prefix}/${id}`, header)
   }
 
@@ -58,7 +57,7 @@ export default class Rest {
    * @example
    * const products = await api.all<Product[]>({ limit: 10 })
    */
-  all<T = unknown>(data: GetOptions = {}): Promise<Record<string, any>> {
+  all<T = unknown>(data: GetOptions = {}): Promise<T> {
     return this.#request.get<T>(this.#prefix, data)
   }
 

@@ -45,20 +45,23 @@ watch(
 </script>
 
 <template>
-  <div v-if="type_name" class="box-x 2 w js gap-2">
+  <div class="box-x 2 w js gap-2">
     <p class="box-x gap-2"><ButtonGoBack /> <span class="c-main">///</span></p>
     <div class="box-x 2 flex js">
-      <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
+      <RouterLink class="a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
       <IconRight />
-      <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
+      <RouterLink class="a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
       <IconRight />
-      <template v-if="route.name === 'product'">
-        <RouterLinkCatalog class="c-sub a a_sub" :type_id="type_id" :type_name="type_name">
+      <template v-if="route.name === 'brands'">
+        <p>бренды</p>
+      </template>
+      <template v-else-if="route.name === 'product'">
+        <RouterLinkCatalog class="a a_sub" :type_id="type_id" :type_name="type_name">
           {{ type_visible_name }}
         </RouterLinkCatalog>
         <IconRight />
         <RouterLinkCatalog
-          class="c-sub a a_sub"
+          class="a a_sub"
           :type_id="type_id"
           :type_name="type_name"
           :query="{
@@ -68,11 +71,15 @@ watch(
           {{ product.product.variant.name }}
         </RouterLinkCatalog>
         <IconRight />
-        <p class="c-sub">{{ product.product.name }}</p>
+        <p class="">{{ product.product.name }}</p>
       </template>
-      <p v-else class="c-sub">{{ type_visible_name }}</p>
+      <p v-else>{{ type_visible_name }}</p>
     </div>
   </div>
 </template>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+p,
+a
+  +c-sub
+</style>
