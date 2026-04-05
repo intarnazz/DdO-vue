@@ -272,6 +272,7 @@ const interior_is_valid = ref(
           </RouterLinkCatalog>
         </div>
         <div class="box-x js">
+          <!-- TODO: фактически не отключаемый фильтр / сейчас отключение только серез global -->
           <RouterLinkCatalog
             :type_id="product.product.type.id"
             :query="{
