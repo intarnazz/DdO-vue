@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { filter, product as api_product } from '@/api/api'
-import { price as utilte_price } from '@/utilte/utilte'
+import { price as toStringPrice } from '@/utilte/utilte'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
@@ -16,7 +16,12 @@ const { product } = defineProps<{
   product: ProductType
 }>()
 
-const price = computed(() => utilte_price(product.price))
+const price_string = computed(() => toStringPrice(product.price))
+const price_discount = computed(() =>
+  Math.ceil(product.price - product.price * (product.discount / 100)),
+)
+const price_discount_string = computed(() => toStringPrice(price_discount.value))
+const has_price_discount = computed(() => product.discount > 0)
 
 const is_more = computed<boolean>(() => {
   if (api_product.comparison_product !== null)
@@ -33,12 +38,10 @@ const is_equal = computed<boolean>(() => {
     return product.price === api_product.comparison_product.price
   return false
 })
-
-// FIXME: скидки
 </script>
 
 <template>
-  <div class="catalog__item box-y center gap-4">
+  <div class="product box-y relative center gap-4">
     <RouterLinkProduct :product="product" class="box-y js">
       <p
         :class="{
@@ -51,14 +54,20 @@ const is_equal = computed<boolean>(() => {
       <div class="box-y center gap-4">
         <div class="box-x gap-2 content center">
           <div class="box-x relative h-67.5 max-h-67.5">
+            <div
+              v-if="has_price_discount"
+              class="absolute z-1 top-2 -left-2 px-2 py-1 bg-mark c-w shadow-xl"
+            >
+              - {{ product.discount }} %
+            </div>
             <ComponentImg
-              class="catalog__img object-cover h-full"
+              class="product__img object-cover h-full"
               :storage="product.image_primary.path"
             />
           </div>
-          <div class="box-x relative h-67.5 max-h-67.5">
+          <div v-if="product.image_secondary" class="box-x relative h-67.5 max-h-67.5">
             <ComponentImg
-              class="catalog__img object-cover h-full"
+              class="product__img object-cover h-full"
               :storage="product.image_secondary.path"
             />
           </div>
@@ -66,12 +75,21 @@ const is_equal = computed<boolean>(() => {
         <h3>
           <ComponentHighlightText :text="product.name" :search="filter.search" />
         </h3>
-        <div class="catalog__price box-x gap-2">
-          <p v-if="is_less">
-            <ComponentHighlightText :text="price" :search="price" />
+        <div class="product__price box-x gap-2">
+          <p v-if="has_price_discount" class="px-2 bg-mark c-w">
+            {{ price_discount_string }}
           </p>
-          <p v-else>
-            {{ price }}
+
+          <p v-if="is_less">
+            <ComponentHighlightText :text="price_string" :search="price_string" />
+          </p>
+          <p
+            v-else
+            :class="{
+              product__price_del: has_price_discount,
+            }"
+          >
+            {{ price_string }}
           </p>
 
           <template v-if="api_product.comparison_product !== null">
@@ -98,11 +116,14 @@ const is_equal = computed<boolean>(() => {
 
 <style lang="sass" scoped>
 //
-.catalog
+.product
   &__price
     color: $b
     font-weight: 700
-    font-family: 'Noto Sans'
+    &_del
+      +c-sub
+      font-weight: 400
+      text-decoration: line-through;
   &__img
     box-shadow: 0px 15px 20px 0px $b-50
 </style>
