@@ -18,7 +18,7 @@ function set_product() {
     :to="{
       name: 'product',
       params: {
-        type: api_product.product.type.name || type.type.name,
+        type: type.type.name || api_product.product.type.name,
         model: product.variant.name,
         id: product.id,
         name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),

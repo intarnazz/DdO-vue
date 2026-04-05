@@ -42,6 +42,7 @@ watch(
   () => type.type.visible_name,
   (n) => set_type_visible_name(n),
 )
+// FIXME: сыллка на модель
 </script>
 
 <template>

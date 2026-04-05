@@ -19,6 +19,9 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import { title } from '@/utilte/utilte'
 import { computed, Ref, ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const size_characteristics = computed(() =>
   //[ ]: component
@@ -39,6 +42,10 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
   current_image.value = image
   index.value = key
 }
+
+const interior_is_valid = ref(
+  route.params.type === 'entrance-doors' || route.params.type === 'interior-doors',
+)
 </script>
 
 <template>
@@ -61,6 +68,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
             class="absolute top-0 left-0 h-162.5 w-full -mt-8"
           >
             <img
+              v-if="interior_is_valid"
               class="h-full img br"
               src="@/assets/img/product_image_bg.jpg"
               alt="product_image_bg"
@@ -121,12 +129,12 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
 
         <div class="product__button-wrapper box-x js gap-8">
           <ButtonFavorite :product="product.product" />
-          <ButtonInterior />
+          <ButtonInterior v-if="interior_is_valid" />
           <ButtonComparison :product="product.product" />
         </div>
 
         <div class="product__bitton-cart-box box-y border p-4 gap-8">
-          <div class="box-y gap-4">
+          <div v-if="size_characteristics.length" class="box-y gap-4">
             <div class="box-x js gap-8">
               <strong> размер блока </strong>
               <RouterLink
@@ -167,6 +175,8 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
               v-if="product.product.price !== product.product.total_price"
               class="box-y box br p-2"
             >
+              <!-- [ ]: выбор -->
+              <!-- TODO: анимация -->
               <!-- TODO: анимация -->
               <ProductPrice :price="product.product.total_price" />
               <p>комплект</p>
