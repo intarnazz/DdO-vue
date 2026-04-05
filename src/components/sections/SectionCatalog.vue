@@ -6,8 +6,8 @@ import AsideFilters from '@/components/asides/AsideFilters.vue'
 import CatalogOrder from '@/components/domains/catalog/CatalogOrder.vue'
 import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vue'
 import FormSearch from '@/components/forms/FormSearch.vue'
-import ComponentLoader from '@/components/ComponentLoader.vue'
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
+import ComponentLoader404 from '@/components/ComponentLoader404.vue'
 // TODO: hover item
 </script>
 
@@ -59,7 +59,7 @@ import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
         </div>
 
         <div v-else class="box-x center w">
-          <ComponentLoader />
+          <ComponentLoader404 />
         </div>
         <div class="center">
           <CatalogPagination />
