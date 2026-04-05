@@ -42,7 +42,6 @@ watch(
   () => type.type.visible_name,
   (n) => set_type_visible_name(n),
 )
-// FIXME: сыллка на модель
 </script>
 
 <template>
@@ -58,9 +57,16 @@ watch(
           {{ type_visible_name }}
         </RouterLinkCatalog>
         <IconRight />
-        <RouterLink class="c-sub a a_sub" :to="{ name: 'home' }">
+        <RouterLinkCatalog
+          class="c-sub a a_sub"
+          :type_id="type_id"
+          :type_name="type_name"
+          :query="{
+            variant: product.product.variant.id,
+          }"
+        >
           {{ product.product.variant.name }}
-        </RouterLink>
+        </RouterLinkCatalog>
         <IconRight />
         <p class="c-sub">{{ product.product.name }}</p>
       </template>
