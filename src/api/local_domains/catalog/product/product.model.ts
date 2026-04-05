@@ -61,6 +61,7 @@ function buildProduct(product: Partial<DefaultProductType>): DefaultProductType 
  * ```
  */
 class Product {
+  // TODO: наследование от Product variant
   private data              : DefaultProductType // prettier-ignore
   private rest              : Rest // prettier-ignore
   private promise_controller: PromiseController // prettier-ignore

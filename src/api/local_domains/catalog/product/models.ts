@@ -1,4 +1,4 @@
-import { toNum, toStr } from '@/utilte/utilte'
+import { toNum, toNumOrNull, toStr } from '@/utilte/utilte'
 
 // ─────────────────────────────────────────────
 //  Вспомогательная фабрика для сборки массивов
@@ -80,7 +80,7 @@ export class VariantProductModel {
   public variant_id         : number
   public brand_id           : number
   public image_primary_id   : number
-  public image_secondary_id : number
+  public image_secondary_id : number | null
   public name               : string
   public description        : string
   public video_url          : string
@@ -91,7 +91,7 @@ export class VariantProductModel {
   public is_stock           : boolean
   public is_in_store        : boolean
   public image_primary      : ImageModel
-  public image_secondary    : ImageModel
+  public image_secondary    : ImageModel | null
   public variant            : VariantModel
   public colors             : ColorModel[]
 
@@ -102,7 +102,7 @@ export class VariantProductModel {
     this.variant_id          = toNum(data.variant_id)
     this.brand_id            = toNum(data.brand_id)
     this.image_primary_id    = toNum(data.image_primary_id)
-    this.image_secondary_id  = toNum(data.image_secondary_id)
+    this.image_secondary_id  = toNumOrNull(data.image_secondary_id)
     this.name                = toStr(data.name)
     this.description         = toStr(data.description)
     this.video_url           = toStr(data.video_url)
@@ -113,7 +113,7 @@ export class VariantProductModel {
     this.is_stock            = Boolean(data.is_stock)
     this.is_in_store         = Boolean(data.is_in_store)
     this.image_primary       = new ImageModel(data.image_primary   ?? {})
-    this.image_secondary     = new ImageModel(data.image_secondary ?? {})
+    this.image_secondary     = data.image_secondary === null ? null : new ImageModel(data.image_secondary)
     this.variant             = new VariantModel(data.variant)
     this.colors              = buildArray(ColorModel, data.colors ?? [])
   }

@@ -67,7 +67,7 @@ export interface VariantProduct {
   /** Идентификатор основного изображения продукта */
   image_primary_id   : number
   /** Идентификатор вторичного изображения продукта */
-  image_secondary_id : number
+  image_secondary_id : number | null
   /** Название продукта */
   name               : string
   /** Описание продукта */
@@ -89,7 +89,7 @@ export interface VariantProduct {
   /** Основное изображение продукта */
   image_primary      : Image
   /** Вторичное изображение продукта */
-  image_secondary    : Image
+  image_secondary    : Image | null
   /** Вариант продукта */
   variant            : Variant
   /** Список цветов продукта */
