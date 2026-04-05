@@ -4,6 +4,7 @@ import RangePrice from '@/components/forms/inputs/randes/RangePrice.vue'
 import { computed } from 'vue'
 import ButtonCheckBox from '@/components/buttons/ButtonCheckBox.vue'
 import { Characteristic } from '@/api/local_domains/catalog/product/types'
+import { product } from '@/api/api'
 
 const props = defineProps([
   'is_expand_validation',
@@ -28,7 +29,10 @@ function send_active_filters_ids(content: Characteristic) {
 </script>
 
 <template>
-  <div class="filter pt-4 pb-2 box-y gap-2">
+  <div
+    v-if="(product.meta.price.max && product.meta.price.min) || !is_price"
+    class="filter pt-4 pb-2 box-y gap-2"
+  >
     <button
       @click="expand_change"
       class="filter__title box-x px-4 gap-2 filter__expand-button"

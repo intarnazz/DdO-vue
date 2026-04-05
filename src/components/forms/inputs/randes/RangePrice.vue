@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { product, filter } from '@/api/api'
 import { computed, onMounted, ref, watch } from 'vue'
-import { price } from '@/utilte/utilte'
+import { price, toNumOrNull } from '@/utilte/utilte'
 import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
 
 const STEP = 5000
@@ -27,7 +27,7 @@ const min = computed(() => roundUp(product.meta.price.min))
 const max = computed(() => roundUp(product.meta.price.max))
 
 const _range = ref(0)
-const init = () => (_range.value = roundUp(Number(filter.filters['price-max']) || max.value))
+const init = () => (_range.value = roundUp(toNumOrNull(filter.filters['price-max']) || max.value))
 
 onMounted(() => {
   init()
@@ -61,7 +61,7 @@ watch(
 </script>
 
 <template>
-  <div v-if="max > 0" class="input_box box-y gap-4 px-4 py-2">
+  <div class="input_box box-y gap-4 px-4 py-2">
     <input @change="rangeChange" v-model="_range" :max="max" :min="min" step="5000" type="range" />
 
     <div class="box-x center">
