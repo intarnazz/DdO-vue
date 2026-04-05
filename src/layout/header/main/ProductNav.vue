@@ -15,8 +15,8 @@ import { RouterLink } from 'vue-router'
         <RouterLinkCatalog :type_id="2" :type_name="`interior-doors`">межкомнотные двери</RouterLinkCatalog>
         <RouterLink :to="{ name: 'home' }" class="">фурнитура</RouterLink>
         <RouterLink :to="{ name: 'home' }" class="">напольные покрытия</RouterLink>
-        <RouterLink :to="{ name: 'home' }" class="">мебель</RouterLink>
-
+        <!-- <RouterLink :to="{ name: 'home' }" class="">мебель</RouterLink> -->
+        <RouterLinkCatalog :type_id="3" :type_name="`kitchens`">кухни</RouterLinkCatalog>
         <img class="h-6" src="@/assets/icons/search.svg" alt="search" />
         <img class="h-6" src="@/assets/icons/favorite.svg" alt="favorite" />
         <img class="h-6" src="@/assets/icons/bar_chart.svg" alt="bar_chart" />
