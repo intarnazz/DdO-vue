@@ -1,7 +1,7 @@
-import { reactive, computed, ComputedRef } from 'vue'
+import { reactive, computed, ComputedRef, shallowRef, ShallowRef } from 'vue'
 import Rest from '../../../web_services/rest'
-import BaseModel from '@/models/baseModel'
 import { product } from '@/api/api'
+import { toNum, toStr } from '@/utilte/utilte'
 
 const rest = new Rest('type')
 
@@ -84,46 +84,37 @@ interface DefaultTypeInterface {
   tags        : Tag[]
 }
 
-type Init = (typeName: string) => Promise<void>
+type Init = (id: number) => Promise<void>
 
 // prettier-ignore
 export interface TypeInterface extends DefaultTypeInterface {
   init: Init
 }
 
-class Type extends BaseModel {
+class Type {
   private data  : DefaultTypeInterface // prettier-ignore
   private data_c: ComputedRef<DefaultTypeInterface> // prettier-ignore
   private rest  : Rest // prettier-ignore
 
-  constructor(type: Record<string, any> = {}) {
-    super()
-
+  constructor(type: Partial<DefaultTypeInterface> = {}) {
     this.rest = rest
 
     // prettier-ignore
     this.data = reactive({
-      id          : this.toNum(type.id),
-      self_id     : this.toNum(type.self_id),
-      name        : this.toStr(type.name),
-      visible_name: this.toStr(type.visible_name),
-      description : this.toStr(type.description),
+      id          : toNum(type.id),
+      self_id     : toNum(type.self_id),
+      name        : toStr(type.name),
+      visible_name: toStr(type.visible_name),
+      description : toStr(type.description),
       tree        : type.tree ?? [],
       filters     : type.filters ?? [],
       tags        : type.tags ?? [],
     })
     this.data_c = computed(() => this.data)
   }
-  public init: Init = async (typeName) => {
-    const res = await this.rest.all({ names: [typeName] })
 
-    if (!res.success) return
-
-    await this.fetchAndAssign(res.data[0])
-  }
-
-  protected async fetchAndAssign(type: Record<string, any>): Promise<void> {
-    const res = await this.rest.get(type.id)
+  public async init(id: number): Promise<void> {
+    const res = await this.rest.get(id)
 
     if (!res.success) return
 
@@ -164,27 +155,19 @@ class Type extends BaseModel {
   }
 }
 
-interface Data {}
-
 class TypeService {
-  private data: Data
-  private data_c: ComputedRef<Data>
-
-  private _type: TypeInterface
+  private _type: ShallowRef<TypeInterface>
 
   constructor() {
-    this._type = new Type()
-
-    this.data = reactive({})
-    this.data_c = computed(() => this.data)
+    this._type = shallowRef(new Type())
   }
 
-  public get type() {
-    return this._type
+  public get type(): TypeInterface {
+    return this._type.value
   }
 
-  public set type(type) {
-    this._type = new Type(type)
+  public set type(type: Partial<DefaultTypeInterface>) {
+    this._type.value = new Type(type)
   }
 }
 

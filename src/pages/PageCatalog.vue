@@ -7,19 +7,20 @@ import ComponentBread from '@/components/ComponentBread.vue'
 import { filter, type } from '@/api/api'
 import { useRoute } from 'vue-router'
 import ComponentContext from '@/components/ComponentContext.vue'
-import { onMounted, watch } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { toNum } from '@/utilte/utilte'
 
 const route = useRoute()
 
-const { type: type_name, id } = defineProps<{
+const { id } = defineProps<{
   id: string
-  type: string
 }>()
+
+const idNum = computed(() => toNum(id))
 
 const init = async () => {
   filter.update(route.query)
-  if (type.type.id !== toNum(id)) await type.type.init(type_name)
+  if (type.type.id !== idNum.value) await type.type.init(idNum.value)
 }
 
 onMounted(async () => {
@@ -35,7 +36,7 @@ watch(
   () => route.params.id,
   () => init(),
 )
-// FIXME: watch type name
+// TODO: loader
 </script>
 
 <template>

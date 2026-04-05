@@ -8,6 +8,9 @@ const { type_name, type_id } = defineProps<{
   type_name: string
   query?: Filters
 }>()
+
+// const set_catalog = () => (type.type = { name: type_name, id: type_id })
+// TODO: наследование type невозможно из-за отсутствия данных "visible_name"
 </script>
 
 <template>
