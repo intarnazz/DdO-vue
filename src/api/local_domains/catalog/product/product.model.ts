@@ -3,7 +3,7 @@ import Rest from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
 import user from '@/storage/user'
 import type { DefaultProductType, Init } from './types'
-import { toNum, toNumOrNull, toStr } from '@/utilte/utilte'
+import { priceToString, toNum, toNumOrNull, toStr } from '@/utilte/utilte'
 import {
   buildArray,
   ImageModel,
@@ -66,13 +66,13 @@ class Product {
   private rest              : Rest // prettier-ignore
   private promise_controller: PromiseController // prettier-ignore
 
-  private _total_price = computed(() => {
-    let price = 0
-    this.options.forEach((o) => {
-      price += o.default_count * o.price
-    })
-    return price + this.price
-  })
+  private _total_price           = computed<number> (() => {let price = 0;this.options.forEach((o) => {price += o.default_count * o.price});return price + this.price}) // prettier-ignore
+  private _price_string          = computed<string> (() => priceToString(this.price)) // prettier-ignore
+  private _total_price_string    = computed<string> (() => priceToString(this.total_price)) // prettier-ignore
+  private _price_discount        = computed<number> (() => Math.ceil(this.price - (this.price * (this.discount / 100))),) // prettier-ignore
+  private _total_price_discount  = computed<number> (() => Math.ceil(this.total_price - (this.total_price * (this.discount / 100))),) // prettier-ignore
+  private _price_discount_string = computed<string> (() => priceToString(this.price_discount)) // prettier-ignore
+  private _has_price_discount    = computed<boolean>(() => this.discount > 0) // prettier-ignore
 
   /**
    * Создаёт экземпляр модели продукта.
@@ -256,9 +256,13 @@ class Product {
     return this.data.characteristics
   }
 
-  public get total_price(): number {
-    return this._total_price.value
-  }
+  public get total_price           () {return this._total_price.value } // prettier-ignore
+  public get total_price_string    () {return this._total_price_string.value } // prettier-ignore
+  public get price_string          () {return this._price_string.value } // prettier-ignore
+  public get price_discount        () {return this._price_discount.value } // prettier-ignore
+  public get total_price_discount  () {return this._total_price_discount.value } // prettier-ignore
+  public get price_discount_string () {return this._price_discount_string.value } // prettier-ignore
+  public get has_price_discount    () {return this._has_price_discount.value } // prettier-ignore
 }
 
 export default Product

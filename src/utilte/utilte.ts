@@ -52,6 +52,7 @@ export const price = (i: number | string): string => {
 
   return `${formatted}\u00A0Р`
 }
+export const priceToString = (i: number | string): string => price(i) // [x] rename price
 
 /**
  * Прокручивает страницу вверх с плавной анимацией.

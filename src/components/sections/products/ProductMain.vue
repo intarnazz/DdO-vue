@@ -10,6 +10,7 @@ import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
 import ProductColor from '@/components/domains/product/ProductColor.vue'
+import ProductDiscount from '@/components/domains/product/ProductDiscount.vue'
 import IconHandshake from '@/components/icons/IconHandshake.vue'
 import IconIndeterminateQuestionBox from '@/components/icons/IconIndeterminateQuestionBox.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
@@ -50,7 +51,7 @@ const interior_is_valid = ref(
 
 <template>
   <!-- ? 1 BOX -->
-  <section class="product box-y gap-8">
+  <section class="product box-y gap-8 relative">
     <div class="box-x gap-8 as">
       <!-- ? LEFT BOX -->
       <div class="product__left-box box-y flex gap-16 relative">
@@ -167,7 +168,16 @@ const interior_is_valid = ref(
 
           <div class="box-x js gap-4">
             <div class="box-y box br p-2">
-              <ProductPrice :price="product.product.price" />
+              <p v-if="product.product.has_price_discount" class="line-through c-sub">
+                {{ product.product.price_string }}
+              </p>
+              <ProductPrice
+                :price="
+                  product.product.has_price_discount
+                    ? product.product.price_discount
+                    : product.product.price
+                "
+              />
               <p>полотно</p>
             </div>
 
@@ -178,9 +188,19 @@ const interior_is_valid = ref(
               <!-- [ ]: выбор -->
               <!-- TODO: анимация -->
               <!-- TODO: анимация -->
-              <ProductPrice :price="product.product.total_price" />
+              <p v-if="product.product.has_price_discount" class="line-through c-sub">
+                {{ product.product.total_price_string }}
+              </p>
+              <ProductPrice
+                :price="
+                  product.product.has_price_discount
+                    ? product.product.total_price_discount
+                    : product.product.total_price
+                "
+              />
               <p>комплект</p>
             </div>
+            <ProductDiscount :product="product.product" />
           </div>
 
           <div class="product__is-stock box-x js gap-8">

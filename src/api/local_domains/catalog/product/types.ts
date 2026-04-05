@@ -289,7 +289,13 @@ export interface ProductType extends DefaultProductType {
   /** Флаг нахождения продукта в избранном текущего пользователя */
   object: DefaultProductType
 
-  total_price: number
+  total_price          : number
+  price_string         : string
+  total_price_string   : string
+  price_discount       : number
+  total_price_discount : number
+  price_discount_string: string
+  has_price_discount   : boolean
 
   is_favorite: boolean
   /** Метод загрузки данных продукта по идентификатору */
