@@ -1,34 +1,25 @@
 <script setup lang="ts">
-import { brand } from '@/api/api'
 import ComponentBread from '@/components/ComponentBread.vue'
 import ComponentContext from '@/components/ComponentContext.vue'
-import ComponentLoader from '@/components/ComponentLoader.vue'
+import SectionBrand from '@/components/sections/SectionBrand.vue'
+import SectionBrands from '@/components/sections/SectionBrands.vue'
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
-
-const init = async () => await brand.all()
 </script>
 
 <template>
-  <LayoutPage v-slot="{ promise: brands, isLoading }" :foo="init" class="main box-y gap-16">
-    <LayoutWrapper v-if="!isLoading" class="box-y gap-16">
-      <div class="box-y gap-4">
+  <LayoutPage class="main box-y gap-16">
+    <LayoutWrapper class="box-y gap-16">
+      <div class="box-y flex gap-4">
         <ComponentBread />
         <ComponentContext />
       </div>
-
-      <h2>brands</h2>
-      {{ brands }}
-
-      <!-- <ProductMain />
-      <ProductOptions />
-      <ProductDescription />
-      <ProductSimilarProduct /> -->
+      <div class="box-x as gap-8">
+        <SectionBrands />
+        <SectionBrand class="flex" />
+      </div>
     </LayoutWrapper>
-    <div v-else class="box-y pt-100">
-      <ComponentLoader />
-    </div>
   </LayoutPage>
   <FooterMain />
 </template>

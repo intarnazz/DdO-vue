@@ -1,6 +1,9 @@
 /**
  * Структура изображения продукта.
  */
+
+import { PagingInfo } from "@/api/web_services/rest"
+
 // prettier-ignore
 export interface Image {
   /** Уникальный идентификатор изображения */
@@ -300,19 +303,6 @@ export interface ProductType extends DefaultProductType {
   is_favorite: boolean
   /** Метод загрузки данных продукта по идентификатору */
   init       : Init
-}
-
-/**
- * Информация о пагинации.
- */
-// prettier-ignore
-export interface PagingInfo {
-  /** Максимальное количество элементов на странице */
-  limit     : number
-  /** Смещение от начала выборки */
-  offset    : number
-  /** Общее количество элементов */
-  totalCount: number
 }
 
 /**

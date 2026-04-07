@@ -17,7 +17,9 @@
 
 <style lang="sass" scoped>
 .wrapper
-  width: 1300px
+  max-width: 1300px
+  width: 100%
+  padding: 0 2rem
   margin: 0 auto
 
 /* Адаптивные стили для экранов шириной <= 1440px */

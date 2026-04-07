@@ -61,7 +61,7 @@ const is_equal = computed<boolean>(() => {
             />
           </div>
         </div>
-        <h3>
+        <h3 class="text-center line-clamp-2 min-h-12">
           <ComponentHighlightText :text="product.name" :search="filter.search" />
         </h3>
         <div class="product__price box-x gap-2">

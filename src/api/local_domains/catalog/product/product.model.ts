@@ -5,7 +5,6 @@ import user from '@/storage/user'
 import type { DefaultProductType, Init } from './types'
 import { priceToString, toNum, toNumOrNull, toStr } from '@/utilte/utilte'
 import {
-  buildArray,
   ImageModel,
   ColorModel,
   VariantModel,
@@ -15,6 +14,7 @@ import {
   OptionModel,
   CharacteristicModel,
 } from './models'
+import { buildArray } from '@/api/builders/builders'
 
 function buildProduct(product: Partial<DefaultProductType>): DefaultProductType {
   // prettier-ignore
@@ -99,7 +99,7 @@ class Product {
     if (res === false) return
     if (!res.success) return
 
-    Object.assign(this.data, buildProduct(res.data))
+    Object.assign(this.data, buildProduct(res.data as Partial<DefaultProductType>))
 
     this.data.options = buildArray(OptionModel, this.data.options)
   }

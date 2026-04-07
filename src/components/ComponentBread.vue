@@ -55,6 +55,11 @@ watch(
       <template v-if="route.name === 'brands'">
         <p>бренды</p>
       </template>
+      <template v-else-if="route.name === 'brand'">
+        <p>бренды</p>
+        <IconRight />
+        <p>{{ route.params.name }}</p>
+      </template>
       <template v-else-if="route.name === 'product'">
         <RouterLinkCatalog class="a a_sub" :type_id="type_id" :type_name="type_name">
           {{ type_visible_name }}

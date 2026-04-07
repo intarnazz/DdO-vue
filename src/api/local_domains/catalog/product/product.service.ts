@@ -1,19 +1,18 @@
 import { reactive, computed, watch, markRaw, shallowRef } from 'vue'
 import type { ComputedRef, ShallowRef } from 'vue'
 import type { GetOptions } from '../../../web_services/request/request'
-import Rest from '../../../web_services/rest'
+import Rest, { PagingInfo, pagingInfoBuilder } from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
 import { filter, type } from '@/api/api'
 import Product from './product.model'
-import type {
-  ProductType,
-  ProductServiceType,
-  PagingInfo,
-  ProductMeta,
-  DefaultProductType,
-} from './types'
+import type { ProductType, ProductServiceType, ProductMeta, DefaultProductType } from './types'
+import { toNum } from '@/utilte/utilte'
 
 const rest = new Rest('product')
+
+const metaBuilder = (meta: Partial<ProductMeta> = {}): ProductMeta => {
+  return { price: { min: toNum(meta.price?.min), max: toNum(meta.price?.max) } }
+}
 
 /**
  * Сервис управления продуктами.
@@ -68,8 +67,8 @@ class ProductService {
 
     this.data = reactive({
       products: [],
-      pagingInfo: { limit: 0, offset: 0, totalCount: 0 } as PagingInfo,
-      meta: { price: { min: 0, max: 0 } } as ProductMeta,
+      pagingInfo: pagingInfoBuilder(),
+      meta: metaBuilder(),
     })
 
     this._page_count = computed(() => Math.ceil(this.pagingInfo.totalCount / filter.limit))
@@ -108,10 +107,11 @@ class ProductService {
     )
     if (res === false) return
     if (!res.success) return
-
+    if (!res.data) return
     this.products = res.data.map((product: Partial<DefaultProductType>) => new Product(product))
-    this.pagingInfo = res.pagingInfo as PagingInfo
-    this.meta = res.meta as ProductMeta
+    this.pagingInfo = pagingInfoBuilder(res.pagingInfo)
+    if (!res.meta) return
+    this.meta = metaBuilder(res.meta)
   }
 
   /**

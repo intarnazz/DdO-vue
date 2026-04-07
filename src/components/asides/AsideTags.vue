@@ -16,13 +16,15 @@ function send_active_tag_id(id: string) {
 </script>
 
 <template>
-  <div class="box-y filters__tags tags w-80.25 max-w-80.25 py-2 bgc-sub br">
+  <div
+    class="box-y filters__tags select-menu select-menu__list tags w-80.25 max-w-80.25 py-2 bgc-sub br"
+  >
     <template v-for="(tag, key) in t.type.tags" :key="key">
       <button
         @click="send_active_tag_id(String(tag.id))"
-        class="flex py-2 px-4 filters__tag"
+        class="flex py-2 px-4 filters__tag select-menu__item"
         :class="{
-          filters__tags_active: f.filters['tag'] == tag.id,
+          'select-menu__item_active': f.filters['tag'] == tag.id,
         }"
         v-if="Number(key) < MIN || is_expand || f.filters['tag'] == tag.id"
       >
@@ -62,55 +64,9 @@ function send_active_tag_id(id: string) {
       font-weight: 400
       color: $mark
 
-.filters
-  &__tag
-    &:hover
-      +bgc-sub-90
-  &__tags
-    &_active
-      color: $w
-      font-weight: 700
-      animation: active .225s forwards linear
-      margin-left: -5px
-
 .expand
   transform: rotate(-180deg);
 
 .expand_off
   transform: rotate(0deg);
-
-
-@keyframes active
-  0%
-    padding-left: 0rem
-    background: linear-gradient(to right, $main 0%, #00000000 0%)
-  7%
-    background: linear-gradient(to right, $main 1%, #00000000 1%)
-  14%
-    background: linear-gradient(to right, $main 3%, #00000000 3%)
-  21%
-    background: linear-gradient(to right, $main 6%, #00000000 6%)
-  28%
-    background: linear-gradient(to right, $main 10%, #00000000 10%)
-  35%
-    background: linear-gradient(to right, $main 15%, #00000000 15%)
-  42%
-    background: linear-gradient(to right, $main 21%, #00000000 21%)
-  49%
-    background: linear-gradient(to right, $main 28%, #00000000 28%)
-  56%
-    background: linear-gradient(to right, $main 36%, #00000000 36%)
-  63%
-    background: linear-gradient(to right, $main 45%, #00000000 45%)
-  70%
-    background: linear-gradient(to right, $main 55%, #00000000 55%)
-  77%
-    background: linear-gradient(to right, $main 66%, #00000000 66%)
-  84%
-    background: linear-gradient(to right, $main 78%, #00000000 78%)
-  91%
-    background: linear-gradient(to right, $main 91%, #00000000 91%)
-  100%
-    padding-left: 1.2rem
-    background: linear-gradient(to right, $main 0%, $mark 100%, #00000000 100%)
 </style>

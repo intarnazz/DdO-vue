@@ -37,6 +37,11 @@ const router = createRouter({
       component: PageBrands,
     },
     {
+      path: '/brand/:id/:name',
+      name: 'brand',
+      component: PageBrands,
+    },
+    {
       path: '/:pathMatch(.*)*', // 404
       name: 'not-found',
       component: PageNotFound,

@@ -1,5 +1,28 @@
+import { toNum } from '@/utilte/utilte'
 import request from './request/request'
 import type { PostBody, GetOptions } from './request/request'
+
+/**
+ * Информация о пагинации.
+ */
+// prettier-ignore
+export interface PagingInfo {
+  /** Максимальное количество элементов на странице */
+  limit     : number
+  /** Смещение от начала выборки */
+  offset    : number
+  /** Общее количество элементов */
+  totalCount: number
+}
+
+
+export const pagingInfoBuilder = (pagingInfo: Partial<PagingInfo> = {}): PagingInfo => {
+  return {
+    limit: toNum(pagingInfo.limit),
+    offset: toNum(pagingInfo.offset),
+    totalCount: toNum(pagingInfo.totalCount),
+  }
+}
 
 /**
  * Универсальный REST-клиент для работы с API.
@@ -41,11 +64,18 @@ export default class Rest {
    * @example
    * const product = await api.get<Product>(1)
    */
-  public get<T = unknown>(
+  public get(
     id: string | number,
     header: GetOptions = {},
-  ): Promise<T> {
-    return this.#request.get<T>(`${this.#prefix}/${id}`, header)
+  ): Promise<
+    Partial<{
+      success: boolean
+      message: string
+      data: Record<string, unknown>
+      pagingInfo: PagingInfo
+    }>
+  > {
+    return this.#request.get(`${this.#prefix}/${id}`, header)
   }
 
   /**
@@ -57,8 +87,16 @@ export default class Rest {
    * @example
    * const products = await api.all<Product[]>({ limit: 10 })
    */
-  all<T = unknown>(data: GetOptions = {}): Promise<T> {
-    return this.#request.get<T>(this.#prefix, data)
+  all(data: GetOptions = {}): Promise<
+    Partial<{
+      success: boolean
+      message: string
+      data: Record<string, unknown>[]
+      pagingInfo: PagingInfo
+      meta: Record<string, unknown>
+    }>
+  > {
+    return this.#request.get(this.#prefix, data)
   }
 
   /**
