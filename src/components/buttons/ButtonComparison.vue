@@ -29,8 +29,9 @@ function set_comparison_product() {
 
 <template>
   <RouterLinkCatalog
-    v-if="!active && api_product.product.type.name && route.name !== 'catalog'"
-    :type_name="api_product.product.type.name"
+    v-if="!active && product.type.name && product.type.id && route.name !== 'catalog'"
+    :type_name="product.type.name"
+    :type_id="product.type.id"
     title="Сравнить с другими продуктами"
     @click="set_comparison_product"
   >

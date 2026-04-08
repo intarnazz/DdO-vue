@@ -11,9 +11,11 @@ import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import { ProductType } from '@/api/local_domains/catalog/product'
 import ProductDiscount from '@/components/domains/product/ProductDiscount.vue'
+import { DefaultTypeInterface } from '@/api/local_domains/catalog/type/type'
 
-const { product } = defineProps<{
+const { product, type } = defineProps<{
   product: ProductType
+  type?: DefaultTypeInterface
 }>()
 
 const is_more = computed<boolean>(() => {
@@ -35,7 +37,7 @@ const is_equal = computed<boolean>(() => {
 
 <template>
   <div class="product box-y relative center gap-4">
-    <RouterLinkProduct :product="product" class="box-y js">
+    <RouterLinkProduct :product="product" :type="type" class="box-y js">
       <p
         :class="{
           'opacity-0': !Boolean(filter.search),
@@ -78,7 +80,7 @@ const is_equal = computed<boolean>(() => {
               product__price_del: product.has_price_discount,
             }"
           >
-            {{ product.price_string }}
+            {{ typeof product.price_string }}
           </p>
 
           <template v-if="api_product.comparison_product !== null">

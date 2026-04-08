@@ -73,7 +73,7 @@ interface Tag {
 }
 
 // prettier-ignore
-interface DefaultTypeInterface {
+export interface DefaultTypeInterface {
   id          : number
   self_id     : number | null
   name        : string
@@ -90,6 +90,19 @@ type Init = (id: number) => Promise<void>
 export interface TypeInterface extends DefaultTypeInterface {
   init: Init
 }
+export const typeBuilder = (type: Partial<DefaultTypeInterface>) => {
+  // prettier-ignore
+  return {
+    id          : toNum(type.id),
+    self_id     : toNum(type.self_id),
+    name        : toStr(type.name),
+    visible_name: toStr(type.visible_name),
+    description : toStr(type.description),
+    tree        : type.tree ?? [],
+    filters     : type.filters ?? [],
+    tags        : type.tags ?? [],
+  }
+}
 
 class Type {
   private data  : DefaultTypeInterface // prettier-ignore
@@ -100,16 +113,7 @@ class Type {
     this.rest = rest
 
     // prettier-ignore
-    this.data = reactive({
-      id          : toNum(type.id),
-      self_id     : toNum(type.self_id),
-      name        : toStr(type.name),
-      visible_name: toStr(type.visible_name),
-      description : toStr(type.description),
-      tree        : type.tree ?? [],
-      filters     : type.filters ?? [],
-      tags        : type.tags ?? [],
-    })
+    this.data = reactive(typeBuilder(type))
     this.data_c = computed(() => this.data)
   }
 

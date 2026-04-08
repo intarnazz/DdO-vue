@@ -25,7 +25,7 @@ const query = computed(() => {
 
 <template>
   <RouterLink
-    v-if="type_name"
+    v-if="type_name && type_id"
     :to="{
       name: 'catalog',
       params: {
