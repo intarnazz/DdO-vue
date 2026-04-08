@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { product as p, type } from '@/api/api'
+import { filter, product as p, type } from '@/api/api'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
@@ -14,7 +14,7 @@ import ComponentLoader404 from '@/components/ComponentLoader404.vue'
 <template>
   <section class="catalog box-y gap-8">
     <div class="box-x gap-8">
-      <CatalogTitle :type="type.type" />
+      <CatalogTitle :type="type.type" :paging-info="p.pagingInfo" :filter="filter" />
       <FormSearch />
     </div>
     <div class="box-x as gap-8">
@@ -55,7 +55,12 @@ import ComponentLoader404 from '@/components/ComponentLoader404.vue'
             'opacity-80': p.is_loading,
           }"
         >
-          <CatalogItem v-for="product in p.products" :key="product.id" :product="product" />
+          <CatalogItem
+            v-for="product in p.products"
+            :key="product.id"
+            :product="product"
+            :filter="filter"
+          />
         </div>
 
         <div v-else class="box-x center w">

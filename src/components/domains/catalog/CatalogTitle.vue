@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { filter, product as p } from '@/api/api'
 import { TypeInterface } from '@/api/local_domains/catalog/type/type'
+import { Query } from '@/api/local_domains/query'
+import { PagingInfo } from '@/api/web_services/rest'
 import ButtonResetFilters from '@/components/buttons/ButtonResetFilters.vue'
 
-const { type } = defineProps<{
+const { type, pagingInfo } = defineProps<{
   type: TypeInterface
+  pagingInfo: PagingInfo
+  filter?: Query
 }>()
 </script>
 
@@ -14,8 +17,8 @@ const { type } = defineProps<{
       <h2>{{ type.visible_name }}</h2>
     </div>
     <p class="c-sub">
-      {{ p.pagingInfo.totalCount }} товаров
-      <template v-if="Boolean(filter.length)">
+      {{ pagingInfo.totalCount }} товаров
+      <template v-if="filter && Boolean(filter.length)">
         <span class="c-main">/ </span> {{ filter.length }} активных фильтра
         <span class="c-main">/ </span>
         <ButtonResetFilters />

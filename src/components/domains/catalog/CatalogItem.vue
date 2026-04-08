@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { filter, product as api_product } from '@/api/api'
+import { product as api_product } from '@/api/api'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
@@ -12,10 +12,12 @@ import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import { ProductType } from '@/api/local_domains/catalog/product'
 import ProductDiscount from '@/components/domains/product/ProductDiscount.vue'
 import { DefaultTypeInterface } from '@/api/local_domains/catalog/type/type'
+import { Query } from '@/api/local_domains/query'
 
-const { product, type } = defineProps<{
+const { product, type, filter } = defineProps<{
   product: ProductType
   type?: DefaultTypeInterface
+  filter?: Query
 }>()
 
 const is_more = computed<boolean>(() => {
@@ -40,7 +42,7 @@ const is_equal = computed<boolean>(() => {
     <RouterLinkProduct :product="product" :type="type" class="box-y js">
       <p
         :class="{
-          'opacity-0': !Boolean(filter.search),
+          'opacity-0': !filter || !Boolean(filter.search),
         }"
         class="c-sub"
       >
@@ -64,7 +66,8 @@ const is_equal = computed<boolean>(() => {
           </div>
         </div>
         <h3 class="text-center line-clamp-2 min-h-12">
-          <ComponentHighlightText :text="product.name" :search="filter.search" />
+          <ComponentHighlightText v-if="filter" :text="product.name" :search="filter.search" />
+          <template v-else> {{ product.name }}</template>
         </h3>
         <div class="product__price box-x gap-2">
           <p v-if="product.has_price_discount" class="px-2 bg-mark c-w">

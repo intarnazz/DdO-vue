@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import { onMounted, ref, shallowRef } from 'vue'
-import Rest from '@/api/web_services/rest'
+import Rest, { pagingInfoBuilder } from '@/api/web_services/rest'
 import { buildArray } from '@/api/builders/builders'
 import Product from '@/api/local_domains/catalog/product/product.model'
 import { DefaultTypeInterface, typeBuilder } from '@/api/local_domains/catalog/type/type'
@@ -19,6 +19,7 @@ const {
 }>()
 
 const products = shallowRef<Product[]>([])
+const pagingInfo = ref(pagingInfoBuilder())
 const type = ref()
 
 const type_init = async () => {
@@ -29,6 +30,7 @@ const type_init = async () => {
 const products_init = async () => {
   const res = await new Rest('product').all({ limit: limit, type: type_id })
   products.value = buildArray(Product, res.data)
+  pagingInfo.value = pagingInfoBuilder(res.pagingInfo)
 }
 
 onMounted(() => {
@@ -43,7 +45,7 @@ onMounted(() => {
   <section v-if="type" class="catalog box-y gap-5">
     <LayoutWrapper>
       <div class="box-x">
-        <CatalogTitle v-if="products[0]" :type="type" />
+        <CatalogTitle v-if="products[0]" :type="type" :pagingInfo="pagingInfo" />
       </div>
       <div :class="`grid-cols-${grid_template_columns}`" class="catalog__grid gap-8 grid">
         <CatalogItem

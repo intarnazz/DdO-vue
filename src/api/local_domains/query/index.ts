@@ -10,7 +10,7 @@ import { Filters, QueryData } from './types'
 import { toNum, toStr } from '@/utilte/utilte'
 import { LocationQuery } from 'vue-router'
 
-class Query {
+export class Query {
   private _urlStorage : UrlStorage // prettier-ignore
   private _pagin      : Pagin // prettier-ignore
   private _order      : Order // prettier-ignore
