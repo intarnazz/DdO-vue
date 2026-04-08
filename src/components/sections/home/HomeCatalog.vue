@@ -1,28 +1,34 @@
 <script setup lang="ts">
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, shallowRef } from 'vue'
 import Rest from '@/api/web_services/rest'
-import { ProductType } from '@/api/local_domains/catalog/product'
 import { buildArray } from '@/api/builders/builders'
 import Product from '@/api/local_domains/catalog/product/product.model'
 import { DefaultTypeInterface, typeBuilder } from '@/api/local_domains/catalog/type/type'
+import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
+import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 
-const products = ref<ProductType[]>([])
+const {
+  type_id,
+  grid_template_columns = 4,
+  limit = 4,
+} = defineProps<{
+  type_id: number
+  grid_template_columns?: number
+  limit?: number
+}>()
+
+const products = shallowRef<Product[]>([])
 const type = ref()
 
 const type_init = async () => {
-  const res = await new Rest('type').get(1)
+  const res = await new Rest('type').get(type_id)
   type.value = typeBuilder(res.data as Partial<DefaultTypeInterface>)
 }
 
 const products_init = async () => {
-  const res = await new Rest('product').all({ limit: 4, type: 1 })
+  const res = await new Rest('product').all({ limit: limit, type: type_id })
   products.value = buildArray(Product, res.data)
-  console.log(products.value);
-  console.log(products.value[0]);
-  console.log(products.value[0]?.id);
-  console.log(products.value[0]?.price);
-  console.log(products.value[0]?.price_string);
 }
 
 onMounted(() => {
@@ -34,27 +40,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <section v-if="type" class="catalog box-y gap-8">
-    <div class="box-x as gap-8">
-      <div class="w box-y gap-8 justify-start">
-        <div class="catalog__grid">
-          <CatalogItem
-            v-for="product in products"
-            :key="product.id"
-            :product="product"
-            :type="type"
-          />
-        </div>
+  <section v-if="type" class="catalog box-y gap-5">
+    <LayoutWrapper>
+      <div class="box-x">
+        <CatalogTitle v-if="products[0]" :type="type" />
       </div>
-    </div>
+      <div :class="`grid-cols-${grid_template_columns}`" class="catalog__grid gap-8 grid">
+        <CatalogItem
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+          :type="type"
+        />
+      </div>
+    </LayoutWrapper>
   </section>
 </template>
 
-<style lang="sass" scoped>
-//
-.catalog
-  &__grid
-    display: grid
-    grid-template-columns: 1fr 1fr 1fr 1fr
-    gap: 2rem
-</style>
+<style lang="sass" scoped></style>

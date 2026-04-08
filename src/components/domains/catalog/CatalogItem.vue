@@ -80,7 +80,7 @@ const is_equal = computed<boolean>(() => {
               product__price_del: product.has_price_discount,
             }"
           >
-            {{ typeof product.price_string }}
+            {{ product.price_string }}
           </p>
 
           <template v-if="api_product.comparison_product !== null">

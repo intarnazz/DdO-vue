@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { product as p } from '@/api/api'
+import { product as p, type } from '@/api/api'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import CatalogLimit from '@/components/domains/catalog/CatalogLimit.vue'
 import AsideFilters from '@/components/asides/AsideFilters.vue'
@@ -14,7 +14,7 @@ import ComponentLoader404 from '@/components/ComponentLoader404.vue'
 <template>
   <section class="catalog box-y gap-8">
     <div class="box-x gap-8">
-      <CatalogTitle />
+      <CatalogTitle :type="type.type" />
       <FormSearch />
     </div>
     <div class="box-x as gap-8">

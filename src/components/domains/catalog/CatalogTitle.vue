@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { filter, product as p, type } from '@/api/api'
+import { filter, product as p } from '@/api/api'
+import { TypeInterface } from '@/api/local_domains/catalog/type/type'
 import ButtonResetFilters from '@/components/buttons/ButtonResetFilters.vue'
+
+const { type } = defineProps<{
+  type: TypeInterface
+}>()
 </script>
 
 <template>
   <div class="catalog-title box-x gap as">
-    <h2>{{ type.type.visible_name }}</h2>
+    <div class="box-x">
+      <h2>{{ type.visible_name }}</h2>
+    </div>
     <p class="c-sub">
       {{ p.pagingInfo.totalCount }} товаров
       <template v-if="Boolean(filter.length)">

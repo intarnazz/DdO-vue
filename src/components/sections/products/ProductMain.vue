@@ -115,7 +115,7 @@ const interior_is_valid = ref(
             v-for="(image, key) in product.product.images"
             :key="image.id"
             @click="set_current_image(product.product.images, key)"
-            class="h-25 product__image-list-item center cursor-zoom-in box"
+            class="h-25 product__image-list-item center cursor-zoom-in box br"
           >
             <ComponentImg class="br h-full object-cover" :id="image.id" :max_h="100" />
           </div>

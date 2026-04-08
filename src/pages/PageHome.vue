@@ -2,18 +2,24 @@
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 import SectionHome from '@/components/sections/SectionHome.vue'
-import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import HomeCatalog from '@/components/sections/home/HomeCatalog.vue'
-// FORGETFOREVER: документация
-// FORGETFOREVER: вакансии
+// [ ]: документация
+// [ ]: вакансии
 </script>
 
 <template>
-  <LayoutPage class="main">
+  <LayoutPage class="main w">
     <SectionHome class="w" />
-    <LayoutWrapper>
-      <HomeCatalog />
-    </LayoutWrapper>
+    <div class="box-y w catalog__list">
+      <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="1" />
+      <HomeCatalog
+        :grid_template_columns="5"
+        :limit="5"
+        class="catalog__item border w pt-4 pb-16 -mt-px"
+        :type_id="2"
+      />
+      <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" />
+    </div>
   </LayoutPage>
   <FooterMain />
 </template>
@@ -21,4 +27,10 @@ import HomeCatalog from '@/components/sections/home/HomeCatalog.vue'
 <style lang="sass" scoped>
 .main
   padding: 0
+
+.catalog
+  &__item
+    &:first-child,
+    &:last-child
+      border: none
 </style>
