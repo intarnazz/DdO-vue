@@ -12,7 +12,6 @@ const { product, type } = defineProps<{
 function set_product() {
   api_product.product = product
 }
-
 </script>
 
 <template>
@@ -21,7 +20,7 @@ function set_product() {
     :to="{
       name: 'product',
       params: {
-        type: api_type.type.name || api_product.product.type.name || type?.name,
+        type: type?.name || api_type.type.name || api_product.product.type.name,
         model: product.variant.name,
         id: product.id,
         name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),
