@@ -167,6 +167,7 @@ const interior_is_valid = ref(
           </div>
 
           <div class="box-x js gap-4">
+            <!-- TODO: секция прыгает из-за обновления h -->
             <div class="box-y box br p-2">
               <p v-if="product.product.has_price_discount" class="line-through c-sub">
                 {{ product.product.price_string }}
