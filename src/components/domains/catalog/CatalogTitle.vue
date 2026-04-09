@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { TypeInterface } from '@/api/local_domains/catalog/type/type'
+import { DefaultTypeInterface } from '@/api/local_domains/catalog/type/type'
 import { Query } from '@/api/local_domains/query'
 import { PagingInfo } from '@/api/web_services/rest'
 import ButtonResetFilters from '@/components/buttons/ButtonResetFilters.vue'
 
 const { type, pagingInfo } = defineProps<{
-  type: TypeInterface
+  type: DefaultTypeInterface
   pagingInfo: PagingInfo
   filter?: Query
 }>()
