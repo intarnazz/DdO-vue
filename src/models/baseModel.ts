@@ -1,6 +1,6 @@
 import { ComputedRef } from 'vue'
 
-export default class BaseModel {
+export default class BaseModel { // TODO: удалить
   protected toNum = (v: unknown, def: number = 0) => (v != null ? Number(v) : def)
   protected toStr = (v: unknown, def: string = '') => (v != null ? String(v) : def)
 
