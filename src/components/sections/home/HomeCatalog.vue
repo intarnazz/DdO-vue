@@ -47,7 +47,10 @@ onMounted(() => {
       <div class="box-x">
         <CatalogTitle v-if="products[0]" :type="type" :pagingInfo="pagingInfo" />
       </div>
-      <div :class="`grid-cols-${grid_template_columns}`" class="catalog__grid gap-8 grid">
+      <div
+        :class="`grid-${grid_template_columns}`"
+        class="catalog__grid grid-cols-4 gap-8 grid"
+      >
         <CatalogItem
           v-for="product in products"
           :key="product.id"
@@ -59,4 +62,9 @@ onMounted(() => {
   </section>
 </template>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.grid-4
+  grid-template-columns: 1fr 1fr 1fr 1fr
+.grid-5
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+</style>
