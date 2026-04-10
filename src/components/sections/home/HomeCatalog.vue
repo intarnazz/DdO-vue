@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import { onMounted, ref, shallowRef } from 'vue'
-import Rest, { pagingInfoBuilder } from '@/api/web_services/rest'
+import Rest, { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest'
 import { buildArray } from '@/api/builders/builders'
 import Product from '@/api/local_domains/catalog/product/product.model'
 import { DefaultTypeInterface, typeBuilder } from '@/api/local_domains/catalog/type/type'
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
+import { homePageEssence } from '@/api/api'
 
 const {
   type_id,
@@ -18,8 +19,8 @@ const {
   limit?: number
 }>()
 
-const products = shallowRef<Product[]>([])
-const pagingInfo = ref(pagingInfoBuilder())
+const products = shallowRef<Product[] | undefined>([])
+const pagingInfo = ref<PagingInfo | undefined>(pagingInfoBuilder())
 const type = ref()
 
 const type_init = async () => {
@@ -33,9 +34,21 @@ const products_init = async () => {
   pagingInfo.value = pagingInfoBuilder(res.pagingInfo)
 }
 
-onMounted(() => {
-  type_init()
-  products_init()
+onMounted(async () => {
+  products.value = homePageEssence.value[String(type_id)]?.products
+  pagingInfo.value = homePageEssence.value[String(type_id)]?.pagingInfo
+  type.value = homePageEssence.value[String(type_id)]?.type
+
+  if (products.value && pagingInfo.value && type.value) return
+
+  await type_init()
+  await products_init()
+
+  homePageEssence.value[String(type_id)] = {
+    products: products.value,
+    pagingInfo: pagingInfo.value,
+    type: type.value,
+  }
 })
 
 // TODO: hover item
@@ -45,12 +58,13 @@ onMounted(() => {
   <section v-if="type" class="catalog box-y gap-5">
     <LayoutWrapper>
       <div class="box-x">
-        <CatalogTitle v-if="products[0]" :type="type" :pagingInfo="pagingInfo" />
+        <CatalogTitle
+          v-if="pagingInfo && products && products[0]"
+          :type="type"
+          :pagingInfo="pagingInfo"
+        />
       </div>
-      <div
-        :class="`grid-${grid_template_columns}`"
-        class="catalog__grid grid-cols-4 gap-8 grid"
-      >
+      <div :class="`grid-${grid_template_columns}`" class="catalog__grid grid-cols-4 gap-8 grid">
         <CatalogItem
           v-for="product in products"
           :key="product.id"
