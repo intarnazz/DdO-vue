@@ -7,8 +7,9 @@ import { RouterLink } from 'vue-router'
   <div class="nav py-2 bs bgf">
     <LayoutWrapper>
       <div class="box-x">
-        <img class="h-11" src="@/assets/icons/logo.svg" alt="logo" />
-
+        <RouterLink :to="{ name: 'home' }">
+          <img class="h-11" src="@/assets/icons/logo.svg" alt="logo" />
+        </RouterLink>
         <nav class="box-x gap2 c-sub">
           <RouterLink :to="{ name: 'home' }">главная</RouterLink>
           <RouterLink :to="{ name: 'about-us' }">о нас</RouterLink>
