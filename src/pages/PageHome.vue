@@ -3,7 +3,6 @@ import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 import SectionHome from '@/components/sections/SectionHome.vue'
 import HomeCatalog from '@/components/sections/home/HomeCatalog.vue'
-import SectionBrands from '@/components/sections/SectionBrands.vue';
 // [ ]: документация
 // [ ]: вакансии
 </script>
@@ -21,7 +20,7 @@ import SectionBrands from '@/components/sections/SectionBrands.vue';
       />
       <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" />
     </div>
-    <SectionBrands />
+    <!-- <SectionBrands /> -->
   </LayoutPage>
   <FooterMain />
 </template>
