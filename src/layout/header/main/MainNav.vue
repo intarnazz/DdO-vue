@@ -17,7 +17,7 @@ import { RouterLink } from 'vue-router'
           <RouterLink :to="{ name: 'about-us', hash: '#payment-and-delivery' }"
             >оплата и доставка</RouterLink
           >
-          <RouterLink :to="{ name: 'home' }">контакты</RouterLink>
+          <RouterLink :to="{ name: 'about-us', hash: '#contants' }">контакты</RouterLink>
         </nav>
       </div>
     </LayoutWrapper>

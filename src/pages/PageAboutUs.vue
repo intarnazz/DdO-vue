@@ -6,6 +6,7 @@ import ComponentBread from '@/components/ComponentBread.vue'
 import ComponentContext from '@/components/ComponentContext.vue'
 import AboutUsMain from '@/components/sections/about-us/AboutUsMain.vue'
 import AboutUsPaymentAndDelivery from '@/components/sections/about-us/AboutUsPaymentAndDelivery.vue'
+import AboutUsContant from '@/components/sections/about-us/AboutUsContant.vue'
 </script>
 
 <template>
@@ -17,6 +18,7 @@ import AboutUsPaymentAndDelivery from '@/components/sections/about-us/AboutUsPay
       </div>
       <AboutUsMain />
       <AboutUsPaymentAndDelivery />
+      <AboutUsContant />
     </LayoutWrapper>
   </LayoutPage>
   <FooterMain />
