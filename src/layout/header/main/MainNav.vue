@@ -13,8 +13,10 @@ import { RouterLink } from 'vue-router'
           <RouterLink :to="{ name: 'home' }">главная</RouterLink>
           <RouterLink :to="{ name: 'about-us' }">о нас</RouterLink>
           <RouterLink :to="{ name: 'brands' }">бренды</RouterLink>
-          <RouterLink :to="{ name: 'home' }">вакансии</RouterLink>
-          <RouterLink :to="{ name: 'home' }">оплата и доставка</RouterLink>
+          <!-- <RouterLink :to="{ name: 'home' }">вакансии</RouterLink> // [ ] -->
+          <RouterLink :to="{ name: 'about-us', hash: '#payment-and-delivery' }"
+            >оплата и доставка</RouterLink
+          >
           <RouterLink :to="{ name: 'home' }">контакты</RouterLink>
         </nav>
       </div>

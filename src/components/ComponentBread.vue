@@ -50,9 +50,10 @@ watch(
     <div class="box-x 2 flex js">
       <RouterLink class="a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
       <IconRight />
-      <RouterLink class="a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
-      <IconRight />
-      <template v-if="route.name === 'brands'">
+      <template v-if="route.name === 'about-us'">
+        <p>о нас</p>
+      </template>
+      <template v-else-if="route.name === 'brands'">
         <p>бренды</p>
       </template>
       <template v-else-if="route.name === 'brand'">
@@ -60,25 +61,29 @@ watch(
         <IconRight />
         <p>{{ route.params.name }}</p>
       </template>
-      <template v-else-if="route.name === 'product'">
-        <RouterLinkCatalog class="a a_sub" :type_id="type_id" :type_name="type_name">
-          {{ type_visible_name }}
-        </RouterLinkCatalog>
+      <template v-else>
+        <RouterLink class="a a_sub" :to="{ name: 'home' }"> Каталог </RouterLink>
         <IconRight />
-        <RouterLinkCatalog
-          class="a a_sub"
-          :type_id="type_id"
-          :type_name="type_name"
-          :query="{
-            variant: product.product.variant.id,
-          }"
-        >
-          {{ product.product.variant.name }}
-        </RouterLinkCatalog>
-        <IconRight />
-        <p class="">{{ product.product.name }}</p>
+        <template v-if="route.name === 'product'">
+          <RouterLinkCatalog class="a a_sub" :type_id="type_id" :type_name="type_name">
+            {{ type_visible_name }}
+          </RouterLinkCatalog>
+          <IconRight />
+          <RouterLinkCatalog
+            class="a a_sub"
+            :type_id="type_id"
+            :type_name="type_name"
+            :query="{
+              variant: product.product.variant.id,
+            }"
+          >
+            {{ product.product.variant.name }}
+          </RouterLinkCatalog>
+          <IconRight />
+          <p class="">{{ product.product.name }}</p>
+        </template>
+        <p v-else>{{ type_visible_name }}</p>
       </template>
-      <p v-else>{{ type_visible_name }}</p>
     </div>
   </div>
 </template>
