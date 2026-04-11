@@ -35,6 +35,8 @@ const is_equal = computed<boolean>(() => {
     return product.price === api_product.comparison_product.price
   return false
 })
+
+// TOOD: hover
 </script>
 
 <template>
