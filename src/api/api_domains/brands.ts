@@ -4,6 +4,8 @@ import { CatalogModel } from '@/models/CatalogModel'
 
 class BrandsModel extends CatalogModel<Brand> {
   async load(limit: number = 99): Promise<void> {
+    if (!this.hasMore) return
+
     const res = await brandApi.all({
       limit: limit,
       offset: this.count,

@@ -8,12 +8,16 @@ import { toNum } from '@/utilte/utilte'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
+const { brand_id } = defineProps<{
+  brand_id?: number
+}>()
+
 const route = useRoute()
 const brand = ref<Brand>()
 
 const init = async () => {
-  if (!route.params.id) return
-  const res = await brand_api.get(toNum(route.params.id))
+  if (!route.params.id && !brand_id) return
+  const res = await brand_api.get(toNum(route.params.id || brand_id))
   if (!res.success) return
   if (res.data) brand.value = new Brand(res.data)
 }
@@ -22,7 +26,7 @@ onMounted(async () => {
   await init()
 })
 
-watch(() => route.params.id, init)
+watch([() => route.params.id, () => brand_id], init)
 </script>
 
 <template>

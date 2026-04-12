@@ -21,6 +21,8 @@ import HomeBrands from '@/components/sections/home/HomeBrands.vue'
       />
       <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" />
     </div>
+    <!-- <HomeBrands /> -->
+
     <HomeBrands />
   </LayoutPage>
   <FooterMain />
