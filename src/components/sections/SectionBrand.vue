@@ -2,6 +2,7 @@
 import { brand as brand_api } from '@/api/api'
 import { Brand } from '@/api/api_domains/brand'
 import ComponentLoader from '@/components/ComponentLoader.vue'
+import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { toNum } from '@/utilte/utilte'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -28,6 +29,18 @@ watch(() => route.params.id, init)
     <h2>{{ brand.name }}</h2>
     <p>{{ brand.description }}</p>
     <p>{{ brand.text.text }}</p>
+    <div class="box-y gap-4">
+      <div class="box-x" v-for="type in brand.filter.types" :key="type.id">
+        <RouterLinkCatalog
+          class="a a_sub"
+          :query="{ brand: brand.id }"
+          :type_id="type.id"
+          :type_name="type.name"
+        >
+          <span> {{ type.visible_name }} бренда {{ brand.name }} </span>
+        </RouterLinkCatalog>
+      </div>
+    </div>
   </section>
   <div v-else-if="route.params.id" class="center">
     <ComponentLoader />
