@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { brand as brand_api } from '@/api/api'
-import { Brand } from '@/api/api_domains/brand'
+import { Brand } from '@/api/api_domains/brand/brand'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'

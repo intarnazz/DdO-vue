@@ -1,6 +1,7 @@
 import PageAboutUs from '@/pages/PageAboutUs.vue'
 import PageBrands from '@/pages/PageBrands.vue'
 import PageCatalog from '@/pages/PageCatalog.vue'
+import PageContact from '@/pages/PageContact.vue'
 import PageHome from '@/pages/PageHome.vue'
 import PageNotFound from '@/pages/PageNotFound.vue'
 import PageProduct from '@/pages/PageProduct.vue'
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/brand/:id/:name',
       name: 'brand',
       component: PageBrands,
+    },
+    {
+      path: '/contact-us',
+      name: 'contact',
+      component: PageContact,
     },
     {
       path: '/:pathMatch(.*)*', // 404

@@ -3,7 +3,7 @@ import { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest'
 import { buildArray } from '@/api/builders/builders'
 
 export class CatalogModel<T> {
-  public _items = shallowRef<T[]>([])
+  private _items = shallowRef<T[]>([])
   public pagingInfo = reactive<PagingInfo>(pagingInfoBuilder())
 
   private _count = computed<number>(() => this.pagingInfo.limit + this.pagingInfo.offset)

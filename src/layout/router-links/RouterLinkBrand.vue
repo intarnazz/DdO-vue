@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { Brand } from '@/api/api_domains/brand'
+import { Brand } from '@/api/api_domains/brand/brand'
 
 const { brand } = defineProps<{
   brand: Brand

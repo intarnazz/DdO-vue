@@ -1,6 +1,6 @@
 import { brand as brandApi } from '@/api/api'
-import { Brand } from '@/api/api_domains/brand'
-import { CatalogModel } from '@/models/CatalogModel'
+import { Brand } from '@/api/api_domains/brand/brand'
+import { CatalogModel } from '@/models/catalogModel'
 
 class BrandsModel extends CatalogModel<Brand> {
   async load(limit: number = 99): Promise<void> {

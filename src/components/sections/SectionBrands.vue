@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { brands } from '@/api/api_domains/brands'
+import { brands } from '@/api/api_domains/brand/brands'
 import RouterLinkBrand from '@/layout/router-links/RouterLinkBrand.vue'
 import { toNum } from '@/utilte/utilte'
 import { computed, onMounted } from 'vue'
