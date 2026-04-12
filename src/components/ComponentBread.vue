@@ -71,8 +71,8 @@ watch(
           <IconRight />
           <RouterLinkCatalog
             class="a a_sub"
-            :type_id="type_id"
-            :type_name="type_name"
+            :type_id="product.product.type.id"
+            :type_name="product.product.type.name"
             :query="{
               variant: product.product.variant.id,
             }"
