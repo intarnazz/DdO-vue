@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { brand as brand_api } from '@/api/api'
 import { Brand } from '@/api/api_domains/brand'
+import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { toNum } from '@/utilte/utilte'
@@ -26,6 +27,9 @@ watch(() => route.params.id, init)
 
 <template>
   <section v-if="brand" class="brand box-y gap-8 as js">
+    <div class="box-x">
+      <ComponentImg class="h-25" :storage="brand.image.path" />
+    </div>
     <h2>{{ brand.name }}</h2>
     <p>{{ brand.description }}</p>
     <p>{{ brand.text.text }}</p>
