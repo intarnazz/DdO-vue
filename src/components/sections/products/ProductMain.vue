@@ -199,8 +199,6 @@ const interior_is_valid = ref(
               </p>
               <div class="box-y box br p-2">
                 <!-- [ ]: выбор -->
-                <!-- TODO: анимация -->
-                <!-- TODO: анимация -->
 
                 <ProductPrice
                   :price="
@@ -246,7 +244,7 @@ const interior_is_valid = ref(
         </div>
 
         <div class="product__contact">
-          <!-- {{ contact. }} // TODO: отправить как мета данные -->
+          <!-- {{ contact. }} // LARAVEL: отправить как мета данные -->
         </div>
         <div v-if="color_characteristics[0]" class="product__color box-y gap-4">
           <h3>цвет</h3>
@@ -255,7 +253,7 @@ const interior_is_valid = ref(
               <RouterLinkProduct
                 v-if="p.id !== product.product.id"
                 :product="{
-                  //TODO: computed
+                  //[ ]: computed
                   ...new Product(p).object,
                   variant: product.product.variant,
                   characteristics: product.product.characteristics,
@@ -284,7 +282,6 @@ const interior_is_valid = ref(
           </RouterLinkCatalog>
         </div>
         <div class="box-x js">
-          <!-- TODO: фактически не отключаемый фильтр / сейчас отключение только серез global -->
           <RouterLinkCatalog
             :type_id="product.product.type.id"
             :query="{

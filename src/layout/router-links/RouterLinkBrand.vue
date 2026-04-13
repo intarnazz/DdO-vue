@@ -13,7 +13,7 @@ const { brand } = defineProps<{
       name: 'brand',
       params: {
         id: brand.id,
-        name: brand.name.replace(/[^\p{L}\p{N}]+/gu, ''), // TODO: componetn
+        name: brand.name.replace(/[^\p{L}\p{N}]+/gu, ''),
       },
     }"
   >

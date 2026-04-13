@@ -33,7 +33,6 @@ watch(
   () => route.params.id,
   () => init(),
 )
-// TODO: loader
 // LARAVEL: опроверить выдаёт ли сервер новиники или фильтрует по обновлениям
 </script>
 

@@ -18,9 +18,6 @@ const query = computed(() => {
   if (propsQuery) return { limit: filter.limit, ...propsQuery }
   return { limit: filter.limit }
 })
-
-// const set_catalog = () => (type.type = { name: type_name, id: type_id })
-// TODO: наследование type невозможно из-за отсутствия данных "visible_name"
 </script>
 
 <template>
