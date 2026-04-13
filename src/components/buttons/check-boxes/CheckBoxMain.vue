@@ -58,8 +58,7 @@ function send_active_filters_ids() {
         alt=""
       />
     </div>
-    <span>
-      <!-- TODO: троеточий длинный name -->
+    <span class="truncate block">
       {{ props.content.name }}
     </span>
     <div class="flex"></div>
