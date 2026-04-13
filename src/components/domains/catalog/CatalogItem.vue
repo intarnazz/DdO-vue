@@ -41,7 +41,7 @@ const is_equal = computed<boolean>(() => {
 
 <template>
   <div class="product box-y relative center gap-4">
-    <RouterLinkProduct :product="product" :type="type" class="box-y js">
+    <RouterLinkProduct :product="product" :type="type" class="product__item p-4 box-y js">
       <p
         :class="{
           'opacity-0': !filter || !Boolean(filter.search),
@@ -113,6 +113,11 @@ const is_equal = computed<boolean>(() => {
 <style lang="sass" scoped>
 //
 .product
+  &__item
+    +w
+    +br
+    &:hover
+      +bgc-sub
   &__price
     color: $b
     font-weight: 700

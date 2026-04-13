@@ -13,7 +13,6 @@ const emit = defineEmits<{
 }>()
 
 const set_option_count = (number: number) => emit('set_option_count', option.count + number)
-// TODO: сехал текст
 </script>
 
 <template>

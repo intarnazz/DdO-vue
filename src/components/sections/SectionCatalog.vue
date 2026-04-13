@@ -8,7 +8,6 @@ import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vu
 import FormSearch from '@/components/forms/FormSearch.vue'
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import ComponentLoader404 from '@/components/ComponentLoader404.vue'
-// TODO: hover item
 </script>
 
 <template>
