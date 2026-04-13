@@ -40,8 +40,12 @@ const is_equal = computed<boolean>(() => {
 </script>
 
 <template>
-  <div class="product box-y relative center gap-4">
-    <RouterLinkProduct :product="product" :type="type" class="product__item p-4 box-y js">
+  <div class="product box-y relative center gap-2">
+    <RouterLinkProduct
+      :product="product"
+      :type="type"
+      class="product__item px-4 pb-2 pt-0 box-y js"
+    >
       <p
         :class="{
           'opacity-0': !filter || !Boolean(filter.search),
