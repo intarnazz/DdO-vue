@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import SectionContact from '@/components/sections/SectionContact.vue'
+import SectionContacts from '@/components/sections/SectionContacts.vue'
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 </script>
 
 <template>
   <LayoutPage class="main w box-y">
-    <SectionContact class="flex" />
+    <SectionContacts class="flex" />
   </LayoutPage>
   <FooterMain />
 </template>

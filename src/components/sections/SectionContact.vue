@@ -1,29 +1,47 @@
 <script setup lang="ts">
-import { contacts } from '@/api/api_domains/contact/contacts'
-import IconconnectWithoutContact from '@/components/icons/IconconnectWithoutContact.vue'
-import { onMounted } from 'vue'
+import { Contact } from '@/api/api_domains/contact/contact'
+import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
+import IconconnectWithoutContact from '@/components/icons/IconConnectWithoutContact.vue'
+import IconLocationOn from '@/components/icons/IconLocationOn.vue'
+import IconOdnoklassniki from '@/components/icons/IconOdnoklassniki.vue'
+import IconPhoneEnabled from '@/components/icons/IconPhoneEnabled.vue'
+import IconVK from '@/components/icons/IconVK.vue'
+import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
+import { formatPhone } from '@/utilte/utilte'
+import { computed } from 'vue'
 
-onMounted(() => contacts.load())
+const { contact } = defineProps<{
+  contact: Contact
+}>()
+
+const name_is_phone = computed<boolean>(() => contact.name === 'phone')
+const name_is_address = computed<boolean>(() => contact.name === 'address')
+const name_is_vk = computed<boolean>(() => contact.name === 'vk')
+const name_is_whatsapp = computed<boolean>(() => contact.name === 'whatsapp')
+const name_is_odnoklassniki = computed<boolean>(() => contact.name === 'odnoklassniki')
+
+const description = computed<string>(() => {
+  if (name_is_phone.value) return formatPhone(contact.description)
+  return contact.description
+})
 </script>
 
 <template>
-  <section class="contact-us w">
-    <div class="box-y p-8 shadow-xl relative js gap-8 flex-1">
-      <h2>наши контакты</h2>
-      <div class="box-y gap-4">
-        <div v-for="contact in contacts.items" :key="contact.id" class="box-x js gap-4">
-          <IconconnectWithoutContact />
-          <div class="box-y flex">
-            <strong>{{ contact.name }}</strong>
-            <span class="c-sub">{{ contact.description }}</span>
-          </div>
-        </div>
-      </div>
+  <div class="box-x js gap-4">
+    <IconPhoneEnabled v-if="name_is_phone" />
+    <IconLocationOn v-else-if="name_is_address" />
+    <IconVK v-else-if="name_is_vk" />
+    <IconWhatsapp v-else-if="name_is_whatsapp" />
+    <IconOdnoklassniki v-else-if="name_is_odnoklassniki" />
+    <IconconnectWithoutContact v-else />
+    <div class="box-y flex">
+      <strong>{{ contact.name }}</strong>
+      <ComponentRecolorText
+        :text="description"
+        :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu"
+        class="c-sub"
+        >{{
+      }}</ComponentRecolorText>
     </div>
-    <iframe
-      class="flex-3"
-      src="https://yandex.ru/map-widget/v1/?um=constructor%3A2ae3f67321f7550843ef568969a6ce60d52a488b98d9b237c5488d763513bfde&amp;source=constructor&z=17"
-      frameborder="0"
-    ></iframe>
-  </section>
+  </div>
 </template>
