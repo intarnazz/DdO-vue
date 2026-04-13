@@ -1,6 +1,4 @@
-<script setup lang="ts">
-// TODO: выделение при совподение хеша #payment-and-delivery
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <section id="contants" class="contants box-y gap-4">

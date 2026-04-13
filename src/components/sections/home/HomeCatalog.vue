@@ -50,8 +50,6 @@ onMounted(async () => {
     type: type.value,
   }
 })
-
-// TODO: hover item
 </script>
 
 <template>

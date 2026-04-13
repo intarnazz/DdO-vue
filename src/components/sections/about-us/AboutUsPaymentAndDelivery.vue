@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// TODO: выделение при совподение хеша #payment-and-delivery
 </script>
 
 <template>

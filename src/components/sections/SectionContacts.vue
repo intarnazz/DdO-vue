@@ -3,6 +3,10 @@ import { contacts } from '@/api/api_domains/contact/contacts'
 import SectionContact from '@/components/sections/SectionContact.vue'
 import { onMounted } from 'vue'
 
+const { mini = false } = defineProps<{
+  mini?: boolean
+}>()
+
 onMounted(() => contacts.load())
 </script>
 
@@ -15,6 +19,7 @@ onMounted(() => contacts.load())
       </div>
     </div>
     <iframe
+      v-if="!mini"
       class="flex-3"
       src="https://yandex.com/map-widget/v1/?um=constructor%3A4dc299e9c2309db61cc7f96b82d68838a5389af72b51e96c37a27fb634898d66&amp;source=constructor"
       frameborder="0"

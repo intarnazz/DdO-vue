@@ -5,6 +5,7 @@ import SectionHome from '@/components/sections/SectionHome.vue'
 import HomeCatalog from '@/components/sections/home/HomeCatalog.vue'
 import HomeBrands from '@/components/sections/home/HomeBrands.vue'
 import SectionContacts from '@/components/sections/SectionContacts.vue'
+import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 // [ ]: документация
 // [ ]: вакансии
 // TODO: лодер на секциях
@@ -23,8 +24,10 @@ import SectionContacts from '@/components/sections/SectionContacts.vue'
       />
       <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" />
     </div>
+    <LayoutWrapper>
+      <SectionContacts :mini="true" class="flex overflow-hidden" />
+    </LayoutWrapper>
     <HomeBrands />
-    <SectionContacts class="flex overflow-hidden" />
   </LayoutPage>
   <FooterMain />
 </template>
@@ -35,6 +38,8 @@ import SectionContacts from '@/components/sections/SectionContacts.vue'
 
 .catalog
   &__item
+    &:last-child
+      padding-bottom: 0
     &:first-child,
     &:last-child
       border: none

@@ -9,6 +9,7 @@ class BrandsModel extends CatalogModel<Brand> {
     const res = await brandApi.all({
       limit: limit,
       offset: this.count,
+      order: 'id',
     })
 
     if (!res.success) return
