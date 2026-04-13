@@ -12,8 +12,6 @@ interface Query {
 const VITE_API_URL: string = import.meta.env.VITE_API_URL
 const VITE_URL: string = import.meta.env.VITE_URL
 
-// TODO: выднлить как домен
-
 /**
  * Класс для работы с изображениями через API
  */
