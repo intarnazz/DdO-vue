@@ -14,10 +14,9 @@ onMounted(() => contacts.load())
         <SectionContact v-for="contact in contacts.items" :key="contact.id" :contact="contact" />
       </div>
     </div>
-    <!-- TODO: обновить карту -->
     <iframe
       class="flex-3"
-      src="https://yandex.ru/map-widget/v1/?um=constructor%3A2ae3f67321f7550843ef568969a6ce60d52a488b98d9b237c5488d763513bfde&amp;source=constructor&z=17"
+      src="https://yandex.com/map-widget/v1/?um=constructor%3A4dc299e9c2309db61cc7f96b82d68838a5389af72b51e96c37a27fb634898d66&amp;source=constructor"
       frameborder="0"
     ></iframe>
   </section>
