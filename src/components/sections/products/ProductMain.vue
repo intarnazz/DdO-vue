@@ -167,39 +167,50 @@ const interior_is_valid = ref(
           </div>
 
           <div class="box-x js gap-4">
-            <!-- TODO: секция прыгает из-за обновления h -->
-            <div class="box-y box br p-2">
-              <p v-if="product.product.has_price_discount" class="line-through c-sub">
+            <div class="box-y">
+              <p
+                :class="{
+                  'opacity-0': !product.product.has_price_discount,
+                }"
+                class="line-through c-sub"
+              >
                 {{ product.product.price_string }}
               </p>
-              <ProductPrice
-                :price="
-                  product.product.has_price_discount
-                    ? product.product.price_discount
-                    : product.product.price
-                "
-              />
-              <p>полотно</p>
+              <div class="box-y box br p-2">
+                <ProductPrice
+                  :price="
+                    product.product.has_price_discount
+                      ? product.product.price_discount
+                      : product.product.price
+                  "
+                />
+                <p>полотно</p>
+              </div>
             </div>
 
-            <div
-              v-if="product.product.price !== product.product.total_price"
-              class="box-y box br p-2"
-            >
-              <!-- [ ]: выбор -->
-              <!-- TODO: анимация -->
-              <!-- TODO: анимация -->
-              <p v-if="product.product.has_price_discount" class="line-through c-sub">
+            <div v-if="product.product.price !== product.product.total_price" class="box-y">
+              <p
+                :class="{
+                  'opacity-0': !product.product.has_price_discount,
+                }"
+                class="line-through c-sub"
+              >
                 {{ product.product.total_price_string }}
               </p>
-              <ProductPrice
-                :price="
-                  product.product.has_price_discount
-                    ? product.product.total_price_discount
-                    : product.product.total_price
-                "
-              />
-              <p>комплект</p>
+              <div class="box-y box br p-2">
+                <!-- [ ]: выбор -->
+                <!-- TODO: анимация -->
+                <!-- TODO: анимация -->
+
+                <ProductPrice
+                  :price="
+                    product.product.has_price_discount
+                      ? product.product.total_price_discount
+                      : product.product.total_price
+                  "
+                />
+                <p>комплект</p>
+              </div>
             </div>
             <ProductDiscount :product="product.product" />
           </div>
