@@ -9,7 +9,10 @@ import { computed, ref } from 'vue'
 
 const total_count = ref(1)
 
-const price = computed(() => product.product.total_price_discount * total_count.value)
+const total_price           = computed<number> (() => {let price = 0;product.product.options.forEach((o) => {price += o.count * o.price});return price + product.product.price}) // prettier-ignore
+const total_price_discount  = computed<number> (() => Math.ceil(total_price.value - (total_price.value  * (product.product.discount / 100))),) // prettier-ignore
+
+const price = computed(() => total_price_discount.value * total_count.value)
 
 const set_option_count = (option: Option, number: number) => (option.count = number)
 const set_total_count = (number: number) => (total_count.value += number)
