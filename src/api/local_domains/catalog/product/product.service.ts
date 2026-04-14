@@ -7,6 +7,7 @@ import { filter, type } from '@/api/api'
 import Product from './product.model'
 import type { ProductType, ProductServiceType, ProductMeta, DefaultProductType } from './types'
 import { toNum } from '@/utilte/utilte'
+import router from '@/router/router'
 
 const rest = new Rest('product')
 
@@ -79,6 +80,7 @@ class ProductService {
     watch(
       () => filter.value,
       () => {
+        if ( type.type.id !== toNum(router.currentRoute.value.params.id)  ) return
         if (this.current_page > this.page_count) this.current_page = this.page_count
         this.all()
       },
@@ -97,7 +99,6 @@ class ProductService {
    */
   public async all(data: GetOptions = {}): Promise<unknown> {
     if (!type.type.id && !data.type) return
-    this.products.length = 0
     const res = await this.promise_controller.await((signal) =>
       this.rest.all({
         signal: signal,

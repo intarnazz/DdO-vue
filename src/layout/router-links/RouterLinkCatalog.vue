@@ -14,9 +14,13 @@ const {
   query?: Filters
 }>()
 
+const filter_legacy = computed(() => {
+  return { limit: filter.limit, order: filter.order || undefined, desc: filter.desc || undefined }
+})
+
 const query = computed(() => {
-  if (propsQuery) return { limit: filter.limit, ...propsQuery }
-  return { limit: filter.limit }
+  if (propsQuery) return { ...filter_legacy.value, ...propsQuery }
+  return filter_legacy.value
 })
 </script>
 

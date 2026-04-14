@@ -26,13 +26,17 @@ const init = () => {
 
 watch(
   () => route.query,
-  () => filter.update(route.query),
+  () => {
+    if (idNum.value === type.type.id) filter.update(route.query)
+  },
 )
 
-// watch(
-//   () => route.params.id,
-//   () => init(),
-// )
+watch(
+  () => route.params.id,
+  () => {
+    if (idNum.value === type.type.id) init()
+  },
+)
 </script>
 
 <template>
