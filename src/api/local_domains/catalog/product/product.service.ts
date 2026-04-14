@@ -80,7 +80,7 @@ class ProductService {
     watch(
       () => filter.value,
       () => {
-        if ( type.type.id !== toNum(router.currentRoute.value.params.id)  ) return
+        if (type.type.id !== toNum(router.currentRoute.value.params.id)) return
         if (this.current_page > this.page_count) this.current_page = this.page_count
         this.all()
       },

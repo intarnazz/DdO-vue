@@ -28,9 +28,9 @@ function send_active_tag_id(id: string) {
         }"
         v-if="Number(key) < MIN || is_expand || f.filters['tag'] == tag.id"
       >
-        <div>
+        <span>
           {{ tag.name }}
-        </div>
+        </span>
       </button>
     </template>
 
