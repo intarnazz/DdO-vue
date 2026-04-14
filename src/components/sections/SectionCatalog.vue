@@ -8,6 +8,7 @@ import CatalogPagination from '@/components/domains/catalog/CatalogPagination.vu
 import FormSearch from '@/components/forms/FormSearch.vue'
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import ComponentLoader404 from '@/components/ComponentLoader404.vue'
+import ComponentLoader from '@/components/ComponentLoader.vue'
 </script>
 
 <template>
@@ -47,23 +48,27 @@ import ComponentLoader404 from '@/components/ComponentLoader404.vue'
           <CatalogLimit :arguments="[48, 96, 192]" />
         </div>
 
-        <div
-          v-if="p.products.length"
-          class="catalog__grid"
-          :class="{
-            'opacity-80': p.is_loading,
-          }"
-        >
-          <CatalogItem
-            v-for="product in p.products"
-            :key="product.id"
-            :product="product"
-            :filter="filter"
-          />
-        </div>
-
+        <template v-if="!p.is_loading">
+          <div
+            v-if="p.products.length > 0"
+            class="catalog__grid"
+            :class="{
+              'opacity-80': p.is_loading, // [ ] component products
+            }"
+          >
+            <CatalogItem
+              v-for="product in p.products"
+              :key="product.id"
+              :product="product"
+              :filter="filter"
+            />
+          </div>
+          <div v-else class="box-x center w">
+            <ComponentLoader404 />
+          </div>
+        </template>
         <div v-else class="box-x center w">
-          <ComponentLoader404 />
+          <ComponentLoader />
         </div>
         <div class="center">
           <CatalogPagination />

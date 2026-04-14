@@ -96,13 +96,14 @@ class ProductService {
    * @returns Промис, разрешающийся после обновления состояния
    */
   public async all(data: GetOptions = {}): Promise<unknown> {
-    if (!type.type.id) return
+    if (!type.type.id && !data.type) return
+    this.products.length = 0
     const res = await this.promise_controller.await((signal) =>
       this.rest.all({
         signal: signal,
+        type: type.type.id,
         ...data,
         ...filter.query,
-        type: type.type.id,
       }),
     )
     if (res === false) return

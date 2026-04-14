@@ -19,9 +19,9 @@ const { id } = defineProps<{
 
 const idNum = computed(() => toNum(id))
 
-const init = async () => {
+const init = () => {
   filter.update(route.query)
-  if (type.type.id !== idNum.value) await type.type.init(idNum.value)
+  if (type.type.id !== idNum.value) type.type.init(idNum.value)
 }
 
 watch(
@@ -29,16 +29,16 @@ watch(
   () => filter.update(route.query),
 )
 
-watch(
-  () => route.params.id,
-  () => init(),
-)
+// watch(
+//   () => route.params.id,
+//   () => init(),
+// )
 </script>
 
 <template>
   <!-- <LayoutPage :foo="init" class="main box-y gap-16"> -->
-  <LayoutPage v-slot="{ isLoading }" :foo="init" class="main box-y gap-16">
-    <LayoutWrapper v-if="!isLoading && idNum === type.type.id" class="box-y gap-12">
+  <LayoutPage :foo="init" class="main box-y gap-16">
+    <LayoutWrapper v-if="idNum === type.type.id" class="box-y gap-12">
       <div class="box-y gap-4">
         <ComponentBread />
         <ComponentContext />

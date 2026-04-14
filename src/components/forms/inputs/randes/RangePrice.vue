@@ -58,6 +58,8 @@ watch(
   () => filter.filters['price-max'],
   () => init(),
 )
+
+// LARAVEL: фильтрует без учёта скидки
 </script>
 
 <template>

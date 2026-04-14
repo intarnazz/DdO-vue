@@ -118,12 +118,12 @@ class Type {
   }
 
   public async init(id: number): Promise<void> {
+    product.all({type: id})
     const res = await this.rest.get(id)
 
     if (!res.success) return
 
     Object.assign(this.data_c.value, res.data)
-    await product.all()
   }
 
   public get id(): number {
