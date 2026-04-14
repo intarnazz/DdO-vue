@@ -24,32 +24,37 @@ const pagingInfo = ref<PagingInfo | undefined>(pagingInfoBuilder())
 const type = ref()
 
 const type_init = async () => {
-  const res = await new Rest('type').get(type_id)
-  type.value = typeBuilder(res.data as Partial<DefaultTypeInterface>)
+  const res = new Rest('type').get(type_id)
+  type.value = typeBuilder((await res).data as Partial<DefaultTypeInterface>)
+
+  if (!homePageEssence.value && !homePageEssence.value[String(type_id)]) return
+  homePageEssence.value![String(type_id)]!.type = type.value
 }
 
 const products_init = async () => {
-  const res = await new Rest('product').all({ limit: limit, type: type_id })
-  products.value = buildArray(Product, res.data)
-  pagingInfo.value = pagingInfoBuilder(res.pagingInfo)
+  const res = new Rest('product').all({ limit: limit, type: type_id })
+  products.value = buildArray(Product, (await res).data)
+  pagingInfo.value = pagingInfoBuilder((await res).pagingInfo)
+
+  if (!homePageEssence.value && !homePageEssence.value[String(type_id)]) return
+  homePageEssence.value![String(type_id)]!.products = products.value
+  homePageEssence.value![String(type_id)]!.pagingInfo = pagingInfo.value
 }
 
-onMounted(async () => {
+const init = async () => {
   products.value = homePageEssence.value[String(type_id)]?.products
   pagingInfo.value = homePageEssence.value[String(type_id)]?.pagingInfo
   type.value = homePageEssence.value[String(type_id)]?.type
 
   if (products.value && pagingInfo.value && type.value) return
 
-  await type_init()
-  await products_init()
+  homePageEssence.value[String(type_id)] = {}
 
-  homePageEssence.value[String(type_id)] = {
-    products: products.value,
-    pagingInfo: pagingInfo.value,
-    type: type.value,
-  }
-})
+  type_init()
+  products_init()
+}
+
+onMounted(() => init())
 </script>
 
 <template>
