@@ -17,7 +17,7 @@ const set_option_count = (number: number) => emit('set_option_count', option.cou
 
 <template>
   <div class="br border option__item px-4 py-2 box-x gap-8 as">
-    <div class="box-y gap-4">
+    <div class="box-y gap-4 flex">
       <strong> {{ option.name }}: </strong>
       <p class="c-sub">{{ option.description }}</p>
     </div>
