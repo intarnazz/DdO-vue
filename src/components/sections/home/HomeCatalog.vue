@@ -62,7 +62,7 @@ onMounted(async () => {
           :pagingInfo="pagingInfo"
         />
       </div>
-      <div :class="`grid-${grid_template_columns}`" class="catalog__grid grid-cols-4 gap-8 grid">
+      <div :class="`grid-${grid_template_columns}`" class="catalog__grid grid-cols-4 gap-4 grid">
         <CatalogItem
           v-for="product in products"
           :key="product.id"

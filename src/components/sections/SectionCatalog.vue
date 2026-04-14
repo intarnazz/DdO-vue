@@ -79,5 +79,5 @@ import ComponentLoader404 from '@/components/ComponentLoader404.vue'
   &__grid
     display: grid
     grid-template-columns: 1fr 1fr 1fr
-    gap: 2rem
+    gap: 1rem
 </style>

@@ -244,7 +244,7 @@ const interior_is_valid = ref(
         </div>
 
         <div class="product__contact">
-          <!-- {{ contact. }} // LARAVEL: отправить как мета данные -->
+          <!-- {{ contact. }} // TODO: отправить как мета данные -->
         </div>
         <div v-if="color_characteristics[0]" class="product__color box-y gap-4">
           <h3>цвет</h3>
