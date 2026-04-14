@@ -12,23 +12,22 @@ import { onMounted, ref, watch } from 'vue'
 import { RouteLocationNormalizedLoadedGeneric, useRoute } from 'vue-router'
 
 const { foo } = defineProps<{
-  foo?: (params: RouteLocationNormalizedLoadedGeneric) => Promise<unknown>
+  foo?: (params: RouteLocationNormalizedLoadedGeneric) => unknown
 }>()
 
 const route = useRoute()
 const isLoading = ref(true)
-const promise = ref<unknown>(null)
 
-async function init() {
+function init() {
   if (!foo) return
   isLoading.value = true
-  promise.value = await foo(route)
+  foo(route)
   isLoading.value = false
 }
 
-onMounted(async () => {
+onMounted(() => {
   up_fast()
-  await init()
+  init()
 })
 
 watch(
@@ -46,7 +45,7 @@ watch(
     <IconUp />
 
     <!-- Слот для вставки дочернего контента -->
-    <slot :isLoading="isLoading" :promise="promise" />
+    <slot :isLoading="isLoading" />
   </main>
 </template>
 

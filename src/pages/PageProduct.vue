@@ -9,21 +9,16 @@ import ProductSimilarProduct from '@/components/sections/products/ProductSimilar
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
-import { toNum } from '@/utilte/utilte'
 import { RouteLocationNormalizedGeneric } from 'vue-router'
 
-const { id } = defineProps<{
-  id: string
-}>()
-
-async function init(route: RouteLocationNormalizedGeneric) {
+function init(route: RouteLocationNormalizedGeneric) {
   if (route.params.id) product.product.init(Number(route.params.id))
 }
 </script>
 
 <template>
   <LayoutPage :foo="init" class="main box-y gap-16">
-    <LayoutWrapper v-if="toNum(id) === product.product.id" class="box-y gap-16">
+    <LayoutWrapper class="box-y gap-16">
       <div class="box-y gap-4">
         <ComponentBread />
         <ComponentContext />

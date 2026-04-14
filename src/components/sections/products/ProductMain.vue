@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { product, user } from '@/api/api'
+import { contacts } from '@/api/api_domains/contact/contacts'
 import Product from '@/api/local_domains/catalog/product/product.model'
 import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
+import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
 import ComponentSelect from '@/components/ComponentSelect.vue'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
@@ -18,8 +20,8 @@ import ProductPrice from '@/components/sections/products/ProductPrice.vue'
 import LayoutIcon from '@/layout/LayoutIcon.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
-import { title } from '@/utilte/utilte'
-import { computed, Ref, ref } from 'vue'
+import { formatPhone, title } from '@/utilte/utilte'
+import { computed, onMounted, Ref, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -29,10 +31,6 @@ const size_characteristics = computed(() =>
   product.product.characteristics.filter((c) => c.filter.name === 'size'),
 )
 
-const color_characteristics = computed(() =>
-  //[ ]: component
-  product.product.characteristics.filter((c) => c.filter.name === 'color'),
-)
 // [ ] - Полная секция продукта //:выделить компонент
 // [ ] - Полная секция продукта //: product__price: Вычисляемое свойство "обрамления"
 
@@ -46,6 +44,12 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
 
 const interior_is_valid = ref(
   route.params.type === 'entrance-doors' || route.params.type === 'interior-doors',
+)
+
+onMounted(() => contacts.load())
+
+const phone = computed(() =>
+  formatPhone(contacts.items.find((i) => i.name === 'phone')?.description || ''),
 )
 </script>
 
@@ -242,11 +246,13 @@ const interior_is_valid = ref(
             -->
           </div>
         </div>
-
-        <div class="product__contact">
-          <!-- {{ contact. }} // TODO: отправить как мета данные -->
+        <div v-if="phone" class="box-y gap-4">
+          <h3>номер</h3>
+          <p class="product__contact h2">
+            <ComponentRecolorText :text="phone" :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu" />
+          </p>
         </div>
-        <div v-if="color_characteristics[0]" class="product__color box-y gap-4">
+        <div class="box-y gap-4">
           <h3>цвет</h3>
           <div class="product__color-list box-x js gap-4 flex-wrap">
             <template v-for="p in product.product.variant.products" :key="p.id">
