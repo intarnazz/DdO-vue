@@ -24,6 +24,8 @@ const init = () => {
   if (type.type.id !== idNum.value) type.type.init(idNum.value)
 }
 
+// FIXME: страый баг с исинхронными фильтрами
+
 watch(
   () => route.query,
   () => {

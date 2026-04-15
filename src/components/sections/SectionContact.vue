@@ -38,7 +38,6 @@ const description = computed<string>(() => {
       <strong>{{ contact.name }}</strong>
       <ComponentRecolorText
         :text="description"
-        :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu"
         class="c-sub"
         >{{
       }}</ComponentRecolorText>

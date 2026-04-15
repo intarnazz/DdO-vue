@@ -22,9 +22,6 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import { formatPhone, title } from '@/utilte/utilte'
 import { computed, onMounted, Ref, ref } from 'vue'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
 
 const size_characteristics = computed(() =>
   //[ ]: component
@@ -43,7 +40,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
 }
 
 const interior_is_valid = ref(
-  route.params.type === 'entrance-doors' || route.params.type === 'interior-doors',
+  product.product.type.name === 'entrance-doors' || product.product.type.name === 'interior-doors',
 )
 
 onMounted(() => contacts.load())
@@ -249,7 +246,7 @@ const phone = computed(() =>
         <div v-if="phone" class="box-y gap-4">
           <h3>номер</h3>
           <p class="product__contact h2">
-            <ComponentRecolorText :text="phone" :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu" />
+            <ComponentRecolorText :text="phone" />
           </p>
         </div>
         <div class="box-y gap-4">

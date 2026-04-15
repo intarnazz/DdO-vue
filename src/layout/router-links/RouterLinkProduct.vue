@@ -16,11 +16,13 @@ function set_product() {
 
 <template>
   <RouterLink
+    v-if="type?.name || api_type.type.name || api_product.product.type.name || product.type.name"
     @click="set_product"
     :to="{
       name: 'product',
       params: {
-        type: type?.name || api_type.type.name || api_product.product.type.name,
+        type:
+          type?.name || api_type.type.name || api_product.product.type.name || product.type.name,
         model: product.variant.name,
         id: product.id,
         name: product.name.replace(/[^\p{L}\p{N}]+/gu, ''),

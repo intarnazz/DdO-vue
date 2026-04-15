@@ -39,7 +39,6 @@ function change_selected_option(new_key: number) {
       <span v-if="selected_option">
         <ComponentRecolorText
           :text="`${selected_option.id} - ${selected_option.name}`"
-          :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu"
         />
       </span>
       <span v-else>Loading...</span>
@@ -60,7 +59,6 @@ function change_selected_option(new_key: number) {
             <span>
               <ComponentRecolorText
                 :text="`${option.id} - ${option.name}`"
-                :match="/[^a-zA-Zа-яА-ЯеЁ0-9/p{Z}/p{C}]/gu"
               />
             </span>
           </button>

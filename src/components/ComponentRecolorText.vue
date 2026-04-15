@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { text, match } = defineProps<{
+const { text, match = /[^a-zA-Zа-яА-ЯёЁ0-9\p{Z}\p{C}]/gu } = defineProps<{
   text: string
-  match: RegExp
+  match?: RegExp
 }>()
 
 const mark_symbols = computed(() => text.match(match))

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { cart } from '@/api/api'
 import ComponentBread from '@/components/ComponentBread.vue'
+import SectionCart from '@/components/sections/SectionCart.vue'
 import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
@@ -12,10 +12,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
       <div class="box-y flex gap-4">
         <ComponentBread />
       </div>
-      <section class="cart">
-        <h2>cart</h2>
-        {{ cart.products }}
-      </section>
+      <SectionCart />
     </LayoutWrapper>
   </LayoutPage>
   <FooterMain />
