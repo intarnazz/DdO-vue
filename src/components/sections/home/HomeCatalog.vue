@@ -55,6 +55,7 @@ const init = () => {
 }
 
 onMounted(() => init())
+// TODO: ссылка на каталог
 </script>
 
 <template>
