@@ -5,33 +5,49 @@ import IconShopping from '@/components/icons/IconShopping.vue'
 import LayoutButton from '@/layout/LayoutButton.vue'
 import { computed } from 'vue'
 
-const { product, is_mini = false } = defineProps<{
+const {
+  product,
+  price,
+  is_mini = false,
+} = defineProps<{
   product: ProductType
+  price: number
   is_mini?: boolean
 }>()
 
+const cart_product = computed(() => cart.get_product(product.id))
 const active = computed(() => cart.products.some((p) => p.product.id === product.id))
-const strong_text = computed(() => (active.value ? 'уже в корзине' : 'в корзину'))
+const strong_text = computed(() => (active.value ? 'Добавить +1' : 'в корзину'))
 
-function add_to_cart() {
-  cart.add_produc({
-    product: product.object,
-    count: 1,
-  })
+const add_to_cart = () => {
+  if (!active.value)
+    return cart.add_produc({
+      product: product.object,
+      price: price,
+    })
+  const cart_product = cart.get_product(product.id)
+  if (!cart_product) return
+  cart_product.count++
 }
 
-function change_cart() {
+const change_cart = () => {
   if (!active.value) add_to_cart()
   else cart.remove_produc(product)
 }
 </script>
 
 <template>
-  <LayoutButton v-if="!is_mini" @click="add_to_cart" :disabled="active">
+  <LayoutButton class="relative" v-if="!is_mini" @click="add_to_cart">
+    <p
+      v-if="cart_product && cart_product.count > 0"
+      class="absolute -top-2 -left-2 bg-main rounded-full w-9 h-9 center shadow-xl box-x"
+    >
+      {{ cart_product?.count }}
+    </p>
     <IconShopping />
     <strong> {{ strong_text }} </strong>
   </LayoutButton>
-  <button @click="change_cart" v-if="is_mini" class="button_icon min-h-6">
+  <button @click="change_cart" v-else-if="is_mini" class="button_icon min-h-6">
     <IconShopping :active="active" />
   </button>
 </template>

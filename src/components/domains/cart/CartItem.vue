@@ -1,15 +1,25 @@
 <script setup lang="ts">
 import ComponentImg from '@/components/ComponentImg.vue'
-import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
-import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
-import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
 import { ProductType } from '@/api/local_domains/catalog/product'
 import ProductDiscount from '@/components/domains/product/ProductDiscount.vue'
+import ComponentCount from '@/components/ComponentCount.vue'
+import IconDelete from '@/components/icons/IconDelete.vue'
+import { cart } from '@/api/api'
 
-const { product } = defineProps<{
+const { product, count, price } = defineProps<{
   product: ProductType
+  count: number
+  price: number
 }>()
+
+const emit = defineEmits<{
+  set_count: [value: number]
+}>()
+
+const set_count = (number: number) => emit('set_count', number)
+
+const remove = () => cart.remove_produc(product)
 </script>
 
 <template>
@@ -60,9 +70,12 @@ const { product } = defineProps<{
         </div>
 
         <div class="box-x gap-4">
-          <ButtonFavorite :product="product" :is_mini="true" />
-          <ButtonComparison :product="product" :is_mini="true" />
-          <ButtonAddToCart :product="product" :is_mini="true" />
+          <button @click="remove" class="button_mini button_delete c-sub box-x">
+            <IconDelete />
+            <strong>удалить все</strong>
+          </button>
+          |
+          <ComponentCount @set_count="set_count" :min="1" :count="count" />
         </div>
       </div>
     </div>

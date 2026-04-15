@@ -20,7 +20,7 @@ function set_favorite() {
   <button
     title="Добавить продукт в избранное"
     @click="set_favorite"
-    class="button-favorite box-x gap-2 font-normal relative z-1 min-h-6"
+    class="button-favorite button_mini box-x gap-2 font-normal relative z-1 min-h-6"
     :class="{ checked: product.is_favorite }"
     :key="product.id"
   >
@@ -34,10 +34,6 @@ function set_favorite() {
 
 <style lang="sass" scoped>
 .button-favorite
-  &:hover
-    background-color: $sub-95
-    outline: .5rem solid $sub-95
-    border-radius: 5px
   .action
     position: relative
     overflow: hidden

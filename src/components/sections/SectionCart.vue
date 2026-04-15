@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { cart } from '@/api/api'
+import { CartItem as CartItemType } from '@/api/local_domains/cart/cart'
 import Product from '@/api/local_domains/catalog/product/product.model'
 import CartItem from '@/components/domains/cart/CartItem.vue'
+
+const set_count = (product: CartItemType, number: number) => (product.count += number)
 </script>
 
 <template>
@@ -23,7 +26,12 @@ import CartItem from '@/components/domains/cart/CartItem.vue'
         :key="product.product.id"
         class="cart__product-item box-x"
       >
-        <CartItem :product="new Product(product.product)" />
+        <CartItem
+          @set_count="(number) => set_count(product, number)"
+          :product="new Product(product.product)"
+          :count="product.count"
+          :price="product.price"
+        />
       </div>
     </div>
   </section>

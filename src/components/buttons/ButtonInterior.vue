@@ -10,7 +10,7 @@ const product_interior_toggle = useToggle(user.interior_is_active)
   <button
     title="Включить отображение интерьера"
     @click="product_interior_toggle()"
-    class="button-favorite box-x gap-2 font-normal relative z-1 min-h-6"
+    class="button-favorite button_mini box-x gap-2 font-normal relative z-1 min-h-6"
     :class="{ checked: user.interior_is_active.value }"
   >
     <IconPottedPlant class="relative z-2" :active="user.interior_is_active.value" />
@@ -23,10 +23,6 @@ const product_interior_toggle = useToggle(user.interior_is_active)
 
 <style lang="sass" scoped>
 .button-favorite
-  &:hover
-    background-color: $sub-95
-    outline: .5rem solid $sub-95
-    border-radius: 5px
   .action
     position: relative
     overflow: hidden

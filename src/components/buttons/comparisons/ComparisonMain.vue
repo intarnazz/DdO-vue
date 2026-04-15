@@ -12,7 +12,7 @@ const { is_mini, active, product } = defineProps<{
 <template>
   <span
     :key="product.id"
-    class="comparison-action button_icon box-x gap-2 font-normal relative z-1 min-h-6"
+    class="comparison-action button_mini box-x gap-2 font-normal relative z-1 min-h-6"
   >
     <IconBarChart class="relative z-2" :active="active" />
     <span

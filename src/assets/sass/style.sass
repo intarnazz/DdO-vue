@@ -285,9 +285,14 @@ input[type="search"]::-webkit-search-cancel-button
 button
   cursor: pointer
   border: none
+  & svg
+    &.delete
+      fill: $sub
   &:hover
     & svg
       fill: $mark
+      &.delete
+        fill: $red
   &:disabled
     cursor: default
     & svg
@@ -350,12 +355,18 @@ select
     color: $main
     text-decoration: underline
     text-decoration-color: $main
-
 .button
   +box-x
   +as
   min-width: 301px
   color: $w
+  &_mini
+    +box-x
+    gap: .5rem
+    &:hover
+      background-color: $sub-95
+      outline: .5rem solid $sub-95
+      border-radius: 5px
   & svg
     +h
     fill: $main
