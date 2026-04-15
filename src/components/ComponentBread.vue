@@ -50,7 +50,10 @@ watch(
     <div class="box-x 2 flex js">
       <RouterLink class="a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
       <IconRight />
-      <template v-if="route.name === 'about-us'">
+      <template v-if="route.name === 'cart'">
+        <p>ваша корзина</p>
+      </template>
+      <template v-else-if="route.name === 'about-us'">
         <p>о нас</p>
       </template>
       <template v-else-if="route.name === 'brands'">
