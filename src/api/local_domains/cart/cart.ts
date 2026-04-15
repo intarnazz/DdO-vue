@@ -5,6 +5,7 @@ import user from '@/storage/user'
 export interface CartItem {
   product: DefaultProductType
   count: number
+  price: number
 }
 
 class Cart {

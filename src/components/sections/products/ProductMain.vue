@@ -35,12 +35,15 @@ const current_image: Ref<Image | Image[] | null> = ref(null)
 const index: Ref<number> = ref(0)
 
 const set_current_image = (image: null | Image | Image[], key: number = 0) => {
+  console.log(image)
   current_image.value = image
   index.value = key
 }
 
-const interior_is_valid = ref(
-  product.product.type.name === 'entrance-doors' || product.product.type.name === 'interior-doors',
+const interior_is_valid = computed(
+  () =>
+    product.product.type.name === 'entrance-doors' ||
+    product.product.type.name === 'interior-doors',
 )
 
 onMounted(() => contacts.load())
@@ -79,11 +82,12 @@ const phone = computed(() =>
         </LayoutIcon>
 
         <div class="box-x gap-4 relative content center">
-          <button
+          <div
             v-if="!user.interior_is_active.value || !product.product.image_secondary"
             class="box-x relative h-132.5"
           >
             <ComponentImg
+              v-if="product.product.image_primary.path"
               @click="set_current_image(product.product.image_primary)"
               :class="{
                 product__img_shadow: !user.interior_is_active.value,
@@ -91,9 +95,10 @@ const phone = computed(() =>
               class="product__img object-cover h-full cursor-zoom-in"
               :storage="product.product.image_primary.path"
             />
-          </button>
+          </div>
           <div v-if="product.product.image_secondary" class="box-x relative h-132.5">
             <ComponentImg
+              v-if="product.product.image_primary.path"
               @click="set_current_image(product.product.image_secondary)"
               :class="{
                 product__img_shadow: !user.interior_is_active.value,
