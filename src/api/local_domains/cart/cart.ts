@@ -1,21 +1,25 @@
 import { ProductType } from '@/api/local_domains/catalog/product'
+import { DefaultProductType } from '@/api/local_domains/catalog/product/types'
 import user from '@/storage/user'
 
-export type CartType = ProductType
+export interface CartItem {
+  product: DefaultProductType
+  count: number
+}
 
 class Cart {
   constructor() {}
 
-  public add_produc(product: ProductType) {
-    if (!this.products.map((p) => p.id).includes(product.id))
-      this.products = [({ ...product } as Record<string, any>).data, ...this.products]
+  public add_produc(cart_item: CartItem) {
+    if (!this.products.map((p) => p.product.id).includes(cart_item.product.id))
+      this.products = [cart_item, ...this.products]
   }
 
   public remove_produc(product: ProductType) {
-    this.products = this.products.filter((p) => p.id !== product.id)
+    this.products = this.products.filter((p) => p.product.id !== product.id)
   }
 
-  public get products(): CartType[] {
+  public get products(): CartItem[] {
     return user.cart
   }
 

@@ -10,11 +10,14 @@ const { product, is_mini = false } = defineProps<{
   is_mini?: boolean
 }>()
 
-const active = computed(() => cart.products.some((p) => p.id === product.id))
+const active = computed(() => cart.products.some((p) => p.product.id === product.id))
 const strong_text = computed(() => (active.value ? 'уже в корзине' : 'в корзину'))
 
 function add_to_cart() {
-  cart.add_produc(product)
+  cart.add_produc({
+    product: product.object,
+    count: 1,
+  })
 }
 
 function change_cart() {

@@ -24,8 +24,14 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
         </div>
         <!-- <img class="h-6" src="@/assets/icons/search.svg" alt="search" /> -->
         <!-- <img class="h-6" src="@/assets/icons/favorite.svg" alt="favorite" /> -->
+        <RouterLink
+          :to="{
+            name: 'cart',
+          }"
+        >
+          <img class="h-6" src="@/assets/icons/shopping.svg" alt="shopping" />
+        </RouterLink>
         <!-- <img class="h-6" src="@/assets/icons/bar_chart.svg" alt="bar_chart" /> -->
-        <!-- <img class="h-6" src="@/assets/icons/shopping.svg" alt="shopping" /> -->
       </div>
     </LayoutWrapper>
   </div>
