@@ -8,10 +8,12 @@ import { computed } from 'vue'
 const {
   product,
   price,
+  count = 1,
   is_mini = false,
 } = defineProps<{
   product: ProductType
   price: number
+  count?: number
   is_mini?: boolean
 }>()
 
@@ -23,6 +25,7 @@ const add_to_cart = () => {
   if (!active.value)
     return cart.add_produc({
       product: product.object,
+      count: count,
       price: price,
     })
   const cart_product = cart.get_product(product.id)

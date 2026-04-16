@@ -47,7 +47,11 @@ const set_total_count = (number: number) => (total_count.value += number)
       </div>
       <div class="box-y">
         <div class=""></div>
-        <ButtonAddToCart :product="product.product" />
+        <ButtonAddToCart
+          :count="total_count"
+          :price="total_price_discount"
+          :product="product.product"
+        />
       </div>
     </div>
   </section>
