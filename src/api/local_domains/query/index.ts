@@ -49,7 +49,10 @@ export class Query {
     // Сброс offset при смене фильтров / сортировки / поиска
     watch(
       [() => this.filters, () => this.order, () => this.desc, () => this.search],
-      () => (this.offset = 0),
+      () => {
+        this.offset = 0
+      },
+      { deep: true },
     )
 
     // Сохраняем всё в URL при любом изменении
