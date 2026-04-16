@@ -57,7 +57,7 @@ const remove = () => cart.remove_produc(product)
 
       <div class="box-x">
         <div class="box-y c-sub">
-          <p v-if="product.has_price_discount">*цена указанна с учётом скидки</p>
+          <!-- <p v-if="product.has_price_discount">*цена указанна с учётом скидки</p> -->
           <p>
             <ProductPrice :price="price" />
           </p>
