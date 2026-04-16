@@ -3,6 +3,7 @@ import { cart } from '@/api/api'
 import { CartItem as CartItemType } from '@/api/local_domains/cart/cart'
 import Product from '@/api/local_domains/catalog/product/product.model'
 import CartItem from '@/components/domains/cart/CartItem.vue'
+import ProductPrice from '@/components/sections/products/ProductPrice.vue'
 
 const set_count = (product: CartItemType, number: number) => (product.count += number)
 </script>
@@ -18,20 +19,28 @@ const set_count = (product: CartItemType, number: number) => (product.count += n
       </p>
     </div>
 
-    <strong class="c-sub">товаров: {{ cart.products.length }}</strong>
+    <div class="box-x gap-8 a-start">
+      <div class="box-y gap-4 flex">
+        <strong class="c-sub">товаров: {{ cart.products.length }}</strong>
+        <div class="cart__product-list box-y gap-4">
+          <div
+            v-for="product in cart.products"
+            :key="product.product.id"
+            class="cart__product-item box-x"
+          >
+            <CartItem
+              @set_count="(number) => set_count(product, number)"
+              :product="new Product(product.product)"
+              :count="product.count"
+              :price="product.price"
+            />
+          </div>
+        </div>
+      </div>
 
-    <div class="cart__product-list box-y gap-4">
-      <div
-        v-for="product in cart.products"
-        :key="product.product.id"
-        class="cart__product-item box-x"
-      >
-        <CartItem
-          @set_count="(number) => set_count(product, number)"
-          :product="new Product(product.product)"
-          :count="product.count"
-          :price="product.price"
-        />
+      <div class="box-y p-8 border">
+        <h3 class="h2 c-sub">общая стоимость:</h3>
+        <ProductPrice :price="cart.total_price" />
       </div>
     </div>
   </section>

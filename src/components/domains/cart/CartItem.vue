@@ -66,7 +66,7 @@ const remove = () => cart.remove_produc(product)
         <div class="box-x gap-4">
           <button @click="remove" class="button_mini button_delete c-sub box-x">
             <IconDelete />
-            <strong>удалить все</strong>
+            <strong>удалить</strong>
           </button>
           |
           <ComponentCount @set_count="set_count" :min="1" :count="count" />

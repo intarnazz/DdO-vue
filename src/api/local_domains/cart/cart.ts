@@ -1,6 +1,7 @@
 import { ProductType } from '@/api/local_domains/catalog/product'
 import { DefaultProductType } from '@/api/local_domains/catalog/product/types'
 import user from '@/storage/user'
+import { computed } from 'vue'
 
 export interface CartItem {
   product: DefaultProductType
@@ -9,7 +10,9 @@ export interface CartItem {
 }
 
 class Cart {
-  constructor() {}
+  private _total_price = computed<number>(() =>
+    this.products.reduce((sum, p) => sum + p.price * p.count, 0),
+  )
 
   public add_produc(cart_item: CartItem) {
     if (!this.products.map((p) => p.product.id).includes(cart_item.product.id))
@@ -30,6 +33,9 @@ class Cart {
 
   protected set products(products) {
     user.cart = products
+  }
+  public get total_price(): number {
+    return this._total_price.value
   }
 }
 
