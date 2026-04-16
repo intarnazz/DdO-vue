@@ -28,6 +28,7 @@ const add_to_cart = () => {
   const cart_product = cart.get_product(product.id)
   if (!cart_product) return
   cart_product.count++
+  cart_product.price = price
 }
 
 const change_cart = () => {

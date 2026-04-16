@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { user } from '@/api/api'
 import IconPottedPlant from '@/components/icons/IconPottedPlant.vue'
+import interior_is_valid from '@/components/sections/products/interior_is_valid.use'
 import { useToggle } from '@vueuse/core'
 
 const product_interior_toggle = useToggle(user.interior_is_active)
@@ -8,6 +9,7 @@ const product_interior_toggle = useToggle(user.interior_is_active)
 
 <template>
   <button
+    v-if="interior_is_valid"
     title="Включить отображение интерьера"
     @click="product_interior_toggle()"
     class="button-favorite button_mini box-x gap-2 font-normal relative z-1 min-h-6"

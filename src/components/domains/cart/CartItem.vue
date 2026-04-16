@@ -6,6 +6,7 @@ import ProductDiscount from '@/components/domains/product/ProductDiscount.vue'
 import ComponentCount from '@/components/ComponentCount.vue'
 import IconDelete from '@/components/icons/IconDelete.vue'
 import { cart } from '@/api/api'
+import ProductPrice from '@/components/sections/products/ProductPrice.vue'
 
 const { product, count, price } = defineProps<{
   product: ProductType
@@ -41,7 +42,7 @@ const remove = () => cart.remove_produc(product)
       </div>
     </RouterLinkProduct>
 
-    <div class="box-y flex p-8">
+    <div class="box-y gap-8 flex p-8">
       <div class="product__title box-y">
         <p class="c-sub">
           {{ product.article }}
@@ -55,17 +56,10 @@ const remove = () => cart.remove_produc(product)
       </div>
 
       <div class="box-x">
-        <div class="product__price box-x gap-2">
-          <p v-if="product.has_price_discount" class="px-2 bg-mark c-w">
-            {{ product.price_discount_string }}
-          </p>
-
-          <p
-            :class="{
-              product__price_del: product.has_price_discount,
-            }"
-          >
-            {{ product.price_string }}
+        <div class="box-y c-sub">
+          <p v-if="product.has_price_discount">*цена указанна с учётом скидки</p>
+          <p>
+            <ProductPrice :price="price" />
           </p>
         </div>
 
