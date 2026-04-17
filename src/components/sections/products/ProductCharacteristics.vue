@@ -22,7 +22,7 @@ const size_characteristics = computed(() =>
       <RouterLink
         class="a box-x gap-2 c-sub a_sub font-normal"
         :to="{
-          name: 'home', // [ ] - Страница документации //: ссылка на документацию
+          name: 'contact', // [ ] - Страница документации //: ссылка на документацию
         }"
       >
         <IconIndeterminateQuestionBox />
@@ -37,7 +37,7 @@ const size_characteristics = computed(() =>
         <RouterLink
           class="a box-x gap-2 c-sub a_sub font-normal"
           :to="{
-            name: 'home', //[ ]: Страница Контакты // ссылка на контакты
+            name: 'contact',
           }"
         >
           <IconHandshake />

@@ -8,6 +8,7 @@ import { DefaultTypeInterface, typeBuilder } from '@/api/local_domains/catalog/t
 import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { homePageEssence } from '@/api/api'
+import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 
 const {
   type_id,
@@ -21,7 +22,7 @@ const {
 
 const products = shallowRef<Product[] | undefined>([])
 const pagingInfo = ref<PagingInfo | undefined>(pagingInfoBuilder())
-const type = ref()
+const type = ref<DefaultTypeInterface>()
 
 const type_init = async () => {
   const res = await new Rest('type').get(type_id)
@@ -55,19 +56,21 @@ const init = () => {
 }
 
 onMounted(() => init())
-// TODO: ссылка на каталог
 </script>
 
 <template>
   <section v-if="type" class="catalog box-y gap-5">
     <LayoutWrapper>
       <div class="box-x">
-        <CatalogTitle
-          v-if="pagingInfo && products && products[0]"
-          :type="type"
-          :pagingInfo="pagingInfo"
-        />
+        <RouterLinkCatalog :type_name="type.name" :type_id="type.id">
+          <CatalogTitle
+            v-if="pagingInfo && products && products[0]"
+            :type="type"
+            :pagingInfo="pagingInfo"
+          />
+        </RouterLinkCatalog>
       </div>
+
       <div :class="`grid-${grid_template_columns}`" class="catalog__grid grid-cols-4 gap-4 grid">
         <CatalogItem
           v-for="product in products"

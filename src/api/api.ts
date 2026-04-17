@@ -1,5 +1,5 @@
 // api
-import type from './local_domains/catalog/type/type'
+import type, { DefaultTypeInterface } from './local_domains/catalog/type/type'
 import Rest, { PagingInfo } from './web_services/rest'
 import image from './web_services/image'
 import user from './local_domains/user/user'
@@ -28,6 +28,7 @@ export const homePageEssence = shallowRef<
     {
       products?: Product[]
       pagingInfo?: PagingInfo
+      type?: DefaultTypeInterface
       [key: string]: unknown
     }
   >
