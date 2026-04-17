@@ -50,7 +50,7 @@ watch([() => route.params.id, () => brand_id], init)
       </div>
     </div>
   </section>
-  <div v-else-if="route.params.id" class="center">
+  <div v-else-if="route.params.id || brand_id" class="center">
     <ComponentLoader />
   </div>
   <div class="box-y gap-8 p-4 br border" v-else>

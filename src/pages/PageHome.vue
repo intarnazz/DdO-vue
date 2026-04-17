@@ -8,7 +8,6 @@ import SectionContacts from '@/components/sections/SectionContacts.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 // [ ]: документация
 // [ ]: вакансии
-// TODO: лодер на секциях
 </script>
 
 <template>

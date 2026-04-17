@@ -11,7 +11,7 @@ onMounted(() => contacts.load())
 </script>
 
 <template>
-  <section class="contact-us w">
+  <section v-if="contacts.items.length > 0" class="contact-us w">
     <div class="box-y p-8 shadow-xl relative js gap-8 flex-1">
       <h2>наши контакты</h2>
       <div class="box-y gap-4">

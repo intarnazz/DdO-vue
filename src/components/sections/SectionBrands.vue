@@ -21,7 +21,7 @@ onMounted(() => brands.load())
 </script>
 
 <template>
-  <section class="brands select-menu box-y gap-4 br border as js">
+  <section v-if="brands.items.length > 0" class="brands select-menu box-y gap-4 br border as js">
     <h3 class="py-2 px-4">бренды</h3>
     <div class="box-x">
       <aside class="brands__list select-menu__list box-y">
