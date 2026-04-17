@@ -109,7 +109,7 @@ const is_equal = computed<boolean>(() => {
     <div class="box-x gap">
       <ButtonFavorite :product="product" :is_mini="true" />
       <ButtonComparison :product="product" :is_mini="true" />
-      <ButtonAddToCart :product="product" :is_mini="true" />
+      <ButtonAddToCart :product="product" :is_mini="true" :price="product.price_discount" />
     </div>
   </div>
 </template>

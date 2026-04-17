@@ -24,7 +24,7 @@ const remove = () => cart.remove_produc(product)
 </script>
 
 <template>
-  <div class="product border-top bg-white box-x as shadow-xl">
+  <div class="product border-top br bg-white box-x as shadow-xl">
     <RouterLinkProduct :product="product" class="box-x gap-2 content center">
       <div class="box-x relative h-67.5 max-h-67.5">
         <ProductDiscount :product="product" />
@@ -42,7 +42,7 @@ const remove = () => cart.remove_produc(product)
       </div>
     </RouterLinkProduct>
 
-    <div class="box-y gap-8 flex p-8">
+    <div class="box-y gap-8 flex px-8 py-4">
       <div class="product__title box-y">
         <p class="c-sub">
           {{ product.article }}
@@ -55,7 +55,7 @@ const remove = () => cart.remove_produc(product)
         <p>{{ product.description }}</p>
       </div>
 
-      <div class="box-x">
+      <div class="box-x gap-8">
         <div class="box-y c-sub">
           <!-- <p v-if="product.has_price_discount">*цена указанна с учётом скидки</p> -->
           <p>
