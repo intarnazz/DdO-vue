@@ -13,9 +13,10 @@ const { brand_id } = defineProps<{
 }>()
 
 const route = useRoute()
-const brand = ref<Brand>()
+const brand = ref<Brand | undefined>()
 
 const init = async () => {
+  brand.value = undefined
   if (!route.params.id && !brand_id) return
   const res = await brand_api.get(toNum(route.params.id || brand_id))
   if (!res.success) return
@@ -27,6 +28,7 @@ onMounted(async () => {
 })
 
 watch([() => route.params.id, () => brand_id], init)
+// TODO: удалить route.params.id
 </script>
 
 <template>
