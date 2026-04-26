@@ -37,7 +37,7 @@ export class Query {
     // prettier-ignore
     this._value = computed(() => {
       return {
-        limit : this.limit,
+        limit : (this.limit),
         offset: this.offset,
         order : this.order,
         desc  : this.desc,

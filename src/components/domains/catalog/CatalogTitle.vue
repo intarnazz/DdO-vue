@@ -14,7 +14,7 @@ const { type, pagingInfo } = defineProps<{
 <template>
   <div class="catalog-title box-x gap as">
     <div class="box-x">
-      <h2>{{ type.visible_name }}</h2>
+      <h2>{{ type.name }}</h2>
     </div>
     <p class="c-sub">
       {{ pagingInfo.totalCount }} товаров

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useLocalStorage, useSessionStorage } from '@vueuse/core'
 import type { RemovableRef } from '@vueuse/core'
-import type { CartType } from '@/api/local_domains/cart/cart'
+import type { CartItem } from '@/api/local_domains/cart/cart'
 
 /**
  * Класс User
@@ -18,21 +18,21 @@ import type { CartType } from '@/api/local_domains/cart/cart'
 class User {
   private _token: RemovableRef<string | null>
   private _favorite: RemovableRef<number[]>
-  private _cart: RemovableRef<CartType[]>
+  private _cart: RemovableRef<CartItem[]>
 
   constructor() {
     this._token = useLocalStorage<string | null>('token', null)
     this._favorite = useLocalStorage<number[]>('favorite', [])
-    this._cart = useSessionStorage<CartType[]>('cart', [])
+    this._cart = useSessionStorage<CartItem[]>('cart', [])
   }
 
   // ─── Cart ────────────────────────────────────────────────────────────────
 
-  public get cart(): CartType[] {
+  public get cart(): CartItem[] {
     return this._cart.value
   }
 
-  public set cart(cart: CartType[]) {
+  public set cart(cart: CartItem[]) {
     this._cart.value = cart
   }
 

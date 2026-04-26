@@ -111,7 +111,7 @@ export interface ProductCategory {
   /** Системное название категории */
   name        : string
   /** Отображаемое название категории */
-  visible_name: string
+  slug        : string
   /** Описание категории */
   description : string
 }

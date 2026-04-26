@@ -74,14 +74,14 @@ interface Tag {
 
 // prettier-ignore
 export interface DefaultTypeInterface {
-  id          : number
-  self_id     : number | null
-  name        : string
-  visible_name: string | null
-  description : string
-  tree        : TreeItem[]
-  filters     : Filter[]
-  tags        : Tag[]
+  id         : number
+  self_id    : number | null
+  name       : string
+  description: string
+  slug       : string | null
+  tree       : TreeItem[]
+  filters    : Filter[]
+  tags       : Tag[]
 }
 
 type Init = (id: number) => Promise<void>
@@ -93,14 +93,14 @@ export interface TypeInterface extends DefaultTypeInterface {
 export const typeBuilder = (type: Partial<DefaultTypeInterface>) => {
   // prettier-ignore
   return {
-    id          : toNum(type.id),
-    self_id     : toNum(type.self_id),
-    name        : toStr(type.name),
-    visible_name: toStr(type.visible_name),
-    description : toStr(type.description),
-    tree        : type.tree ?? [],
-    filters     : type.filters ?? [],
-    tags        : type.tags ?? [],
+    id         : toNum(type.id),
+    self_id    : toNum(type.self_id),
+    name       : toStr(type.name),
+    slug       : toStr(type.slug),
+    description: toStr(type.description),
+    tree       : type.tree ?? [],
+    filters    : type.filters ?? [],
+    tags       : type.tags ?? [],
   }
 }
 
@@ -118,7 +118,7 @@ class Type {
   }
 
   public async init(id: number): Promise<void> {
-    product.all({type: id})
+    product.all({ type: id })
     const res = await this.rest.get(id)
 
     if (!res.success) return
@@ -138,8 +138,8 @@ class Type {
     return this.data_c.value.name || ''
   }
 
-  public get visible_name(): string {
-    return this.data_c.value.visible_name || ''
+  public get slug(): string {
+    return this.data_c.value.slug || ''
   }
 
   public get description(): string {

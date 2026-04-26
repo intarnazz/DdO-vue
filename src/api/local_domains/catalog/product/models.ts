@@ -104,18 +104,18 @@ export class VariantProductModel {
 }
 
 export class ProductCategoryModel {
-  public id          : number
-  public self_id     : number | null
-  public name        : string
-  public visible_name: string
-  public description : string
+  public id         : number
+  public self_id    : number | null
+  public name       : string
+  public slug       : string
+  public description: string
 
   constructor(data: Partial<ProductCategoryModel> = {}) {
-    this.id           = toNum(data.id)
-    this.self_id      = data.self_id != null ? toNum(data.self_id) : null
-    this.name         = toStr(data.name)
-    this.visible_name = toStr(data.visible_name)
-    this.description  = toStr(data.description)
+    this.id          = toNum(data.id)
+    this.self_id     = data.self_id != null ? toNum(data.self_id) : null
+    this.name        = toStr(data.name)
+    this.slug        = toStr(data.slug)
+    this.description = toStr(data.description)
   }
 }
 

@@ -10,6 +10,7 @@ const props = defineProps(['filter'])
 const active_filters_ids = computed(() => {
   const value = f.filters[filter.value.type]
   if (!value) return []
+  if (typeof value === 'number') return [value]
   return value.split(',').map(Number) || []
 })
 

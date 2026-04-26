@@ -11,7 +11,7 @@ const route = useRoute()
 const type_name: Ref<string> = ref(product.product.type.name || type.type.name || '')
 const type_id: Ref<number> = ref(product.product.type.id || type.type.id || 1)
 const type_visible_name: Ref<string> = ref(
-  product.product.type.visible_name || type.type.visible_name || '',
+  product.product.type.name || type.type.name || '',
 )
 // [ ]: каталог
 
@@ -34,12 +34,12 @@ watch(
 )
 
 watch(
-  () => product.product.type.visible_name,
+  () => product.product.type.name,
   (n) => set_type_visible_name(n),
 )
 
 watch(
-  () => type.type.visible_name,
+  () => type.type.name,
   (n) => set_type_visible_name(n),
 )
 </script>

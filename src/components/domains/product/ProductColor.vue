@@ -9,8 +9,8 @@ const { colors, is_active = false } = defineProps<{
 
 const color_style: ComputedRef<string | false> = computed(() => {
   if (colors[0] && colors[1])
-    return `background: linear-gradient(#${colors[0].name} 50%, #${colors[1].name} 50%);`
-  if (colors[0]) return `background: #${colors[0].name};`
+    return `background: linear-gradient(${colors[0].name} 50%, ${colors[1].name} 50%);`
+  if (colors[0]) return `background: ${colors[0].name};`
 
   return false
 })

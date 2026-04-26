@@ -50,10 +50,10 @@ function send_active_filters_ids() {
         active: props.is_active,
         active_off: props.is_active === false,
       }"
-      :style="`background-color: #${content.name};`"
+      :style="`background-color: ${content.name};`"
       class="filter__checkbox w-7.5 h-7.5 center"
     >
-      <IconCheckSmall v-if="props.is_active" :fill="`#${content.name}`" />
+      <IconCheckSmall v-if="props.is_active" :fill="`${content.name}`" />
     </div>
   </button>
 </template>
