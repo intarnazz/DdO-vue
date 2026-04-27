@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
-import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
-import { onClickOutside } from '@vueuse/core'
+import LayoutPopup from '@/layout/LayoutPopup.vue'
 import { computed, ref } from 'vue'
 
 interface Option {
@@ -14,66 +13,44 @@ const { options } = defineProps<{
 }>()
 
 const option_key = ref<number>(0)
-const popup_is_open = ref(false)
-const selectRef = ref(null)
-
-onClickOutside(selectRef, () => {
-  popup_is_open.value = false
-})
 
 const selected_option = computed(() => options[option_key.value])
 
 function change_selected_option(new_key: number) {
   option_key.value = new_key
-  popup_is_open.value = false
 }
 </script>
 
 <template>
-  <div ref="selectRef" class="gap-2 box-y select">
-    <button
-      @click="popup_is_open = !popup_is_open"
-      class="select__button-selected box-x gap-4 p-2 px-4 border"
-      :class="{ 'border-mark': popup_is_open }"
-    >
+  <!-- @vue-generic {number} -->
+  <LayoutPopup @change_selected_option="change_selected_option">
+    <template #button>
       <span v-if="selected_option">
-        <ComponentRecolorText
-          :text="`${selected_option.id} - ${selected_option.name}`"
-        />
+        <ComponentRecolorText :text="`${selected_option.id} - ${selected_option.name}`" />
       </span>
       <span v-else>Loading...</span>
-      <IconKeyboardArrowDown />
-    </button>
-    <div class="relative z-1 h-0">
-      <div
-        :class="{ 'h-auto': popup_is_open, 'h-0': !popup_is_open }"
-        class="select__popup shadow-xl overflow-hidden bg-white whitespace-nowrap"
-      >
-        <div class="select__list border box-y py-2">
-          <button
-            @click="change_selected_option(key)"
-            class="select__item option px-4 py-2"
-            v-for="(option, key) in options"
-            :key="option.id"
-          >
-            <span>
-              <ComponentRecolorText
-                :text="`${option.id} - ${option.name}`"
-              />
-            </span>
-          </button>
-        </div>
+    </template>
+
+    <template #content="{ change_selected_option }">
+      <div class="select__list border box-y py-2">
+        <button
+          @click="change_selected_option(key)"
+          class="select__item option px-4 py-2"
+          v-for="(option, key) in options"
+          :key="option.id"
+        >
+          <span>
+            <ComponentRecolorText :text="`${option.id} - ${option.name}`" />
+          </span>
+        </button>
       </div>
-    </div>
-  </div>
+    </template>
+  </LayoutPopup>
 </template>
 
 <style lang="sass" scoped>
 //
 .select
-  &__button-selected
-    &:focus
-      border: 1px solid $mark
   &__item
     &:hover
       background-color: $sub-95

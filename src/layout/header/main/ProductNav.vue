@@ -6,7 +6,7 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 <template>
   <div class="product-nav py-4 bs c-w">
     <LayoutWrapper>
-      <div class="box-x">
+      <div class="box-x gap-16">
         <div class="box-x flex js gap-8">
           <!-- <div class="box-x gap2">
           </div> -->
@@ -22,6 +22,14 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
           <!-- <RouterLink :to="{ name: 'home' }" class="">мебель</RouterLink> -->
           <RouterLinkCatalog :type_id="3" :type_name="`kitchens`">кухни</RouterLinkCatalog>
         </div>
+
+        <div class="box-x">
+          <button>
+            Прочее
+          </button>
+        </div>
+
+
         <!-- <img class="h-6" src="@/assets/icons/search.svg" alt="search" /> -->
         <!-- <img class="h-6" src="@/assets/icons/favorite.svg" alt="favorite" /> -->
         <RouterLink
