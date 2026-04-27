@@ -5,8 +5,6 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import ComponentBread from '@/components/ComponentBread.vue'
 import ComponentContext from '@/components/ComponentContext.vue'
 import AboutUsMain from '@/components/sections/about-us/AboutUsMain.vue'
-import AboutUsPaymentAndDelivery from '@/components/sections/about-us/AboutUsPaymentAndDelivery.vue'
-import AboutUsContant from '@/components/sections/about-us/AboutUsContant.vue'
 </script>
 
 <template>
@@ -17,8 +15,7 @@ import AboutUsContant from '@/components/sections/about-us/AboutUsContant.vue'
         <ComponentContext />
       </div>
       <AboutUsMain />
-      <AboutUsPaymentAndDelivery />
-      <AboutUsContant />
+      <!-- <AboutUsPaymentAndDelivery /> -->
     </LayoutWrapper>
   </LayoutPage>
   <FooterMain />
