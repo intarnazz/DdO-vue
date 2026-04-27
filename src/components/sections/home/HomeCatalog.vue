@@ -85,7 +85,7 @@ onMounted(() => init())
 
 <style lang="sass" scoped>
 .grid-4
-  grid-template-columns: 1fr 1fr 1fr 1fr
+  grid-template-columns: repeat(auto-fill, minmax(266px, 1fr));
 .grid-5
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+  grid-template-columns: repeat(auto-fill, minmax(193px, 1fr));
 </style>

@@ -28,13 +28,13 @@
     width: 100%
   .wrapper
     width: 100%
-    margin: 0
-    padding: 0
+    margin: 0 auto
+    padding: 0 2rem
 
 /* Адаптивные стили для экранов шириной <= 590px */
 @media screen and (max-width: 590px)
   .wrapper
     width: 100%
     margin: 0
-    padding: 0
+    padding: 1rem
 </style>
