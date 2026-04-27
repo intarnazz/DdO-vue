@@ -23,12 +23,12 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
       />
       <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" />
     </div>
+    <HomeBrands />
     <LayoutWrapper>
       <SectionContacts :mini="true" class="flex overflow-hidden" />
     </LayoutWrapper>
-    <HomeBrands />
   </LayoutPage>
-  <FooterMain />
+  <FooterMain class="mt-16" />
 </template>
 
 <style lang="sass" scoped>

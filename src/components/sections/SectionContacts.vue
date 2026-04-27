@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { contacts } from '@/api/api_domains/contact/contacts'
 import SectionContact from '@/components/sections/SectionContact.vue'
-import { onMounted } from 'vue'
 
 const { mini = false } = defineProps<{
   mini?: boolean
 }>()
 
-onMounted(() => contacts.load())
+// onMounted(() => contacts.load())
 </script>
 
 <template>

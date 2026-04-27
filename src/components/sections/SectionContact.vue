@@ -14,11 +14,11 @@ const { contact } = defineProps<{
   contact: Contact
 }>()
 
-const name_is_phone = computed<boolean>(() => contact.name === 'phone')
-const name_is_address = computed<boolean>(() => contact.name === 'address')
-const name_is_vk = computed<boolean>(() => contact.name === 'vk')
-const name_is_whatsapp = computed<boolean>(() => contact.name === 'whatsapp')
-const name_is_odnoklassniki = computed<boolean>(() => contact.name === 'odnoklassniki')
+const name_is_phone         = computed<boolean>(() => contact.name === 'phone') // prettier-ignore
+const name_is_address       = computed<boolean>(() => contact.name === 'address') // prettier-ignore
+const name_is_vk            = computed<boolean>(() => contact.name === 'vk') // prettier-ignore
+const name_is_whatsapp      = computed<boolean>(() => contact.name === 'whatsapp') // prettier-ignore
+const name_is_odnoklassniki = computed<boolean>(() => contact.name === 'odnoklassniki') // prettier-ignore
 
 const description = computed<string>(() => {
   if (name_is_phone.value) return formatPhone(contact.description)
@@ -34,13 +34,14 @@ const description = computed<string>(() => {
     <IconWhatsapp v-else-if="name_is_whatsapp" />
     <IconOdnoklassniki v-else-if="name_is_odnoklassniki" />
     <IconconnectWithoutContact v-else />
-    <div class="box-y flex">
-      <strong>{{ contact.name }}</strong>
-      <ComponentRecolorText
-        :text="description"
-        class="c-sub"
-        >{{
-      }}</ComponentRecolorText>
+    <div v-if="name_is_phone || name_is_address" class="box-y flex">
+      <strong v-if="name_is_phone">телефон</strong>
+      <strong v-if="name_is_address">адрес</strong>
+      <ComponentRecolorText :text="description" class="c-sub" />
     </div>
+    <a v-else class="box-y flex" :href="contact.link" target="_blank">
+      <strong>{{ contact.name }}</strong>
+      <ComponentRecolorText :text="description" class="c-sub" />
+    </a>
   </div>
 </template>

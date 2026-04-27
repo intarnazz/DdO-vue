@@ -2,9 +2,9 @@
 import { contacts } from '@/api/api_domains/contact/contacts'
 import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
 import { formatPhone } from '@/utilte/utilte'
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 
-onMounted(() => contacts.load())
+// onMounted(() => contacts.load())
 
 const phone = computed(() =>
   formatPhone(contacts.items.find((i) => i.name === 'phone')?.description || ''),

@@ -16,7 +16,7 @@ const route = useRoute()
 const brand = ref<Brand | undefined>()
 
 const init = async () => {
-  brand.value = undefined
+  // brand.value = undefined
   if (!route.params.id && !brand_id) return
   const res = await brand_api.get(toNum(route.params.id || brand_id))
   if (!res.success) return
@@ -47,7 +47,7 @@ watch([() => route.params.id, () => brand_id], init)
           :type_id="type.id"
           :type_name="type.name"
         >
-          <span> {{ type.visible_name }} бренда {{ brand.name }} </span>
+          <span> {{ type.name }} бренда {{ brand.name }} </span>
         </RouterLinkCatalog>
       </div>
     </div>
