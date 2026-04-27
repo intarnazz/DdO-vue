@@ -18,7 +18,7 @@ watchEffect(() => {
 
 <template>
   <HeaderMain class="media-header cansel" />
-  <HeaderWhopper class="media-header open" />
+  <!-- <HeaderWhopper class="media-header open" /> -->
   <RouterView />
 </template>
 
