@@ -1,6 +1,5 @@
 <script setup>
 import HeaderMain from '@/layout/header/HeaderMain.vue'
-import HeaderWhopper from '@/layout/header/HeaderWhopper.vue'
 import { useRoute } from 'vue-router'
 import { watchEffect } from 'vue'
 
