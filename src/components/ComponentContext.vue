@@ -7,6 +7,7 @@ import IconClose from '@/components/icons/IconClose.vue'
 function set_comparison_product() {
   product.comparison_product = null
 }
+// [ ]:сбросить между фильтрами
 </script>
 
 <template>

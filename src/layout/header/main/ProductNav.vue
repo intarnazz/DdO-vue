@@ -1,10 +1,11 @@
 <script setup lang="ts">
+// import LayoutPopup from '@/layout/LayoutPopup.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 </script>
 
 <template>
-  <div class="product-nav py-4 bs c-w">
+  <div class="product-nav py-4 bs">
     <LayoutWrapper>
       <div class="box-x gap-16">
         <div class="box-x flex js gap-8">
@@ -23,12 +24,29 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
           <RouterLinkCatalog :type_id="3" :type_name="`kitchens`">кухни</RouterLinkCatalog>
         </div>
 
-        <div class="box-x">
-          <button>
-            Прочее
-          </button>
-        </div>
-
+        <!-- <LayoutPopup :css_class="'absolute top-8'" class="box-x">
+          <template #button>
+            <span>прочее</span>
+          </template>
+          <template #content="{ change_selected_option }">
+            <div class="box-y font-normal c-sub">
+              <RouterLinkCatalog
+                @click="change_selected_option"
+                class="select__item px-8 py-2"
+                :type_id="1"
+                :type_name="`entrance-doors`"
+                >входные двери</RouterLinkCatalog
+              >
+              <RouterLinkCatalog
+                @click="change_selected_option"
+                class="select__item px-8 py-2"
+                :type_id="2"
+                :type_name="`interior-doors`"
+                >межкомнотные двери</RouterLinkCatalog
+              >
+            </div>
+          </template>
+        </LayoutPopup> -->
 
         <!-- <img class="h-6" src="@/assets/icons/search.svg" alt="search" /> -->
         <!-- <img class="h-6" src="@/assets/icons/favorite.svg" alt="favorite" /> -->
@@ -47,6 +65,10 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 
 <style lang="sass" scoped>
 //
+.select
+  &__item
+    &:hover
+      background-color: $sub-95
 .product-nav
   +g
 </style>

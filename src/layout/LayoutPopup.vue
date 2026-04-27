@@ -1,7 +1,10 @@
 <script setup lang="ts" generic="T">
-import IconKeyboardArrowDown from '@/components/icons/IconKeyboardArrowDown.vue'
 import { onClickOutside } from '@vueuse/core'
 import { ref } from 'vue'
+
+const { css_class = 'relative' } = defineProps<{
+  css_class?: string
+}>()
 
 const emit = defineEmits<{
   change_selected_option: [value: T]
@@ -21,21 +24,18 @@ function change_selected_option(value: T) {
 </script>
 
 <template>
-  <div ref="selectRef" class="gap-2 box-y select">
-    <button
-      @click="popup_is_open = !popup_is_open"
-      class="select__button-selected box-x gap-4 p-2 px-4 border"
-      :class="{ 'border-mark': popup_is_open }"
-    >
+  <div ref="selectRef" class="gap-2 box-y select relative">
+    <button @click="popup_is_open = !popup_is_open" :class="{ 'border-mark': popup_is_open }">
       <slot name="button" />
-      <IconKeyboardArrowDown />
     </button>
-    <div class="relative z-1 h-0">
+    <div :class="[css_class]" class="z-1 h-0">
       <div
         :class="{ 'h-auto': popup_is_open, 'h-0': !popup_is_open }"
-        class="select__popup shadow-xl overflow-hidden bg-white whitespace-nowrap"
+        class="select__popup shadow-xl overflow-hidden whitespace-nowrap"
       >
-        <slot name="content" :change_selected_option="change_selected_option" />
+        <div class="select__list border box-y py-2 bg-white">
+          <slot name="content" :change_selected_option="change_selected_option" />
+        </div>
       </div>
     </div>
   </div>
