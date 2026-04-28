@@ -12,43 +12,29 @@ watch(() => filter.offset, up_fast)
 </script>
 
 <template>
-  <div
+  <button
     @click="up()"
-    class="button-up__wrapper"
+    class="button-up__wrapper fixed z-1 right-8 bottom-8"
     :class="{
       'button-up__active': h > 0,
       'button-up__off': h === 0,
     }"
   >
-    <div class="button-up center">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        viewBox="0 -960 960 960"
-        width="24px"
-        fill="#fff"
-      >
+    <div class="button-up center w-15 h-15 rounded-full">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#fff" class="w-6 h-6">
         <path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z" />
       </svg>
     </div>
-  </div>
+  </button>
 </template>
 
 <style lang="sass" scoped>
 //
 .button-up
   background-color: $mark
-  width: 60px
-  height: 60px
-  border-radius: 60px
   box-shadow: 0 0 0px $main
   transition: .255s
   &__wrapper
-    position: fixed
-    cursor: pointer
-    bottom: 2rem
-    right: 2rem
-    z-index: 1
     transition: .3s
     &:hover
       padding-bottom: .4rem

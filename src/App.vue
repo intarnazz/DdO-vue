@@ -2,6 +2,7 @@
 import HeaderMain from '@/layout/header/HeaderMain.vue'
 import { useRoute } from 'vue-router'
 import { watchEffect } from 'vue'
+import HeaderWhopper from '@/layout/header/HeaderWhopper.vue'
 
 const route = useRoute()
 
@@ -17,7 +18,7 @@ watchEffect(() => {
 
 <template>
   <HeaderMain class="media-header cansel" />
-  <!-- <HeaderWhopper class="media-header open" /> -->
+  <HeaderWhopper class="media-header open" />
   <RouterView />
 </template>
 

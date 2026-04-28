@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { brand as brand_api } from '@/api/api'
 import { Brand } from '@/api/api_domains/brand/brand'
+import PromiseController from '@/api/web_services/promiseController'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
@@ -13,14 +14,18 @@ const { brand_id } = defineProps<{
 }>()
 
 const route = useRoute()
+const promiseController = new PromiseController()
 const brand = ref<Brand | undefined>()
 
 const init = async () => {
-  // brand.value = undefined
   if (!route.params.id && !brand_id) return
-  const res = await brand_api.get(toNum(route.params.id || brand_id))
+  const res = await promiseController.await((signal) =>
+    brand_api.get(toNum(route.params.id || brand_id), { signal: signal }),
+  )
+  if (!res) return
   if (!res.success) return
-  if (res.data) brand.value = new Brand(res.data)
+  if (!res.data) return
+  brand.value = new Brand(res.data)
 }
 
 onMounted(async () => {
@@ -32,7 +37,13 @@ watch([() => route.params.id, () => brand_id], init)
 </script>
 
 <template>
-  <section v-if="brand" class="brand box-y gap-8 as js">
+  <section
+    :class="{
+      'opacity-50': promiseController.is_loading,
+    }"
+    v-if="brand"
+    class="brand box-y gap-8 as js"
+  >
     <div class="box-x">
       <ComponentImg class="h-25" :storage="brand.image.path" />
     </div>

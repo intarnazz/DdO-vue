@@ -10,7 +10,7 @@ onMounted(() => contacts.load())
 </script>
 
 <template>
-  <footer class="footer mt-16">
+  <footer class="footer mt-16 px-4">
     <LayoutWrapper>
       <div class="footer__inner">
         <!-- Логотип + копирайт -->
