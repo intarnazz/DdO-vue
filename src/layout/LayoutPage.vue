@@ -55,5 +55,5 @@ watch(
   justify-content: flex-start
   align-items: center
   padding: 2rem 0
-  min-height: 93vh
+  min-height: 94.2vh
 </style>

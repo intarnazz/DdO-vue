@@ -6,7 +6,7 @@ import LayoutPage from '@/layout/LayoutPage.vue'
 
 <template>
   <LayoutPage class="main w box-y">
-    <SectionContacts class="flex" />
+    <SectionContacts class="flex max-sm:flex-col" />
   </LayoutPage>
   <FooterMain />
 </template>

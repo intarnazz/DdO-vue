@@ -10,7 +10,7 @@ onMounted(() => contacts.load())
 </script>
 
 <template>
-  <footer class="footer mt-16 px-4">
+  <footer class="footer px-4 py-16 pb-24">
     <LayoutWrapper>
       <div class="footer__inner">
         <!-- Логотип + копирайт -->
@@ -99,8 +99,6 @@ onMounted(() => contacts.load())
 <style lang="sass" scoped>
 .footer
   background-color: $b
-  padding: 4rem 0 2rem
-
   &__inner
     display: grid
     grid-template-columns: 1fr 2fr

@@ -16,7 +16,7 @@ const toggleMenu = () => (isOpen.value = !isOpen.value)
   <!-- Бургер и фон -->
   <div class="md:hidden">
     <!-- Кнопка -->
-    <button @click="toggleMenu" class="fixed p-8 z-2">
+    <button @click="toggleMenu" class="fixed p-8 z-2 bottom-0 right-0">
       <div class="bg-black text-white p-2 rounded-lg shadow-md">
         <span class="block w-5 h-0.5 bg-white mb-1"></span>
         <span class="block w-5 h-0.5 bg-white mb-1"></span>

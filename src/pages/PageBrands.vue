@@ -15,7 +15,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
         <ComponentBread />
         <ComponentContext />
       </div>
-      <div class="box-x as gap-8">
+      <div class="box-x as gap-8 max-sm:flex-col">
         <SectionBrands />
         <SectionBrand class="flex" />
       </div>
