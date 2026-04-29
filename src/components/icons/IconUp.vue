@@ -14,13 +14,13 @@ watch(() => filter.offset, up_fast)
 <template>
   <div
     @click="up()"
-    class="button-up__wrapper fixed z-1 right-8 bottom-8 max-sm:left-8 cursor-pointer"
+    class="button-up__wrapper fixed z-3 w-15 right-8 max-lg:left-8 cursor-pointer"
     :class="{
       'button-up__active': h > 0,
       'button-up__off': h === 0,
     }"
   >
-    <div class="button-up center w-15 h-15 rounded-full relative z-2">
+    <div class="button-up center w-15 h-15 rounded-full relative">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#fff" class="w-6 h-6">
         <path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z" />
       </svg>

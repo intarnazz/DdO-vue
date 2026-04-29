@@ -12,7 +12,7 @@ const { type, pagingInfo } = defineProps<{
 </script>
 
 <template>
-  <div class="catalog-title box-x gap as">
+  <div class="catalog-title box-x js gap as">
     <div class="box-x">
       <h2>{{ type.name }}</h2>
     </div>

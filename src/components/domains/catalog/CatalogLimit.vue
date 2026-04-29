@@ -52,7 +52,7 @@ function setLimit(button: ArgItem) {
 </script>
 
 <template>
-  <div class="box-x gap-4 switch-nav c-sub">
+  <div class="box-x js gap-4 switch-nav c-sub">
     <p>на странице:</p>
     <div class="box-y">
       <div class="box-x switch-nav__button-wrapper">

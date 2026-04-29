@@ -28,7 +28,7 @@ const toggleMenu = () => (isOpen.value = !isOpen.value)
     <div
       v-if="isOpen"
       @click="toggleMenu"
-      class="fixed z-2 inset-0 bg-black/50 backdrop-blur-sm"
+      class="fixed z-4 inset-0 bg-black/50 backdrop-blur-sm"
       onwheel="event.preventDefault()"
       ontouchmove="event.preventDefault()"
     ></div>
@@ -42,7 +42,7 @@ const toggleMenu = () => (isOpen.value = !isOpen.value)
     >
       <div
         v-if="isOpen"
-        class="c-sub fixed z-2 top-0 left-0 h-full bg-black/70 p-4 pt-16 flex flex-col gap"
+        class="c-sub fixed z-4 top-0 left-0 h-full bg-black/70 p-4 pt-16 flex flex-col gap"
       >
         <nav class="h-full flex flex-col">
           <!-- Заголовок -->

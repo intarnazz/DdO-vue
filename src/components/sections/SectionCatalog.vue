@@ -13,14 +13,14 @@ import ComponentLoader from '@/components/ComponentLoader.vue'
 
 <template>
   <section class="catalog box-y gap-8">
-    <div class="box-x gap-8">
+    <div class="flex justify-between gap-8 max-sm:flex-col">
       <CatalogTitle :type="type.type" :paging-info="p.pagingInfo" :filter="filter" />
       <FormSearch />
     </div>
     <div class="box-x as gap-8">
       <AsideFilters />
       <div class="w box-y gap-8 justify-start">
-        <div class="box-x gap-4">
+        <div class="flex flex-0! justify-between gap-4 max-sm:flex-col">
           <CatalogOrder
             :arguments="[
               {
@@ -81,6 +81,6 @@ import ComponentLoader from '@/components/ComponentLoader.vue'
 .catalog
   &__grid
     display: grid
-    grid-template-columns: 1fr 1fr 1fr
+    grid-template-columns: repeat( auto-fill, minmax(16rem, 1fr) )
     gap: 1rem
 </style>
