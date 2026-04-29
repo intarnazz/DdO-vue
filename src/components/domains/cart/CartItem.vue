@@ -24,7 +24,7 @@ const remove = () => cart.remove_produc(product)
 </script>
 
 <template>
-  <div class="product border-top br bg-white box-x as shadow-xl">
+  <div class="product border-top br bg-white flex max-sm:flex-col as shadow-xl">
     <RouterLinkProduct :product="product" class="box-x gap-2 content center">
       <div class="box-x relative h-67.5 max-h-67.5">
         <ProductDiscount :product="product" />
@@ -48,7 +48,7 @@ const remove = () => cart.remove_produc(product)
           {{ product.article }}
         </p>
 
-        <h3 class="text-center h2 line-clamp-2 min-h-12 box-x">
+        <h3 class="h2 line-clamp-2 min-h-12 box-x">
           <span>{{ product.name }}</span>
         </h3>
 
