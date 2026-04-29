@@ -5,7 +5,7 @@ import { product } from '@/api/api'
 <template>
   <section class="box-y gap-8">
     <h2>описание</h2>
-    <div class="box-x gap-8 as">
+    <div class="flex justify-between max-sm:flex-col-reverse gap-8 as">
       <!-- ? LEFT BOX -->
       <div class="box-y flex gap-4">
         <div

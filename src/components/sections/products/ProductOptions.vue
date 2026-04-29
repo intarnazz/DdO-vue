@@ -34,7 +34,7 @@ const set_total_count = (number: number) => (total_count.value += number)
         :option="option"
       />
     </div>
-    <div class="box-x gap-4 as">
+    <div class="flex justify-between max-sm:flex-col gap-4 as">
       <div class="box-y gap-4">
         <div class="box-x gap-4 js">
           <strong>общее количество:</strong>

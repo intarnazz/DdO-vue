@@ -10,9 +10,7 @@ const route = useRoute()
 
 const type_name: Ref<string> = ref(product.product.type.name || type.type.name || '')
 const type_id: Ref<number> = ref(product.product.type.id || type.type.id || 1)
-const type_visible_name: Ref<string> = ref(
-  product.product.type.name || type.type.name || '',
-)
+const type_visible_name: Ref<string> = ref(product.product.type.name || type.type.name || '')
 // [ ]: каталог
 
 const set_type_name = (new_type_name: string | null | undefined) => {
@@ -45,9 +43,9 @@ watch(
 </script>
 
 <template>
-  <div class="box-x 2 w js gap-2">
+  <div class="flex items-start 2 w gap-2">
     <p class="box-x gap-2"><ButtonGoBack /> <span class="c-main">///</span></p>
-    <div class="box-x 2 flex js">
+    <div class="box-x flex-wrap 2 flex js">
       <RouterLink class="a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
       <IconRight />
       <template v-if="route.name === 'cart'">

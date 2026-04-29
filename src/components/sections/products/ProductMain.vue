@@ -2,9 +2,6 @@
 import { product } from '@/api/api'
 import Product from '@/api/local_domains/catalog/product/product.model'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
-import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
-import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
-import ButtonInterior from '@/components/buttons/ButtonInterior.vue'
 import ProductColor from '@/components/domains/product/ProductColor.vue'
 import ProductDiscount from '@/components/domains/product/ProductDiscount.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
@@ -17,6 +14,7 @@ import ProductCharacteristics from '@/components/sections/products/ProductCharac
 import ProductContacts from '@/components/sections/products/ProductContacts.vue'
 import ProductImages from '@/components/sections/products/ProductImages.vue'
 import ProductPrice from '@/components/sections/products/ProductPrice.vue'
+import ProductTitle from '@/components/sections/products/ProductTitle.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import { title } from '@/utilte/utilte'
@@ -25,21 +23,13 @@ import { title } from '@/utilte/utilte'
 <template>
   <!-- ? 1 BOX -->
   <section class="product box-y gap-8 relative">
-    <div class="box-x gap-8 as">
+    <ProductTitle class="sm:hidden" :product="product" />
+    <div class="flex gap-8 as max-sm:flex-col">
       <ProductImages />
 
       <!-- ? RIGHT BOX -->
       <div class="product__right-box box-y flex js gap-8">
-        <div class="box-y">
-          <h2>{{ product.product.name }}</h2>
-          <p class="c-sub">{{ product.product.article }}</p>
-        </div>
-
-        <div class="product__button-wrapper box-x js gap-8">
-          <ButtonFavorite :product="product.product" />
-          <ButtonInterior />
-          <ButtonComparison :product="product.product" />
-        </div>
+        <ProductTitle class="max-sm:hidden" :product="product" />
 
         <div class="product__bitton-cart-box box-y border p-4 gap-8">
           <ProductCharacteristics :product="product.product" />

@@ -20,5 +20,5 @@ import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 .product
   &__list
     display: grid
-    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-template-columns: repeat( auto-fill, minmax(16rem, 1fr) )
 </style>
