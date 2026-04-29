@@ -91,7 +91,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
   &__image-list
     display: grid
     gap: 1rem
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+    grid-template-columns: repeat( auto-fill, minmax( 6.72rem , 1fr ) )
   &__img
     &_shadow
       box-shadow: 0px 15px 20px 0px $b-50

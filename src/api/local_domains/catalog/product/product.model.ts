@@ -36,7 +36,7 @@ function buildProduct(product: Partial<DefaultProductType>): DefaultProductType 
     video_url         : toStr(product.video_url),
     article           : toStr(product.article),
     image_primary     : new ImageModel(product.image_primary),
-    image_secondary   : product.image_secondary === null ? null : new ImageModel(product.image_secondary),
+    image_secondary   : !product.image_secondary ? null : new ImageModel(product.image_secondary),
     variant           : new VariantModel(product.variant),
     type              : new ProductCategoryModel(product.type),
     tag               : new TagModel(product.tag),

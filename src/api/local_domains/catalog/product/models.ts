@@ -15,9 +15,9 @@ export class ImageModel {
   public path: string
 
   constructor(data: Partial<ImageModel> = {}) {
-    this.id   = toNum(data.id)
-    this.name = toStr(data.name)
-    this.path = toStr(data.path)
+    this.id   = toNum(data?.id)
+    this.name = toStr(data?.name)
+    this.path = toStr(data?.path)
   }
 }
 

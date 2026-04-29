@@ -23,13 +23,13 @@ import { title } from '@/utilte/utilte'
 <template>
   <!-- ? 1 BOX -->
   <section class="product box-y gap-8 relative">
-    <ProductTitle class="sm:hidden" :product="product" />
-    <div class="flex gap-8 as max-sm:flex-col">
+    <ProductTitle class="lg:hidden mt-12 mb-4" :product="product" />
+    <div class="flex gap-8 as max-lg:flex-col">
       <ProductImages />
 
       <!-- ? RIGHT BOX -->
       <div class="product__right-box box-y flex js gap-8">
-        <ProductTitle class="max-sm:hidden" :product="product" />
+        <ProductTitle class="max-lg:hidden" :product="product" />
 
         <div class="product__bitton-cart-box box-y border p-4 gap-8">
           <ProductCharacteristics :product="product.product" />

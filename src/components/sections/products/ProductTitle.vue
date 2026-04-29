@@ -15,7 +15,7 @@ const { product } = defineProps<{
       <h2>{{ product.product.name }}</h2>
       <p class="c-sub">{{ product.product.article }}</p>
     </div>
-    <div class="product__button-wrapper box-x js gap-8">
+    <div class="product__button-wrapper flex flex-wrap gap-8">
       <ButtonFavorite :product="product.product" />
       <ButtonInterior />
       <ButtonComparison :product="product.product" />
