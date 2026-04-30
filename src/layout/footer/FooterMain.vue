@@ -4,9 +4,11 @@ import { RouterLink } from 'vue-router'
 import Iconlogo from '@/components/icons/Iconlogo.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { contacts } from '@/api/api_domains/contact/contacts'
+import { types } from '@/api/api_domains/type/types'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 
 onMounted(() => contacts.load())
+onMounted(() => types.load())
 </script>
 
 <template>
@@ -43,17 +45,18 @@ onMounted(() => contacts.load())
 
           <div class="footer__col">
             <span class="footer__col-title">Каталог</span>
+
             <ul class="footer__list">
               <!-- 
                 RouterLinkCatalog требует type_id + type_name.
                 Пример — подставь свои реальные категории:
               -->
-              <li>
-                <RouterLinkCatalog :type_id="1" :type_name="'Входные двери'" class="footer__link">
-                  Входные двери
+              <li v-for="type in types.items" :key="type.id">
+                <RouterLinkCatalog :type_id="type.id" :type_name="type.name" class="footer__link">
+                  {{ type.name }}
                 </RouterLinkCatalog>
               </li>
-              <li>
+              <!-- <li>
                 <RouterLinkCatalog
                   :type_id="2"
                   :type_name="'Межкомнатные Двери'"
@@ -66,7 +69,7 @@ onMounted(() => contacts.load())
                 <RouterLinkCatalog :type_id="2" :type_name="'Кухни'" class="footer__link">
                   Кухни
                 </RouterLinkCatalog>
-              </li>
+              </li> -->
             </ul>
           </div>
 
