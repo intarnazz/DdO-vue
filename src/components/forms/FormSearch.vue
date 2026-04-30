@@ -26,7 +26,7 @@ watch(
   <form
     class="form search"
     :class="{
-      flex: search !== '',
+      'flex-1': search !== '',
     }"
     @submit.prevent="set_search"
   >

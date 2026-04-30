@@ -17,7 +17,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
 </script>
 
 <template>
-  <div class="product__left-box box-y flex gap-16 relative">
+  <div class="product__left-box box-y flex-1 gap-16 relative">
     <LayoutIcon v-slot="{ active, active_on, active_off }" :active="user.interior_is_active.value">
       <div
         :class="{

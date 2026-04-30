@@ -100,7 +100,7 @@ function setActive(key: number) {
       </div>
       <ComponentSwitch :content="content" :active="active" />
     </div>
-    <div class="flex"></div>
+    <div class="flex-1"></div>
   </div>
 </template>
 

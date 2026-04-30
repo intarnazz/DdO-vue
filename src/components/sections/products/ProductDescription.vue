@@ -7,7 +7,7 @@ import { product } from '@/api/api'
     <h2>описание</h2>
     <div class="flex justify-between max-sm:flex-col-reverse gap-8 as">
       <!-- ? LEFT BOX -->
-      <div class="box-y flex gap-4">
+      <div class="box-y flex-1 gap-4">
         <div
           v-for="characteristic in product.product.characteristics"
           :key="characteristic.id"
@@ -18,7 +18,7 @@ import { product } from '@/api/api'
         </div>
       </div>
       <!-- ? RIGHT BOX -->
-      <div class="box-y flex">
+      <div class="box-y flex-1">
         <p>
           Стальной дверной блок с открыванием наружу. Поставляется с правым и левым открыванием.
         </p>

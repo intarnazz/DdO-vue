@@ -61,7 +61,7 @@ function send_active_filters_ids() {
     <span class="truncate block">
       {{ props.content.name }}
     </span>
-    <div class="flex"></div>
+    <div class="flex-1"></div>
   </button>
 </template>
 

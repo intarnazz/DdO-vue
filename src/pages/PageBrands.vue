@@ -11,13 +11,13 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 <template>
   <LayoutPage class="main box-y gap-16">
     <LayoutWrapper class="box-y gap-16">
-      <div class="box-y flex gap-4">
+      <div class="box-y flex-1 gap-4">
         <ComponentBread />
         <ComponentContext />
       </div>
       <div class="box-x as gap-8 max-sm:flex-col">
         <SectionBrands />
-        <SectionBrand class="flex" />
+        <SectionBrand class="flex-1" />
       </div>
     </LayoutWrapper>
   </LayoutPage>

@@ -9,7 +9,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 <template>
   <LayoutPage class="main w">
     <LayoutWrapper class="box-y gap-16">
-      <div class="box-y flex gap-4">
+      <div class="box-y flex-1 gap-4">
         <ComponentBread />
       </div>
       <SectionCart />

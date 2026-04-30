@@ -22,7 +22,7 @@ function send_active_tag_id(id: string) {
     <template v-for="(tag, key) in t.type.tags" :key="key">
       <button
         @click="send_active_tag_id(String(tag.id))"
-        class="flex py-2 px-4 filters__tag select-menu__item"
+        class="flex-1 flex py-2 px-4 filters__tag select-menu__item"
         :class="{
           'select-menu__item_active': f.filters['tag'] == tag.id,
         }"
@@ -49,7 +49,7 @@ function send_active_tag_id(id: string) {
       </div>
       <span v-if="is_expand">свернуть</span>
       <span v-else>подробнее</span>
-      <div class="flex"></div>
+      <div class="flex-1"></div>
     </button>
   </div>
 </template>

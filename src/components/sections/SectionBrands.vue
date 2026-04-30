@@ -51,7 +51,7 @@ onMounted(() => brands.load())
         </template>
 
         <div v-if="brands.hasMore" class="box-x c-mark">
-          <button @click="brands.load()" class="py-2 px-4 flex">
+          <button @click="brands.load()" class="py-2 px-4 flex-1">
             <span>загрузить ещё</span>
           </button>
         </div>

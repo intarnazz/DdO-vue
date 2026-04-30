@@ -42,7 +42,7 @@ const remove = () => cart.remove_produc(product)
       </div>
     </RouterLinkProduct>
 
-    <div class="box-y gap-8 flex px-8 py-4">
+    <div class="box-y gap-8 flex-1 px-8 py-4">
       <div class="product__title box-y">
         <p class="c-sub">
           {{ product.article }}

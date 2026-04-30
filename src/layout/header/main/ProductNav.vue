@@ -8,7 +8,7 @@ import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
   <div class="product-nav py-4 bs">
     <LayoutWrapper>
       <div class="box-x gap-16">
-        <div class="box-x flex js gap-8">
+        <div class="box-x flex-1 js gap-8">
           <!-- <div class="box-x gap2">
           </div> -->
           <!-- <RouterLink :to="{ name: 'home' }" class="">Акции</RouterLink> -->

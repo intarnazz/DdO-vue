@@ -11,7 +11,7 @@ const set_brand_id = (id: number) => (brand_id.value = id)
 <template>
   <LayoutWrapper class="box-x as gap-8 max-sm:flex-col">
     <SectionBrands @set-brand-id="set_brand_id" :brand_id="brand_id" :link="false" />
-    <SectionBrand :brand_id="brand_id" class="flex" />
+    <SectionBrand :brand_id="brand_id" class="flex-1" />
   </LayoutWrapper>
 </template>
 

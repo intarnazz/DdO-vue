@@ -20,7 +20,7 @@ import ComponentLoader from '@/components/ComponentLoader.vue'
     <div class="box-x as gap-8">
       <AsideFilters />
       <div class="w box-y gap-8 justify-start">
-        <div class="flex flex-0! justify-between gap-4 max-sm:flex-col">
+        <div class="flex justify-between gap-4 max-sm:flex-col">
           <CatalogOrder
             :arguments="[
               {

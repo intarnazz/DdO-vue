@@ -25,7 +25,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
     </div>
     <HomeBrands />
     <LayoutWrapper>
-      <SectionContacts :mini="true" class="flex overflow-hidden" />
+      <SectionContacts :mini="true" class="flex-1 overflow-hidden" />
     </LayoutWrapper>
   </LayoutPage>
   <FooterMain class="mt-16" />

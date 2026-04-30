@@ -45,7 +45,7 @@ watch(
 <template>
   <div class="flex items-start 2 w gap-2">
     <p class="box-x gap-2"><ButtonGoBack /> <span class="c-main">///</span></p>
-    <div class="box-x flex-wrap 2 flex js">
+    <div class="box-x flex-wrap 2 flex-1 js">
       <RouterLink class="a a_sub" :to="{ name: 'home' }"> Главная </RouterLink>
       <IconRight />
       <template v-if="route.name === 'cart'">

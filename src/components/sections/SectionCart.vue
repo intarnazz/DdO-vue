@@ -20,7 +20,7 @@ const set_count = (product: CartItemType, number: number) => (product.count += n
     </div>
 
     <div class="flex items-start max-lg:flex-col-reverse gap-8">
-      <div class="box-y gap-4 flex">
+      <div class="box-y gap-4 flex-1">
         <strong class="c-sub">товаров: {{ cart.products.length }}</strong>
         <div class="cart__product-list box-y gap-4">
           <div

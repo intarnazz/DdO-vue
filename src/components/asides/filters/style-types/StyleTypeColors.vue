@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import ButtonCheckBox from '@/components/buttons/ButtonCheckBox.vue'
+import { Characteristic } from '@/api/local_domains/catalog/product/types'
 
 const props = defineProps(['is_expand_validation', 'is_expand', 'filter', 'active_filters_ids'])
 const emit = defineEmits(['expand_change', 'send_active_filters_ids'])
@@ -9,11 +10,9 @@ function expand_change() {
   emit('expand_change')
 }
 
-function send_active_filters_ids(content: Record<string, any>) {
+function send_active_filters_ids(content: Characteristic) {
   emit('send_active_filters_ids', content)
 }
-
-// FIXME: #colore.name hex update
 </script>
 
 <template>
@@ -38,7 +37,7 @@ function send_active_filters_ids(content: Record<string, any>) {
         <IconKeyboardArrowUp class="filter__expand-button-icon" />
       </div>
       <strong>{{ props.filter.name }}</strong>
-      <div class="flex"></div>
+      <div class="flex-1"></div>
     </button>
     <div class="box-x px-4">
       <div class="filter__grid py-2 gap-4">

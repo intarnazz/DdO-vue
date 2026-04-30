@@ -34,12 +34,12 @@ const description = computed<string>(() => {
     <IconWhatsapp v-else-if="name_is_whatsapp" />
     <IconOdnoklassniki v-else-if="name_is_odnoklassniki" />
     <IconconnectWithoutContact v-else />
-    <div v-if="name_is_phone || name_is_address" class="box-y flex">
+    <div v-if="name_is_phone || name_is_address" class="box-y flex-1">
       <strong v-if="name_is_phone">телефон</strong>
       <strong v-if="name_is_address">адрес</strong>
       <ComponentRecolorText :text="description" class="c-sub" />
     </div>
-    <a v-else class="box-y flex" :href="contact.link" target="_blank">
+    <a v-else class="box-y flex-1" :href="contact.link" target="_blank">
       <strong>{{ contact.name }}</strong>
       <ComponentRecolorText :text="description" class="c-sub" />
     </a>

@@ -56,7 +56,7 @@ function send_active_filters_ids(content: Characteristic) {
         <strong>{{ props.filter.name }}</strong>
         <span v-if="props.is_expand_validation">подробнее</span>
       </div>
-      <div class="flex"></div>
+      <div class="flex-1"></div>
     </button>
     <div class="box-y">
       <RangePrice

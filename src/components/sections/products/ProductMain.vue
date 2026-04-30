@@ -28,7 +28,7 @@ import { title } from '@/utilte/utilte'
       <ProductImages />
 
       <!-- ? RIGHT BOX -->
-      <div class="product__right-box box-y flex js gap-8">
+      <div class="product__right-box box-y flex-1 js gap-8">
         <ProductTitle class="max-lg:hidden" :product="product" />
 
         <div class="product__bitton-cart-box box-y border p-4 gap-8">
