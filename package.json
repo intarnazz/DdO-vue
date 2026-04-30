@@ -12,7 +12,7 @@
     "preview": "vite preview",
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
-    "type-check": "vue-tsc --noEmit"
+    "ts": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",

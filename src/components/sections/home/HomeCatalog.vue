@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import { onMounted, ref, shallowRef } from 'vue'
-import Rest, { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest'
+import Rest from '@/api/web_services/rest'
 import { buildArray } from '@/api/builders/builders'
 import Product from '@/api/local_domains/catalog/product/product.model'
 import { DefaultTypeInterface, typeBuilder } from '@/api/local_domains/catalog/type/type'
@@ -9,6 +9,7 @@ import CatalogTitle from '@/components/domains/catalog/CatalogTitle.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { homePageEssence } from '@/api/api'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
+import { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest-type'
 
 const {
   type_id,

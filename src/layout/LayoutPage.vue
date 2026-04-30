@@ -41,7 +41,7 @@ watch(
 
 <template>
   <!-- Основной контейнер страницы -->
-  <main class="main gap4 box-y flex-1">
+  <main class="main gap4 box-y flex">
     <IconUp />
 
     <!-- Слот для вставки дочернего контента -->

@@ -1,28 +1,6 @@
-import { toNum } from '@/utilte/utilte'
+import { PagingInfo } from '@/api/web_services/rest-type'
 import request from './request/request'
 import type { PostBody, GetOptions } from './request/request'
-
-/**
- * Информация о пагинации.
- */
-// prettier-ignore
-export interface PagingInfo {
-  /** Максимальное количество элементов на странице */
-  limit     : number
-  /** Смещение от начала выборки */
-  offset    : number
-  /** Общее количество элементов */
-  totalCount: number
-}
-
-
-export const pagingInfoBuilder = (pagingInfo: Partial<PagingInfo> = {}): PagingInfo => {
-  return {
-    limit: toNum(pagingInfo.limit),
-    offset: toNum(pagingInfo.offset),
-    totalCount: toNum(pagingInfo.totalCount),
-  }
-}
 
 /**
  * Универсальный REST-клиент для работы с API.

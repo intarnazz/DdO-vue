@@ -1,13 +1,14 @@
 import { reactive, computed, watch, markRaw, shallowRef } from 'vue'
 import type { ComputedRef, ShallowRef } from 'vue'
 import type { GetOptions } from '../../../web_services/request/request'
-import Rest, { PagingInfo, pagingInfoBuilder } from '../../../web_services/rest'
+import Rest from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
 import { filter, type } from '@/api/api'
 import Product from './product.model'
 import type { ProductType, ProductServiceType, ProductMeta, DefaultProductType } from './types'
 import { toNum } from '@/utilte/utilte'
 import router from '@/router/router'
+import { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest-type'
 
 const rest = new Rest('product')
 

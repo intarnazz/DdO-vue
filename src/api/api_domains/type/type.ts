@@ -1,18 +1,18 @@
 import { toNum, toNumOrNull, toStr } from '@/utilte/utilte'
 
 // prettier-ignore
-export class Category {
+export class Type {
   public id         : number
   public selfId     : number | null
   public name       : string
   public description: string
   public slug       : string | null
 
-  constructor(category: Partial<Category>) {
-    this.id          = toNum(category.id)
-    this.selfId      = toNumOrNull(category.selfId)
-    this.name        = toStr(category.name)
-    this.description = toStr(category.description)
-    this.slug        = toStr(category.slug)
+  constructor(type: Partial<Type>) {
+    this.id          = toNum(type.id)
+    this.selfId      = toNumOrNull(type.selfId)
+    this.name        = toStr(type.name)
+    this.description = toStr(type.description)
+    this.slug        = toStr(type.slug)
   }
 }

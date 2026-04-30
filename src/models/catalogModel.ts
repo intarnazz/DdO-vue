@@ -1,6 +1,6 @@
 import { computed, reactive, shallowRef } from 'vue'
-import { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest'
 import { buildArray } from '@/api/builders/builders'
+import { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest-type'
 
 export class CatalogModel<T> {
   private _items = shallowRef<T[]>([])

@@ -8,7 +8,6 @@ import { types } from '@/api/api_domains/type/types'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 
 onMounted(() => contacts.load())
-onMounted(() => types.load())
 </script>
 
 <template>

@@ -2,7 +2,8 @@
  * Структура изображения продукта.
  */
 
-import { PagingInfo } from "@/api/web_services/rest"
+import { PagingInfo } from "@/api/web_services/rest-type"
+
 
 // prettier-ignore
 export interface Image {
