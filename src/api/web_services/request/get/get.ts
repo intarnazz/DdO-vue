@@ -1,4 +1,5 @@
 import { user } from '../../../api'
+import NProgress from 'nprogress'
 
 /**
  * Базовый URL API.
@@ -117,13 +118,15 @@ export async function get(domen: string, options: GetOptions = {}): Promise<Resp
     if (value) url.searchParams.append(key, String(value))
   })
 
+  NProgress.configure({ showSpinner: false })
+  NProgress.start()
   const response = await fetch(url.toString(), {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${user.token ?? ''}`,
     },
     signal: options.signal,
-  })
+  }).finally(() => NProgress.done())
 
   return response
 }

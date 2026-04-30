@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "@types/nprogress": "^0.2.3",
     "@vueuse/core": "^14.2.1",
+    "nprogress": "^0.2.0",
     "sass": "^1.97.2",
     "tailwindcss": "^4",
     "vue": "^3.5.26",

@@ -1,4 +1,5 @@
 // import '@/assets/css/reset.css'
+import 'nprogress/nprogress.css'
 import '@/assets/css/root.css'
 import '@/assets/css/loader.css'
 import '@/assets/sass/style.sass'
