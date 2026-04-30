@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { types } from '@/api/api_domains/type/types'
 import Iconlogo from '@/components/icons/Iconlogo.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
@@ -61,20 +62,10 @@ const toggleMenu = () => (isOpen.value = !isOpen.value)
             <li><RouterLink @click="toggleMenu" :to="{ name: 'contact' }">Контакты</RouterLink></li>
 
             <ul class="box-y gap-8">
-              <li>
-                <RouterLinkCatalog @click="toggleMenu" :type_id="1" :type_name="`entrance-doors`"
-                  >Входные двери</RouterLinkCatalog
-                >
-              </li>
-              <li>
-                <RouterLinkCatalog @click="toggleMenu" :type_id="2" :type_name="`interior-doors`"
-                  >Межкомнатные двери</RouterLinkCatalog
-                >
-              </li>
-              <li>
-                <RouterLinkCatalog @click="toggleMenu" :type_id="3" :type_name="`kitchens`"
-                  >Кухни</RouterLinkCatalog
-                >
+              <li v-for="type in types.items" :key="type.id">
+                <RouterLinkCatalog @click="toggleMenu" :type_id="type.id" :type_name="type.name">
+                  {{ type.name }}
+                </RouterLinkCatalog>
               </li>
             </ul>
 
