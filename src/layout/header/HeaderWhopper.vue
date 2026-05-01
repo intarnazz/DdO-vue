@@ -77,7 +77,7 @@ const toggleMenu = () => (isOpen.value = !isOpen.value)
           </ul>
         </nav>
 
-        <Iconlogo class="w-1/2" :fill="`#ffffff`" />
+        <Iconlogo class="w-1/2" :fill="`#888888`" />
       </div>
     </transition>
   </div>

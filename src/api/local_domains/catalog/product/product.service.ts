@@ -1,5 +1,5 @@
-import { reactive, computed, watch, markRaw, shallowRef } from 'vue'
-import type { ComputedRef, ShallowRef } from 'vue'
+import { reactive, computed, watch, markRaw, shallowRef, ref } from 'vue'
+import type { ComputedRef, Ref, ShallowRef } from 'vue'
 import type { GetOptions } from '../../../web_services/request/request'
 import Rest from '../../../web_services/rest'
 import PromiseController from '../../../web_services/promiseController'
@@ -9,6 +9,7 @@ import type { ProductType, ProductServiceType, ProductMeta, DefaultProductType }
 import { toNum } from '@/utilte/utilte'
 import router from '@/router/router'
 import { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest-type'
+import user from '@/storage/user'
 
 const rest = new Rest('product')
 
@@ -52,6 +53,8 @@ class ProductService {
   private _current_page : ComputedRef<number> // prettier-ignore
   private _is_pagination: ComputedRef<boolean> // prettier-ignore
 
+  public is_favorite: Ref<boolean>  = ref(false) // prettier-ignore
+
   /**
    * Создаёт экземпляр сервиса продуктов.
    *
@@ -79,7 +82,7 @@ class ProductService {
     this._is_pagination = computed(() => filter.limit < this.pagingInfo.totalCount)
 
     watch(
-      () => filter.value,
+      [() => filter.value, () => this.is_favorite.value],
       () => {
         if (type.type.id !== toNum(router.currentRoute.value.params.id)) return
         if (this.current_page > this.page_count) this.current_page = this.page_count
@@ -100,10 +103,13 @@ class ProductService {
    */
   public async all(data: GetOptions = {}): Promise<unknown> {
     if (!type.type.id && !data.type) return
+    if (this.is_favorite.value && user.favorite.length === 0)
+      return ((this.products = []), (this.data.pagingInfo = pagingInfoBuilder()))
     const res = await this.promise_controller.await((signal) =>
       this.rest.all({
         signal: signal,
         type: type.type.id,
+        favorite: this.is_favorite.value ? String(user.favorite) : undefined,
         ...data,
         ...filter.query,
       }),

@@ -9,6 +9,7 @@ import FormSearch from '@/components/forms/FormSearch.vue'
 import CatalogItem from '@/components/domains/catalog/CatalogItem.vue'
 import ComponentLoader404 from '@/components/ComponentLoader404.vue'
 import ComponentLoader from '@/components/ComponentLoader.vue'
+import ToggleCatalogProductIsFavorite from '@/components/buttons/toggle/ToggleCatalogProductIsFavorite.vue'
 </script>
 
 <template>
@@ -20,34 +21,38 @@ import ComponentLoader from '@/components/ComponentLoader.vue'
     <div class="box-x as gap-8">
       <AsideFilters />
       <div class="w box-y gap-8 justify-start">
-        <div class="flex justify-between gap-4 max-sm:flex-col">
-          <CatalogOrder
-            :arguments="[
-              {
-                text: 'новинки',
-                type: '',
-              },
-              {
-                text: 'самые популярные',
-                type: 'views',
-                desc: 'desc',
-              },
-              {
-                text: 'цена',
-                type: 'price',
-                desc: 'desc',
-                turn: true,
-              },
-              {
-                text: 'скидки',
-                type: 'discount',
-                desc: 'desc',
-              },
-            ]"
-          />
-          <CatalogLimit :arguments="[48, 96, 192]" />
+        <div class="box-y gap-4">
+          <div class="flex justify-between gap-4 max-sm:flex-col">
+            <CatalogOrder
+              :arguments="[
+                {
+                  text: 'новинки',
+                  type: '',
+                },
+                {
+                  text: 'самые популярные',
+                  type: 'views',
+                  desc: 'desc',
+                },
+                {
+                  text: 'цена',
+                  type: 'price',
+                  desc: 'desc',
+                  turn: true,
+                },
+                {
+                  text: 'скидки',
+                  type: 'discount',
+                  desc: 'desc',
+                },
+              ]"
+            />
+            <CatalogLimit :arguments="[48, 96, 192]" />
+          </div>
+          <div class="box-x">
+            <ToggleCatalogProductIsFavorite />
+          </div>
         </div>
-
         <div
           v-if="p.products.length > 0"
           class="catalog__grid"

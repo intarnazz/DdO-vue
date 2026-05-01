@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import { product as api_product } from '@/api/api'
 import ComponentImg from '@/components/ComponentImg.vue'
-import ButtonFavorite from '@/components/buttons/ButtonFavorite.vue'
 import ComponentHighlightText from '@/components/ComponentHighlightText.vue'
 import ButtonComparison from '@/components/buttons/ButtonComparison.vue'
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
@@ -13,6 +12,7 @@ import { ProductType } from '@/api/local_domains/catalog/product'
 import ProductDiscount from '@/components/domains/product/ProductDiscount.vue'
 import { DefaultTypeInterface } from '@/api/local_domains/catalog/type/type'
 import { Query } from '@/api/local_domains/query'
+import ToggleFavorite from '@/components/buttons/toggle/ToggleFavorite.vue'
 
 const { product, type, filter } = defineProps<{
   product: ProductType
@@ -107,7 +107,7 @@ const is_equal = computed<boolean>(() => {
       </div>
     </RouterLinkProduct>
     <div class="box-x gap">
-      <ButtonFavorite :product="product" :is_mini="true" />
+      <ToggleFavorite :product="product" :is_mini="true" />
       <ButtonComparison :product="product" :is_mini="true" />
       <ButtonAddToCart :product="product" :is_mini="true" :price="product.price_discount" />
     </div>
