@@ -110,8 +110,10 @@ import { title } from '@/utilte/utilte'
         </div>
 
         <ProductContacts />
-
-        <div class="box-y gap-4">
+        <div
+          v-if="product.product.colors.length > 0 && product.product.variant.products && product.product.variant.products.length > 0"
+          class="box-y gap-4"
+        >
           <h3>цвет</h3>
           <div class="product__color-list box-x js gap-4 flex-wrap">
             <template v-for="p in product.product.variant.products" :key="p.id">

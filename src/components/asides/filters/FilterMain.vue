@@ -22,7 +22,7 @@ const filter = computed(() => props.filter || false)
 
 const is_color = computed(() => filter.value.type === 'color')
 
-const is_expand_validation = computed(() => !is_color.value && MIN < filter.value.content.length)
+const is_expand_validation = computed(() => !is_color.value && MIN < filter.value.content?.length)
 
 function send_active_filters_ids(content: Characteristic) {
   let _active_filters_ids = []
@@ -44,27 +44,29 @@ function expand_change() {
 </script>
 
 <template>
-  <StyleTypeColors
-    v-if="is_color"
-    @expand_change="expand_change"
-    @send_active_filters_ids="send_active_filters_ids"
-    :MIN="MIN"
-    :is_expand_validation="is_expand_validation"
-    :is_expand="is_expand"
-    :filter="filter"
-    :active_filters_ids="active_filters_ids"
-  />
+  <template v-if="filter">
+    <StyleTypeColors
+      v-if="is_color"
+      @expand_change="expand_change"
+      @send_active_filters_ids="send_active_filters_ids"
+      :MIN="MIN"
+      :is_expand_validation="is_expand_validation"
+      :is_expand="is_expand"
+      :filter="filter"
+      :active_filters_ids="active_filters_ids"
+    />
 
-  <StyleTypeDefault
-    v-else
-    @expand_change="expand_change"
-    @send_active_filters_ids="send_active_filters_ids"
-    :MIN="MIN"
-    :is_expand_validation="is_expand_validation"
-    :is_expand="is_expand"
-    :filter="filter"
-    :active_filters_ids="active_filters_ids"
-  />
+    <StyleTypeDefault
+      v-else
+      @expand_change="expand_change"
+      @send_active_filters_ids="send_active_filters_ids"
+      :MIN="MIN"
+      :is_expand_validation="is_expand_validation"
+      :is_expand="is_expand"
+      :filter="filter"
+      :active_filters_ids="active_filters_ids"
+    />
+  </template>
 </template>
 
 <style lang="sass" scoped>

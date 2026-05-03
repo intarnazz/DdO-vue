@@ -4,9 +4,9 @@ import IconSearch from '../icons/IconSearch.vue'
 import IconClose from '../icons/IconClose.vue'
 import { ref, watch } from 'vue'
 
-const search = ref(filter.search)
+const search = ref<string>(filter.search)
 
-const set_search = () => (filter.search = search.value)
+const set_search = () => ((search.value = search.value.trim()), (filter.search = search.value))
 
 watch(
   () => search.value,

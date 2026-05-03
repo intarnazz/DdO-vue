@@ -17,6 +17,7 @@ function send_active_tag_id(id: string) {
 
 <template>
   <div
+    v-if="t.type.tags.length > 0"
     class="box-y filters__tags select-menu select-menu__list tags w-80.25 max-w-80.25 py-2 bgc-sub br"
   >
     <template v-for="(tag, key) in t.type.tags" :key="key">

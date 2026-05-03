@@ -21,7 +21,7 @@ const idNum = computed(() => toNum(id))
 
 const init = () => {
   filter.update(route.query)
-  if (type.type.id !== idNum.value) type.type.init(idNum.value)
+  type.type.id = idNum.value
 }
 
 watch(

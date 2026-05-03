@@ -46,7 +46,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
           v-if="product.product.image_primary.path"
           @click="set_current_image(product.product.image_primary)"
           :class="{
-            product__img_shadow: !user.interior_is_active.value,
+            product__img_shadow: interior_is_valid && !user.interior_is_active.value,
           }"
           class="product__img object-cover h-full cursor-zoom-in"
           :storage="product.product.image_primary.path"

@@ -1,7 +1,8 @@
-import { reactive, computed, ComputedRef, shallowRef, ShallowRef } from 'vue'
+import { reactive, computed, ComputedRef, shallowRef, ShallowRef, watch } from 'vue'
 import Rest from '../../../web_services/rest'
 import { product } from '@/api/api'
 import { toNum, toStr } from '@/utilte/utilte'
+import PromiseController from '@/api/web_services/promiseController'
 
 const rest = new Rest('type')
 
@@ -105,9 +106,10 @@ export const typeBuilder = (type: Partial<DefaultTypeInterface>) => {
 }
 
 class Type {
-  private data  : DefaultTypeInterface // prettier-ignore
-  private data_c: ComputedRef<DefaultTypeInterface> // prettier-ignore
-  private rest  : Rest // prettier-ignore
+  private data             : DefaultTypeInterface // prettier-ignore
+  private data_c           : ComputedRef<DefaultTypeInterface> // prettier-ignore
+  private rest             : Rest // prettier-ignore
+  private promiseController: PromiseController = new PromiseController() // prettier-ignore
 
   constructor(type: Partial<DefaultTypeInterface> = {}) {
     this.rest = rest
@@ -115,12 +117,22 @@ class Type {
     // prettier-ignore
     this.data = reactive(typeBuilder(type))
     this.data_c = computed(() => this.data)
+
+    watch(
+      () => this.id,
+      () => this.init(),
+    )
   }
 
-  public async init(id: number): Promise<void> {
-    product.all({ type: id })
-    const res = await this.rest.get(id)
+  public async init(): Promise<void> {
+    product.all({ type: this.id })
+    const res = await this.promiseController.await((signal) =>
+      this.rest.get(this.id, {
+        signal: signal,
+      }),
+    )
 
+    if (!res) return
     if (!res.success) return
 
     Object.assign(this.data_c.value, res.data)
@@ -128,6 +140,10 @@ class Type {
 
   public get id(): number {
     return this.data_c.value.id || 0
+  }
+
+  public set id(id: number) {
+    this.data.id = id
   }
 
   public get self_id(): number {

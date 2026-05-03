@@ -19,13 +19,11 @@ const set_total_count = (number: number) => (total_count.value += number)
 </script>
 
 <template>
-  <section class="option box-y gap-8">
+  <section  v-if=" product.product.options.length > 0" class="option box-y gap-8">
     <h2>Обрамление</h2>
-
     <p class="c-sub">
       donec volutpat turpis tellus, a pretium velit semper nec. Quisque sed egestas tortor.
     </p>
-
     <div class="option__list box-y gap-2">
       <ProductOption
         @set_option_count="(value) => set_option_count(option, value)"
