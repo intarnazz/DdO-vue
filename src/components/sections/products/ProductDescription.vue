@@ -18,7 +18,7 @@ import { product } from '@/api/api'
         </div>
       </div>
       <!-- ? RIGHT BOX -->
-      <div class="box-y flex-1">
+      <div class="flex flex-col gap-4 flex-1">
         <p>
           Стальной дверной блок с открыванием наружу. Поставляется с правым и левым открыванием.
         </p>

@@ -10,6 +10,7 @@ import {
   price,
   set_current_price_key,
 } from '@/components/sections/products/current_price.use'
+import interior_is_valid from '@/components/sections/products/interior_is_valid.use'
 import ProductCharacteristics from '@/components/sections/products/ProductCharacteristics.vue'
 import ProductContacts from '@/components/sections/products/ProductContacts.vue'
 import ProductImages from '@/components/sections/products/ProductImages.vue'
@@ -52,7 +53,8 @@ import { title } from '@/utilte/utilte'
                 class="product__price-wrapper box-y box br p-2 text-left"
               >
                 <ProductPrice :price="product.product.price_discount" />
-                <p>полотно</p>
+                <p v-if="interior_is_valid">полотно</p>
+                <p v-else>база</p>
               </button>
             </div>
 
@@ -111,7 +113,11 @@ import { title } from '@/utilte/utilte'
 
         <ProductContacts />
         <div
-          v-if="product.product.colors.length > 0 && product.product.variant.products && product.product.variant.products.length > 0"
+          v-if="
+            product.product.colors.length > 0 &&
+            product.product.variant.products &&
+            product.product.variant.products.length > 0
+          "
           class="box-y gap-4"
         >
           <h3>цвет</h3>

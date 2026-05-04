@@ -4,7 +4,6 @@ import IconChevronLeftCastom from '@/components/icons/IconChevronLeftCastom.vue'
 import IconChevronRightCastom from '@/components/icons/IconChevronRightCastom.vue'
 
 interface Banner {
-  id: number
   tag?: string
   title: string
   subtitle?: string
@@ -89,7 +88,7 @@ onUnmounted(() => {
         class="flex transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform"
         :style="{ transform: `translateX(-${current * 100}%)` }"
       >
-        <div v-for="banner in banners" :key="banner.id" class="relative min-w-full">
+        <div v-for="(banner, key) in banners" :key="key" class="relative min-w-full">
           <!-- Background image -->
           <img
             :src="banner.image"
