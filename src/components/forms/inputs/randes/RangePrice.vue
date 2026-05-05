@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { product, filter } from '@/api/api'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, ComputedRef, onMounted, ref, watch } from 'vue'
 import { price, toNumOrNull } from '@/utilte/utilte'
 import ComponentRecolorText from '@/components/ComponentRecolorText.vue'
 
@@ -16,7 +16,7 @@ function roundUp(value: number) {
  * @type {ComputedRef<number>}
  * @default 0
  */
-const min = computed(() => roundUp(product.meta.price.min))
+const min: ComputedRef<number> = computed<number>(() => roundUp(product.meta.price.min))
 
 /**
  * Максимальная цена товаров (берётся из мета-данных API).
@@ -24,7 +24,7 @@ const min = computed(() => roundUp(product.meta.price.min))
  * @type {ComputedRef<number>}
  * @default 0
  */
-const max = computed(() => roundUp(product.meta.price.max))
+const max: ComputedRef<number> = computed<number>(() => roundUp(product.meta.price.max))
 
 const _range = ref(0)
 const init = () => (_range.value = roundUp(toNumOrNull(filter.filters['price-max']) || max.value))
@@ -40,7 +40,9 @@ onMounted(() => {
  *
  * @type {Ref<number>}
  */
-const range = computed(() => (_range.value != max.value ? String(_range.value) : undefined))
+const range: ComputedRef<string | undefined> = computed<string | undefined>(() =>
+  _range.value < max.value ? String(_range.value) : undefined,
+)
 
 /**
  * Обработчик изменения значения слайдера.
@@ -59,12 +61,25 @@ watch(
   () => init(),
 )
 
+watch(
+  () => max.value,
+  (n) => (_range.value = n),
+)
+
 // LARAVEL: фильтрует без учёта скидки
 </script>
 
 <template>
   <div class="input_box box-y gap-4 px-4 py-2">
-    <input @change="rangeChange" v-model="_range" :max="max" :min="min" step="5000" type="range" />
+    <input
+      :key="max"
+      @change="rangeChange"
+      v-model="_range"
+      :max="max"
+      :min="min"
+      step="5000"
+      type="range"
+    />
 
     <div class="box-x center">
       <p v-if="range" class="font-normal price">
