@@ -2,7 +2,7 @@
 import { computed, watch } from 'vue'
 import { useScroll } from '@vueuse/core'
 import { filter } from '@/api/api'
-import { up, up_fast } from '@/utilte/utilte'
+import { up_fast } from '@/utilte/utilte'
 
 const { y } = useScroll(window)
 
@@ -13,7 +13,7 @@ watch(() => filter.offset, up_fast)
 
 <template>
   <div
-    @click="up()"
+    @click="up_fast()"
     class="button-up__wrapper fixed z-3 w-15 right-8 max-lg:left-8 cursor-pointer"
     :class="{
       'button-up__active': h > 0,
