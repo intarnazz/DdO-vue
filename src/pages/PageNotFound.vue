@@ -1,20 +1,29 @@
 <script setup lang="ts">
-import ComponentImg from '@/components/ComponentImg.vue'
+import FooterMain from '@/layout/footer/FooterMain.vue'
+import LayoutPage from '@/layout/LayoutPage.vue'
 </script>
 
 <template>
-  <div class="pa bg-black">
-    <ComponentImg :id="1" />
-  </div>
-  <div class="h-dvh center relative">
-    <div class="box-y text-white">
-      <h1>
-        404 <br />
-        Тут ничего нет! O_O
-      </h1>
-      <RouterLink :to="{ name: 'home' }" class="a a_w"><h3>← Назад на сайт</h3></RouterLink>
+  <LayoutPage class="main w relative">
+    <div class="pa bg-black">
+      <img
+        class="img"
+        src="@/assets/img/vladislav-bychkov-jnCvEQBPWmo-unsplash.jpg"
+        alt="404_image"
+      />
+      <div class="absolute top-0 left-0 bg-black/70 w h" />
     </div>
-  </div>
+    <div class="h-dvh center relative">
+      <div class="box-y text-white">
+        <h1>
+          404 <br />
+          Тут ничего нет! O_O
+        </h1>
+        <RouterLink :to="{ name: 'home' }" class="a a_w"><h3>← Назад на сайт</h3></RouterLink>
+      </div>
+    </div>
+  </LayoutPage>
+  <FooterMain />
 </template>
 
 <style lang="sass"></style>
