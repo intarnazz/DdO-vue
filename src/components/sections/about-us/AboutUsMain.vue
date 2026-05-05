@@ -43,7 +43,7 @@
     <div class="about-us__block about-us__block--delivery">
       <div class="about-us__delivery-header">
         <span class="about-us__tag about-us__tag--light">Условия работы</span>
-        <h2 id="payment-and-delivery" class="about-us__title">Оплата и доставка</h2>
+        <h2 id="#payment-and-delivery" class="about-us__title">Оплата и доставка</h2>
         <p class="about-us__lead about-us__lead--light">
           Мы сделали процесс покупки максимально простым — от выбора товара до получения на руки.
         </p>
@@ -268,7 +268,6 @@
     width: 40px
     height: 40px
     border-radius: 10px
-    background: lighten(#000, 94%)
     display: flex
     align-items: center
     justify-content: center
