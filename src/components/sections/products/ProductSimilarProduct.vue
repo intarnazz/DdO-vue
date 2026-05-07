@@ -7,7 +7,7 @@ import { computed } from 'vue'
 const products = computed(
   () =>
     product.product.variant.products &&
-    product.product.variant.products.filter((product) => product.id !== product.id),
+    product.product.variant.products.filter((p) => p.id !== product.product.id),
 )
 </script>
 

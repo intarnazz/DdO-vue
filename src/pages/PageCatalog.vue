@@ -42,16 +42,16 @@ watch(
 <template>
   <!-- <LayoutPage :foo="init" class="main box-y gap-16"> -->
   <LayoutPage :foo="init" class="main box-y gap-16">
-    <LayoutWrapper v-if="idNum === type.type.id" class="box-y gap-12">
+    <LayoutWrapper class="box-y gap-12">
       <div class="box-y gap-4">
         <ComponentBread />
         <ComponentContext />
       </div>
-      <SectionCatalog v-if="type.type.id" />
+      <div v-if="type.type.is_loading" class="box-y pt-100">
+        <ComponentLoader />
+      </div>
+      <SectionCatalog v-else-if="type.type.id" />
     </LayoutWrapper>
-    <div v-else class="box-y pt-100">
-      <ComponentLoader />
-    </div>
   </LayoutPage>
   <FooterMain />
 </template>

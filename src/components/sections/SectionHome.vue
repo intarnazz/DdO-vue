@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import ComponentSlider from '@/components/ComponentSlider.vue'
+
+import slider_image_1 from '@/assets/img/Без названия (10).webp'
+import slider_image_2 from '@/assets/img/Без названия (1).webp'
+import slider_image_3 from '@/assets/img/2342342342.webp'
+import slider_image_4 from '@/assets/img/534535345.webp'
 </script>
 
 <template>
@@ -7,13 +12,13 @@ import ComponentSlider from '@/components/ComponentSlider.vue'
     <ComponentSlider
       :banners="[
         {
-          image: 'src/assets/img/Без названия (10).jpg',
+          image: slider_image_1,
           title: 'тут мог быть ваш банер',
           subtitle: 'Подзаголовок',
           tag: 'Новинка',
         },
         {
-          image: 'src/assets/img/Без названия (1).jpg',
+          image: slider_image_2,
           title: 'тут мог быть ваш банер',
           subtitle: 'Подзаголовок',
           tag: 'Новинка',
@@ -21,12 +26,12 @@ import ComponentSlider from '@/components/ComponentSlider.vue'
         {
           tag: 'товары',
           title: 'тут тоже мог быть ваш банер',
-          image: 'src/assets/img/2342342342.jpg',
+          image: slider_image_3,
         },
         {
           tag: 'товары',
           title: 'тут тоже мог быть ваш банер',
-          image: 'src/assets/img/534535345.jpg',
+          image: slider_image_4,
         },
       ]"
       :autoplay-delay="4000"

@@ -5,8 +5,6 @@ import SectionContact from '@/components/sections/SectionContact.vue'
 const { mini = false } = defineProps<{
   mini?: boolean
 }>()
-
-// onMounted(() => contacts.load())
 </script>
 
 <template>

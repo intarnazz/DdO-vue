@@ -31,7 +31,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
         <img
           v-if="interior_is_valid"
           class="h-full img br"
-          src="@/assets/img/product_image_bg.jpg"
+          src="@/assets/img/product_image_bg.webp"
           alt="product_image_bg"
         />
       </div>

@@ -4,8 +4,9 @@ import LayoutPage from '@/layout/LayoutPage.vue'
 import SectionHome from '@/components/sections/SectionHome.vue'
 import HomeCatalog from '@/components/sections/home/HomeCatalog.vue'
 import HomeBrands from '@/components/sections/home/HomeBrands.vue'
-import SectionContacts from '@/components/sections/SectionContacts.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
+import HomeVideo from '@/components/sections/home/HomeVideo.vue'
+import HomeContacts from '@/components/sections/home/HomeContacts.vue'
 // [ ]: документация
 // [ ]: вакансии
 </script>
@@ -21,11 +22,12 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
         class="catalog__item border w pt-4 pb-16 -mt-px"
         :type_id="2"
       />
-      <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" />
     </div>
+    <HomeVideo />
+    <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" />
     <HomeBrands />
     <LayoutWrapper>
-      <SectionContacts :mini="true" class="flex overflow-hidden" />
+      <HomeContacts />
     </LayoutWrapper>
   </LayoutPage>
   <FooterMain class="mt-16" />
@@ -39,7 +41,8 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
   &__item
     &:last-child
       padding-bottom: 0
-    &:first-child,
+    &:first-child
+      border-top: none
     &:last-child
       border: none
 </style>

@@ -8,7 +8,7 @@ import LayoutPage from '@/layout/LayoutPage.vue'
     <div class="pa bg-black">
       <img
         class="img"
-        src="@/assets/img/vladislav-bychkov-jnCvEQBPWmo-unsplash.jpg"
+        src="@/assets/img/vladislav-bychkov-jnCvEQBPWmo-unsplash.webp"
         alt="404_image"
       />
       <div class="absolute top-0 left-0 bg-black/70 w h" />

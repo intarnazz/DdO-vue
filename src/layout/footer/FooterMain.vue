@@ -52,7 +52,7 @@ onMounted(() => contacts.load())
               -->
               <li v-for="type in types.items" :key="type.id">
                 <RouterLinkCatalog :type_id="type.id" :type_name="type.name" class="footer__link">
-                  {{ type.name }}
+                  <span>{{ type.name }}</span>
                 </RouterLinkCatalog>
               </li>
               <!-- <li>
@@ -77,7 +77,27 @@ onMounted(() => contacts.load())
             <span class="footer__col-title">Контакты</span>
             <ul class="footer__list">
               <li v-for="contact in contacts.items" :key="contact.id">
-                <RouterLink :to="{ name: 'contact' }" class="footer__link footer__link--contact">
+                <RouterLink
+                  v-if="contact.name === 'phone' || contact.name === 'address'"
+                  :to="{ name: 'contact' }"
+                  class="footer__link footer__link--contact"
+                >
+                  <span v-if="contact.name === 'phone'" class="footer__contact-name">
+                    телефон
+                  </span>
+                  <span v-else-if="contact.name === 'address'" class="footer__contact-name">
+                    адрес
+                  </span>
+                  <span v-if="contact.description" class="footer__contact-desc">
+                    {{ contact.description }}: {{ contact.link }}
+                  </span>
+                </RouterLink>
+                <a
+                  v-else
+                  :href="contact.link"
+                  target="_blank"
+                  class="footer__link footer__link--contact"
+                >
                   <span v-if="contact.name === 'phone'" class="footer__contact-name">
                     телефон
                   </span>
@@ -88,7 +108,7 @@ onMounted(() => contacts.load())
                   <span v-if="contact.description" class="footer__contact-desc">
                     {{ contact.description }}
                   </span>
-                </RouterLink>
+                </a>
               </li>
             </ul>
           </div>

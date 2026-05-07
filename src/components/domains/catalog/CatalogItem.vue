@@ -50,7 +50,7 @@ const is_equal = computed<boolean>(() => {
         :class="{
           'opacity-0': !filter || !Boolean(filter.search),
         }"
-        class="c-sub"
+        class="c-sub truncate"
       >
         {{ product.article }}
       </p>

@@ -89,6 +89,7 @@ type Init = (id: number) => Promise<void>
 
 // prettier-ignore
 export interface TypeInterface extends DefaultTypeInterface {
+  is_loading: boolean
   init: Init
 }
 export const typeBuilder = (type: Partial<DefaultTypeInterface>) => {
@@ -136,6 +137,10 @@ class Type {
     if (!res.success) return
 
     Object.assign(this.data_c.value, res.data)
+  }
+
+  public get is_loading(): boolean {
+    return this.promiseController.is_loading
   }
 
   public get id(): number {
