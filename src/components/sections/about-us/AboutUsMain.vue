@@ -65,7 +65,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
 
     <!-- Почему выбирают нас -->
     <section class="about-us__block about-us__block--why">
-      <img class="img br" src="@/assets/img/about-us-why-we.webp" alt="" />
+      <img class="img br" src="@/assets/img/about-us-why-we — копия.webp" alt="" />
 
       <div class="about-us__why-text">
         <span class="about-us__tag">Наши преимущества</span>
