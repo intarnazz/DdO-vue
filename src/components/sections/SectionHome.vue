@@ -46,7 +46,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
           </LayoutWrapper>
         </div>
       </div>
-      <img class="img m-auto w max-w-480" src="@/assets/img/main-baner.JPG" alt="main-baner" />
+      <img class="img m-auto w max-w-480" src="@/assets/img/main-baner.webp" alt="main-baner" />
     </div>
 
     <!-- <ComponentSlider

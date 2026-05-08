@@ -61,7 +61,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
       <div class="flex-1">
         <img
           class="br img flex-1"
-          src="@/assets/img/vitaly-gariev-KDWgcgMFFVI-unsplash 1.png"
+          src="@/assets/img/vitaly-gariev-KDWgcgMFFVI-unsplash 1.webp"
           alt=""
         />
       </div>
