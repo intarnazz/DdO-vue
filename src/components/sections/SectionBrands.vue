@@ -17,7 +17,11 @@ const emit = defineEmits<{
 const route = useRoute()
 const routeBrandId = computed(() => toNum(route.params.id))
 
-onMounted(() => brands.load())
+onMounted(async () => {
+  await brands.load()
+  const brand = brands.items[0]
+  if (brand) emit('set-brand-id', brand.id)
+})
 </script>
 
 <template>

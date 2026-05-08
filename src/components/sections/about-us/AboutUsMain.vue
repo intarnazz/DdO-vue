@@ -45,8 +45,8 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
 <template>
   <div class="about-us">
     <!-- О нас -->
-    <section class="about-us__block about-us__block--hero text-right">
-      <div class="flex-col flex items-end">
+    <section class="flex gap-4">
+      <div class="flex-col flex flex-1">
         <span class="about-us__tag">О компании</span>
         <h2 class="about-us__title">О нас</h2>
         <p class="about-us__lead">
@@ -58,7 +58,13 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
         </p>
       </div>
 
-      <img class="br img" src="@/assets/icons/dfy--_rVqLaOGV4-unsplash.jpg" alt="" />
+      <div class="flex-1">
+        <img
+          class="br img flex-1"
+          src="@/assets/img/vitaly-gariev-KDWgcgMFFVI-unsplash 1.png"
+          alt=""
+        />
+      </div>
     </section>
 
     <!-- Почему выбирают нас -->
@@ -67,12 +73,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
 
       <div class="about-us__why-text">
         <span class="about-us__tag">Наши преимущества</span>
-        <h2 class="about-us__title">Почему выбирают нас</h2>
-        <p class="about-us__lead">
-          Мы предлагаем широкий выбор дверей на любой вкус и бюджет, гарантируя высокое качество и
-          надёжность. Наши специалисты помогают на каждом этапе — от подбора до установки, чтобы вы
-          получили идеальное решение без лишних хлопот.
-        </p>
+        <h2 class="about-us__title">Что нас отличает от других магазинов</h2>
         <ul class="about-us__why-list">
           <li class="about-us__why-item">
             <svg
@@ -87,7 +88,8 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            Только проверенные производители
+            В продаже не только окна, двери и фурнитура, но также напольные покрытия — ламинат,
+            кварц винил, линолеум, системы «Тёплый пол», мебель для дома
           </li>
           <li class="about-us__why-item">
             <svg
@@ -102,7 +104,8 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            Бесплатный замер и консультация
+            Продаём и устанавливаем двери, уже подготовленные в мастерской к монтажу — это
+            обеспечивает чистоту в помещении и экономию затрат
           </li>
           <li class="about-us__why-item">
             <svg
@@ -117,7 +120,8 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            Гарантия на продукцию и монтаж
+            Для новостроек при покупке комплекта «От двери до пола» включая услуги наших монтажников
+            — приятная скидка
           </li>
           <li class="about-us__why-item">
             <svg
@@ -132,7 +136,37 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            Работаем под ключ — без лишних хлопот
+            Скидки для постоянных клиентов
+          </li>
+          <li class="about-us__why-item">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            Доставка и монтаж в короткие сроки — собственный транспорт даёт нам полную независимость
+          </li>
+          <li class="about-us__why-item">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            Сотрудничаем с лучшими российскими производителями
           </li>
         </ul>
       </div>
@@ -263,7 +297,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
         <div class="stores__item stores__item--wide">
           <div class="stores__image stores__image--landscape">
             <img src="@/assets/img/DSCN4717.JPG1 (1).webp" alt="Магазин на Институтской" />
-            <span class="stores__badge absolute top-4 right-4">Основной</span>
+            <span class="stores__badge absolute top-4 right-4 rounded-full">Основной</span>
           </div>
           <div class="stores__info">
             <div class="stores__info-row">
@@ -406,7 +440,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
 
   &__hero-image
     aspect-ratio: 4 / 3
-    border-radius: 1.25rem
+    border-radius: 5px
     background: #f0efec
     overflow: hidden
     position: relative
@@ -454,7 +488,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))
     gap: 1px
     border: 1px solid #e8e6e0
-    border-radius: 1rem
+    border-radius: 5px
     overflow: hidden
     background: #e8e6e0
 
@@ -466,13 +500,10 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
     gap: 0.75rem
     transition: background 0.2s ease
 
-    &:hover
-      background: #fafaf8
-
   &__card-icon
     width: 40px
     height: 40px
-    border-radius: 10px
+    border-radius: 5px
     display: flex
     align-items: center
     justify-content: center
@@ -546,14 +577,11 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
 
   &__item
     border: 1px solid #e8e6e0
-    border-radius: 1.25rem
+    border-radius: 5px
     overflow: hidden
     display: flex
     flex-direction: column
     transition: box-shadow 0.2s ease
-
-    &:hover
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07)
 
   &__image
     position: relative
@@ -566,8 +594,6 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
       object-fit: cover
       display: block
       transition: transform 0.4s ease
-  &__item:hover &__image img
-    transform: scale(1.03)
 
   &__badge
     background: $main
@@ -577,7 +603,6 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
     letter-spacing: 0.08em
     text-transform: uppercase
     padding: 0.3rem 0.75rem
-    border-radius: 2rem
 
   &__info
     padding: 1.5rem
@@ -626,7 +651,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
 
   &__why-image
     aspect-ratio: 4 / 3
-    border-radius: 1.25rem
+    border-radius: 5px
     background: #f0efec
     overflow: hidden
     order: -1
@@ -669,7 +694,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
     grid-template-columns: 1fr 1fr
     gap: 0
     border: 1px solid #e8e6e0
-    border-radius: 1rem
+    border-radius: 5px
     overflow: hidden
     margin-bottom: 1px
 
@@ -695,7 +720,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
       left: -40px
       width: 280px
       height: 280px
-      border-radius: 50%
+      border-radius: 100%
       background: rgba(255,255,255,0.08)
       pointer-events: none
 
@@ -717,7 +742,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
   &__status-dot
     width: 10px
     height: 10px
-    border-radius: 50%
+    border-radius: 5px
     background: #6effa0
     box-shadow: 0 0 8px #6effa0
     animation: pulse 2s ease-in-out infinite
@@ -762,7 +787,7 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
     grid-template-columns: 1fr 1fr
     gap: 0
     border: 1px solid #e8e6e0
-    border-radius: 1rem
+    border-radius: 5px
     overflow: hidden
     align-items: stretch
 
@@ -810,12 +835,9 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
     font-size: 0.82rem
     font-weight: 600
     padding: 0.55rem 1rem
-    border-radius: 2rem
+    border-radius: 5px
     text-decoration: none
     transition: opacity 0.2s
-
-    &:hover
-      opacity: 0.85
 
 .about-us__block--contacts
   display: flex

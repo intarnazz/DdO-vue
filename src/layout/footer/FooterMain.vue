@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
-import Iconlogo from '@/components/icons/Iconlogo.vue'
+import Iconlogo from '@/components/icons/IconLogo.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { contacts } from '@/api/api_domains/contact/contacts'
 import { types } from '@/api/api_domains/type/types'

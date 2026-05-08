@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { types } from '@/api/api_domains/type/types'
-import Iconlogo from '@/components/icons/Iconlogo.vue'
+import Iconlogo from '@/components/icons/IconLogo.vue'
 import IconShopping from '@/components/icons/IconShopping.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { ref } from 'vue'
