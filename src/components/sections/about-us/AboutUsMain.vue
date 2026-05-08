@@ -59,17 +59,13 @@ const statusLabel = computed(() => (isOpen.value ? 'Сейчас мы откры
       </div>
 
       <div class="flex-1">
-        <img
-          class="br img flex-1"
-          src="@/assets/img/vitaly-gariev-KDWgcgMFFVI-unsplash 1.png"
-          alt=""
-        />
+        <img class="br img flex-1" src="@/assets/img/about-us-shop.png" alt="" />
       </div>
     </section>
 
     <!-- Почему выбирают нас -->
     <section class="about-us__block about-us__block--why">
-      <img class="img br" src="@/assets/img/vitaly-gariev-KDWgcgMFFVI-unsplash 1.webp" alt="" />
+      <img class="img br" src="@/assets/img/about-us-why-we.webp" alt="" />
 
       <div class="about-us__why-text">
         <span class="about-us__tag">Наши преимущества</span>
