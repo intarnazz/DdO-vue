@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
-import Iconlogo from '@/components/icons/IconLogo.vue'
+import IconLogo from '@/components/icons/IconLogo.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { contacts } from '@/api/api_domains/contact/contacts'
 import { types } from '@/api/api_domains/type/types'
@@ -17,7 +17,7 @@ onMounted(() => contacts.load())
         <!-- Логотип + копирайт -->
         <div class="footer__brand">
           <RouterLink :to="{ name: 'home' }" class="footer__link">
-            <Iconlogo :fill="`#ffffff`" />
+            <IconLogo :fill="`#ffffff`" />
           </RouterLink>
           <p class="footer__copy">© {{ new Date().getFullYear() }} — Все права защищены</p>
         </div>

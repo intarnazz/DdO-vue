@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import IconLogo from '@/components/icons/IconLogo.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 
 // import ComponentSlider from '@/components/ComponentSlider.vue'
@@ -14,9 +13,36 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
   <section class="home w">
     <div class="w relative">
       <div class="absolute w h">
-        <div class="w h py-8 c-w bg-linear-to-b from-black/60 to-black/40 max-w-480 m-auto">
-          <LayoutWrapper>
-            <h1>Двери да Окна здесь</h1>
+        <div class="w h py-8 c-w bg-linear-to-b from-black/0 to-black/55 max-w-480 m-auto">
+          <LayoutWrapper class="box-y h">
+            <!-- <div class="box-y gap-4">
+              <h1>Двери да Окна здесь</h1>
+              <p class="max-w-[50%] c-sub-90">
+                Мы предлагаем качественные входные и межкомнатные двери для дома и бизнеса.
+                Подбираем решения под ваш стиль и бюджет, обеспечиваем консультацию, замер и
+                установку.
+              </p>
+            </div>
+
+            <div class="box-x">
+              <div class="flex-1" />
+              <RouterLink :to="{ name: 'contact' }" class="stores__link">
+                <LayoutButton>
+                  <IconLocationOn />
+                  <strong>На карте</strong>
+                </LayoutButton>
+              </RouterLink>
+            </div> -->
+
+            <div class="w h flex items-center">
+              <div class="flex flex-col items-start justify-end gap-4 text-xs">
+                <span class="rounded-full bg-white/20 px-4 py-2"> всё для дома </span>
+                <div class="box-y gap-2">
+                  <p class="text-4xl">Двери да Окна Здесь</p>
+                  <p>магазин дверей</p>
+                </div>
+              </div>
+            </div>
           </LayoutWrapper>
         </div>
       </div>
