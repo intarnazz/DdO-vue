@@ -48,7 +48,7 @@ function send_active_filters_ids() {
         active: props.is_active,
         active_off: props.is_active === false,
       }"
-      class="filter__checkbox w-5.5 h-5.5"
+      class="filter__checkbox w-5.5 h-5.5 min-w-5.5 min-h-5.5"
     >
       <img
         :class="{
@@ -58,7 +58,7 @@ function send_active_filters_ids() {
         alt=""
       />
     </div>
-    <span class="truncate block">
+    <span class="truncate block text-wrap text-start max-w-100">
       {{ props.content.name }}
     </span>
     <div class="flex-1"></div>

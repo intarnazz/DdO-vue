@@ -86,6 +86,6 @@ import ToggleCatalogProductIsFavorite from '@/components/buttons/toggle/ToggleCa
 .catalog
   &__grid
     display: grid
-    grid-template-columns: repeat( auto-fill, minmax(16rem, 1fr) )
+    grid-template-columns: repeat( auto-fill, minmax(17.4375rem, 1fr) )
     gap: 1rem
 </style>

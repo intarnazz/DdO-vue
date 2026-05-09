@@ -52,7 +52,7 @@ function send_active_filters_ids(content: Characteristic) {
       >
         <IconKeyboardArrowUp class="filter__expand-button-icon" />
       </div>
-      <div class="box-x gap-4">
+      <div class="box-x gap-4 text-start">
         <strong>{{ props.filter.name }}</strong>
         <span v-if="props.is_expand_validation">подробнее</span>
       </div>
