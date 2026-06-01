@@ -7,7 +7,7 @@ import { computed } from 'vue'
 // onMounted(() => contacts.load())
 
 const phone = computed(() =>
-  formatPhone(contacts.items.find((i) => i.name === 'phone')?.description || ''),
+  formatPhone(contacts.items.find((i) => i.name === 'phone')?.link || ''),
 )
 </script>
 
