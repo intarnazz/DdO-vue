@@ -33,7 +33,7 @@ onMounted(async () => {
 })
 
 watch([() => route.params.id, () => brand_id], init)
-// TODO: удалить route.params.id
+// [ ]: удалить route.params.id
 </script>
 
 <template>
