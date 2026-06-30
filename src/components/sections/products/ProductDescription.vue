@@ -14,7 +14,7 @@ import { product } from '@/api/api'
           class="box-x box p-2 br gap-4"
         >
           <strong class="c-sub flex-1">{{ characteristic.filter.name }}:</strong>
-          <p class="flex-4">{{ characteristic.description }}</p>
+          <p class="flex-3">{{ characteristic.description }}</p>
         </div>
       </div>
       <!-- ? RIGHT BOX -->
