@@ -2,8 +2,7 @@
  * Структура изображения продукта.
  */
 
-import { PagingInfo } from "@/api/web_services/rest-type"
-
+import { PagingInfo } from '@/api/web_services/rest-type'
 
 // prettier-ignore
 export interface Image {
@@ -30,6 +29,8 @@ export interface Color {
   name      : string
   /** Описание цвета */
   description: string
+  /** Описание цвета */
+  slug      : string
   /** Флаг видимости цвета */
   is_visible: boolean
   /** Объект изображения цвета */
@@ -98,6 +99,7 @@ export interface VariantProduct {
   variant            : Variant
   /** Список цветов продукта */
   colors             : Color[]
+  inserts            : Characteristic[]
 }
 
 /**
@@ -183,6 +185,8 @@ export interface Characteristic {
   name       : string
   /** Описание характеристики */
   description: string
+  /** тег характеристики */
+  slug       : string
   /** Флаг видимости характеристики */
   is_visible : boolean
   /** Объект изображения характеристики */
@@ -275,6 +279,7 @@ export interface DefaultProductType {
   options            : Option[]
   /** Список характеристик продукта */
   characteristics    : Characteristic[]
+  inserts            : Characteristic[]
 }
 
 /**

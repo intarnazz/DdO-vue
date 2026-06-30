@@ -27,6 +27,7 @@ export class ColorModel {
   public image_id   : number
   public name       : string
   public description: string
+  public slug       : string
   public is_visible : boolean
   public image      : ImageModel
 
@@ -36,6 +37,7 @@ export class ColorModel {
     this.image_id    = toNum(data?.image_id)
     this.name        = toStr(data?.name)
     this.description = toStr(data?.description)
+    this.slug        = toStr(data?.slug)
     this.is_visible  = Boolean(data?.is_visible)
     this.image       = new ImageModel(data?.image ?? {})
   }
@@ -78,6 +80,7 @@ export class VariantProductModel {
   public image_secondary    : ImageModel | null
   public variant            : VariantModel
   public colors             : ColorModel[]
+  public inserts            : CharacteristicModel[]
 
   constructor(data: Partial<VariantProductModel> = {}) {
     this.id                  = toNum(data?.id)
@@ -100,6 +103,7 @@ export class VariantProductModel {
     this.image_secondary     = data?.image_secondary === null ? null : new ImageModel(data?.image_secondary)
     this.variant             = new VariantModel(data?.variant)
     this.colors              = buildArray(ColorModel, data?.colors ?? [])
+    this.inserts             = buildArray(CharacteristicModel, data?.inserts ?? [])
   }
 }
 
@@ -173,6 +177,7 @@ export class CharacteristicModel {
   public image_id   : number
   public name       : string
   public description: string
+  public slug       : string
   public is_visible : boolean
   public image      : ImageModel
   public filter     : FilterModel
@@ -185,6 +190,7 @@ export class CharacteristicModel {
     this.is_visible  = Boolean(data?.is_visible)
     this.name        = toStr(data?.name)
     this.description = toStr(data?.description)
+    this.slug        = toStr(data?.slug)
     this.image       = new ImageModel(data?.image   ?? {})
     this.filter      = new FilterModel(data?.filter ?? {})
   }

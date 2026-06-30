@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
-import Product from '@/api/local_domains/catalog/product/product.model'
 import ButtonAddToCart from '@/components/buttons/ButtonAddToCart.vue'
-import ProductColor from '@/components/domains/product/ProductColor.vue'
 import ProductDiscount from '@/components/domains/product/ProductDiscount.vue'
 import IconTaskAlt from '@/components/icons/IconTaskAlt.vue'
 import {
@@ -12,12 +10,12 @@ import {
 } from '@/components/sections/products/current_price.use'
 import interior_is_valid from '@/components/sections/products/interior_is_valid.use'
 import ProductCharacteristics from '@/components/sections/products/ProductCharacteristics.vue'
+import ProductColors from '@/components/sections/products/ProductColors.vue'
 import ProductContacts from '@/components/sections/products/ProductContacts.vue'
 import ProductImages from '@/components/sections/products/ProductImages.vue'
 import ProductPrice from '@/components/sections/products/ProductPrice.vue'
 import ProductTitle from '@/components/sections/products/ProductTitle.vue'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
-import RouterLinkProduct from '@/layout/router-links/RouterLinkProduct.vue'
 import { title } from '@/utilte/utilte'
 </script>
 
@@ -112,33 +110,13 @@ import { title } from '@/utilte/utilte'
         </div>
 
         <ProductContacts />
-        <div
-          v-if="
-            product.product.colors.length > 0 &&
-            product.product.variant.products &&
-            product.product.variant.products.length > 0
-          "
-          class="box-y gap-4"
-        >
-          <h3>цвет</h3>
-          <div class="product__color-list box-x js gap-4 flex-wrap">
-            <template v-for="p in product.product.variant.products" :key="p.id">
-              <RouterLinkProduct
-                v-if="p.id !== product.product.id"
-                :product="{
-                  //[ ]: computed
-                  ...new Product(p).object,
-                  variant: product.product.variant,
-                  characteristics: product.product.characteristics,
-                  type: product.product.type,
-                }"
-              >
-                <ProductColor :colors="p.colors" :is_active="false" />
-              </RouterLinkProduct>
-              <ProductColor v-else :colors="p.colors" :is_active="true" />
-            </template>
-          </div>
-        </div>
+
+
+
+        <ProductColors />
+
+
+
         <div class="box-x js">
           <RouterLinkCatalog
             :type_id="product.product.type.id"

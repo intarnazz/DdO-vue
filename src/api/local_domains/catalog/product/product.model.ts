@@ -45,6 +45,7 @@ function buildProduct(product: Partial<DefaultProductType>): DefaultProductType 
     images            : buildArray(ImageModel, product.images),
     options           : buildArray(OptionModel, product.options),
     characteristics   : buildArray(CharacteristicModel, product.characteristics),
+    inserts           : buildArray(CharacteristicModel, product.inserts),
   }
 }
 
@@ -253,6 +254,11 @@ class Product {
   /** Список характеристик продукта */
   public get characteristics(): CharacteristicModel[] {
     return this.data.characteristics
+  }
+
+  /** Список inserts продукта */
+  public get inserts(): CharacteristicModel[] {
+    return this.data.inserts
   }
 
   public get total_price           () {return this._total_price.value } // prettier-ignore

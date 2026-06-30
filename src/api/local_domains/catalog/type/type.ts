@@ -30,6 +30,7 @@ interface ColorFilterContent {
   image_id   : number
   name       : string
   description: string
+  slug       : string
   is_visible : number
   image      : Image
 }
@@ -52,6 +53,7 @@ interface GenericFilterContent {
   image_id   : number
   name       : string
   description: string
+  slug       : string
   is_visible : number
   image      : Image
 }
