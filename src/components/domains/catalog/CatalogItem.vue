@@ -130,5 +130,5 @@ const is_equal = computed<boolean>(() => {
       font-weight: 400
       text-decoration: line-through;
   &__img
-    box-shadow: 0px 15px 20px 0px $b-50
+    filter: drop-shadow(0px 15px 20px $b-50);
 </style>
