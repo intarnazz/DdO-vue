@@ -8,7 +8,7 @@ export class FilterStore {
   private _length: ComputedRef<number> = computed(
     () =>
       Object.keys(
-        Object.fromEntries(Object.entries(this.data_c.value).filter(([, v]) => v !== undefined)),
+        Object.fromEntries(Object.entries(this.filters).filter(([, v]) => v != null && v !== '')),
       ).length,
   )
 
