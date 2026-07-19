@@ -11,13 +11,16 @@ const __is_active = ref<boolean | null>(null)
 const content = computed(() => props.content || {})
 const active_filters_ids = computed(() => props.active_filters_ids || [])
 
-const is_active = computed(() =>
-  active_filters_ids.value.includes(content.value.id)
-    ? true
-    : __is_active.value === null
-      ? null
-      : false,
+// content.ids — сгруппированный цвет (несколько исходных id под одним чекбоксом);
+// если ids нет — обычный фильтр с одним content.id, как было раньше
+const content_ids = computed<number[]>(() =>
+  Array.isArray(content.value.ids) ? content.value.ids : [content.value.id],
 )
+
+const is_active = computed(() => {
+  const has_active = content_ids.value.some((id: number) => active_filters_ids.value.includes(id))
+  return has_active ? true : __is_active.value === null ? null : false
+})
 
 function send_active_filters_ids() {
   __is_active.value = true

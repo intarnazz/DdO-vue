@@ -24,15 +24,22 @@ const is_color = computed(() => filter.value.type === 'color')
 
 const is_expand_validation = computed(() => !is_color.value && MIN < filter.value.content?.length)
 
-function send_active_filters_ids(content: Characteristic) {
-  let _active_filters_ids = []
+function send_active_filters_ids(content: Characteristic & { ids?: number[] }) {
+  let _active_filters_ids: number[] = []
   _active_filters_ids.push(...active_filters_ids.value)
 
-  const id = content.id
-  if (!active_filters_ids.value.includes(id)) {
-    _active_filters_ids.push(id)
+  // Сгруппированные цвета приходят с content.ids — набором исходных id одной
+  // группы, переключаем их разом. У обычных фильтров ids нет, тогда берём
+  // одиночный content.id — поведение как раньше.
+  const ids = content.ids ?? [content.id]
+  const is_group_active = ids.some((id) => active_filters_ids.value.includes(id))
+
+  if (!is_group_active) {
+    ids.forEach((id) => {
+      if (!_active_filters_ids.includes(id)) _active_filters_ids.push(id)
+    })
   } else {
-    _active_filters_ids = _active_filters_ids.filter((i) => i !== id)
+    _active_filters_ids = _active_filters_ids.filter((id) => !ids.includes(id))
   }
 
   f.filters = { [filter.value.type]: String(_active_filters_ids) }

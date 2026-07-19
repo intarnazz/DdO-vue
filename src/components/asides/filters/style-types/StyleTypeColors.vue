@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import IconKeyboardArrowUp from '@/components/icons/IconKeyboardArrowUp.vue'
 import ButtonCheckBox from '@/components/buttons/ButtonCheckBox.vue'
+import { computed } from 'vue'
 import { Characteristic } from '@/api/local_domains/catalog/product/types'
+import { group_color_characteristics, type ColorGroup } from './color_groups'
 
 const props = defineProps(['is_expand_validation', 'is_expand', 'filter', 'active_filters_ids'])
 const emit = defineEmits(['expand_change', 'send_active_filters_ids'])
+
+// Похожие оттенки схлопываются в одну группу — один чекбокс на "семейство" цвета
+const grouped_content = computed(() => group_color_characteristics(props.filter.content))
 
 function expand_change() {
   emit('expand_change')
 }
 
-function send_active_filters_ids(content: Characteristic) {
+function send_active_filters_ids(content: Characteristic | ColorGroup) {
   emit('send_active_filters_ids', content)
 }
 </script>
@@ -41,10 +46,10 @@ function send_active_filters_ids(content: Characteristic) {
     </button>
     <div class="box-x px-4">
       <div class="filter__grid py-2 gap-4">
-        <template v-for="(content, key) in props.filter.content" :key="key">
+        <template v-for="group in grouped_content" :key="group.id">
           <ButtonCheckBox
             :is_color="true"
-            :content="content"
+            :content="group"
             :active_filters_ids="props.active_filters_ids"
             @send_active_filters_ids="send_active_filters_ids"
           />
