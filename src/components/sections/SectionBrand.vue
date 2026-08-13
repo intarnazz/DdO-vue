@@ -51,7 +51,7 @@ watch([() => route.params.id, () => brand_id], init)
     <p>{{ brand.description }}</p>
     <p v-if="brand.text.text" >{{ brand.text.text }}</p>
     <div class="box-y gap-4">
-      <div class="box-x" v-for="type in brand.filter.types" :key="type.id">
+      <div class="box-x" v-for="type in brand.types" :key="type.id">
         <RouterLinkCatalog
           class="a a_sub"
           :query="{ brand: brand.id }"

@@ -1,3 +1,4 @@
+import { Type } from '@/api/api_domains/type/type'
 import { toNum, toStr } from '@/utilte/utilte'
 import { buildArray } from '@/api/builders/builders'
 
@@ -30,38 +31,38 @@ class BrandText {
 }
 
 // prettier-ignore
-class FilterType {
-  public id          : number
-  public self_id     : number | null
-  public name        : string
-  public visible_name: string
-  public description : string
+// class FilterType {
+//   public id          : number
+//   public self_id     : number | null
+//   public name        : string
+//   public visible_name: string
+//   public description : string
 
-  constructor(type: Partial<FilterType>) {
-    this.id           = toNum(type.id)
-    this.self_id      = type.self_id ?? null
-    this.name         = toStr(type.name)
-    this.visible_name = toStr(type.visible_name)
-    this.description  = toStr(type.description)
-  }
-}
+//   constructor(type: Partial<FilterType>) {
+//     this.id           = toNum(type.id)
+//     this.self_id      = type.self_id ?? null
+//     this.name         = toStr(type.name)
+//     this.visible_name = toStr(type.visible_name)
+//     this.description  = toStr(type.description)
+//   }
+// }
 
 // prettier-ignore
-class BrandFilter {
-  public id         : number
-  public name       : string
-  public description: string
-  public type       : string
-  public types      : FilterType[]
+// class BrandFilter {
+//   public id         : number
+//   public name       : string
+//   public description: string
+//   public type       : string
+//   public types      : FilterType[]
 
-  constructor(filter: Partial<BrandFilter>) {
-    this.id          = toNum(filter.id)
-    this.name        = toStr(filter.name)
-    this.description = toStr(filter.description)
-    this.type        = toStr(filter.type)
-    this.types       = buildArray(FilterType, filter.types || [])
-  }
-}
+//   constructor(filter: Partial<BrandFilter>) {
+//     this.id          = toNum(filter.id)
+//     this.name        = toStr(filter.name)
+//     this.description = toStr(filter.description)
+//     this.type        = toStr(filter.type)
+//     this.types       = buildArray(FilterType, filter.types || [])
+//   }
+// }
 
 // prettier-ignore
 export class Brand {
@@ -73,7 +74,8 @@ export class Brand {
   public description: string
   public image      : BrandImage
   public text       : BrandText
-  public filter     : BrandFilter
+  // public filter     : BrandFilter
+  public types    : Type[]
 
   constructor(brand: Partial<Brand>) {
     this.id          = toNum(brand.id)
@@ -84,6 +86,7 @@ export class Brand {
     this.description = toStr(brand.description)
     this.image       = new BrandImage(brand.image || {})
     this.text        = new BrandText(brand.text || {})
-    this.filter      = new BrandFilter(brand.filter || {})
+    // this.filter      = new BrandFilter(brand.filter || {})
+    this.types      = buildArray( Type, brand.types )
   }
 }
