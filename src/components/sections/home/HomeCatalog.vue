@@ -10,6 +10,7 @@ import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import { homePageEssence } from '@/api/api'
 import RouterLinkCatalog from '@/layout/router-links/RouterLinkCatalog.vue'
 import { PagingInfo, pagingInfoBuilder } from '@/api/web_services/rest-type'
+import IconArrowOutward from '@/components/icons/IconArrowOutward.vue'
 
 const {
   type_id,
@@ -63,12 +64,13 @@ onMounted(() => init())
   <section v-if="type" class="catalog box-y gap-5">
     <LayoutWrapper>
       <div class="box-x">
-        <RouterLinkCatalog :type_name="type.name" :type_id="type.id">
+        <RouterLinkCatalog class="box-x gap-4" :type_name="type.name" :type_id="type.id">
           <CatalogTitle
             v-if="pagingInfo && products && products[0]"
             :type="type"
             :pagingInfo="pagingInfo"
           />
+          <IconArrowOutward />
         </RouterLinkCatalog>
       </div>
 
