@@ -35,7 +35,7 @@ const type_init = async () => {
 }
 
 const products_init = async () => {
-  const res = await new Rest('product').all({ limit: limit, type: type_id })
+  const res = await new Rest('product').all({ limit: limit, type: type_id, order: "views", desc: true })
   products.value = buildArray(Product, res.data)
   pagingInfo.value = pagingInfoBuilder(res.pagingInfo)
 
