@@ -92,9 +92,9 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
     display: grid
     gap: 1rem
     grid-template-columns: repeat( auto-fill, minmax( 6.72rem , 1fr ) )
-  &__img
-    &_shadow
-      filter: drop-shadow(0px 15px 20px $b-50);
+  // &__img
+  //   &_shadow
+      // filter: drop-shadow(0px 15px 20px $b-50);
 
 .interior_active_on
   animation: interior_active_on .125s forwards ease-in
