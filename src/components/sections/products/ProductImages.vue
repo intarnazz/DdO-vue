@@ -40,7 +40,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
     <div class="box-x gap-4 relative content center">
       <div
         v-if="!user.interior_is_active.value || !product.product.image_secondary"
-        class="box-x relative h-132.5"
+        class="box-x relative h-132.5 product__img-wrapper"
       >
         <ComponentImg
           v-if="product.product.image_primary.path"
@@ -52,7 +52,10 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
           :storage="product.product.image_primary.path"
         />
       </div>
-      <div v-if="product.product.image_secondary" class="box-x relative h-132.5">
+      <div
+        v-if="product.product.image_secondary"
+        class="box-x relative h-132.5 product__img-wrapper"
+      >
         <ComponentImg
           v-if="product.product.image_primary.path"
           @click="set_current_image(product.product.image_secondary)"
@@ -92,9 +95,28 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
     display: grid
     gap: 1rem
     grid-template-columns: repeat( auto-fill, minmax( 6.72rem , 1fr ) )
-  // &__img
+  &__img-wrapper
+    position: relative;
+    display: inline-block;
+
+    &::after
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: 50%;
+      bottom: -12px;
+      width: 100%;
+      height: 12px;
+      background: $b-50;
+      filter: blur(10px);
+      border-radius: 50%;
+      transform: translateX(-50%);
+
+  &__img
+      position: relative;
+      z-index: 1
   //   &_shadow
-      // filter: drop-shadow(0px 15px 20px $b-50);
+  //     filter: drop-shadow(0px 15px 20px $b-50);
 
 .interior_active_on
   animation: interior_active_on .125s forwards ease-in

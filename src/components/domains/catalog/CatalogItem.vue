@@ -56,15 +56,15 @@ const is_equal = computed<boolean>(() => {
       </p>
       <div class="box-y center gap-4">
         <div class="box-x gap-2 content center">
-          <div class="box-x relative">
-            <ProductDiscount :product="product" />
+          <div class="box-x relative product__img-wrapper">
 
             <ComponentImg
               class="product__img object-cover max-h-67.5 h-full"
               :storage="product.image_primary.path"
             />
+            <ProductDiscount :product="product" />
           </div>
-          <div v-if="product.image_secondary" class="box-x relative">
+          <div v-if="product.image_secondary" class="box-x relative product__img-wrapper">
             <ComponentImg
               class="product__img object-cover max-h-67.5 h-full"
               :storage="product.image_secondary.path"
@@ -129,6 +129,23 @@ const is_equal = computed<boolean>(() => {
       +c-sub
       font-weight: 400
       text-decoration: line-through;
-  // &__img
-    // filter: drop-shadow(0px 15px 20px $b-50);
+  &__img-wrapper
+    position: relative;
+    display: inline-block;
+
+    &::after
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: 50%;
+      bottom: -10px;
+      width: 100%;
+      height: 12px;
+      background: $b-50;
+      filter: blur(10px);
+      border-radius: 50%;
+      transform: translateX(-50%);
+  &__img
+    position: relative;
+    z-index: 1
 </style>
