@@ -11,7 +11,9 @@ export interface Image {
   /** Название изображения */
   name: string
   /** Путь к изображению */
-  path: string
+  path      : string
+  type      : string
+  group_code: string
 }
 
 /**

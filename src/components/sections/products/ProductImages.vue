@@ -4,6 +4,7 @@ import { Image } from '@/api/local_domains/catalog/product/types'
 import ComponentImg from '@/components/ComponentImg.vue'
 import ComponentOpenImage from '@/components/ComponentOpenImage.vue'
 import interior_is_valid from '@/components/sections/products/interior_is_valid.use'
+import ProductGallery from '@/components/sections/products/ProductGallery.vue'
 import LayoutIcon from '@/layout/LayoutIcon.vue'
 import { Ref, ref } from 'vue'
 
@@ -75,26 +76,13 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
       :index="index"
     />
 
-    <div class="product__image-list relative">
-      <div
-        v-for="(image, key) in product.product.images"
-        :key="image.id"
-        @click="set_current_image(product.product.images, key)"
-        class="h-25 product__image-list-item center cursor-zoom-in box br"
-      >
-        <ComponentImg class="br h-full object-cover" :id="image.id" :max_h="100" />
-      </div>
-    </div>
+    <ProductGallery @set_current_image="set_current_image" />
   </div>
 </template>
 
 <style lang="sass" scoped>
 //
 .product
-  &__image-list
-    display: grid
-    gap: 1rem
-    grid-template-columns: repeat( auto-fill, minmax( 6.72rem , 1fr ) )
   &__img-wrapper
     position: relative;
     display: inline-block;

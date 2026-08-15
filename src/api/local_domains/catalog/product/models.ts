@@ -10,14 +10,18 @@ import { toNum, toNumOrNull, toStr } from '@/utilte/utilte'
 // ─────────────────────────────────────────────
 
 export class ImageModel {
-  public id  : number
-  public name: string
-  public path: string
+  public id        : number
+  public name      : string
+  public path      : string
+  public type      : string
+  public group_code: string
 
   constructor(data: Partial<ImageModel> = {}) {
-    this.id   = toNum(data?.id)
-    this.name = toStr(data?.name)
-    this.path = toStr(data?.path)
+    this.id         = toNum(data?.id)
+    this.name       = toStr(data?.name)
+    this.path       = toStr(data?.path)
+    this.type       = toStr(data?.type)
+    this.group_code = toStr(data?.group_code)
   }
 }
 

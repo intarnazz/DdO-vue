@@ -56,15 +56,17 @@ const is_equal = computed<boolean>(() => {
       </p>
       <div class="box-y center gap-4">
         <div class="box-x gap-2 content center">
-          <div class="box-x relative product__img-wrapper">
-
+          <div class="box-x relative product__img-wrapper h-full max-h-67.5">
             <ComponentImg
               class="product__img object-cover max-h-67.5 h-full"
               :storage="product.image_primary.path"
             />
             <ProductDiscount :product="product" />
           </div>
-          <div v-if="product.image_secondary" class="box-x relative product__img-wrapper">
+          <div
+            v-if="product.image_secondary"
+            class="box-x relative product__img-wrapper h-full max-h-67.5"
+          >
             <ComponentImg
               class="product__img object-cover max-h-67.5 h-full"
               :storage="product.image_secondary.path"
