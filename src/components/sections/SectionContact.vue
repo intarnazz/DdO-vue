@@ -23,29 +23,35 @@ const name_is_odnoklassniki = computed<boolean>(() => contact.name === 'odnoklas
 
 <template>
   <div class="box-x js gap-4">
-    <IconPhoneEnabled v-if="name_is_phone" />
-    <IconLocationOn v-else-if="name_is_address" />
-    <IconVK v-else-if="name_is_vk" />
-    <IconWhatsapp v-else-if="name_is_whatsapp" />
-    <IconOdnoklassniki v-else-if="name_is_odnoklassniki" />
-    <IconconnectWithoutContact v-else />
-    <div v-if="name_is_phone" class="">
-      <h3>телефон</h3>
-      <p><ComponentRecolorText :text="contact.description" class="c-sub" />:</p>
-      <p>
-        <ComponentRecolorText :text="formatPhone(contact.link)" class="c-sub" />
-      </p>
+    <div v-if="name_is_phone" class="box-x gap-4">
+      <IconPhoneEnabled />
+      <div>
+        <h3>телефон</h3>
+        <p><ComponentRecolorText :text="contact.description" class="c-sub" />:</p>
+        <p>
+          <ComponentRecolorText :text="formatPhone(contact.link)" class="c-sub" />
+        </p>
+      </div>
     </div>
-    <RouterLink :to="{ name: 'contact' }" v-else-if="name_is_address" class="">
-      <h3>адрес</h3>
-      <p><ComponentRecolorText :text="contact.description" class="c-sub" />:</p>
-      <p>
-        <ComponentRecolorText :text="contact.link" class="c-sub" />
-      </p>
+    <RouterLink :to="{ name: 'contact' }" v-else-if="name_is_address" class="box-x gap-4">
+      <IconLocationOn />
+      <div>
+        <h3>адрес</h3>
+        <p><ComponentRecolorText :text="contact.description" class="c-sub" />:</p>
+        <p>
+          <ComponentRecolorText :text="contact.link" class="c-sub" />
+        </p>
+      </div>
     </RouterLink>
-    <a v-else class="box-y flex-1" :href="contact.link" target="_blank">
-      <h3>{{ contact.name }}</h3>
-      <ComponentRecolorText :text="contact.description" class="c-sub" />
+    <a v-else class="box-x gap-4" :href="contact.link" target="_blank">
+      <IconVK v-if="name_is_vk" />
+      <IconWhatsapp v-else-if="name_is_whatsapp" />
+      <IconOdnoklassniki v-else-if="name_is_odnoklassniki" />
+      <IconconnectWithoutContact v-else />
+      <div>
+        <h3>{{ contact.name }}</h3>
+        <ComponentRecolorText :text="contact.description" class="c-sub" />
+      </div>
     </a>
   </div>
 </template>
