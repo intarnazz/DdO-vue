@@ -12,11 +12,7 @@ const set_count = (product: CartItemType, number: number) => (product.count += n
   <section class="cart box-y gap-8">
     <div class="cart__title box-y">
       <h2>ваша корзина</h2>
-      <p class="c-sub">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci commodi voluptatem,
-        laborum facilis doloribus voluptas dolorum maiores, debitis architecto consequuntur
-        assumenda. Hic fugit earum ipsa voluptates aliquid soluta ipsum debitis!
-      </p>
+      <p class="c-sub">В корзине отображаются выбранные товары и их количество. <br /></p>
     </div>
 
     <div class="flex items-start max-lg:flex-col-reverse gap-8">
