@@ -210,10 +210,13 @@ class ProductService {
 
   /**
    * Устанавливает текущую страницу, пересчитывая `offset` в фильтре.
+   * Границы страницы заданы здесь: обновление происходит только при
+   * `1 < current_page < page_count` (защита от выхода за пределы диапазона).
    * @param current_page - Номер страницы (начиная с 1)
    */
   set current_page(current_page: number) {
-    filter.offset = filter.limit * (current_page - 1)
+    if (current_page >= 1 && current_page <= this.page_count)
+      filter.offset = filter.limit * (current_page - 1)
   }
 
   /**
