@@ -4,8 +4,8 @@ import { product } from '@/api/api'
 import IconArrowCircleLeft from '@/components/icons/IconArrowCircleLeft.vue'
 import IconArrowCircleRight from '@/components/icons/IconArrowCircleRight.vue'
 
-const { WINDOW_SIZE = 4 } = defineProps<{
-  WINDOW_SIZE: number
+const { window_size = 4 } = defineProps<{
+  window_size?: number
 }>()
 
 function setPage(current_page: number) {
@@ -28,7 +28,7 @@ const paginationItems = computed<PaginationItem[]>(() => {
   const current = product.current_page
 
   let start = current - 1
-  let end = start + WINDOW_SIZE - 1
+  let end = start + window_size - 1
 
   if (start < 1) {
     end += 1 - start
