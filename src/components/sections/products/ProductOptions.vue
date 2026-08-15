@@ -19,10 +19,10 @@ const set_total_count = (number: number) => (total_count.value += number)
 </script>
 
 <template>
-  <section  v-if=" product.product.options.length > 0" class="option box-y gap-8">
+  <section v-if="product.product.options.length > 0" class="option box-y gap-8">
     <h2>Обрамление</h2>
     <p class="c-sub">
-      Выберите подходящий вариант обрамления и настройте его количество. 
+      Выберите подходящий вариант обрамления и настройте его количество. <br />
       Стоимость выбранных вариантов будет автоматически добавлена к общей стоимости товара.
     </p>
     <div class="option__list box-y gap-2">
