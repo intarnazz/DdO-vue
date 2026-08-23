@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
+import ProductVideo from '@/components/sections/products/ProductVideo.vue'
 </script>
 
 <template>
@@ -18,16 +19,23 @@ import { product } from '@/api/api'
         </div>
       </div>
       <!-- ? RIGHT BOX -->
-      <div class="flex flex-col gap-4 flex-1">
-        <p>
-          Стальной дверной блок с открыванием наружу. Поставляется с правым и левым открыванием.
-        </p>
-        <p v-if="product.product.description">
-          {{ product.product.description }}
-        </p>
+      <div class="flex flex-col gap-8 flex-1">
+        <ProductVideo :video_url="product.product.video_url" />
+        <div v-if="product.product.description">
+          <h3>
+            <strong class="c-sub"> Подробнее о продукте </strong>
+          </h3>
+          <p>
+            {{ product.product.description }}
+          </p>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.video
+  background-color: $main
+  box-shadow: 5px 5px 0 0 $main
+</style>
