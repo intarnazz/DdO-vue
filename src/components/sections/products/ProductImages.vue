@@ -41,7 +41,7 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
     <div class="box-x gap-4 relative content center">
       <div
         v-if="!user.interior_is_active.value || !product.product.image_secondary"
-        class="box-x relative h-132.5 product__img-wrapper"
+        class="box-x relative product__img-wrapper"
       >
         <ComponentImg
           v-if="product.product.image_primary.path"
@@ -49,21 +49,18 @@ const set_current_image = (image: null | Image | Image[], key: number = 0) => {
           :class="{
             product__img_shadow: !interior_is_valid || !user.interior_is_active.value,
           }"
-          class="product__img object-cover h-full cursor-zoom-in"
+          class="product__img object-cover max-h-132.5 cursor-zoom-in"
           :storage="product.product.image_primary.path"
         />
       </div>
-      <div
-        v-if="product.product.image_secondary"
-        class="box-x relative h-132.5 product__img-wrapper"
-      >
+      <div v-if="product.product.image_secondary" class="box-x relative product__img-wrapper">
         <ComponentImg
           v-if="product.product.image_primary.path"
           @click="set_current_image(product.product.image_secondary)"
           :class="{
             product__img_shadow: !user.interior_is_active.value,
           }"
-          class="product__img object-cover h-full w-full cursor-zoom-in"
+          class="product__img object-cover max-h-132.5 w-full cursor-zoom-in"
           :storage="product.product.image_secondary.path"
         />
       </div>
