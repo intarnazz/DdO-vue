@@ -116,8 +116,8 @@ import { title } from '@/utilte/utilte'
         <ProductColors />
 
 
-
-        <div class="box-x js">
+        <!-- [X] Скрыто -->
+        <!-- <div class="box-x js">
           <RouterLinkCatalog
             :type_id="product.product.type.id"
             :query="{
@@ -131,7 +131,7 @@ import { title } from '@/utilte/utilte'
           >
             <h3>Все модели бренда {{ title(product.product.brand.name) }}</h3>
           </RouterLinkCatalog>
-        </div>
+        </div> -->
         <div class="box-x js">
           <RouterLinkCatalog
             :type_id="product.product.type.id"
