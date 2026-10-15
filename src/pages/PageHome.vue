@@ -3,7 +3,7 @@ import FooterMain from '@/layout/footer/FooterMain.vue'
 import LayoutPage from '@/layout/LayoutPage.vue'
 import SectionHome from '@/components/sections/SectionHome.vue'
 import HomeCatalog from '@/components/sections/home/HomeCatalog.vue'
-import HomeBrands from '@/components/sections/home/HomeBrands.vue'
+// import HomeBrands from '@/components/sections/home/HomeBrands.vue'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
 import HomeVideo from '@/components/sections/home/HomeVideo.vue'
 import HomeContacts from '@/components/sections/home/HomeContacts.vue'
@@ -24,8 +24,8 @@ import HomeContacts from '@/components/sections/home/HomeContacts.vue'
       />
     </div>
     <HomeVideo />
-    <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" />
-    <HomeBrands />
+    <!-- <HomeCatalog class="catalog__item border w pt-4 pb-16 -mt-px" :type_id="3" /> -->
+    <!-- <HomeBrands /> -->
     <LayoutWrapper>
       <HomeContacts />
     </LayoutWrapper>

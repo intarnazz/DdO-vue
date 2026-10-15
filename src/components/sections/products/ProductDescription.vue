@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
 import ProductVideo from '@/components/sections/products/ProductVideo.vue'
+
+// product.product.is_loading
+
 </script>
 
 <template>
@@ -8,7 +11,7 @@ import ProductVideo from '@/components/sections/products/ProductVideo.vue'
     <h2>описание</h2>
     <div class="flex justify-between max-sm:flex-col-reverse gap-8 as">
       <!-- ? LEFT BOX -->
-      <div v-if="product.product.characteristics.length > 0" class="box-y flex-1 gap-4">
+      <div class="flex flex-col flex-1 gap-4">
         <div
           v-for="characteristic in product.product.characteristics"
           :key="characteristic.id"

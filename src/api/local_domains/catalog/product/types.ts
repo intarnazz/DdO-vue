@@ -308,6 +308,7 @@ export interface ProductType extends DefaultProductType {
   price_discount_string: string
   has_price_discount   : boolean
 
+  is_loading : boolean
   is_favorite: boolean
   /** Метод загрузки данных продукта по идентификатору */
   init       : Init

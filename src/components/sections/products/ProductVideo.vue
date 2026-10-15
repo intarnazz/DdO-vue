@@ -15,6 +15,7 @@ const { video_url } = defineProps<{
       width="100%"
       height="358"
       :src="video_url"
+      :key="video_url"
       frameborder="0"
       allow="autoplay; fullscreen"
       allowfullscreen

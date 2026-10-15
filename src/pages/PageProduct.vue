@@ -17,7 +17,7 @@ function init(route: RouteLocationNormalizedGeneric) {
 </script>
 
 <template>
-  <LayoutPage :foo="init" class="main box-y gap-16">
+  <LayoutPage :foo="init" class="main box-y gap-16 mb-16">
     <LayoutWrapper class="box-y gap-16">
       <div class="box-y gap-4">
         <ComponentBread />

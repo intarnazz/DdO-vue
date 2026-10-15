@@ -261,6 +261,14 @@ class Product {
     return this.data.inserts
   }
 
+  /**
+   * Флаг активной загрузки данных.
+   * `true` во время выполнения запроса.
+   */
+  public get is_loading(): boolean {
+    return this.promise_controller.is_loading
+  }
+
   public get total_price           () {return this._total_price.value } // prettier-ignore
   public get total_price_string    () {return this._total_price_string.value } // prettier-ignore
   public get price_string          () {return this._price_string.value } // prettier-ignore

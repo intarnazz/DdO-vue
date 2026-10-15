@@ -8,7 +8,7 @@ import AboutUsMain from '@/components/sections/about-us/AboutUsMain.vue'
 </script>
 
 <template>
-  <LayoutPage class="main box-y gap-16">
+  <LayoutPage class="main box-y gap-16 mb-16">
     <LayoutWrapper class="box-y gap-12">
       <div class="box-y gap-4">
         <ComponentBread />
