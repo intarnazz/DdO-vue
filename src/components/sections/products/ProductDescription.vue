@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { product } from '@/api/api'
 import ProductVideo from '@/components/sections/products/ProductVideo.vue'
+import { computed } from 'vue'
 
-// product.product.is_loading
-
+const characteristics = computed(() =>
+  product.product.is_loading ? new Array(10).map(() => null) : product.product.characteristics,
+)
 </script>
 
 <template>
@@ -13,12 +15,14 @@ import ProductVideo from '@/components/sections/products/ProductVideo.vue'
       <!-- ? LEFT BOX -->
       <div class="flex flex-col flex-1 gap-4">
         <div
-          v-for="characteristic in product.product.characteristics"
-          :key="characteristic.id"
+          v-for="(characteristic, key) in characteristics"
+          :key="key"
           class="box-x box p-2 br gap-4"
         >
-          <strong class="c-sub flex-1">{{ characteristic.filter.name }}:</strong>
-          <p class="flex-3">{{ characteristic.description }}</p>
+          <strong class="c-sub flex-1">{{
+            characteristic ? `${characteristic.filter.name}:` : '...'
+          }}</strong>
+          <p class="flex-3">{{ characteristic && characteristic.description }}</p>
         </div>
       </div>
       <!-- ? RIGHT BOX -->
