@@ -18,6 +18,9 @@ const characteristics = computed(() =>
           v-for="(characteristic, key) in characteristics"
           :key="key"
           class="box-x box p-2 br gap-4"
+          :class="{
+            is_loading: product.product.is_loading,
+          }"
         >
           <strong class="c-sub flex-1">{{
             characteristic ? `${characteristic.filter.name}:` : '...'
