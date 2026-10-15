@@ -23,9 +23,9 @@ const characteristics = computed(() =>
           }"
         >
           <strong class="c-sub flex-1">{{
-            characteristic ? `${characteristic.filter.name}:` : '...'
+            characteristic && `${characteristic.filter.name}:`
           }}</strong>
-          <p class="flex-3">{{ characteristic && characteristic.description }}</p>
+          <p class="flex-3 min-h-4">{{ characteristic && characteristic.description }}</p>
         </div>
       </div>
       <!-- ? RIGHT BOX -->
