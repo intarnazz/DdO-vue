@@ -1,19 +1,40 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps(['fill', 'is_turn', 'default_turn'])
 
+// XXX
+
 const fill = computed(() => (props.fill ? `fill_${props.fill}` : ''))
-const is_turn = computed(() => props.is_turn)
 const default_turn = computed(() => props.default_turn)
+
+let shown = Boolean(props.default_turn)
+
+const animate = ref<boolean | null>(null)
+
+watch(
+  () => props.is_turn,
+  (value) => {
+    if (value === null || value === undefined) {
+      animate.value = null
+      return
+    }
+    animate.value = value !== shown ? value : null
+    shown = value
+  },
+)
+
+watch(default_turn, (value) => {
+  shown = Boolean(value)
+})
 </script>
 
 <template>
   <svg
     :class="[
       {
-        turn_on: is_turn === true,
-        turn_off: is_turn === false,
+        turn_on: animate === true,
+        turn_off: animate === false,
       },
       {
         on: default_turn === true,
