@@ -24,7 +24,7 @@ const increment_index = (number: number) => {
 </script>
 
 <template>
-  <div class="select-none fixed top-0 left-0 w-full z-4 h-full center p-16">
+  <div class="select-none fixed top-0 left-0 w-full z-5 h-full center p-16">
     <div
       @click="emit('close', true)"
       class="open-image cursor-zoom-out absolute top-0 left-0 w-full h-full"
