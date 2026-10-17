@@ -20,6 +20,8 @@ svg
   fill: $main
 
 .fill
+  &_w
+    fill: $w !important
   &_sub
     fill: $sub !important
   &_sub-90
