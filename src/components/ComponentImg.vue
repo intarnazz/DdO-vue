@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { image } from '@/api/api'
+
 const {
   id,
   max_w,
@@ -27,60 +28,28 @@ const src = computed(() => {
   return undefined
 })
 
-const imgRef = ref<HTMLImageElement | null>(null)
-const lazySrc = ref<string | undefined>(undefined)
 const loaded = ref(false)
-const isVisible = ref(false)
 
-let observer: IntersectionObserver | null = null
-
-onMounted(() => {
-  if (!isLazy) return
-
-  observer = new IntersectionObserver(
-    (entries) => {
-      const entry = entries[0] as IntersectionObserverEntry | undefined
-      if (!entry?.isIntersecting) return
-
-      isVisible.value = true
-      lazySrc.value = src.value
-      observer?.disconnect()
-    },
-    { rootMargin: '200px' },
-  )
-
-  if (imgRef.value) observer.observe(imgRef.value)
-})
-
-onUnmounted(() => observer?.disconnect())
-
-// src может прийти позже чем сработал observer (props ещё не были готовы)
-// isVisible гарантирует что обновляем lazySrc только для видимых элементов
-watch(src, (newSrc) => {
-  if (!isLazy || !isVisible.value) return
+watch(src, () => {
   loaded.value = false
-  lazySrc.value = newSrc
 })
 </script>
 
 <template>
-  <template v-if="!isLazy">
-    <img :src="src" :alt="alt" />
-  </template>
-  <template v-else>
-    <img
-      class="lazy"
-      ref="imgRef"
-      :src="lazySrc"
-      :alt="alt"
-      :class="{ loaded }"
-      @load="loaded = true"
-    />
-  </template>
+  <img
+    class="fade"
+    :class="{ loaded }"
+    :src="src"
+    :alt="alt"
+    :loading="isLazy ? 'lazy' : 'eager'"
+    decoding="async"
+    @load="loaded = true"
+    @error="loaded = true"
+  />
 </template>
 
 <style scoped lang="sass">
-img.lazy
+img.fade
   opacity: 0
   transition: opacity .125s ease
 
