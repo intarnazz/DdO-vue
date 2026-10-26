@@ -17,7 +17,7 @@ function set_product() {
 <template>
   <RouterLink
     v-if="type?.name || api_type.type.name || api_product.product.type.name || product.type.name"
-    @click="set_product"
+    @click.exact="set_product"
     :to="{
       name: 'product',
       params: {
