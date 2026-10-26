@@ -37,7 +37,6 @@ import ToggleCatalogProductIsFavorite from '@/components/buttons/toggle/ToggleCa
                 {
                   text: 'цена',
                   type: 'price',
-                  desc: 'desc',
                   turn: true,
                 },
                 {

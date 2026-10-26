@@ -15,7 +15,7 @@ const {
 }>()
 
 const filter_legacy = computed(() => {
-  return { limit: filter.limit, order: filter.order || undefined, desc: filter.desc || undefined }
+  return { limit: filter.limit, order: filter.order || 'price', desc: filter.desc || undefined }
 })
 
 const query = computed(() => {

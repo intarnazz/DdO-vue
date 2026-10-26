@@ -53,7 +53,6 @@ watch(
     <span>
       {{ button.text }}
     </span>
-    <!-- TODO: Не должна крутится при первом клике -->
     <IconKeyboardArrowUp
       v-if="button.turn === true"
       :is_turn="is_turn"
