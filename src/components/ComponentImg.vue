@@ -9,6 +9,7 @@ const {
   storage,
   alt = 'image',
   isLazy = true,
+  priority,
 } = defineProps<{
   id?: number
   max_w?: number
@@ -16,6 +17,8 @@ const {
   storage?: string
   alt?: string
   isLazy?: boolean
+  /** Приоритет загрузки (атрибут fetchpriority). Не задан — решает браузер. */
+  priority?: 'high' | 'low' | 'auto'
 }>()
 
 const src = computed(() => {
@@ -42,6 +45,7 @@ watch(src, () => {
     :src="src"
     :alt="alt"
     :loading="isLazy ? 'lazy' : 'eager'"
+    :fetchpriority="priority"
     decoding="async"
     @load="loaded = true"
     @error="loaded = true"

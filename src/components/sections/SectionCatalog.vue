@@ -60,10 +60,11 @@ import ToggleCatalogProductIsFavorite from '@/components/buttons/toggle/ToggleCa
           }"
         >
           <CatalogItem
-            v-for="product in p.products"
+            v-for="(product, index) in p.products"
             :key="product.id"
             :product="product"
             :filter="filter"
+            :index="index"
           />
         </div>
         <div v-else-if="p.is_loading" class="box-x center w">

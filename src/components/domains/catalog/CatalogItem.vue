@@ -14,11 +14,31 @@ import { DefaultTypeInterface } from '@/api/local_domains/catalog/type/type'
 import { Query } from '@/api/local_domains/query'
 import ToggleFavorite from '@/components/buttons/toggle/ToggleFavorite.vue'
 
-const { product, type, filter } = defineProps<{
+/**
+ * Приоритеты загрузки картинок в зависимости от позиции карточки в гриде (3 колонки).
+ * Первый ряд (0-2): обе картинки грузим сразу и с высоким приоритетом.
+ * Второй ряд (3-5): грузим сразу, основная с обычным приоритетом, вторая с низким.
+ * Остальное: нативный lazy (браузер подгружает заранее, до попадания в экран).
+ */
+const FIRST_ROW = 3
+const ABOVE_FOLD = 6
+
+const { product, type, filter, index = Infinity } = defineProps<{
   product: ProductType
+  /** Порядковый номер карточки в каталоге (с 0). Без него все картинки ленивые. */
+  index?: number
   type?: DefaultTypeInterface
   filter?: Query
 }>()
+
+const primary_img = computed(() => ({
+  isLazy: index >= ABOVE_FOLD,
+  priority: index < FIRST_ROW ? ('high' as const) : ('auto' as const),
+}))
+const secondary_img = computed(() => ({
+  isLazy: index >= ABOVE_FOLD,
+  priority: index < FIRST_ROW ? ('high' as const) : ('low' as const),
+}))
 
 const is_more = computed<boolean>(() => {
   if (api_product.comparison_product !== null)
@@ -58,6 +78,8 @@ const is_equal = computed<boolean>(() => {
             <ComponentImg
               class="product__img object-cover max-h-67.5 h-full"
               :storage="product.image_primary.path"
+              :is-lazy="primary_img.isLazy"
+              :priority="primary_img.priority"
             />
             <ProductDiscount :product="product" />
           </div>
@@ -68,6 +90,8 @@ const is_equal = computed<boolean>(() => {
             <ComponentImg
               class="product__img object-cover max-h-67.5 h-full"
               :storage="product.image_secondary.path"
+              :is-lazy="secondary_img.isLazy"
+              :priority="secondary_img.priority"
             />
           </div>
         </div>
